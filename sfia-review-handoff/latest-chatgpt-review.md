@@ -1,354 +1,674 @@
-# Review Pack FULL — SFIA Studio Next ML5 · E2-FINAL-01…03
+# Review Pack FULL — SFIA Studio Next ML5 · E2 Integration Review (E2-INT)
 
-**Cycle**: 8 — Delivery / Critical · EVOL sécurisation corrective ciblée
-**Date**: 2026-11-27 19:35 CET
-**Lane**: DEV exclusively (STUDIO_LANE=DEV · app :3100 · PG :5433 / `sfia_next_dev`)
+**Cycle**: 8 — Delivery / Critical · EVOL intégration corrective bornée
+**Date**: 2026-11-27 19:52 CET
+**Lane**: DEV (STUDIO_LANE=DEV · app :3100 · PG :5433)
+**Test DB**: `sfia_next_e2e` (vitest rewrite depuis DATABASE_URL DEV — isolation vérifiée, 47 tables)
 **Branche**: `sfia/next-ml5-integrated-delivery-20261123`
 **HEAD base**: `58ca9486003805f74e69a0842f2c0792a7184437`
 **Merge-base main**: `997897fd7cf914771e7d08e8030dc7123fab7d25`
-**Prior handoff E2c**: `93e8f4a660eb5c69e063db202e34342389916555` blob `bf32de4e4d01e0a20a4656de75b608f648b56ada`
-**Suivi ChatGPT**: `construction/suivi-macro-lot-correctif-continuite-fiabilite-ml5.md` v0.6 @ `3c691e52` — **non modifié**
-**Classe**: NO RELEASE · STABLE NOT AVAILABLE · E3 NON ENGAGÉ · aucun commit/push projet
+**Prior handoff E2f**: `a582a53d5b06d7423c21973184fcbaf3d3853c17` blob `d5d2da211a1c6ddbda79aaf992a6df2d82db9681`
+**Suivi ChatGPT**: v0.7 @ `3bab4aa1` blob `8d2bdf80` — **non modifié**
+**Classe**: NO RELEASE · E3 NON ENGAGÉ · aucun commit/push projet
 
 ---
 
 ## 1. Mandat
 
-Finaliser exclusivement trois contrôles (ChatGPT §13.2) :
+Revue d'intégration bornée après E2-FINAL. Quatre contrôles : conducteur D4 restantes/dépendances/batch E1 ; C02 projection partielle ; FinOps stabilité temporelle ; complétude dossier.
 
-| ID | Objectif |
-| --- | --- |
-| E2-FINAL-01 | Intégrité orchestration inter-capacités (corrélation par intention, succès complet, dependsOn) |
-| E2-FINAL-02 | Reconstitution durable C02 sans dépendre du `resultJson` final des effets |
-| E2-FINAL-03 | Cohérence attribution FinOps avant filtres d'affichage |
-
-Préserver acquis E1/E2 ; ne pas rouvrir A.1–A.7 ; pas d'allocation / hybrid / T08 / LIVE / RECETTE.
-
----
-
-## 2. Git Truth Check
+## 2. Git Truth
 
 | Item | Valeur |
 | --- | --- |
-| Repo | `mcleland147/sfia-workspace` (origin GitHub) |
-| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `58ca9486…` (inchangé — no project commit) |
-| Staged | **aucun** |
-| Dirty | ~84 fichiers (cumul macro-lot E1/E2/FINAL) |
-| Handoff WT | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` @ `93e8f4a6` |
-| RECETTE WT | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` @ `e8e6e069` — préservé |
-| Collision | aucune agent concurrent détecté sur propriétaires FINAL |
-
-**Delta mandat vs cumul** : le présent cycle touche orchestration/C02/FinOps + tests FINAL + docs delivery/registre/as-built. Les autres dirty files sont acquis E1/E2/A.* non rouverts.
-
----
+| Repo | mcleland147/sfia-workspace |
+| Branche | sfia/next-ml5-integrated-delivery-20261123 @ 58ca9486 |
+| Staged | **0** |
+| Dirty | ~84 (cumul macro-lot) |
+| Handoff WT | a582a53d → updated this cycle |
+| RECETTE WT | e8e6e069 préservé |
 
 ## 3. ENV-01
 
 | Contrôle | Résultat |
 | --- | --- |
-| DEV PG | `127.0.0.1:5433` · DB/rôle `sfia_next_dev` — OK |
-| DEV app | port 3100 historique ; HTTP 500 tooling non rouvert |
-| RECETTE app | `:3200` LISTEN (préservé, **aucune mutation**) |
-| RECETTE PG | `:5434` · `sfia_next_recette_ml4` — OK |
-| LIVE | `OPENAI_API_KEY` présent en env mais **supprimé** dans beforeAll des tests FINAL ; aucune émission |
-| STUDIO_LANE | DEV |
+| DEV PG | :5433 · sfia_next_dev OK |
+| E2E DB | sfia_next_e2e présente sur même instance ; vitest `prepareVitestMutativeDatabaseUrl` réécrit DATABASE_URL |
+| RECETTE | :3200 + :5434 / sfia_next_recette_ml4 — aucune mutation |
+| LIVE | non exécuté |
 
-**Verdict préalable**: **ENV ROUTING COMPLETE**
+**ENV ROUTING COMPLETE**
 
----
+## 4. Cartographie flux réel (conducteur)
 
-## 4. Product versioning
+```
+qualification (durable)
+ → extractKnowledgeProposals / listPilotageBindings
+ → d4DepsForPilotage (direct + transitif D4)
+ → early D4 en VAGUES batch (dependsOn) → crossCap outcomes
+ → D5/D6 apply (preconditions crossCap + pilotage)
+ → remaining D4 (!early) maybeCapitalize once
+ → document / restitution / persist resultJson (+ stash qualification)
+ → lookup/replay: union stash∪effects ; compléter manquants
+```
 
-- Classe **NO RELEASE**
-- Entrée Delivery History complétée : `DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV` · section **E2_sécurisation_finale**
-- Schéma **027 inchangé**
-- Runtime `product-version.ts` non modifié
+Responsabilités : D3 orchestre ; D4/D5/D6 propriétaires ; pas de second conducteur.
 
----
+## 5. Risques — confirmés / écartés
 
-## 5. Sources lues (proportionnées)
+| Contrôle | Constat | Verdict | Correction |
+| --- | --- | --- | --- |
+| D4 restantes | Branche remaining **déjà présente** localement (L2452+) — risque handoff incomplet **écarté** pour omission totale | ÉCARTÉ omission ; CONFIRMÉ transitif + batch | Transitive closure + wave batch |
+| Batch E1 | Per-intent early cassait SUBJECT co-présence | CONFIRMÉ risque | Vagues = peers same call |
+| Succès primaire | subject-only + proposalKind ACQUIS → faux APPLIED | CONFIRMÉ | proposalKind filter |
+| Forecast/provenance | Inspection chemin durable | ÉCARTÉ régression (non rouvert) | — |
+| C02 partiel | early return liste non vide | CONFIRMÉ | union + complete missing |
+| FinOps fenêtre | gte(since) sur conflit | CONFIRMÉ | conflit hors période |
+| Pack docs | absents du handoff FINAL | CONFIRMÉ | régularisés ici |
 
-- Template §5–9 / routing §4.3.0b (main blobs mandat)
-- Suivi ChatGPT §11 / §13.1–13.3 (v0.6) — lecture seule
-- Contrats continuité / connaissance / trajectoire / gouvernance / FinOps (référencés)
-- Handoff E2c `93e8f4a6` sections orchestration / C02 / FinOps
-- Code : `conversation/service.ts`, `pilotage-effect-aggregate.ts`, `semantic-qualification.ts`, `knowledge/service.ts`, `usage-read-service.ts`, `usage-projection.ts`
+## 6. Corrections (delta présent mandat)
 
----
+- `conversation/service.ts` — early D4 transitif + waves ; extractDurable union ; resolvePilotageEffectForReplay complète
+- `pilotage-effect-aggregate.ts` — proposalKind
+- `usage-read-service.ts` — conflict sans since ; list works conflit full-history
+- tests e2-final-* étendus
+- docs delivery-history / registre v0.33 / as-built E2-INT
 
-## 6. Risques examinés — défauts confirmés / écartés
+## 7. Validations
 
-### E2-FINAL-01 — Orchestration
-
-| Constat revue | Verdict | Action |
+| Commande | Base | Résultat |
 | --- | --- | --- |
-| Succès lot emprunté (`hadProposal && some(AVAILABLE)`) | **CONFIRMÉ** (pré-FINAL) | `crossCapOutcomeFromCapitalisations` — filtre `intentId` strict |
-| PARTIAL assimilé à succès | **CONFIRMÉ** | PARTIAL / FAILED ne satisfont pas dependsOn |
-| intentId manquant merge/split/… / subject side-effect | **CONFIRMÉ** partiel | intentId ajouté sur rows manquantes ; UNKNOWN kind → FAILED |
-| Alias `knowledgeKind: FACT` ne traverse pas ACQUIS | **CONFIRMÉ** (cause du FAIL pos D4→D5) | `normalizeKnowledgeRecordKind` FACT→ACQUIS |
-| `assistantMessageId=null` early | **CONFIRMÉ** (pré) | early mint conservé (acquis E2c) |
-| preQualified sans forecastSteps | **ÉCARTÉ** (inspection) | forecast récupéré via qualification durable / classify USER_MESSAGE |
+| vitest e2-final unit+orch+finops | sfia_next_e2e | **20 PASS** exit 0 |
+| vitest lot affecté (+FinOps proj, semantic, e1 B7/B8) | e2e | **63 PASS** exit 0 |
+| tsc filtré delta | — | 0 erreur delta |
+| git diff --check | FINAL/INT files | OK |
 
-### E2-FINAL-02 — C02
+## 8. Fake/Real
 
-| Constat | Verdict | Action |
-| --- | --- | --- |
-| `semanticIntentIds` alimentés seulement depuis JSON effects | **CONFIRMÉ** | `extractDurablePilotageIntentIds` lit stash qualification |
-| Intent non trouvé → `continue` silencieux | **CONFIRMÉ** | `unknownPilotageEffectRecord` explicite UNKNOWN |
-| Dupplication effets sur lookup | **ÉCARTÉ** (preuve PG) | lookup read-only ; open_count ≤ 1 |
+| Frontière | Fake | REAL | Gap |
+| --- | --- | --- | --- |
+| Qualification | fixture mock | LIVE Nora | autonomie |
+| D4/D5/C02 | PG e2e | PG propriétaire | panne mid-write |
+| FinOps | obs contrôlées | collect LIVE | coût facturé |
 
-### E2-FINAL-03 — FinOps
+DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
-| Constat | Verdict | Action |
-| --- | --- | --- |
-| Filtre projet masque conflit work NULL + obs A+B | **CONFIRMÉ** | `loadAttributionConflictWorkIds` **avant** filtre ; exclusion des work conflictuels des agrégats projet |
-| Conflit direct B/A | déjà corrigé E2c | préservé |
+## 9. Synthèse
 
----
-
-## 7. Mécanismes finaux
-
-1. **D3 early D4** : intents D4 dépendances de D5/D6 exécutés **séquentiellement** ; outcome par intention via `crossCapOutcomeFromCapitalisations` ; PRIMARY = acquis/open_point/(resolve) ; subject auxiliaire ignoré pour satisfaction.
-2. **C02** : reconstitution par stash `semanticQualification` + owners ; JSON effects = projection ; unknown explicite.
-3. **FinOps** : vérité d'attribution sur population non filtrée du travail ; filtres n'effacent pas les conflits.
-
-Architecture : D3 unique ; D4/D5/D6 propriétaires ; pas de second orchestrateur.
-
----
-
-## 8. Blast radius
-
-| Zone | Impact |
-| --- | --- |
-| `conversation/service.ts` | early D4 + C02 extract ids |
-| `pilotage-effect-aggregate.ts` | outcomes + unknown record |
-| `semantic-qualification.ts` | normalize kind |
-| `knowledge/service.ts` | intentId rows |
-| `usage-projection.ts` / `usage-read-service.ts` | conflict before filter |
-| Docs | delivery-history, registre v0.32, as-built E2-FINAL |
-| Tests | 3 nouveaux fichiers FINAL |
-
-Hors scope non touchés : allocation, hybrid campagne, T08, UX, RECETTE, LIVE.
-
----
-
-## 9. Validations
-
-| Commande | Env | Date | Portée | Résultat |
+| Contrôle | Constat | Correction | Preuve | Réserve |
 | --- | --- | --- | --- | --- |
-| `npx vitest run tests/unit/e2-final-orchestration-c02.test.ts tests/integration/e2-final-orchestration-c02.pg.test.ts tests/integration/e2-final-finops-attribution.pg.test.ts` | DEV PG :5433 | 2026-11-27 | FINAL | **16 PASS** / 0 FAIL · exit 0 |
-| `npx vitest run` (+ FinOps projection, semantic, e1 B7/B8, FINAL) | DEV | 2026-11-27 | lot affecté | **59 PASS** · exit 0 |
-| `npx tsc --noEmit` filtré delta FINAL | DEV | 2026-11-27 | delta | **0 erreur delta** (erreurs antérieures hors scope existent) |
-| `git diff --check` fichiers FINAL | — | 2026-11-27 | whitespace | OK |
-| eslint delta (hors unused préexistant semantic) | DEV | 2026-11-27 | | warnings préexistants hors FINAL test (corrigé `and` unused) |
+| Conducteur D4 | remaining OK ; transitif/batch à corriger | waves + transitive | PG mix early+remaining | multi-cap naturelle |
+| Succès primaire | subject-only | proposalKind | unit | — |
+| C02 partiel | early return | union+complete | PG partial projection | reprise UX |
+| FinOps | fenêtre masque | conflit all-time ; tokens 110/0/316 | PG | Admin OFF |
+| Dossier | manquant FINAL | régularisé | pack | — |
 
-**Pas de** suite allocation / hybrid rejouée (hors impact).
-
----
-
-## 10. Fake / Real
-
-| Frontière | Fake | REAL | Parité | Gap |
-| --- | --- | --- | --- | --- |
-| Qualification | fixture injectée `runNoraCognitiveTurn` mock | classify LIVE Nora | structure intents/dependsOn | autonomie naturelle |
-| D4/D5 | PG réel + fence | idem | mutations propriétaires | pertinence cognitive |
-| C02 | strip `pilotageEffects` après tour | interruption crash | stash conservé | panne mid-write partielle non injectée |
-| FinOps | observations contrôlées PG | collect LIVE | attribution | coût facturé Admin OFF |
-| Embed / OpenAI | non exercé | — | — | LIVE interdit |
-
-**DETERMINISTIC PROVEN ≠ READY FOR REAL.**
-
----
-
-## 11. Synthèse contrôles
-
-| Contrôle | Défaut | Correction | Preuve | Réserve |
-| --- | --- | --- | --- | --- |
-| E2-FINAL-01 | Confirmé (emprunt + FACT alias + intentId) | crossCap + normalize + early séquentiel | PG D4→D5 pos/neg | multi-cap naturelle → recette |
-| E2-FINAL-02 | Confirmé (ids depuis JSON only) | extractDurable + unknown | PG stash sans effects | reprise UX → recette |
-| E2-FINAL-03 | Confirmé (filtre masque conflit) | conflict ids avant filtre | PG multi-vues | coût facturé |
-
----
-
-## 12. Couverture pack
-
-Inclut : mandat, Git Truth, ENV-01, versioning, risques, mécanismes, blast, **contenus nouveaux fichiers + extraits raccordements**, tests, Fake/Real, docs, réserves, verdict.
-
-Références immuables antérieures : handoff E2c `93e8f4a6` ; E1 safeguards `41087f1b` / complément `108044ef`.
-
----
-
-## 13. Réserves / reports
-
-Conservés : R-REC-E1-01/02 ; calibration ; allocation naturelle ; hybrid pertinence ; T08 ; multi-cap naturelle ; reprise utilisateur ; présentation E3 ; coût facturé ; qualification globale E5.
-
-MP-09/11/14/15/16 **OPEN RECETTE**.
-
----
-
-## 14. Verdict Cursor
+## 10. Verdict Cursor
 
 **READY WITH RESERVES**
 
-Proposition : **sortie de construction E2** — invariants techniques FINAL maîtrisés ; preuves cognitives naturelles reportées en recette ; **E3 non engagé** ; gate **Morris** après relecture ChatGPT du handoff distant.
+Proposition : **sortie de construction E2** — invariants d'intégration maîtrisés ; preuves naturelles → recette ; **E3 non engagé** ; gate **Morris** après relecture ChatGPT.
+
+## 11. Instruction ChatGPT
+
+Relire ce fichier distant. Vérifier cohérence conducteur, D4 restantes, batch E1, C02 partiel, FinOps, preuves, dossier.
 
 ---
 
-## 15. Instruction ChatGPT
+## 12. Contenu documentaire régularisé (E2-FINAL/INT)
 
-Relire ce fichier canonique distant avant recommandation Morris. Vérifier : absence faux succès inter-intentions ; dependsOn D4/D5/D6 ; C02 durable ; pas de duplication ; populations FinOps ; forecast/provenance E1 préservés ; tests exécutés ; pack complet.
+### delivery-history — E2_sécurisation_finale + E2_revue_intégration
+```md
+35:- **E2_sécurisation_finale** (2026-11-27, E2-FINAL-01…03 — même livraison, pas de nouvelle DELIV):
+36-  - E2-FINAL-01: corrélation capitalisation par `intentId` ; `crossCapOutcomeFromCapitalisations` (pas d'emprunt inter-intentions ; PRIMARY acquis/open_point) ; D4 early séquentiel + dependsOn propres ; `normalizeKnowledgeRecordKind(FACT→ACQUIS)` ; intentId sur résultats D4 manquants
+37-  - E2-FINAL-02: `extractDurablePilotageIntentIds` depuis stash `semanticQualification` (indépendant de `pilotageEffects`) ; `unknownPilotageEffectRecord` ; lookup/replay sans inventer de succès
+38-  - E2-FINAL-03: `isFinOpsWorkAttributionConflict` + `loadAttributionConflictWorkIds` **avant** filtre projet ; travail NULL+obs A+B exclu des filtres A/B ; global conserve
+39-  - tests ciblés FINAL: **16 PASS** (`e2-final-orchestration-c02` unit 11 + PG 3 ; FinOps PG 2) ; régression affectée **59 PASS** lot (FinOps projection, semantic, e1 B7/B8, FINAL)
+40-  - schéma: **027 inchangé** ; LIVE/RECETTE non mutés ; NO RELEASE ; E3 non engagé
+41-  - verdict Cursor (finale): READY WITH RESERVES — sortie construction E2 proposée ; gate Morris ; ChatGPT relit handoff distant
+42:- **E2_revue_intégration** (2026-11-27, E2-INT — même livraison, pas de nouvelle DELIV):
+43-  - Conducteur : D4 early **transitif** + **vagues batch** (préserve SUBJECT parent/enfant) ; branche remaining D4 confirmée locale (déjà présente) ; proposalKind→crossCap (subject-only ≠ APPLIED)
+44-  - C02 : union stash∪projection ; projection partielle complétée intention par intention (UNKNOWN si manquant)
+45-  - FinOps : conflit **sans** fenêtre temporelle ; liste travaux cohérente ; tokens exacts 110/0/316
+46-  - Base tests : vitest → `sfia_next_e2e` @ :5433 (isolation vérifiée)
+47-  - tests : **20 PASS** FINAL/INT (unit 12 + orch PG 5 + FinOps PG 3) ; lot affecté rejoué
+48-  - schéma **027** ; LIVE/RECETTE non mutés ; NO RELEASE ; E3 non engagé
+49-  - verdict Cursor (intégration): READY WITH RESERVES — sortie construction E2 proposée sous gate Morris
+50-- **E1_périmètre** (2026-11-27, ensemble Continuité cognitive B.1–B.8 uniquement):
+51-  - même tour parent+enfant (`subject-proposal-batch` + `precreateBatchSubjects`);
+52-  - reparent/rename via capitalisation SUBJECT existant;
+53-  - PROPOSE_TRAJECTORY USER_MESSAGE sans body objective (gate durable);
+54-  - compteurs décisions applicables (supersede uniquement si successeur APPLICABLE);
+55-  - `openPointShortTitle` pour E3; B.7 PREFERRED + omit marker;
+56-  - suite E1 focalisée: **52 PASS** (unit+PG B.1–B.8) puis **58 PASS** rapportés handoff `d08fc94e`
+57-- **E1_complément_reliquats** (2026-11-27, E1-REL-01…09 — même livraison, pas de nouvelle DELIV):
+58-  - E1-REL-01: merge/split/detach raccordés via `subjectOrganization` → propriétaires D4;
+59-  - E1-REL-02: refus subjectId invalide/étranger ; conflit id/titre ; fence rename/merge/split/reparent ; rename fail non masqué;
+60-  - E1-REL-04: `openPointTitle` → `provenance.canonicalTitle` + shortTitle projection;
+61-  - E1-REL-05: `forecastSteps` durable → ClassifiedCommand → PG ; RETAIN supersède PROPOSED (RETAIN_VIS);
+62-  - E1-REL-03/06/07/08: raccordements vérifiés ; preuves naturelles → registre recette ; DOM :3100 HTTP 500 tooling;
+```
 
+### registre — version + R-E2i
+```md
+# SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
----
+> **Registre de revue ML5 — contenu validé comme support de suivi par Morris ; Gate C accepté avec réserves et GO de construction ML5 exprimés le 23/11/2026.** Aucun GO implicite de push projet, PR, merge, recette/cutover, release, adoption ou promotion.
 
-## Diffs / contenus FINAL (mandat courant)
+| Champ | Valeur |
+|---|---|
+| Version | v0.33 candidate — 27 novembre 2026 : **E2-INT** (D4 remaining+transitif+batch ; C02 projection partielle ; FinOps conflit hors fenêtre) sur `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` dirty — **Cursor READY WITH RESERVES** (sortie E2 proposée ; ChatGPT + Morris gate) ; v0.32 : E2-FINAL ; v0.31 : E2c ; … |
+| Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
+| Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
+| Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
+```
 
-### New file: pilotage-effect-aggregate.ts (full)
+### as-built E2-FINAL/INT
+```md
+85:## E2-FINAL / E2-INT (as-built impact — 2026-11-27)
+86-
+87-- **Orchestration** : early D4 **transitif** + **vagues batch** (dépendances respectées,
+88-  SUBJECT parent/enfant co-présents) ; remaining D4 après pilotage ; `crossCap` +
+89-  `proposalKind` (subject-only ≠ APPLIED pour ACQUIS) ; FACT→ACQUIS.
+90-- **C02** : union stash∪projections ; projection partielle complétée ; UNKNOWN explicite.
+91-- **FinOps** : conflit d'attribution sur l'histoire complète (pas la fenêtre période) ;
+92-  exclusion projet avant agrégats ; liste/détail cohérents.
+93-- D3 demeure conducteur unique ; D4/D5/D6 propriétaires.
+94-
+95-## Limites
+96-
+97-- Autonomie sémantique LIVE : NON PROUVÉE (E1 = DET + injections).
+98-- Hybrid embedding `derivedUsed=false` : **instruit E2** — défaut config/fixture
+99-  (`SFIA_DERIVED_EMBEDDING_SEARCH` off ou `BACKEND=pg` sans semanticHits), pas régression B.7.
+100-- Pertinence cognitive naturelle merge/split / sélection / finalité : recette utilisateur.
+```
+
+## 13. Raccordements code (extraits complets nécessaires)
+
+### Remaining D4 après early (service.ts)
+```ts
+    qualificationReason: documentAct.kind === "NONE" ? "SEMANTIC_NONE" : null,
+    documentaryIntentSignal,
+    d4Attempted: false,
+    d4Effect: null,
+  });
+
+  // C17: segment-limit suspension keeps work SUSPENDED (honest) but may still
+  // carry a complete document fence for D4 — do not require conversational COMPLETE.
+  const interruptedWithDocument =
+    reply.status === "INTERRUPTED" &&
+    Boolean(cognitiveWorkMeta?.suspended) &&
+    extractContractualDocumentProposal(reply.content).ok;
+  const replyAllowsOwnerEffects =
+    allowOwnerEffects &&
+    (reply.status === "COMPLETE" || interruptedWithDocument);
+
+  if (replyAllowsOwnerEffects) {
+    if (turnRaceHooks.beforeD4Effect) {
+      await turnRaceHooks.beforeD4Effect();
+    }
+    if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
+      ownershipLostBeforeD4 = true;
+    } else if (capitalisationRanBeforePilotage) {
+      // Early path only wrote D4 intents required by D5/D6 — remaining D4 still apply once.
+      const allProposals = extractKnowledgeProposals(qualification);
+      const remaining = allProposals.filter((p) => !d4DepsForPilotage.has(p.intentId));
+      const proposalSummary = summarizeKnowledgeProposals(allProposals);
+      emitObs({
+        event_name: "d3.turn.knowledge_proposals",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+        meta: {
+          qualification_status: qualification.status,
+          reply_status: reply.status,
+          proposal_present: proposalSummary.proposal_present,
+          proposal_count: proposalSummary.proposal_count,
+          early_before_pilotage: true,
+          remaining_d4: remaining.length,
+        },
+      });
+      if (remaining.length > 0 && !ownershipLostBeforeD4) {
+        try {
+          const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+            userText: content,
+            assistantText: reply.content,
+            generationId: reply.generationId,
+            userMessageId: reserved.userMessageId,
+            assistantMessageId: assistantId,
+            proposals: remaining,
+            turnFence: {
+              commandId: reserved.commandId,
+              ownerToken: reserved.ownerToken,
+              beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+            },
+          });
+          capitalisation = {
+            capitalisations: [
+              ...capitalisation.capitalisations,
+              ...step.capitalisations,
+            ],
+            selectionMethod: step.selectionMethod,
+            selectionLimit: step.selectionLimit,
+            humanDecisionCreated:
+              capitalisation.humanDecisionCreated || step.humanDecisionCreated,
+            ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
+          };
+          if (step.ownershipLost) ownershipLostBeforeD4 = true;
+        } catch {
+          capitalisationError = "CAPITALISATION_EXCEPTION";
+        }
+      }
+    } else {
+      try {
+        const knowledgeProposals = extractKnowledgeProposals(qualification);
+        const proposalSummary = summarizeKnowledgeProposals(knowledgeProposals);
+        emitObs({
+          event_name: "d3.turn.knowledge_proposals",
+          component: "d3.conversation",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+          meta: {
+            qualification_status: qualification.status,
+            reply_status: reply.status,
+            proposal_present: proposalSummary.proposal_present,
+            proposal_count: proposalSummary.proposal_count,
+            subject_count: proposalSummary.subject_count,
+            acquis_count: proposalSummary.acquis_count,
+            open_point_count: proposalSummary.open_point_count,
+          },
+        });
+        capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+          userText: content,
+          assistantText: reply.content,
+          generationId: reply.generationId,
+          userMessageId: reserved.userMessageId,
+          assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
+```
+
+### Early D4 transitif + waves (service.ts)
+```ts
+  );
+  const intentByIdEarly = new Map(qualification.intents.map((i) => [i.id, i] as const));
+  const d4DepsForPilotage = new Set<string>();
+  const isEarlyD4 = (dep: string) => {
+    if (pilotageIntentIdsEarly.has(dep)) return false;
+    const depIntent = intentByIdEarly.get(dep);
+    return (
+      depIntent?.capabilityId === "d4.record_knowledge" &&
+      depIntent.mode === "REQUEST_EFFECT"
+    );
+  };
+  for (const b of pilotageBindings) {
+    for (const dep of intentDependsOnEarly.get(b.intentId) ?? []) {
+      if (isEarlyD4(dep)) d4DepsForPilotage.add(dep);
+    }
+  }
+  // E2-INT — transitive D4 ancestors (D4-A → D4-B → D5) must join the early set.
+  {
+    let grew = true;
+    while (grew) {
+      grew = false;
+      for (const id of [...d4DepsForPilotage]) {
+        for (const dep of intentDependsOnEarly.get(id) ?? []) {
+          if (isEarlyD4(dep) && !d4DepsForPilotage.has(dep)) {
+            d4DepsForPilotage.add(dep);
+            grew = true;
+          }
+        }
+      }
+    }
+  }
+  if (
+    allowOwnerEffects &&
+    d4DepsForPilotage.size > 0 &&
+    reply.status === "COMPLETE" &&
+    (await requireTurnOwnership(reserved.commandId, reserved.ownerToken))
+  ) {
+    try {
+      const allKnowledgeProposals = extractKnowledgeProposals(qualification);
+      // Topo-order early D4; detect cycles.
+      const visit = new Set<string>();
+      const visiting = new Set<string>();
+      const orderedAll: string[] = [];
+      const walk = (id: string) => {
+        if (!d4DepsForPilotage.has(id) || visit.has(id)) return;
+        if (visiting.has(id)) {
+          crossCapOutcomeByIntentId.set(id, "FAILED");
+          return;
+        }
+        visiting.add(id);
+        for (const d of intentDependsOnEarly.get(id) ?? []) {
+          if (d4DepsForPilotage.has(d)) walk(d);
+        }
+        visiting.delete(id);
+        visit.add(id);
+        orderedAll.push(id);
+      };
+      for (const id of [...d4DepsForPilotage].sort()) walk(id);
+
+      const isSatisfied = (prior: string | undefined) => {
+        const u = (prior ?? "").toUpperCase();
+        return (
+          u === "APPLIED" ||
+          u === "AVAILABLE" ||
+          u === "OK" ||
+          u === "SUCCESS" ||
+          u === "ALREADY_APPLIED"
+        );
+      };
+
+      // Wave batching: peers without unmet D4 deps share one maybeCapitalize call
+      // so E1 parent/enfant SUBJECT batch stays coherent; waves respect dependsOn.
+      const pending = new Set(
+        orderedAll.filter((id) => crossCapOutcomeByIntentId.get(id) !== "FAILED"),
+      );
+      let writtenTotal = 0;
+      let ranAny = false;
+      while (pending.size > 0 && !ownershipLostBeforeD4) {
+        const wave: string[] = [];
+        for (const dep of orderedAll) {
+          if (!pending.has(dep)) continue;
+          const depsOfDep = intentDependsOnEarly.get(dep) ?? [];
+          let blocked: string | null = null;
+          let waiting = false;
+          for (const d of depsOfDep) {
+            if (pilotageIntentIdsEarly.has(d)) {
+              blocked = `D4 (${dep}) dépend d'un acte D5/D6 (${d}) non encore exécuté`;
+              break;
+            }
+            if (pending.has(d)) {
+              waiting = true;
+              break;
+            }
+            const prior = crossCapOutcomeByIntentId.get(d);
+            if (prior !== undefined) {
+              if (!isSatisfied(prior)) {
+                blocked = `D4 (${dep}) précondition (${d}) non satisfaite (${prior})`;
+                break;
+              }
+            } else if (d4DepsForPilotage.has(d)) {
+              waiting = true;
+              break;
+            } else {
+              blocked = `D4 (${dep}) précondition (${d}) non résolue`;
+              break;
+            }
+          }
+          if (blocked) {
+            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
+            pending.delete(dep);
+            continue;
+          }
+          if (waiting) continue;
+          wave.push(dep);
+        }
+        if (wave.length === 0) {
+          for (const id of pending) {
+            crossCapOutcomeByIntentId.set(id, "FAILED");
+          }
+          pending.clear();
+          break;
+        }
+        const proposalsForWave = allKnowledgeProposals.filter((p) =>
+          wave.includes(p.intentId),
+        );
+        const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+          userText: content,
+          assistantText: reply.content,
+          generationId: reply.generationId,
+          userMessageId: reserved.userMessageId,
+          assistantMessageId: earlyAssistantMessageId,
+          proposals: proposalsForWave,
+          turnFence: {
+            commandId: reserved.commandId,
+            ownerToken: reserved.ownerToken,
+            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+          },
+        });
+        ranAny = true;
+        capitalisation = {
+          capitalisations: [
+            ...capitalisation.capitalisations,
+            ...step.capitalisations,
+          ],
+          selectionMethod: step.selectionMethod,
+          selectionLimit: step.selectionLimit,
+          humanDecisionCreated:
+            capitalisation.humanDecisionCreated || step.humanDecisionCreated,
+          ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
+        };
+        if (step.ownershipLost) {
+          ownershipLostBeforeD4 = true;
+          for (const dep of wave) {
+            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
+            pending.delete(dep);
+          }
+          break;
+        }
+        for (const dep of wave) {
+          const proposalsForIntent = proposalsForWave.filter((p) => p.intentId === dep);
+          const outcome = crossCapOutcomeFromCapitalisations({
+            intentId: dep,
+            capitalisations: step.capitalisations,
+            hadProposal: proposalsForIntent.length > 0,
+            ownershipLost: false,
+            proposalKind: proposalsForIntent[0]?.kind ?? null,
+          });
+          crossCapOutcomeByIntentId.set(dep, outcome);
+          pending.delete(dep);
+        }
+        writtenTotal += step.capitalisations.filter(
+          (c) => c.status === "AVAILABLE" || c.status === "OK",
+        ).length;
+      }
+      for (const dep of d4DepsForPilotage) {
+        if (!crossCapOutcomeByIntentId.has(dep)) {
+          crossCapOutcomeByIntentId.set(dep, ownershipLostBeforeD4 ? "SKIPPED" : "FAILED");
+        }
+      }
+      capitalisationRanBeforePilotage = ranAny || d4DepsForPilotage.size > 0;
+      emitObs({
+        event_name: "d3.turn.knowledge_capitalisation",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+```
+
+### extractDurablePilotageIntentIds + resolvePilotageEffectForReplay
 ```ts
 /**
- * MP-09 — aggregate multiple D5/D6 conversational outcomes on one turn.
- * Primary effect preserves backward-compatible singular projection; full list feeds restitution.
+ * E2-FINAL-02 / E2-INT — durable pilotage intent ids.
+ * Union effect projections with qualification stash so a partial JSON list
+ * cannot hide remaining durable intents.
  */
-
-import type { ConversationalAuthorityOutcome } from "@/domains/pilotage/conversation-authority";
-import type { DurablePilotageBinding } from "./semantic-qualification";
-
-/** Durable turn payload slice (matches TurnResult.pilotageEffect when set). */
-export type TurnPilotageEffect = {
-  attempted: boolean;
-  intentClarity: "CLEAR" | "AMBIGUOUS" | "NONE";
-  intentReason?: string;
-  operation?: string;
-  status?: string | null;
-  reasonCode?: string | null;
-  reason?: string | null;
-  commandId?: string | null;
-  decisionId?: string | null;
-  clarification?: string;
-  source: ConversationalAuthorityOutcome["source"];
-  clientCommandKey?: string;
-  semanticIntentId?: string;
-  effects?: Array<{ effectKind: string; targetRef: string }>;
-};
-
-export function pilotageEffectFromAuthority(
-  authority: ConversationalAuthorityOutcome | null,
-  semanticIntentId?: string,
-): TurnPilotageEffect | null {
-  if (!authority) return null;
-  return {
-    attempted: authority.attempted,
-    intentClarity: authority.intentClarity,
-    intentReason: authority.intentReason,
-    operation: authority.operation,
-    status: authority.command?.status ?? null,
-    reasonCode: authority.command?.reasonCode ?? null,
-    reason: authority.command?.reason ?? authority.intentReason ?? null,
-    commandId: authority.command?.commandId ?? null,
-    decisionId: authority.decisionId,
-    clarification: authority.clarification,
-    source: authority.source,
-    clientCommandKey: authority.clientCommandKey,
-    semanticIntentId,
-    effects: authority.command?.effects?.map((e) => ({
-      effectKind: e.effectKind,
-      targetRef: e.targetRef,
-    })),
-  };
+export function extractDurablePilotageIntentIds(input: {
+  fromJsonEffects?: TurnResult["pilotageEffects"] | null;
+  resultJson?: string | null;
+  semanticIntentIds?: string[] | null;
+}): string[] {
+  const ids = new Set<string>();
+  for (const s of input.semanticIntentIds ?? []) {
+    const t = s.trim();
+    if (t) ids.add(t);
+  }
+  for (const e of input.fromJsonEffects ?? []) {
+    const t = e.semanticIntentId?.trim() || "";
+    if (t) ids.add(t);
+  }
+  const raw = input.resultJson?.trim();
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as {
+        pilotageEffects?: TurnPilotageEffect[];
+        semanticQualification?: NoraTurnQualification;
+      };
+      for (const e of parsed.pilotageEffects ?? []) {
+        const t = e.semanticIntentId?.trim() || "";
+        if (t) ids.add(t);
+      }
+      for (const i of parsed.semanticQualification?.intents ?? []) {
+        if (
+          i.mode === "REQUEST_EFFECT" &&
+          (i.capabilityId === "d5.pilotage_command" ||
+            i.capabilityId === "d6.human_decision")
+        ) {
+          const t = i.id.trim();
+          if (t) ids.add(t);
+        }
+      }
+    } catch {
+      /* ignore malformed stash */
+    }
+  }
+  return [...ids];
 }
 
-export function ambiguousPilotageEffectRecord(input: {
-  intentId: string;
-  reason: string;
-}): TurnPilotageEffect {
-  return {
-    attempted: true,
-    intentClarity: "AMBIGUOUS",
-    intentReason: input.reason,
-    reason: input.reason,
-    status: null,
-    decisionId: null,
-    source: "clarification_only",
-    semanticIntentId: input.intentId,
-  };
-}
+async function resolvePilotageEffectForReplay(input: {
+  pilotId: string;
+  projectId: string | null | undefined;
+  clientTurnKey?: string | null;
+  userMessageId?: string | null;
+  fromJson: TurnResult["pilotageEffect"] | null | undefined;
+  /** E2-REL-02 — full multi-intent list from stored result_json when present. */
+  fromJsonEffects?: TurnResult["pilotageEffects"] | null | undefined;
+  humanDecisionCreated: boolean;
+  /** Semantic intent ids — preferably from durable qualification, not only result effects. */
+  semanticIntentIds?: string[] | null;
+  /** Raw turn resultJson (may carry semanticQualification stash without pilotageEffects). */
+  resultJson?: string | null;
+}): Promise<{
+  pilotageEffect: TurnResult["pilotageEffect"];
+  pilotageEffects?: TurnPilotageEffect[];
+  humanDecisionCreated: boolean;
+}> {
+  // E2-INT — durable intent set (qualification ∪ projections). A non-empty partial
+  // projection must not short-circuit completeness.
+  const durableIntentIds = extractDurablePilotageIntentIds({
+    fromJsonEffects: input.fromJsonEffects,
+    resultJson: input.resultJson,
+    semanticIntentIds: input.semanticIntentIds,
+  });
+  const projectedByIntent = new Map<string, TurnPilotageEffect>();
+  for (const e of input.fromJsonEffects ?? []) {
+    const id = e.semanticIntentId?.trim();
+    if (id) projectedByIntent.set(id, e);
+  }
+  if (
+    input.fromJson?.attempted &&
+    input.fromJson.status &&
+    input.fromJson.semanticIntentId?.trim()
+  ) {
+    const id = input.fromJson.semanticIntentId.trim();
+    if (!projectedByIntent.has(id)) projectedByIntent.set(id, input.fromJson);
+  }
 
-export function dependencyBlockedPilotageEffectRecord(input: {
-  binding: DurablePilotageBinding;
-  blockReason: string;
-}): TurnPilotageEffect {
-  return {
-    attempted: true,
-    intentClarity: "CLEAR",
-    operation: input.binding.operation,
-    status: "REJECTED",
-    reasonCode: "DEPENDENCY_PRECONDITION",
-    reason: input.blockReason,
-    decisionId: null,
-    source: "none",
-    semanticIntentId: input.binding.intentId,
-  };
-}
+  const projectionComplete =
+    durableIntentIds.length > 0 &&
+    durableIntentIds.every((id) => projectedByIntent.has(id));
 
-/** Mid-loop ownership loss — remaining bindings must not mutate and must be explicit. */
-export function ownershipLostPilotageEffectRecord(input: {
-  binding: DurablePilotageBinding | { intentId: string; operation?: string };
-}): TurnPilotageEffect {
-  return {
-    attempted: false,
-    intentClarity: "CLEAR",
-    operation: "operation" in input.binding ? input.binding.operation : undefined,
-    status: "SKIPPED",
-    reasonCode: "OWNERSHIP_LOST",
-    reason:
-      "Propriété du tour perdue avant cet acte — effet non exécuté (pas de duplication à la reprise).",
-    decisionId: null,
-    source: "none",
-    semanticIntentId: input.binding.intentId,
-  };
-}
+  if (projectionComplete && projectedByIntent.size > 0) {
+    const effects = durableIntentIds.map((id) => projectedByIntent.get(id)!);
+    const primary =
+      effects.find((e) => e.attempted && e.status) ?? effects[0] ?? null;
+    return {
+      pilotageEffect: input.fromJson ?? primary,
+      pilotageEffects: effects,
+      humanDecisionCreated:
+        input.humanDecisionCreated || effects.some((e) => Boolean(e.decisionId)),
+    };
+  }
 
-/** E2-FINAL-02 — intent known from durable qualification but no owner effect reconstituted. */
-export function unknownPilotageEffectRecord(input: {
-  intentId: string;
-  operation?: string;
-  reason?: string;
-}): TurnPilotageEffect {
-  return {
-    attempted: false,
-    intentClarity: "CLEAR",
-    operation: input.operation,
-    status: "UNKNOWN",
-    reasonCode: "EFFECT_NOT_RECONSTITUTED",
-    reason:
-      input.reason ??
-      "Intention durable reconnue — aucun effet propriétaire reconstitué (pas de succès inventé).",
-    decisionId: null,
-    source: "none",
-    semanticIntentId: input.intentId,
-  };
-}
+  // Legacy singular projection with no durable multi-intent set.
+  if (
+    durableIntentIds.length === 0 &&
+    input.fromJson?.attempted &&
+    input.fromJson.status &&
+    projectedByIntent.size <= 1
+  ) {
+    return {
+      pilotageEffect: input.fromJson,
+      pilotageEffects: input.fromJson ? [input.fromJson] : undefined,
+      humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
+    };
+  }
 
+  if (!input.projectId) {
+    return {
+      pilotageEffect: input.fromJson ?? null,
+      pilotageEffects:
+        projectedByIntent.size > 0 ? [...projectedByIntent.values()] : undefined,
+      humanDecisionCreated: input.humanDecisionCreated,
+    };
+  }
+
+  // Reconstitute missing durable intents individually (never invent success).
+  const intentIds =
+    durableIntentIds.length > 0
+      ? durableIntentIds
+      : [...projectedByIntent.keys()];
+  if (intentIds.length > 0 && input.clientTurnKey?.trim()) {
+    const effects: TurnPilotageEffect[] = [];
+    let human = input.humanDecisionCreated;
+    for (const semanticIntentId of intentIds) {
+      const projected = projectedByIntent.get(semanticIntentId);
+      if (projected) {
+        effects.push(projected);
+        human = human || Boolean(projected.decisionId);
+        continue;
+      }
+      const reconstituted = await reconstituteConversationalAuthority({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        clientTurnKey: input.clientTurnKey,
+        userMessageId: input.userMessageId,
+        semanticIntentId,
+      });
+      if (!reconstituted) {
+        effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
+        continue;
+      }
+      const effect = pilotageEffectFromAuthority(reconstituted, semanticIntentId);
+      if (effect) effects.push(effect);
+      else effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
+      human = human || Boolean(reconstituted.humanDecisionCreated);
+    }
+    if (effects.length > 0) {
+      return {
+        pilotageEffect: pickPrimaryPilotageEffect(effects),
+```
+
+### crossCapOutcomeFromCapitalisations
+```ts
 /**
- * E2-FINAL-01 — map capitalisation rows to a single intent outcome.
+ * E2-FINAL-01 / E2-INT — map capitalisation rows to a single intent outcome.
  * Never attribute another intent's success. Partial ⇒ not satisfied.
  * When acquis/open_point rows exist for the intent, ignore auxiliary subject
  * side-effect rows so a subject-only AVAILABLE cannot satisfy a record intent.
+ * When proposalKind is ACQUIS/OPEN_POINT, subject-only rows never count as APPLIED.
  */
 export function crossCapOutcomeFromCapitalisations(input: {
   intentId: string;
   capitalisations: Array<{ intentId?: string; status: string; kind?: string }>;
   hadProposal: boolean;
   ownershipLost?: boolean;
+  /** Knowledge proposal kind when known (SUBJECT | ACQUIS | OPEN_POINT). */
+  proposalKind?: string | null;
 }): PilotageIntentStepOutcome {
   if (input.ownershipLost) return "SKIPPED";
   let related = input.capitalisations.filter((c) => c.intentId === input.intentId);
+  const proposalKind = (input.proposalKind ?? "").toUpperCase();
+  const expectsRecordPrimary =
+    proposalKind === "ACQUIS" || proposalKind === "OPEN_POINT";
   const hasRecordPrimary = related.some(
     (c) => c.kind === "acquis" || c.kind === "open_point",
   );
-  if (hasRecordPrimary) {
+  if (hasRecordPrimary || expectsRecordPrimary) {
     related = related.filter(
       (c) =>
         c.kind === "acquis" ||
@@ -357,7 +677,7 @@ export function crossCapOutcomeFromCapitalisations(input: {
     );
   }
   if (related.length === 0) {
-    // No rows for this intent — never borrow another intent's AVAILABLE.
+    // No primary rows — never treat auxiliary subject AVAILABLE as complete success.
     return input.hadProposal ? "FAILED" : "SKIPPED";
   }
   const ok = (s: string) => {
@@ -376,95 +696,164 @@ export function isSuccessfulPilotageCommandStatus(status: string | null | undefi
 
 /**
  * Intent-id outcome map entry after each binding step.
- * Values: command status, AMBIGUOUS, or SKIPPED (dependency / gate).
- */
-export type PilotageIntentStepOutcome = string;
+```
 
-function isSatisfiedCrossCapOutcome(step: string): boolean {
-  const s = step.toUpperCase();
-  return (
-    s === "APPLIED" ||
-    s === "ALREADY_APPLIED" ||
-    s === "AVAILABLE" ||
-    s === "OK" ||
-    s === "SUCCESS"
-  );
-}
-
+### loadAttributionConflictWorkIds + call site
+```ts
 /**
- * If a pilotage predecessor did not succeed, dependent bindings must not mutate.
- * E2-REL-02 — non-pilotage deps (e.g. D4→D5) are satisfiable when the owner
- * effect was already resolved this turn (`crossCapOutcomeByIntentId`); otherwise
- * fail closed (never treat as vacuously satisfied).
+ * E2-FINAL-03 / E2-INT — work ids whose observation set is contradictory.
+ * Conflict detection is NOT narrowed by period/model filters: a presentation
+ * window must not fabricate a coherent attribution when a conflict exists.
  */
-export function dependencyPreconditionBlockReason(input: {
-  dependsOn: string[];
-  pilotageIntentIds: Set<string>;
-  outcomeByIntentId: Map<string, PilotageIntentStepOutcome>;
-  /** Same-turn non-pilotage owner outcomes (D4 capitalisation, …). */
-  crossCapOutcomeByIntentId?: Map<string, PilotageIntentStepOutcome>;
-}): string | null {
-  for (const dep of input.dependsOn) {
-    if (!input.pilotageIntentIds.has(dep)) {
-      const cross = input.crossCapOutcomeByIntentId?.get(dep);
-      if (cross === undefined) {
-        return (
-          `Dépendance (${dep}) hors intentions D5/D6 — précondition inter-capacité ` +
-          `non encore satisfaite par un propriétaire; effet dépendant non exécuté.`
-        );
-      }
-      if (cross === "AMBIGUOUS") {
-        return `L'intention prérequis hors pilotage (${dep}) est ambiguë — effet dépendant non lancé.`;
-      }
-      if (cross === "SKIPPED") {
-        return `L'acte prérequis hors pilotage (${dep}) n'a pas abouti — effet dépendant non exécuté.`;
-      }
-      if (!isSatisfiedCrossCapOutcome(cross)) {
-        return (
-          `L'acte prérequis hors pilotage (${dep}) n'est pas appliqué (${cross}) — ` +
-          `effet dépendant non exécuté.`
-        );
-      }
-      continue;
-    }
-    const step = input.outcomeByIntentId.get(dep);
-    if (step === undefined) {
-      return `Acte prérequis (${dep}) non encore résolu — effet suivant non exécuté.`;
-    }
-    if (step === "AMBIGUOUS") {
-      return `L'intention prérequis (${dep}) est ambiguë — l'effet dépendant n'a pas été lancé.`;
-    }
-    if (step === "SKIPPED") {
-      return `L'acte prérequis (${dep}) n'a pas abouti — effet dépendant non exécuté.`;
-    }
-    if (!isSuccessfulPilotageCommandStatus(step)) {
-      return `L'acte prérequis (${dep}) n'est pas appliqué (${step}) — effet dépendant non exécuté.`;
+async function loadAttributionConflictWorkIds(
+  pilotId: string,
+  workProjectById: Map<string, string | null>,
+): Promise<Set<string>> {
+  const lane = studioLane();
+  const workIds = [...workProjectById.keys()];
+  if (workIds.length === 0) return new Set();
+  const obs = await db
+    .select({
+      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
+      projectId: providerUsageObservations.projectId,
+    })
+    .from(providerUsageObservations)
+    .where(
+      and(
+        eq(providerUsageObservations.ownerPilotId, pilotId),
+        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
+        inArray(providerUsageObservations.cognitiveWorkId, workIds),
+      ),
+    );
+  const byWork = new Map<string, Array<{ projectId?: string | null }>>();
+  for (const r of obs) {
+    if (!r.cognitiveWorkId) continue;
+    const list = byWork.get(r.cognitiveWorkId) ?? [];
+    list.push({ projectId: r.projectId });
+    byWork.set(r.cognitiveWorkId, list);
+  }
+  const conflicts = new Set<string>();
+  for (const [wid, rows] of byWork) {
+    if (isFinOpsWorkAttributionConflict(workProjectById.get(wid) ?? null, rows)) {
+      conflicts.add(wid);
     }
   }
-  return null;
+  return conflicts;
 }
 
-/** First attempted record in stable binding order — backward-compatible primary. */
-export function pickPrimaryPilotageEffect(
-  records: TurnPilotageEffect[],
-): TurnPilotageEffect | null {
-  if (records.length === 0) return null;
-  return records.find((r) => r.attempted) ?? records[records.length - 1] ?? null;
-}
-
-export function intentIdsFromPilotageBindings(
-  bindings: Array<
-    DurablePilotageBinding | { ambiguous: true; reason: string; intentId: string }
-  >,
-): Set<string> {
-  const ids = new Set<string>();
-  for (const b of bindings) {
-    ids.add("ambiguous" in b ? b.intentId : b.intentId);
+async function loadObservations(
+  pilotId: string,
+  input: FinOpsFilterInput,
+): Promise<ObservationRow[]> {
+  const periodDays = input.periodDays ?? 30;
+  const since = periodStartDate(periodDays);
+  let cognitiveWorkIdsOnProject: string[] | undefined;
+  let cognitiveWorkIdsHorsProjet: string[] | undefined;
+  let workProjectById = new Map<string, string | null>();
+  let conflictWorkIds = new Set<string>();
+  if (input.projectId) {
+    await assertProjectOwned(pilotId, input.projectId);
+    const workRows = await db
+      .select({ id: cognitiveWorks.id, projectId: cognitiveWorks.projectId })
+      .from(cognitiveWorks)
+      .where(eq(cognitiveWorks.ownerPilotId, pilotId));
+    workProjectById = new Map(workRows.map((w) => [w.id, w.projectId]));
+    // Resolve conflicts from the full observation set BEFORE project/period filtering.
+    conflictWorkIds = await loadAttributionConflictWorkIds(pilotId, workProjectById);
+    cognitiveWorkIdsOnProject = workRows
+      .filter((w) => w.projectId === input.projectId && !conflictWorkIds.has(w.id))
+      .map((w) => w.id);
+    cognitiveWorkIdsHorsProjet = workRows
+      .filter((w) => w.projectId == null && !conflictWorkIds.has(w.id))
+      .map((w) => w.id);
   }
-  return ids;
-}```
+  const rows = await db
+    .select()
+    .from(providerUsageObservations)
+    .where(
+      baseObservationWhere(
+        pilotId,
+        { ...input, periodDays },
+        since,
+        cognitiveWorkIdsOnProject,
+        cognitiveWorkIdsHorsProjet,
+      ),
+    )
+    .orderBy(desc(providerUsageObservations.createdAt));
+  if (!input.projectId) return rows;
+  // Defense in depth — drop residual conflicts (obs≠work) and multi-scope works.
+  return rows.filter((r) => {
+    if (r.cognitiveWorkId && conflictWorkIds.has(r.cognitiveWorkId)) return false;
+    const workPid = r.cognitiveWorkId
+      ? workProjectById.get(r.cognitiveWorkId) ?? null
+      : null;
+    return (
+      effectiveFinOpsProjectId({
+        observationProjectId: r.projectId,
+        workProjectId: workPid,
+      }) === input.projectId
+```
 
-### New test: e2-final-orchestration-c02.test.ts (full)
+### loadFinOpsWorks conflict attribution
+```ts
+  const works = await db
+    .select({
+      id: cognitiveWorks.id,
+      objective: cognitiveWorks.objective,
+      status: cognitiveWorks.status,
+      projectId: cognitiveWorks.projectId,
+    })
+    .from(cognitiveWorks)
+    .where(
+      and(inArray(cognitiveWorks.id, workIds), eq(cognitiveWorks.ownerPilotId, pilotId)),
+    );
+
+  // E2-INT — attribution coherence uses full history, not the period/model slice alone.
+  const workProjectById = new Map(works.map((w) => [w.id, w.projectId]));
+  const conflictWorkIds = await loadAttributionConflictWorkIds(pilotId, workProjectById);
+
+  const projectIds = [
+    ...new Set(
+      works.flatMap((w) => {
+        if (conflictWorkIds.has(w.id)) return [];
+        const slice = byWork.get(w.id) ?? [];
+        const eff = effectiveFinOpsProjectIdForWork(w.projectId, slice);
+        return eff ? [eff] : [];
+      }),
+    ),
+  ];
+  const projectNames = new Map<string, string>();
+  if (projectIds.length > 0) {
+    const projs = await db
+      .select({ id: projects.id, name: projects.name })
+      .from(projects)
+      .where(and(inArray(projects.id, projectIds), eq(projects.ownerPilotId, pilotId)));
+    for (const p of projs) projectNames.set(p.id, p.name);
+  }
+
+  const items: FinOpsWorkListItem[] = works.map((w) => {
+    const slice = byWork.get(w.id) ?? [];
+    const last = slice[0]?.createdAt ?? new Date();
+    // E2-REL-05 / E2-INT — conflict (full history) ⇒ null (never invent via period slice).
+    const effectiveProjectId = conflictWorkIds.has(w.id)
+      ? null
+      : effectiveFinOpsProjectIdForWork(w.projectId, slice);
+    const title =
+      (w.objective?.trim() || "Travail cognitif").slice(0, 120) +
+      ((w.objective?.length ?? 0) > 120 ? "…" : "");
+    return {
+      cognitiveWorkId: w.id,
+      title,
+      projectId: effectiveProjectId,
+      projectName: effectiveProjectId
+        ? projectNames.get(effectiveProjectId) ?? null
+        : null,
+      modelsLabel: uniqueModelsLabel(
+```
+
+## 14. Tests (full)
+
+### unit e2-final-orchestration-c02.test.ts
 ```ts
 import { describe, expect, it } from "vitest";
 import {
@@ -533,11 +922,23 @@ describe("E2-FINAL-01 — crossCapOutcomeFromCapitalisations", () => {
     ).toBe("FAILED");
   });
 
+  it("subject-only AVAILABLE is not APPLIED when proposalKind is ACQUIS", () => {
+    expect(
+      crossCapOutcomeFromCapitalisations({
+        intentId: "i-d4",
+        hadProposal: true,
+        proposalKind: "ACQUIS",
+        capitalisations: [{ intentId: "i-d4", kind: "subject", status: "AVAILABLE" }],
+      }),
+    ).toBe("FAILED");
+  });
+
   it("acquis AVAILABLE satisfies even with auxiliary subject row", () => {
     expect(
       crossCapOutcomeFromCapitalisations({
         intentId: "i-d4",
         hadProposal: true,
+        proposalKind: "ACQUIS",
         capitalisations: [
           { intentId: "i-d4", kind: "subject", status: "AVAILABLE" },
           { intentId: "i-d4", kind: "acquis", status: "AVAILABLE" },
@@ -644,7 +1045,7 @@ describe("E2-FINAL-02 — durable intent recovery without pilotageEffects", () =
     ]);
   });
 
-  it("prefers pilotageEffects when present", () => {
+  it("unions pilotageEffects with qualification stash (partial projection)", () => {
     expect(
       extractDurablePilotageIntentIds({
         fromJsonEffects: [
@@ -663,7 +1064,7 @@ describe("E2-FINAL-02 — durable intent recovery without pilotageEffects", () =
           },
         }),
       }),
-    ).toEqual(["i-a", "i-b"]);
+    ).toEqual(["i-a", "i-b", "i-other"]);
   });
 
   it("unknownPilotageEffectRecord is explicit, not a fabricated success", () => {
@@ -675,7 +1076,7 @@ describe("E2-FINAL-02 — durable intent recovery without pilotageEffects", () =
 });
 ```
 
-### New test: e2-final-orchestration-c02.pg.test.ts (full)
+### integration e2-final-orchestration-c02.pg.test.ts
 ```ts
 /**
  * E2-FINAL-01/02 — D4→D5 precondition integrity + C02 recovery without pilotageEffects.
@@ -930,6 +1331,104 @@ describe("E2-FINAL-01/02 — orchestration + C02 durable", () => {
     expect(cmds.some((c) => c.operation === "OPEN_CYCLE")).toBe(true);
   });
 
+  it("E2-INT — D4 early + independent remaining D4 both capitalize; D5 depends on early only", async () => {
+    const { pilotId, preparationId, projectId } = await seedOwnedProject("e2f-mix");
+    const STATEMENT_B =
+      "La planification des accès suit le cycle de validation Pilote documenté.";
+    const qual = {
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED" as const,
+      goal: "mix",
+      projectIntention: "",
+      desiredOutcome: "",
+      initialScope: "",
+      proposedProjectName: "",
+      intents: [
+        {
+          id: "i-d4-a",
+          capabilityId: "d4.record_knowledge" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "rules",
+          parameters: {
+            knowledgeKind: "ACQUIS" as const,
+            knowledgeStatement: STATEMENT,
+            epistemic: "recommended" as const,
+            subjectTitle: "Habilitations",
+          },
+          constraints: [] as string[],
+          dependsOn: [] as string[],
+          sourceEvidence: [] as string[],
+        },
+        {
+          id: "i-d4-b",
+          capabilityId: "d4.record_knowledge" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "plan",
+          parameters: {
+            knowledgeKind: "ACQUIS" as const,
+            knowledgeStatement: STATEMENT_B,
+            epistemic: "recommended" as const,
+            subjectTitle: "Planification",
+          },
+          constraints: [] as string[],
+          dependsOn: [] as string[],
+          sourceEvidence: [] as string[],
+        },
+        {
+          id: "i-d5",
+          capabilityId: "d5.pilotage_command" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "open",
+          parameters: {
+            pilotageOperation: "OPEN_CYCLE",
+            cycleType: "CADRAGE",
+          } as Record<string, unknown>,
+          constraints: [] as string[],
+          dependsOn: ["i-d4-a"],
+          sourceEvidence: [] as string[],
+        },
+      ],
+      clarifications: [] as string[],
+      replyDraft: "Consolidation mixte.",
+    };
+    vi.spyOn(runNoraModule, "runNoraCognitiveTurn").mockResolvedValue(mockNoraTurn(qual) as never);
+
+    const result = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Consolide habilitations et planification puis ouvre",
+      { clientTurnKey: newId("ctk") },
+    );
+    expect(result.status).toBe("COMPLETE");
+    // TurnResult.capitalisation is the AVAILABLE slice (array); attempted retains full rows.
+    const caps = (
+      Array.isArray(result.capitalisation)
+        ? result.capitalisation
+        : (result.capitalisationAttempted as unknown[]) ?? []
+    ) as Array<{ intentId?: string; kind?: string; status?: string }>;
+    const byIntent = (id: string) => caps.filter((c) => c.intentId === id);
+    if (!byIntent("i-d4-a").some((c) => c.status === "AVAILABLE" || c.status === "OK")) {
+      throw new Error(
+        `D4-A missing: ${JSON.stringify({ caps, attempted: result.capitalisationAttempted })}`,
+      );
+    }
+    if (!byIntent("i-d4-b").some((c) => c.status === "AVAILABLE" || c.status === "OK")) {
+      throw new Error(
+        `D4-B remaining missing: ${JSON.stringify({ caps, attempted: result.capitalisationAttempted })}`,
+      );
+    }
+    // No double-write of the same early intent as a second AVAILABLE acquis pair.
+    const acquisA = byIntent("i-d4-a").filter((c) => c.kind === "acquis" && c.status === "AVAILABLE");
+    expect(acquisA.length).toBeLessThanOrEqual(1);
+    const d5 = result.pilotageEffects?.find((e) => e.semanticIntentId === "i-d5");
+    expect(d5?.status === "APPLIED" || d5?.status === "ALREADY_APPLIED").toBe(true);
+    const cmds = await db
+      .select()
+      .from(businessCommands)
+      .where(eq(businessCommands.projectId, projectId));
+    expect(cmds.some((c) => c.operation === "OPEN_CYCLE")).toBe(true);
+  });
+
   it("C02 lookup reconstitutes intents from qualification stash without pilotageEffects", async () => {
     const { pilotId, preparationId, projectId } = await seedOwnedProject("e2f-c02");
     const qual = {
@@ -1029,10 +1528,104 @@ describe("E2-FINAL-01/02 — orchestration + C02 durable", () => {
     const openCount = cmds.filter((c) => c.operation === "OPEN_CYCLE").length;
     expect(openCount).toBeLessThanOrEqual(1);
   });
+
+  it("E2-INT — C02 partial pilotageEffects projection still recovers missing durable intent", async () => {
+    const { pilotId, preparationId, projectId } = await seedOwnedProject("e2f-c02p");
+    const qual = {
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED" as const,
+      goal: "c02-partial",
+      projectIntention: "",
+      desiredOutcome: "",
+      initialScope: "",
+      proposedProjectName: "",
+      intents: [
+        {
+          id: "i-open",
+          capabilityId: "d5.pilotage_command" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "OPEN",
+          parameters: {
+            pilotageOperation: "OPEN_CYCLE" as const,
+            cycleType: "CADRAGE" as const,
+          },
+          constraints: [] as string[],
+          dependsOn: [] as string[],
+          sourceEvidence: [] as string[],
+        },
+        {
+          id: "i-method",
+          capabilityId: "d5.pilotage_command" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "METHOD",
+          parameters: {
+            pilotageOperation: "CHOOSE_METHOD" as const,
+            methodRef: "SFIA",
+            methodVersion: "9",
+          },
+          constraints: [] as string[],
+          dependsOn: ["i-open"],
+          sourceEvidence: [] as string[],
+        },
+      ],
+      clarifications: [] as string[],
+      replyDraft: "Cycle et méthode.",
+    };
+    vi.spyOn(runNoraModule, "runNoraCognitiveTurn").mockResolvedValue(mockNoraTurn(qual) as never);
+    const clientTurnKey = newId("ctk");
+    const result = await postUserMessageAndNora(pilotId, preparationId, "Ouvre et choisis", {
+      clientTurnKey,
+    });
+    expect(result.status).toBe("COMPLETE");
+    const fullEffects = result.pilotageEffects ?? [];
+    expect(fullEffects.length).toBeGreaterThanOrEqual(1);
+    const firstOnly = fullEffects.find((e) => e.semanticIntentId === "i-open") ?? fullEffects[0]!;
+
+    const row = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.clientTurnKey, clientTurnKey))
+        .limit(1)
+    )[0];
+    expect(row).toBeTruthy();
+    const prev = JSON.parse(row!.resultJson || "{}") as Record<string, unknown>;
+    // Partial projection: only first effect kept — second must still be reconciled.
+    const partial = {
+      status: "COMPLETE",
+      semanticQualification: prev.semanticQualification,
+      semanticQualificationStashedAt: prev.semanticQualificationStashedAt,
+      pilotageEffects: [firstOnly],
+      pilotageEffect: firstOnly,
+    };
+    await db
+      .update(conversationTurnCommands)
+      .set({ resultJson: JSON.stringify(partial) })
+      .where(eq(conversationTurnCommands.id, row!.id));
+
+    const lookup = await lookupDurableTurnByClientKey(
+      pilotId,
+      preparationId,
+      clientTurnKey,
+    );
+    expect(lookup.found).toBe(true);
+    const ids = (lookup.pilotageEffects ?? []).map((e) => e.semanticIntentId).filter(Boolean);
+    expect(ids).toContain("i-open");
+    expect(ids).toContain("i-method");
+    const fabricated = (lookup.pilotageEffects ?? []).filter(
+      (e) => e.semanticIntentId === "i-method" && e.status === "APPLIED" && !e.commandId,
+    );
+    expect(fabricated.length).toBe(0);
+    const cmds = await db
+      .select()
+      .from(businessCommands)
+      .where(eq(businessCommands.projectId, projectId));
+    expect(cmds.filter((c) => c.operation === "OPEN_CYCLE").length).toBeLessThanOrEqual(1);
+  });
 });
 ```
 
-### New test: e2-final-finops-attribution.pg.test.ts (full)
+### integration e2-final-finops-attribution.pg.test.ts
 ```ts
 /**
  * E2-FINAL-03 — real FinOps service attribution on PostgreSQL DEV (no LIVE).
@@ -1041,7 +1634,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db, sql as pgSql } from "@/db/client";
 import {
   cognitiveWorks,
@@ -1226,7 +1819,7 @@ describe("E2-FINAL-03 — FinOps attribution coherence (PG)", () => {
     const detailMulti = await loadFinOpsWorkDetail(pilotId, workNullMulti);
     expect(detailMulti.projectId).toBeNull();
 
-    // Disjoint project aggregates must not both claim the multi-scope work tokens.
+    // Exact token reconciliation (conflicts excluded from project scopes).
     const tokensA =
       summaryA.kpis.totalTokens.kind === "known" || summaryA.kpis.totalTokens.kind === "partial"
         ? summaryA.kpis.totalTokens.value
@@ -1235,7 +1828,43 @@ describe("E2-FINAL-03 — FinOps attribution coherence (PG)", () => {
       summaryB.kpis.totalTokens.kind === "known" || summaryB.kpis.totalTokens.kind === "partial"
         ? summaryB.kpis.totalTokens.value
         : 0;
-    expect(tokensA + tokensB).toBeLessThan(100 + 10 + 40 + 60 + 99);
+    const tokensG =
+      global.kpis.totalTokens.kind === "known" || global.kpis.totalTokens.kind === "partial"
+        ? global.kpis.totalTokens.value
+        : 0;
+    // workAA 100+10 = 110 under A; conflicts 40+60 and 99 excluded; B empty.
+    expect(tokensA).toBe(110);
+    expect(tokensB).toBe(0);
+    // Global retains all observations: 100+10+40+60+7+99 = 316.
+    expect(tokensG).toBe(316);
+
+    // Hors-projet legitimate work remains distinguishable (not a conflict).
+    const detailHors = await loadFinOpsWorkDetail(pilotId, workHors);
+    expect(detailHors.projectId).toBeNull();
+  });
+
+  it("E2-INT — short period cannot fabricate project coherence for historical conflict", async () => {
+    // Age the A observation of the multi-project work beyond a 7-day window.
+    const oldId = createdObs[2]!; // workNullMulti @ projectA tokens 40
+    await pgSql`UPDATE provider_usage_observations SET created_at = NOW() - INTERVAL '20 days' WHERE id = ${oldId}`;
+
+    const summaryA7 = await loadFinOpsSummary(pilotId, { projectId: projectA, period: "7" });
+    const worksA7 = await loadFinOpsWorks(pilotId, { projectId: projectA, period: "7" });
+    // Conflict still detected from full history — multi work stays out of project A.
+    expect(worksA7.items.some((w) => w.cognitiveWorkId === workNullMulti)).toBe(false);
+    const tokensA7 =
+      summaryA7.kpis.totalTokens.kind === "known" || summaryA7.kpis.totalTokens.kind === "partial"
+        ? summaryA7.kpis.totalTokens.value
+        : 0;
+    // Within 7d under A: only workAA 100+10 (aged multi A+B still conflict-excluded).
+    expect(tokensA7).toBe(110);
+
+    const worksGlobal7 = await loadFinOpsWorks(pilotId, { period: "7" });
+    const multiItem = worksGlobal7.items.find((w) => w.cognitiveWorkId === workNullMulti);
+    // If the recent B obs appears in the 7d list, attribution must stay null (conflict).
+    if (multiItem) {
+      expect(multiItem.projectId).toBeNull();
+    }
   });
 
   it("isolates another pilot", async () => {
@@ -1249,672 +1878,4 @@ describe("E2-FINAL-03 — FinOps attribution coherence (PG)", () => {
     expect(summary.hasObservations).toBe(false);
   });
 });
-```
-
-### usage-projection.ts — FINAL helpers (excerpt)
-```ts
-  const work = input.workProjectId?.trim() || null;
-  if (obs && work && obs !== work) return null;
-  return work ?? obs ?? null;
-}
-
-/**
- * Work-level attribution across a slice of observations.
- * Any obs≠work conflict ⇒ null (do not invent / do not pick first).
- * Work NULL + multiple distinct observation projects ⇒ null (contradictory).
- */
-export function effectiveFinOpsProjectIdForWork(
-  workProjectId: string | null | undefined,
-  rows: Array<{ projectId?: string | null }>,
-): string | null {
-  const work = workProjectId?.trim() || null;
-  for (const r of rows) {
-    const obs = r.projectId?.trim() || null;
-    if (obs && work && obs !== work) return null;
-  }
-  return effectiveFinOpsProjectId({
-    observationProjectId: resolveObservedProjectId(rows),
-    workProjectId: work,
-  });
-}
-
-/**
- * E2-FINAL-03 — true when the full (unfiltered) observation set for a work
- * cannot be attributed to a single project without inventing a choice.
- */
-export function isFinOpsWorkAttributionConflict(
-  workProjectId: string | null | undefined,
-  rows: Array<{ projectId?: string | null }>,
-): boolean {
-  if (rows.length === 0) return false;
-  return effectiveFinOpsProjectIdForWork(workProjectId, rows) === null &&
-    rows.some((r) => Boolean(r.projectId?.trim()));
-}
-
-/**
- * Resolve a single projectId from observation rows without inventing attribution.
- * Prefer work.projectId (caller). When falling back to observations:
- * - zero projectIds → null (legitimate hors-projet)
- * - one distinct projectId → that id
- * - multiple distinct → null (do NOT pick the first; avoids cross-project contamination)
- */
-export function resolveObservedProjectId(
-  rows: Array<{ projectId?: string | null }>,
-): string | null {
-  const ids = new Set<string>();
-  for (const r of rows) {
-    const id = r.projectId?.trim();
-    if (id) ids.add(id);
-  }
-  if (ids.size === 1) return [...ids][0]!;
-  return null;
-}
-
-/** Display label: never present UNVERIFIED/null applied as if it were the requested model. */
-export function finOpsModelDisplayLabel(input: {
-  modelApplied?: string | null;
-  modelRequested?: string | null;
-```
-
-### usage-read-service.ts — loadAttributionConflictWorkIds (excerpt)
-```ts
-}
-
-type ObservationRow = typeof providerUsageObservations.$inferSelect;
-
-/**
- * E2-FINAL-03 — work ids whose unfiltered observation set is contradictory
- * (must not enter project-scoped aggregates that would mask the conflict).
- */
-async function loadAttributionConflictWorkIds(
-  pilotId: string,
-  since: Date,
-  workProjectById: Map<string, string | null>,
-): Promise<Set<string>> {
-  const lane = studioLane();
-  const workIds = [...workProjectById.keys()];
-  if (workIds.length === 0) return new Set();
-  const obs = await db
-    .select({
-      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
-      projectId: providerUsageObservations.projectId,
-    })
-    .from(providerUsageObservations)
-    .where(
-      and(
-        eq(providerUsageObservations.ownerPilotId, pilotId),
-        gte(providerUsageObservations.createdAt, since),
-        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
-        inArray(providerUsageObservations.cognitiveWorkId, workIds),
-      ),
-    );
-  const byWork = new Map<string, Array<{ projectId?: string | null }>>();
-  for (const r of obs) {
-    if (!r.cognitiveWorkId) continue;
-    const list = byWork.get(r.cognitiveWorkId) ?? [];
-    list.push({ projectId: r.projectId });
-    byWork.set(r.cognitiveWorkId, list);
-  }
-  const conflicts = new Set<string>();
-  for (const [wid, rows] of byWork) {
-    if (isFinOpsWorkAttributionConflict(workProjectById.get(wid) ?? null, rows)) {
-      conflicts.add(wid);
-    }
-  }
-  return conflicts;
-}
-
-async function loadObservations(
-  pilotId: string,
-  input: FinOpsFilterInput,
-): Promise<ObservationRow[]> {
-  const periodDays = input.periodDays ?? 30;
-  const since = periodStartDate(periodDays);
-  let cognitiveWorkIdsOnProject: string[] | undefined;
-  let cognitiveWorkIdsHorsProjet: string[] | undefined;
-  let workProjectById = new Map<string, string | null>();
-  let conflictWorkIds = new Set<string>();
-  if (input.projectId) {
-    await assertProjectOwned(pilotId, input.projectId);
-    const workRows = await db
-      .select({ id: cognitiveWorks.id, projectId: cognitiveWorks.projectId })
-      .from(cognitiveWorks)
-      .where(eq(cognitiveWorks.ownerPilotId, pilotId));
-    workProjectById = new Map(workRows.map((w) => [w.id, w.projectId]));
-    // Resolve conflicts from the full observation set BEFORE project filtering.
-    conflictWorkIds = await loadAttributionConflictWorkIds(
-      pilotId,
-      since,
-      workProjectById,
-    );
-    cognitiveWorkIdsOnProject = workRows
-      .filter((w) => w.projectId === input.projectId && !conflictWorkIds.has(w.id))
-      .map((w) => w.id);
-    cognitiveWorkIdsHorsProjet = workRows
-      .filter((w) => w.projectId == null && !conflictWorkIds.has(w.id))
-      .map((w) => w.id);
-  }
-  const rows = await db
-    .select()
-    .from(providerUsageObservations)
-    .where(
-      baseObservationWhere(
-        pilotId,
-        { ...input, periodDays },
-        since,
-        cognitiveWorkIdsOnProject,
-        cognitiveWorkIdsHorsProjet,
-```
-
-### semantic-qualification.ts — normalizeKnowledgeRecordKind + extract (excerpt)
-```ts
-/**
- * Typed D4 continuity proposals from Nora qualification — never HumanDecision.
- *
- * Gate: only QUALIFIED + REQUEST_EFFECT + d4.record_knowledge.
- * EXPLAIN/EXPLORE/PREPARE intents are conversational only (TEMP-05).
- * Document/D6/Git REQUEST_EFFECT paths remain separate; this extractor never
- * loosens those capabilities.
- */
-/**
- * Normalize legacy / acquis-kind aliases onto the D4 proposal enum.
- * KnowledgeKind FACT|HYPOTHESIS|… is the *record* kind inside ACQUIS, not the proposal kind.
- */
-export function normalizeKnowledgeRecordKind(
-  raw: string | undefined | null,
-): z.infer<typeof KnowledgeRecordKindSchema> | null {
-  if (!raw) return null;
-  const u = raw.trim().toUpperCase();
-  if (u === "ACQUIS" || u === "OPEN_POINT" || u === "SUBJECT") {
-    return u as z.infer<typeof KnowledgeRecordKindSchema>;
-  }
-  // Legacy / mistaken aliases for record_knowledge acquis proposals.
-  if (
-    u === "FACT" ||
-    u === "HYPOTHESIS" ||
-    u === "RECOMMENDATION" ||
-    u === "LIMIT" ||
-    u === "KNOWLEDGE"
-  ) {
-    return "ACQUIS";
-  }
-  return null;
-}
-
-export function extractKnowledgeProposals(
-  q: NoraTurnQualification,
-): KnowledgeCapitalisationProposal[] {
-  if (q.status !== "QUALIFIED") return [];
-  const out: KnowledgeCapitalisationProposal[] = [];
-  for (const intent of effectIntents(q)) {
-    if (intent.capabilityId !== "d4.record_knowledge") continue;
-    const kind = normalizeKnowledgeRecordKind(intent.parameters.knowledgeKind);
-    const statement = (intent.parameters.knowledgeStatement ?? intent.summary ?? "").trim();
-    if (!kind || statement.length < 12) continue;
-    out.push({
-      intentId: intent.id,
-      kind,
-      statement: statement.slice(0, 5000),
-      epistemic: intent.parameters.epistemic ?? "hypothesized",
-      subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
-      subjectId: intent.parameters.subjectId?.trim() || undefined,
-      parentSubjectId: intent.parameters.parentSubjectId?.trim() || undefined,
-      continuityReason: intent.parameters.continuityReason?.trim() || undefined,
-      supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
-      resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
-      relevantAcquisIds: intent.parameters.relevantAcquisIds?.filter(Boolean),
-      relevantOpenPointIds: intent.parameters.relevantOpenPointIds?.filter(Boolean),
-      openPointTitle: intent.parameters.openPointTitle?.trim() || undefined,
-      subjectOrganization: intent.parameters.subjectOrganization,
-      mergeSourceSubjectId: intent.parameters.mergeSourceSubjectId?.trim() || undefined,
-    });
-  }
-  return out;
-}
-
-/** Counts for OBS — codes only, never statement bodies. */
-export function summarizeKnowledgeProposals(
-  proposals: KnowledgeCapitalisationProposal[],
-): {
-  proposal_present: boolean;
-  proposal_count: number;
-  subject_count: number;
-  acquis_count: number;
-  open_point_count: number;
-} {
-  let subject_count = 0;
-  let acquis_count = 0;
-  let open_point_count = 0;
-  for (const p of proposals) {
-    if (p.kind === "SUBJECT") subject_count += 1;
-    else if (p.kind === "ACQUIS") acquis_count += 1;
-    else if (p.kind === "OPEN_POINT") open_point_count += 1;
-  }
-  return {
-    proposal_present: proposals.length > 0,
-    proposal_count: proposals.length,
-    subject_count,
-    acquis_count,
-    open_point_count,
-```
-
-### service.ts — extractDurablePilotageIntentIds + early D4 (excerpts)
-```ts
-};
-
-/**
- * E2-FINAL-02 — durable pilotage intent ids independent of final TurnResult.pilotageEffects.
- * Prefer explicit effect list; else recover from stashed semanticQualification.
- */
-export function extractDurablePilotageIntentIds(input: {
-  fromJsonEffects?: TurnResult["pilotageEffects"] | null;
-  resultJson?: string | null;
-  semanticIntentIds?: string[] | null;
-}): string[] {
-  const fromArg = (input.semanticIntentIds ?? []).map((s) => s.trim()).filter(Boolean);
-  if (fromArg.length > 0) return [...new Set(fromArg)];
-  const fromEffects = (input.fromJsonEffects ?? [])
-    .map((e) => e.semanticIntentId?.trim() || "")
-    .filter(Boolean);
-  if (fromEffects.length > 0) return [...new Set(fromEffects)];
-  const raw = input.resultJson?.trim();
-  if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw) as {
-      pilotageEffects?: TurnPilotageEffect[];
-      semanticQualification?: NoraTurnQualification;
-    };
-    const nested = (parsed.pilotageEffects ?? [])
-      .map((e) => e.semanticIntentId?.trim() || "")
-      .filter(Boolean);
-    if (nested.length > 0) return [...new Set(nested)];
-    const intents = parsed.semanticQualification?.intents ?? [];
-    return [
-      ...new Set(
-        intents
-          .filter(
-            (i) =>
-              i.mode === "REQUEST_EFFECT" &&
-              (i.capabilityId === "d5.pilotage_command" ||
-                i.capabilityId === "d6.human_decision"),
-          )
-          .map((i) => i.id.trim())
-          .filter(Boolean),
-      ),
-    ];
-  } catch {
-    return [];
-  }
-}
-
-async function resolvePilotageEffectForReplay(input: {
-  pilotId: string;
-  projectId: string | null | undefined;
-  clientTurnKey?: string | null;
-  userMessageId?: string | null;
-  fromJson: TurnResult["pilotageEffect"] | null | undefined;
-  /** E2-REL-02 — full multi-intent list from stored result_json when present. */
-  fromJsonEffects?: TurnResult["pilotageEffects"] | null | undefined;
-  humanDecisionCreated: boolean;
-  /** Semantic intent ids — preferably from durable qualification, not only result effects. */
-  semanticIntentIds?: string[] | null;
-  /** Raw turn resultJson (may carry semanticQualification stash without pilotageEffects). */
-  resultJson?: string | null;
-}): Promise<{
-  pilotageEffect: TurnResult["pilotageEffect"];
-  pilotageEffects?: TurnPilotageEffect[];
-  humanDecisionCreated: boolean;
-}> {
-  // Prefer durable multi-intent payload from result_json (idempotent COMPLETE / partial).
-  if (input.fromJsonEffects && input.fromJsonEffects.length > 0) {
-    const primary =
-      input.fromJsonEffects.find((e) => e.attempted && e.status) ??
-      input.fromJsonEffects[0] ??
-      null;
-    return {
-      pilotageEffect: input.fromJson ?? primary,
-      pilotageEffects: input.fromJsonEffects,
-      humanDecisionCreated:
-        input.humanDecisionCreated ||
-        input.fromJsonEffects.some((e) => Boolean(e.decisionId)),
-    };
-  }
-  if (input.fromJson?.attempted && input.fromJson.status) {
-    return {
-      pilotageEffect: input.fromJson,
-      pilotageEffects: input.fromJson ? [input.fromJson] : undefined,
-      humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
-    };
-  }
-  if (!input.projectId) {
-    return {
-      pilotageEffect: input.fromJson ?? null,
-      humanDecisionCreated: input.humanDecisionCreated,
-    };
-  }
-  // E2-FINAL-02 — reconstitute each durable intent (qualification stash, not only JSON effects).
-  const intentIds = extractDurablePilotageIntentIds({
-    fromJsonEffects: input.fromJsonEffects,
-    resultJson: input.resultJson,
-    semanticIntentIds: input.semanticIntentIds,
-  });
-  if (intentIds.length > 0 && input.clientTurnKey?.trim()) {
-    const effects: TurnPilotageEffect[] = [];
-    let human = input.humanDecisionCreated;
-    for (const semanticIntentId of intentIds) {
-      const reconstituted = await reconstituteConversationalAuthority({
-        pilotId: input.pilotId,
-        projectId: input.projectId,
-        clientTurnKey: input.clientTurnKey,
-        userMessageId: input.userMessageId,
-        semanticIntentId,
-      });
-      if (!reconstituted) {
-        effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
-        continue;
-      }
-      const effect = pilotageEffectFromAuthority(reconstituted, semanticIntentId);
-      if (effect) effects.push(effect);
-      else effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
-      human = human || Boolean(reconstituted.humanDecisionCreated);
-    }
-    if (effects.length > 0) {
-      return {
-        pilotageEffect: pickPrimaryPilotageEffect(effects),
-        pilotageEffects: effects,
-        humanDecisionCreated: human,
-      };
-    }
-  }
-  const reconstituted = await reconstituteConversationalAuthority({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    clientTurnKey: input.clientTurnKey,
-    userMessageId: input.userMessageId,
-  });
-  if (!reconstituted) {
-    return {
-      pilotageEffect: input.fromJson ?? null,
-      humanDecisionCreated: input.humanDecisionCreated,
-    };
-  }
-  const effect = pilotageEffectFromAuthority(reconstituted);
-  return {
-    pilotageEffect: effect,
-```
-```ts
-    humanDecisionCreated: false,
-    ownershipLost: false,
-  };
-  let capitalisationError: string | undefined;
-  let ownershipLostBeforeD4 = false;
-
-  // E2-REL-02 / E2-FINAL-01 — when D5/D6 dependsOn D4 knowledge intents, run
-  // capitalisation first so cross-cap preconditions can be satisfied (not permanently blocked).
-  const crossCapOutcomeByIntentId = new Map<string, string>();
-  let capitalisationRanBeforePilotage = false;
-  // Mint assistant id before early D4 so provenance can reference the future ASSISTANT message.
-  const earlyAssistantMessageId = newId("msg");
-  const pilotageIntentIdsEarly = intentIdsFromPilotageBindings(pilotageBindings);
-  const intentDependsOnEarly = new Map(
-    qualification.intents.map((i) => [i.id, i.dependsOn] as const),
-  );
-  const intentByIdEarly = new Map(qualification.intents.map((i) => [i.id, i] as const));
-  const d4DepsForPilotage = new Set<string>();
-  for (const b of pilotageBindings) {
-    const id = b.intentId;
-    for (const dep of intentDependsOnEarly.get(id) ?? []) {
-      if (pilotageIntentIdsEarly.has(dep)) continue;
-      const depIntent = intentByIdEarly.get(dep);
-      if (
-        depIntent?.capabilityId === "d4.record_knowledge" &&
-        depIntent.mode === "REQUEST_EFFECT"
-      ) {
-        d4DepsForPilotage.add(dep);
-      }
-    }
-  }
-  if (
-    allowOwnerEffects &&
-    d4DepsForPilotage.size > 0 &&
-    reply.status === "COMPLETE" &&
-    (await requireTurnOwnership(reserved.commandId, reserved.ownerToken))
-  ) {
-    try {
-      const allKnowledgeProposals = extractKnowledgeProposals(qualification);
-      // Topo-order D4 deps among themselves, then gate each on its own dependsOn.
-      const visit = new Set<string>();
-      const visiting = new Set<string>();
-      const orderedAll: string[] = [];
-      const walk = (id: string) => {
-        if (!d4DepsForPilotage.has(id) || visit.has(id)) return;
-        if (visiting.has(id)) {
-          // Cycle among early D4 — mark and skip mutation for the cycle members later.
-          crossCapOutcomeByIntentId.set(id, "FAILED");
-          return;
-        }
-        visiting.add(id);
-        for (const d of intentDependsOnEarly.get(id) ?? []) {
-          if (d4DepsForPilotage.has(d)) walk(d);
-        }
-        visiting.delete(id);
-        visit.add(id);
-        orderedAll.push(id);
-      };
-      for (const id of [...d4DepsForPilotage].sort()) walk(id);
-
-      // Sequential per intent so peer D4 dependsOn see real outcomes (E2-FINAL-01).
-      let writtenTotal = 0;
-      let ranAny = false;
-      for (const dep of orderedAll) {
-        if (crossCapOutcomeByIntentId.get(dep) === "FAILED") continue;
-        const depsOfDep = intentDependsOnEarly.get(dep) ?? [];
-        let blocked: string | null = null;
-        for (const d of depsOfDep) {
-          if (pilotageIntentIdsEarly.has(d)) {
-            blocked = `D4 (${dep}) dépend d'un acte D5/D6 (${d}) non encore exécuté`;
-            break;
-          }
-          const prior = crossCapOutcomeByIntentId.get(d);
-          if (prior !== undefined) {
-            const u = prior.toUpperCase();
-            if (
-              !(
-                u === "APPLIED" ||
-                u === "AVAILABLE" ||
-                u === "OK" ||
-                u === "SUCCESS" ||
-                u === "ALREADY_APPLIED"
-              )
-            ) {
-              blocked = `D4 (${dep}) précondition (${d}) non satisfaite (${prior})`;
-              break;
-            }
-          } else if (!d4DepsForPilotage.has(d)) {
-            blocked = `D4 (${dep}) précondition (${d}) non résolue`;
-            break;
-          }
-        }
-        if (blocked) {
-          crossCapOutcomeByIntentId.set(dep, "SKIPPED");
-          continue;
-        }
-        const proposalsForIntent = allKnowledgeProposals.filter((p) => p.intentId === dep);
-        const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-          userText: content,
-          assistantText: reply.content,
-          generationId: reply.generationId,
-          userMessageId: reserved.userMessageId,
-          assistantMessageId: earlyAssistantMessageId,
-          proposals: proposalsForIntent,
-          turnFence: {
-            commandId: reserved.commandId,
-            ownerToken: reserved.ownerToken,
-            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-          },
-        });
-        ranAny = true;
-        capitalisation = {
-          capitalisations: [
-            ...capitalisation.capitalisations,
-            ...step.capitalisations,
-          ],
-          selectionMethod: step.selectionMethod,
-          selectionLimit: step.selectionLimit,
-          humanDecisionCreated:
-            capitalisation.humanDecisionCreated || step.humanDecisionCreated,
-          ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
-        };
-        if (step.ownershipLost) {
-          ownershipLostBeforeD4 = true;
-          crossCapOutcomeByIntentId.set(dep, "SKIPPED");
-          break;
-        }
-        const outcome = crossCapOutcomeFromCapitalisations({
-          intentId: dep,
-          capitalisations: step.capitalisations,
-          hadProposal: proposalsForIntent.length > 0,
-          ownershipLost: false,
-        });
-        crossCapOutcomeByIntentId.set(dep, outcome);
-        writtenTotal += step.capitalisations.filter(
-          (c) => c.status === "AVAILABLE" || c.status === "OK",
-        ).length;
-      }
-      // Mark any remaining early deps not visited (e.g. after ownership break).
-      for (const dep of d4DepsForPilotage) {
-        if (!crossCapOutcomeByIntentId.has(dep)) {
-          crossCapOutcomeByIntentId.set(dep, ownershipLostBeforeD4 ? "SKIPPED" : "FAILED");
-        }
-      }
-      capitalisationRanBeforePilotage = ranAny || d4DepsForPilotage.size > 0;
-      emitObs({
-        event_name: "d3.turn.knowledge_capitalisation",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "PARTIAL",
-        meta: {
-          early_before_pilotage: true,
-          d4_deps: d4DepsForPilotage.size,
-          capitalisation_written: writtenTotal,
-        },
-      });
-    } catch {
-      capitalisationError = "CAPITALISATION_EXCEPTION";
-      for (const dep of d4DepsForPilotage) {
-```
-
-### knowledge/service.ts — intentId on capitalisation rows (excerpts)
-```ts
-      } else if (check?.subject) {
-        recordSubjectId = check.subject.id;
-        // Conflict: explicit subjectId + subjectTitle that does not match owned title.
-        if (
-          p.subjectTitle &&
-          p.subjectTitle.trim().toLowerCase() !== check.subject.title.trim().toLowerCase()
-        ) {
-          results.push({
-            intentId: p.intentId,
-            kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
-            status: "FAILED",
-            reason: "SUBJECT_ID_TITLE_CONFLICT",
-            epistemicNote: p.continuityReason,
-          });
-          subjectRefFailed = true;
-        }
-      }
-    }
-    if (subjectRefFailed) continue;
-    if (!recordSubjectId && p.subjectTitle) {
-      const title = p.subjectTitle.trim().slice(0, 120);
-      const norm = title.replace(/\s+/g, " ").toLowerCase();
-      const fromBatch = batchTitleToId.get(norm);
-      if (fromBatch) {
-        recordSubjectId = fromBatch;
-      } else if (title.length >= 3) {
-        // Title-only: require unique ACTIVE match — never invent a target under ambiguous homonyms.
-        const unique = await findActiveSubjectByTitle(pilotId, preparationId, title);
-        if (unique) {
-          recordSubjectId = unique.id;
-        } else {
-          const existingHomonyms = (
-            await db
-              .select({ id: knowledgeSubjects.id })
-              .from(knowledgeSubjects)
-              .where(
-                and(
-                  eq(knowledgeSubjects.preparationId, preparationId),
-                  eq(knowledgeSubjects.ownerPilotId, pilotId),
-                  eq(knowledgeSubjects.title, title.trim().slice(0, 200)),
-                  eq(knowledgeSubjects.status, "ACTIVE"),
-                ),
-              )
-              .limit(2)
-          ).length;
-          if (existingHomonyms > 1) {
-            results.push({
-              intentId: p.intentId,
-              kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
-              status: "FAILED",
-              reason: "SUBJECT_TITLE_AMBIGUOUS",
-              epistemicNote: p.continuityReason,
-            });
-            continue;
-          }
-          const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
-          if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
-            results.push({
-              intentId: p.intentId,
-              kind: "subject",
-              status: "FAILED",
-              reason: "TURN_OWNERSHIP_LOST",
-              epistemicNote: p.continuityReason,
-            });
-            return {
-              capitalisations: results,
-              selectionMethod: "semantic-proposals" as const,
-              selectionLimit: "OWNERSHIP_LOST",
-              humanDecisionCreated: false as const,
-              ownershipLost: true as const,
-            };
-          }
-          if (s.status === "AVAILABLE" && s.subjectId) {
-            recordSubjectId = s.subjectId;
-            // Side-effect subject for ACQUIS/OPEN_POINT — correlate to intent; primary
-            // effect row below remains the authoritative outcome for the proposal kind.
-            results.push({
-              intentId: p.intentId,
-              kind: "subject",
-              id: s.subjectId,
-              status: s.status,
-              epistemicNote: p.continuityReason,
-            });
-          }
-        }
-      }
-```
-```ts
-        });
-        if (recordSubjectId) subjectsTouchedByAcquis.add(recordSubjectId);
-      }
-      continue;
-    }
-
-    // Unreachable for normalized proposals — keep explicit so unknown kinds never
-    // look like silent success via a side-effect subject row alone.
-    results.push({
-      intentId: p.intentId,
-      kind: "acquis",
-      status: "FAILED",
-      reason: "UNKNOWN_KNOWLEDGE_PROPOSAL_KIND",
-      epistemicNote: p.continuityReason,
-    });
-  }
-
-  // Existing-subject enrichment often arrives as ACQUIS-only. Still re-evaluate synthesis
-  // when durable CURRENT knowledge changed and Nora did not emit an explicit SUBJECT revision.
-  if (projectId) {
-    for (const touchedId of subjectsTouchedByAcquis) {
 ```
