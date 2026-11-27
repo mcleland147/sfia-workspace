@@ -51,7 +51,16 @@ Après : flags feature OFF.
 - Corpus synthétique uniquement
 - Rollback : flags OFF · pas de drop 027
 
-## GO requis
+## GO — exécuté 2026-11-27
 
-**Attendre GO Morris explicite** sur cette enveloppe ≤18 HTTP avant émission.  
-Les 21 restants du plafond principe Gate B ne s'ajoutent pas automatiquement.
+Morris GO FINAL LIVE Nora reçu et exécuté.
+
+| Mesure | Résultat |
+|---|---|
+| HTTP | **+7** / 18 (99→106) — WITHIN |
+| Tokens cumulés | **+82417** / 38000 — **EXCEEDED** |
+| Stop | `CAMPAIGN_FAMILY_HTTP_EXHAUSTED:embeddings` puis STOP nouvelle émission |
+| Artefacts | work `cgw_5ce99393…` · doc `doc_30e2913e…` (3 revs) |
+| Flags | OFF après |
+
+Les 21 restants du plafond principe Gate B n'ont **pas** été traités comme autorisation automatique — seul le GO ≤18 a autorisé l'émission.

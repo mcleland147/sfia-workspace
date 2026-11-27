@@ -9,8 +9,9 @@
 | Checkpoint A+B | [morris-checkpoint-027-and-live-20261127.md](./ml2-qualification/morris-checkpoint-027-and-live-20261127.md) · GO A+B exécuté |
 | Gate B plan/report | [live-gate-b-emission-plan-20261127.md](./ml2-qualification/live-gate-b-emission-plan-20261127.md) · evidence `gate-b-report.json` |
 | Frontier reconcile | [gate-b-frontier-reconciliation-20261127.md](./ml2-qualification/gate-b-frontier-reconciliation-20261127.md) — Δ HTTP = Δ familles = **+9** |
-| LIVE checkpoint | [live-checkpoint-post-gate-b-20261127.md](./ml2-qualification/live-checkpoint-post-gate-b-20261127.md) — **≤18 HTTP — attente GO** |
-| Reliquat LIVE | HTTP **99**/236 after Gate B ; 21 remainder Gate B ≠ auto-auth |
+| LIVE checkpoint | [live-checkpoint-post-gate-b-20261127.md](./ml2-qualification/live-checkpoint-post-gate-b-20261127.md) — **GO Morris exécuté** |
+| FINAL LIVE Nora | evidence `final-live-nora/` · HTTP **106**/236 (Δ+7/18 WITHIN) · tokens Δ **+82417**/38000 **EXCEEDED** · STOP emb 12/12 |
+| Reliquat LIVE | HTTP **106**/236 · embeddings family **exhausted** · flags OFF |
 | FinOps audit | [finops-reconcile-audit-20261127.md](./ml2-qualification/finops-reconcile-audit-20261127.md) |
 | WEB LIVE | OFF |
 | RECETTE | protégée :3200/:5434 |
@@ -62,7 +63,7 @@
 | F22 | PASS_ARCHITECTURE_E | Lexical + emb PG ; VS DEFER |
 | F23 | PASS_PG_INDEX | Unit lifecycle + fingerprint revalidation + revoke ; 027 APPLIED |
 | F24 | PASS | LIVE Vision 6/6 ; product Vision wired behind flag |
-| F25 | PARTIAL_INTEGRATED | PG/API work+doc+versions PROVEN ; Nora LIVE loop awaits GO |
+| F25 | PARTIAL_LIVE | Nora LIVE search+read+note/revise PROVEN ; restitution COMPLETE not achieved (emb family + token GO) |
 | F26 | PASS_ATTRIBUTED | Ledger + reconcile ; product ops record on rebuild |
 
 ## Hors scope / réserves

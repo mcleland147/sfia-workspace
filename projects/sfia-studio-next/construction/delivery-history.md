@@ -3,6 +3,19 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-LIVE-NORA
+
+- **date_utc**: 2026-11-27T06:16Z
+- **lane**: DEV — Macro-lot 2 FINAL LIVE Nora qualification (Morris GO ≤18 HTTP / ≤38k tokens)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `ae435d41`
+- **campaign**: `ml2-i2-docintel-20261127` — no renew · WEB OFF
+- **delta**: HTTP **+7**/18 (99→106) **WITHIN** · tokens **+82417**/38000 **EXCEEDED** · STOP (embeddings family 12/12 exhausted)
+- **parcours**: hybrid rightsRevalidated · Nora D4 search+read (2 docs CONSULTED) · work `cgw_5ce99393…` · note `doc_30e2913e…` 3 revs · restitution COMPLETE **not** achieved
+- **flags**: returned OFF · BACKEND=pg durable
+- **RECETTE**: protected · NO RELEASE · NOT ADOPTED · Macro-lot 3 not started
+- **statut**: **MACRO-LOT 2 — PRODUCT QUALIFICATION COMPLETE WITH RESERVES — LIVE NORA PARTIAL — MORRIS EXIT ACCEPTANCE PROPOSED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-QUALIFICATION
 
 - **date_utc**: 2026-11-27T06:05Z
