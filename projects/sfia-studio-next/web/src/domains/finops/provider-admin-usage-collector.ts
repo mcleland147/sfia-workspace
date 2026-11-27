@@ -1107,7 +1107,7 @@ export function reconcileFinOpsCosts(input: {
   const scope = assessFinOpsComparability(input.scope);
   if (!scope.comparable) {
     return {
-      status: "NON_COMPARABLE",
+      status: scope.status === "PARTIAL" ? "PARTIAL" : "NON_COMPARABLE",
       deltaUsd: null,
       limits: scope.limits,
     };

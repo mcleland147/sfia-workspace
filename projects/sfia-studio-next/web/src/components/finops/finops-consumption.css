@@ -112,6 +112,100 @@
   color: #7d8aa3;
 }
 
+/* 13.03 — Comparaison des coûts (sous KPI, au-dessus des graphiques) */
+.finops-1306-compare {
+  border: 1px solid #2b3850;
+  background: #151d2c;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.finops-1306-compare-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f3f5ff;
+}
+
+.finops-1306-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.finops-1306-compare-label {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: #a3b0c7;
+}
+
+.finops-1306-compare-value {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f3f5ff;
+  line-height: 1.25;
+}
+
+.finops-1306-compare-value-sm {
+  font-size: 13px;
+}
+
+.finops-1306-compare-hint {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #7787a4;
+}
+
+.finops-1306-compare-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.finops-1306-compare-badge.is-comparable {
+  background: #1a3a32;
+  color: #5bb89a;
+}
+
+.finops-1306-compare-badge.is-non-comparable {
+  background: #3a2a1a;
+  color: #c9a227;
+}
+
+.finops-1306-compare-badge.is-partial {
+  background: #2a2a3a;
+  color: #9aa4ff;
+}
+
+.finops-1306-compare-badge.is-unavailable {
+  background: #2a1a1a;
+  color: #c97070;
+}
+
+.finops-1306-compare-delta {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #f3f5ff;
+}
+
+.finops-1306-compare-messages {
+  margin: 8px 0 0;
+  padding: 0 0 0 1.1rem;
+  font-size: 12px;
+  color: #a3b0c7;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .finops-1306-compare-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .finops-1306-charts {
   display: grid;
   grid-template-columns: 1.4fr 1fr;

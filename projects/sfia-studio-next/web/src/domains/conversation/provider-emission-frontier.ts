@@ -226,6 +226,8 @@ type LiveCampaignStateEntry = {
   campaignId: string;
   pid: number;
   createdAtMs: number;
+  /** Full cumulative envelope — never zeroed on process restart. */
+  envelope?: CampaignEnvelope;
 };
 
 function liveCampaignStatePath(): string {
@@ -268,22 +270,74 @@ function deleteLiveCampaignStateFile(): void {
   }
 }
 
+function persistCampaignEnvelope(campaign: CampaignEnvelope): void {
+  writeLiveCampaignStateEntry({
+    campaignId: campaign.campaignId,
+    pid: process.pid,
+    createdAtMs: Date.now(),
+    envelope: { ...campaign },
+  });
+}
+
 /**
- * Refuse when a prior process left campaign state for the same campaignId
- * (process restart must not auto-renew counters).
+ * Reload cumulative counters after process restart for the same campaignId.
+ * Never invents a fresh zeroed envelope for a prior campaign identity.
+ * Legacy pid-only files (no envelope) refuse — explicit new campaignId required.
  */
+export function restoreCampaignEnvelopeAfterRestart(
+  campaignId: string,
+): CampaignEnvelope | null {
+  const persisted = readLiveCampaignStateFile();
+  if (!persisted || persisted.campaignId !== campaignId) return null;
+  if (persisted.pid === process.pid) return null;
+  if (!persisted.envelope || persisted.envelope.campaignId !== campaignId) {
+    throw new ProviderEmissionRefusedError(
+      "CAMPAIGN_INVALIDATED_RESTART",
+      `campaign ${campaignId} was bound to pid ${persisted.pid} without restorable counters; current pid ${process.pid}`,
+    );
+  }
+  const restored: CampaignEnvelope = { ...persisted.envelope };
+  processCampaignRegistry.set(campaignId, restored);
+  persistCampaignEnvelope(restored);
+  return restored;
+}
+
+/** @deprecated use restoreCampaignEnvelopeAfterRestart — kept name for call sites. */
 export function invalidateCampaignOnProcessRestartCheck(
   campaignId: string,
 ): void {
-  const persisted = readLiveCampaignStateFile();
-  if (!persisted) return;
-  if (persisted.campaignId !== campaignId) return;
-  if (persisted.pid !== process.pid) {
-    throw new ProviderEmissionRefusedError(
-      "CAMPAIGN_INVALIDATED_RESTART",
-      `campaign ${campaignId} was bound to pid ${persisted.pid}; current pid ${process.pid}`,
-    );
-  }
+  restoreCampaignEnvelopeAfterRestart(campaignId);
+}
+
+/** Scrubbed metrics for qualify scripts — not a second ledger. */
+export function getCampaignEnvelopeMetrics(
+  campaignId?: string,
+): Record<string, unknown> | null {
+  const c = campaignId
+    ? processCampaignRegistry.get(campaignId) ?? null
+    : getActiveCampaignEnvelope();
+  if (!c) return null;
+  return {
+    campaignId: c.campaignId,
+    suspended: c.suspended,
+    suspendReason: c.suspendReason,
+    httpAttemptsReserved: c.httpAttemptsReserved,
+    httpAttemptsCommitted: c.httpAttemptsCommitted,
+    httpAttemptsReleased: c.httpAttemptsReleased,
+    inputTokenCountAttemptsReserved: c.inputTokenCountAttemptsReserved,
+    inputTokenCountAttemptsCommitted: c.inputTokenCountAttemptsCommitted,
+    inputTokensReserved: c.inputTokensReserved,
+    inputTokensCommitted: c.inputTokensCommitted,
+    outputTokensReserved: c.outputTokensReserved,
+    outputTokensCommitted: c.outputTokensCommitted,
+    hostedSearchesCommitted: c.hostedSearchesCommitted,
+    hostedSearchesMeasured: c.hostedSearchesMeasured,
+    hostedSearchMeasureStatus: c.hostedSearchMeasureStatus,
+    requireNativeInputBound: c.requireNativeInputBound,
+    maxHttpAttempts: c.maxHttpAttempts,
+    maxInputTokens: c.maxInputTokens,
+    maxOutputTokens: c.maxOutputTokens,
+  };
 }
 
 function emptyStore(): FrontierStore {
@@ -377,33 +431,30 @@ export function beginCampaignEnvelope(input: {
   const cur = store();
   const campaignId =
     input.campaignId?.trim() || `camp_${randomBytes(6).toString("hex")}`;
+  // Cumulative invariant: same campaignId reuses prior counters — including
+  // suspended state. SFIA_QUALIFY_MODE / STUDIO_LANE must never zero envelope.
   const existing = processCampaignRegistry.get(campaignId);
   if (existing) {
-    // Qualify DEV: a suspended required campaign must not permanently poison
-    // the process registry — renew counters for the next ALS turn.
-    const qualifyRenew =
-      existing.suspended &&
-      (process.env.SFIA_QUALIFY_MODE || "").trim() === "1" &&
-      (process.env.STUDIO_LANE || "").trim().toUpperCase() === "DEV";
-    if (qualifyRenew) {
-      processCampaignRegistry.delete(campaignId);
-      const persisted = readLiveCampaignStateFile();
-      if (persisted?.campaignId === campaignId) {
-        deleteLiveCampaignStateFile();
-      }
-      if (requiredCampaignLatch?.campaignId === campaignId) {
-        requiredCampaignLatch = null;
-      }
-    } else {
-      // Re-attach the same process counters across ALS request boundaries.
-      cur.campaign = existing;
-      if (existing.required && !existing.suspended) {
-        requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
-      }
-      return existing;
+    cur.campaign = existing;
+    if (existing.required && !existing.suspended) {
+      requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
+    } else if (existing.suspended && requiredCampaignLatch?.campaignId === campaignId) {
+      requiredCampaignLatch.active = false;
     }
+    persistCampaignEnvelope(existing);
+    return existing;
   }
-  invalidateCampaignOnProcessRestartCheck(campaignId);
+  // Process restart: restore full cumulative counters for this campaignId.
+  const restored = restoreCampaignEnvelopeAfterRestart(campaignId);
+  if (restored) {
+    cur.campaign = restored;
+    if (restored.required && !restored.suspended) {
+      requiredCampaignLatch = { campaignId: restored.campaignId, active: true };
+    } else if (restored.suspended) {
+      requiredCampaignLatch = { campaignId: restored.campaignId, active: false };
+    }
+    return restored;
+  }
   const maxHttp = Math.max(
     0,
     Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
@@ -464,11 +515,7 @@ export function beginCampaignEnvelope(input: {
     suspendReason: null,
   };
   processCampaignRegistry.set(campaignId, campaign);
-  writeLiveCampaignStateEntry({
-    campaignId,
-    pid: process.pid,
-    createdAtMs: Date.now(),
-  });
+  persistCampaignEnvelope(campaign);
   cur.campaign = campaign;
   if (campaign.required) {
     requiredCampaignLatch = { campaignId: campaign.campaignId, active: true };
@@ -502,14 +549,19 @@ export function attachConfiguredLiveCampaignFromEnv(
     const raw = Number((env[k] || "").trim());
     return Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : fallback;
   };
-  // §13.2 G-LIVE-API defaults; §13.3 G-WEB-PUBLIC when that gate is set.
-  const requireNative =
-    (env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND || "1").trim() !== "0";
+  // LIVE attach always requires native input bound — env=0 is an inoperative escape.
+  const nativeEnv = (env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND || "1").trim();
+  if (nativeEnv === "0") {
+    throw new ProviderEmissionRefusedError(
+      "NATIVE_INPUT_BOUND_REQUIRED",
+      "SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND=0 is refused for LIVE campaign attach",
+    );
+  }
   const maxHttp = num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 12 : 12);
   return beginCampaignEnvelope({
     campaignId,
     required: true,
-    requireNativeInputBound: requireNative,
+    requireNativeInputBound: true,
     maxHttpAttempts: maxHttp,
     maxInputTokenCountAttempts: num(
       "SFIA_LIVE_MAX_INPUT_TOKEN_COUNT_ATTEMPTS",
@@ -561,6 +613,7 @@ export function suspendCampaignEnvelope(reason: string): void {
   if (requiredCampaignLatch?.campaignId === c.campaignId) {
     requiredCampaignLatch.active = false;
   }
+  persistCampaignEnvelope(c);
 }
 
 export function campaignHttpSlotsRemaining(
@@ -1189,6 +1242,7 @@ export function reserveHttpEmission(input: {
     ) {
       campaign.suspended = true;
       campaign.suspendReason = "CAMPAIGN_INPUT_TOKEN_COUNT_ATTEMPTS_EXHAUSTED";
+      persistCampaignEnvelope(campaign);
       return {
         ok: false,
         reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1196,6 +1250,7 @@ export function reserveHttpEmission(input: {
       };
     }
     campaign.inputTokenCountAttemptsReserved += 1;
+    persistCampaignEnvelope(campaign);
     const attemptId = newAttemptId();
     store().attempts.set(attemptId, {
       attemptId,
@@ -1303,6 +1358,7 @@ export function reserveHttpEmission(input: {
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "INPUT_TOKENS_PER_REQUEST_EXCEEDED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1315,6 +1371,7 @@ export function reserveHttpEmission(input: {
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "OUTPUT_TOKENS_PER_REQUEST_EXCEEDED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1324,6 +1381,7 @@ export function reserveHttpEmission(input: {
   if (campaign.httpAttemptsReserved + 1 > campaign.maxHttpAttempts) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_HTTP_ATTEMPTS_EXHAUSTED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1336,6 +1394,7 @@ export function reserveHttpEmission(input: {
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_INPUT_TOKENS_EXHAUSTED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1348,6 +1407,7 @@ export function reserveHttpEmission(input: {
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_OUTPUT_TOKENS_EXHAUSTED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1365,6 +1425,7 @@ export function reserveHttpEmission(input: {
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_HOSTED_SEARCHES_EXHAUSTED";
+    persistCampaignEnvelope(campaign);
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
@@ -1375,6 +1436,7 @@ export function reserveHttpEmission(input: {
   campaign.httpAttemptsReserved += 1;
   campaign.inputTokensReserved += inTok;
   campaign.outputTokensReserved += outTok;
+  persistCampaignEnvelope(campaign);
 
   const attemptId = newAttemptId();
   store().attempts.set(attemptId, {
@@ -1492,6 +1554,7 @@ export function commitProviderEmission(reservation: {
       const hosted = Math.max(0, Math.floor(reservation.hostedSearchDelta ?? 0));
       if (hosted > 0) campaign.hostedSearchesCommitted += hosted;
     }
+    persistCampaignEnvelope(campaign);
   }
   s.httpEmissionsObserved += 1;
 }
@@ -1533,6 +1596,7 @@ export function releaseProviderEmission(reservation: {
         campaign.outputTokensReserved - rec.reservedOutputTokens,
       );
     }
+    persistCampaignEnvelope(campaign);
   }
 }
 
@@ -1548,11 +1612,13 @@ export function markProviderEmissionUncertain(reservation: {
   const campaign = s.campaign;
   if (campaign && rec.campaignId === campaign.campaignId) {
     // Unknown consumption ≠ free — keep reservation, count as observed emission.
+    // A3 UNKNOWN/PARTIAL must not zero counters.
     if (rec.kind === "http.input_tokens_count") {
       campaign.inputTokenCountAttemptsCommitted += 1;
     } else {
       campaign.httpAttemptsCommitted += 1;
     }
+    persistCampaignEnvelope(campaign);
   }
   s.httpEmissionsObserved += 1;
 }

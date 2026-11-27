@@ -2,7 +2,11 @@
  * FinOps LIVE qualification against DEV PG (not vitest e2e DB).
  * No Admin calls. No secrets printed.
  *
- *   npx tsx scripts/finops-live-qualify-check.mts
+ * Distinguishes:
+ * - LIVE historical path → honest NON_COMPARABLE (org:unspecified, partial ledger)
+ * - Isolated fixture path → COMPARABLE for UI/service regression only
+ *
+ *   DATABASE_URL=...5433... npx tsx scripts/finops-live-qualify-check.mts
  */
 import postgres from "postgres";
 import { evaluateFinOpsReconciliation } from "../src/domains/finops/finops-reconciliation";
@@ -12,6 +16,38 @@ const LIVE_PROJECT = "proj_HVZL4x3J77GXEVtq9EqRokpR";
 const WINDOW_START = "2026-11-26T00:00:00.000Z";
 const WINDOW_END = "2026-11-27T00:00:00.000Z";
 const COLLECTION_COSTS = "acol_mwyd1ifk_552295cf";
+
+function fixtureSnap(amount: string): AdminUsageSnapshot {
+  return {
+    sourceEndpoint: "/organization/costs",
+    surfaceObject: "organization.costs.result",
+    organizationScope: "org:demo-qualify",
+    intervalStartUtc: WINDOW_START,
+    intervalEndUtc: WINDOW_END,
+    granularity: "1d",
+    dimensions: {
+      project_id: "proj_demo_qualify",
+      api_key_id: null,
+      user_id: null,
+      model: null,
+      line_item: null,
+      api_source: null,
+    },
+    metrics: {
+      input_tokens: { presence: "ABSENT", value: null },
+      output_tokens: { presence: "ABSENT", value: null },
+      input_cached_tokens: { presence: "ABSENT", value: null },
+      num_model_requests: { presence: "ABSENT", value: null },
+      num_requests: { presence: "ABSENT", value: null },
+      amount: { presence: "MEASURED", value: amount },
+      currency: { presence: "MEASURED", value: "usd" },
+    },
+    completeness: "complete",
+    collectedAtUtc: "2026-11-27T00:00:00.000Z",
+    collectionId: "acol_fixture_qualify",
+    collectionProvenance: "LIVE",
+  };
+}
 
 async function main() {
   const url = process.env.DATABASE_URL;
@@ -77,18 +113,34 @@ async function main() {
       collectionProvenance: r.collection_provenance,
     };
 
-    const orgId = snap.organizationScope.startsWith("org:")
-      ? snap.organizationScope.slice(4)
-      : snap.organizationScope;
+    // Independent Studio ledger oracle — never the historical 3.5 FIXTURE.
+    const studioRows = await sql`
+      SELECT
+        COUNT(*)::int AS observation_count,
+        ROUND(SUM(COALESCE(estimated_cost_usd, 0))::numeric, 10)::text AS sum_estimated_cost_usd,
+        COUNT(*) FILTER (WHERE estimated_cost_usd IS NULL)::int AS null_cost_rows,
+        COUNT(*) FILTER (WHERE cost_coverage IS DISTINCT FROM 'FULL')::int AS non_full_coverage,
+        array_agg(DISTINCT cost_coverage) AS coverage_kinds
+      FROM provider_usage_observations
+      WHERE created_at >= ${WINDOW_START}::timestamptz
+        AND created_at <  ${WINDOW_END}::timestamptz
+    `;
+    const studio = studioRows[0]!;
+    const studioSum = Number(studio.sum_estimated_cost_usd ?? 0);
+    const studioKind =
+      Number(studio.non_full_coverage) > 0 || Number(studio.null_cost_rows) > 0
+        ? "partial"
+        : "known";
 
-    const comparable = evaluateFinOpsReconciliation({
-      studioEstimatedUsd: 3.5,
-      studioEstimationKind: "known",
+    // LIVE historical: org:unspecified must NOT fabricate COMPARABLE.
+    const liveEval = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: Number.isFinite(studioSum) ? studioSum : null,
+      studioEstimationKind: studioKind,
       snapshots: [snap],
       windowStartUtc: WINDOW_START,
       windowEndUtc: WINDOW_END,
       organizationScope: snap.organizationScope,
-      configuredOrgId: orgId,
+      configuredOrgId: null,
       configuredProjectId: LIVE_PROJECT,
       configuredApiKeyId: null,
       pilotAuthorized: true,
@@ -97,13 +149,13 @@ async function main() {
     });
 
     const denied = evaluateFinOpsReconciliation({
-      studioEstimatedUsd: 3.5,
-      studioEstimationKind: "known",
+      studioEstimatedUsd: studioSum,
+      studioEstimationKind: studioKind,
       snapshots: [snap],
       windowStartUtc: WINDOW_START,
       windowEndUtc: WINDOW_END,
       organizationScope: snap.organizationScope,
-      configuredOrgId: orgId,
+      configuredOrgId: null,
       configuredProjectId: LIVE_PROJECT,
       configuredApiKeyId: null,
       pilotAuthorized: false,
@@ -111,34 +163,42 @@ async function main() {
       freshnessSnapshotCount: 1,
     });
 
-    const wrongPeriod = evaluateFinOpsReconciliation({
-      studioEstimatedUsd: 3.5,
+    // Isolated positive COMPARABLE — explicit fixture, not LIVE truth.
+    const fixtureComparable = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 12.4,
       studioEstimationKind: "known",
-      snapshots: [snap],
-      windowStartUtc: "2026-11-01T00:00:00.000Z",
-      windowEndUtc: "2026-11-02T00:00:00.000Z",
-      organizationScope: snap.organizationScope,
-      configuredOrgId: orgId,
-      configuredProjectId: LIVE_PROJECT,
+      snapshots: [fixtureSnap("13.1000000000")],
+      windowStartUtc: WINDOW_START,
+      windowEndUtc: WINDOW_END,
+      organizationScope: "org:demo-qualify",
+      configuredOrgId: "demo-qualify",
+      configuredProjectId: "proj_demo_qualify",
       configuredApiKeyId: null,
       pilotAuthorized: true,
       freshnessStatus: "READY",
       freshnessSnapshotCount: 1,
     });
 
-    const pilots = await sql`
-      SELECT DISTINCT owner_pilot_id FROM projects LIMIT 5
-    `;
-
-    const ok =
+    const liveHonest =
       snap.collectionProvenance === "LIVE" &&
-      snap.dimensions.project_id === LIVE_PROJECT &&
-      comparable.comparability === "COMPARABLE" &&
-      comparable.disclosed === true &&
-      comparable.providerCostUsd === "3.7127983200" &&
-      denied.disclosed === false &&
-      denied.providerCostUsd === null &&
-      wrongPeriod.comparability !== "COMPARABLE";
+      snap.organizationScope === "org:unspecified" &&
+      snap.metrics.amount.value === "3.7127983200" &&
+      liveEval.comparability !== "COMPARABLE" &&
+      liveEval.disclosed === false &&
+      liveEval.providerCostUsd === null &&
+      (liveEval.limits.includes("ORG_IDENTITY_UNPROVEN") ||
+        liveEval.comparability === "PARTIAL" ||
+        liveEval.comparability === "NON_COMPARABLE");
+
+    const rightsOk =
+      denied.disclosed === false && denied.providerCostUsd === null;
+
+    const fixtureOk =
+      fixtureComparable.comparability === "COMPARABLE" &&
+      fixtureComparable.disclosed === true &&
+      fixtureComparable.providerCostUsd === "13.1000000000";
+
+    const ok = liveHonest && rightsOk && fixtureOk;
 
     console.log(
       JSON.stringify(
@@ -153,18 +213,31 @@ async function main() {
             currency: snap.metrics.currency.value,
             window: { start: snap.intervalStartUtc, end: snap.intervalEndUtc },
           },
-          comparable: {
-            status: comparable.comparability,
-            disclosed: comparable.disclosed,
-            deltaUsd: comparable.deltaUsd,
+          studioLedgerOracle: {
+            observationCount: studio.observation_count,
+            sumEstimatedCostUsd: studio.sum_estimated_cost_usd,
+            nullCostRows: studio.null_cost_rows,
+            nonFullCoverage: studio.non_full_coverage,
+            coverageKinds: studio.coverage_kinds,
+            estimationKind: studioKind,
+            note: "Independent SQL SUM — NOT the historical 3.5 FIXTURE",
+          },
+          liveReconciliation: {
+            status: liveEval.comparability,
+            disclosed: liveEval.disclosed,
+            limits: liveEval.limits,
+            expected: "NON_COMPARABLE|PARTIAL — never fake COMPARABLE",
           },
           denied: {
             status: denied.comparability,
             disclosed: denied.disclosed,
           },
-          wrongPeriod: { status: wrongPeriod.comparability },
-          pilotsSampleCount: pilots.length,
-          note: "org:unspecified — set SFIA_OPENAI_ORG_SCOPE on next LIVE collect for stronger org identity",
+          fixtureComparablePath: {
+            status: fixtureComparable.comparability,
+            disclosed: fixtureComparable.disclosed,
+            deltaUsd: fixtureComparable.deltaUsd,
+            note: "Isolated qualification fixture — not LIVE ledger truth",
+          },
         },
         null,
         2,

@@ -42,7 +42,14 @@ const report = {
   conv: null,
   verdict: null,
   stopReason: null,
+  /** @deprecated misnomer — was incremented per Studio API turn, NOT provider HTTP. */
   providerContacts: 0,
+  metrics: {
+    studioTurns: 0,
+    providerHttpAttempts: null,
+    frontierMetrics: null,
+    note: "studioTurns ≠ provider HTTP contacts; prefer Frontier getCampaignEnvelopeMetrics / PG observations",
+  },
 };
 
 function step(name, data) {
@@ -138,14 +145,18 @@ function extractWorkId(json) {
   );
 }
 
-function reserveContact(n = 1) {
-  if (report.providerContacts + n > ENVELOPE.maxProviderContacts) {
-    report.stopReason = "ENVELOPE_PROVIDER_CONTACTS";
+/** Soft local budget on Studio turns — NOT a Frontier HTTP contact counter. */
+function reserveStudioTurn(n = 1) {
+  if (report.metrics.studioTurns + n > ENVELOPE.maxProviderContacts) {
+    report.stopReason = "ENVELOPE_STUDIO_TURNS";
     return false;
   }
-  report.providerContacts += n;
+  report.metrics.studioTurns += n;
+  // Keep legacy field for report readers; value is studio turns, not HTTP.
+  report.providerContacts = report.metrics.studioTurns;
   return true;
 }
+const reserveContact = reserveStudioTurn;
 
 function collectObsTraces(sinceIso) {
   const hits = [];

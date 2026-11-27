@@ -127,6 +127,9 @@ export type FinOpsProviderReconciliationDto = {
   providerCurrency: string | null;
   deltaUsd: number | null;
   comparability: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
+  /** Compare window used for provider reconciliation (UTC ISO). */
+  compareWindowStartUtc: string | null;
+  compareWindowEndUtc: string | null;
   freshness: {
     lastAttemptAtUtc: string | null;
     lastSuccessAtUtc: string | null;
@@ -340,6 +343,8 @@ async function buildProviderReconciliationDto(
       providerCurrency: null,
       deltaUsd: null,
       comparability: "UNAVAILABLE",
+      compareWindowStartUtc: null,
+      compareWindowEndUtc: null,
       freshness: {
         lastAttemptAtUtc: null,
         lastSuccessAtUtc: null,
@@ -387,6 +392,8 @@ async function buildProviderReconciliationDto(
         providerCurrency: null,
         deltaUsd: null,
         comparability: "UNAVAILABLE",
+        compareWindowStartUtc: null,
+        compareWindowEndUtc: null,
         freshness: {
           lastAttemptAtUtc: null,
           lastSuccessAtUtc: null,
@@ -422,6 +429,13 @@ async function buildProviderReconciliationDto(
     secretReadableByProduct: false as const,
   };
 
+  // Explicit compare window (UTC) — required for periodEqual; else NON_COMPARABLE.
+  const windowStart =
+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_START_UTC ?? "").trim() ||
+    periodStartDate(filter.periodDays ?? 30).toISOString();
+  const windowEnd =
+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_END_UTC ?? "").trim() || null;
+
   if (freshness.status === "IDLE" || freshness.snapshotCount === 0) {
     limits.push("ADMIN_COLLECTION_UNAVAILABLE");
     limits.push("ADMIN_SECRET_STATUS_UNKNOWN_TO_PRODUCT");
@@ -432,6 +446,8 @@ async function buildProviderReconciliationDto(
       providerCurrency: null,
       deltaUsd: null,
       comparability: "UNAVAILABLE",
+      compareWindowStartUtc: windowStart,
+      compareWindowEndUtc: windowEnd,
       freshness: freshnessDto,
       limits,
       noraIndependent: true,
@@ -441,12 +457,6 @@ async function buildProviderReconciliationDto(
     };
   }
 
-  // Explicit compare window (UTC) — required for periodEqual; else NON_COMPARABLE.
-  const windowStart =
-    (process.env.SFIA_FINOPS_COMPARE_WINDOW_START_UTC ?? "").trim() ||
-    periodStartDate(filter.periodDays ?? 30).toISOString();
-  const windowEnd =
-    (process.env.SFIA_FINOPS_COMPARE_WINDOW_END_UTC ?? "").trim() || null;
   const configuredProject =
     (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
   const configuredKey =
@@ -463,6 +473,8 @@ async function buildProviderReconciliationDto(
       providerCurrency: null,
       deltaUsd: null,
       comparability: "NON_COMPARABLE",
+      compareWindowStartUtc: windowStart,
+      compareWindowEndUtc: null,
       freshness: freshnessDto,
       limits: [...new Set(limits)],
       noraIndependent: true,
@@ -473,29 +485,33 @@ async function buildProviderReconciliationDto(
   }
 
   // Pilot authorization for provider costs — fail-closed.
-  // SFIA_FINOPS_PROVIDER_DISCLOSE=0 always denies (emergency).
-  // Default is NOT open: disclosure requires (a) explicit disclose≠0,
-  // (b) a Studio project filter the Pilot owns, (c) configured OpenAI project.
+  // Studio project ownership ≠ habilitation to read an OpenAI project aggregate
+  // that may span multiple Studio projects. No individual financial habilitation
+  // model exists yet → mask provider amounts by default.
   // A global env flag alone never proves individual financial habilitation.
   const emergencyDeny =
     (process.env.SFIA_FINOPS_PROVIDER_DISCLOSE ?? "").trim() === "0";
+  if (emergencyDeny) {
+    limits.push("PROVIDER_DISCLOSE_EMERGENCY_DENY");
+  }
   const studioProjectFilter = filter.projectId?.trim() || null;
-  let pilotOwnsScopedProject = false;
   if (studioProjectFilter) {
     try {
       await assertProjectOwned(pilotId, studioProjectFilter);
-      pilotOwnsScopedProject = true;
     } catch {
-      pilotOwnsScopedProject = false;
       limits.push("PILOT_NOT_OWNER_OF_FILTERED_PROJECT");
     }
   } else {
     limits.push("PROVIDER_COST_REQUIRES_STUDIO_PROJECT_FILTER");
   }
-  const pilotAuthorized =
-    !emergencyDeny &&
-    pilotOwnsScopedProject &&
-    Boolean(configuredProject);
+  if (!configuredProject) {
+    limits.push("OPENAI_PROJECT_NOT_CONFIGURED");
+  }
+  // Product path: refuse provider-cost disclosure until a real financial
+  // habilitation exists. Qualification COMPARABLE stays on evaluateFinOpsReconciliation
+  // with explicit pilotAuthorized=true (isolated fixtures only).
+  const pilotAuthorized = false;
+  limits.push("NO_FINANCIAL_HABILITATION_FOR_PROVIDER_AGGREGATE");
 
   const evaluated = evaluateFinOpsReconciliation({
     studioEstimatedUsd: studio,
@@ -530,6 +546,8 @@ async function buildProviderReconciliationDto(
     providerCurrency: evaluated.disclosed ? evaluated.providerCurrency : null,
     deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
     comparability: evaluated.comparability,
+    compareWindowStartUtc: windowStart,
+    compareWindowEndUtc: windowEnd,
     freshness: freshnessDto,
     limits: [...new Set(limits)],
     noraIndependent: true,

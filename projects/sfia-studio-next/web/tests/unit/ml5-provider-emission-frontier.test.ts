@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   assertSdkInvocationAdmission,
+  attachConfiguredLiveCampaignFromEnv,
   beginCampaignEnvelope,
   campaignHttpSlotsRemaining,
   assertDirectOpenAllowed,
@@ -15,6 +16,7 @@ import {
   enableHttpMetaCaptureForTests,
   endProcessCampaign,
   getActiveCampaignEnvelope,
+  getCampaignEnvelopeMetrics,
   getEmissionsObservedForTests,
   getFrontierAlsStore,
   getHttpAttempt,
@@ -731,7 +733,68 @@ describe("S2/A — HTTP provider emission frontier", () => {
 });
 
 describe("process-level LIVE campaign attach", () => {
-  it("refuses begin after simulated process restart (file-backed pid)", () => {
+  it("restores cumulative counters after process restart (full envelope file)", () => {
+    const campaignId = "camp-restart-restore";
+    const statePath = join(process.cwd(), ".sfia-evidence", "live-campaign-state.json");
+    mkdirSync(join(process.cwd(), ".sfia-evidence"), { recursive: true });
+    writeFileSync(
+      statePath,
+      JSON.stringify({
+        campaignId,
+        pid: process.pid - 1,
+        createdAtMs: Date.now(),
+        envelope: {
+          campaignId,
+          required: true,
+          maxHttpAttempts: 3,
+          maxInputTokenCountAttempts: null,
+          maxInputTokens: null,
+          maxOutputTokens: null,
+          maxInputTokensPerRequest: null,
+          maxOutputTokensPerRequest: null,
+          maxHostedSearches: null,
+          maxDirectOpens: null,
+          requireNativeInputBound: false,
+          httpAttemptsReserved: 2,
+          httpAttemptsCommitted: 2,
+          httpAttemptsReleased: 0,
+          inputTokenCountAttemptsReserved: 0,
+          inputTokenCountAttemptsCommitted: 0,
+          inputTokenCountAttemptsReleased: 0,
+          inputTokensReserved: 100,
+          inputTokensCommitted: 100,
+          outputTokensReserved: 10,
+          outputTokensCommitted: 10,
+          hostedSearchesCommitted: 0,
+          hostedSearchesMeasured: null,
+          hostedSearchMeasureStatus: "NONE",
+          hostedSearchMeasureLimits: [],
+          directOpensCommitted: 0,
+          suspended: true,
+          suspendReason: "CAMPAIGN_HTTP_ATTEMPTS_EXHAUSTED",
+        },
+      }),
+      "utf8",
+    );
+    try {
+      runWithProviderEmissionStore(() => {
+        const c = beginCampaignEnvelope({
+          campaignId,
+          maxHttpAttempts: 3,
+          required: true,
+        });
+        expect(c.httpAttemptsCommitted).toBe(2);
+        expect(c.inputTokensCommitted).toBe(100);
+        expect(c.suspended).toBe(true);
+        expect(c.suspendReason).toBe("CAMPAIGN_HTTP_ATTEMPTS_EXHAUSTED");
+      });
+    } finally {
+      endProcessCampaign(campaignId);
+      __resetProviderEmissionFrontierForTests();
+    }
+  });
+
+  it("refuses legacy pid-only state without restorable counters", () => {
     const campaignId = "camp-restart-guard";
     const statePath = join(process.cwd(), ".sfia-evidence", "live-campaign-state.json");
     mkdirSync(join(process.cwd(), ".sfia-evidence"), { recursive: true });
@@ -768,6 +831,116 @@ describe("process-level LIVE campaign attach", () => {
       endProcessCampaign(campaignId);
       __resetProviderEmissionFrontierForTests();
     }
+  });
+
+  it("never renews counters for suspended campaign under SFIA_QUALIFY_MODE", () => {
+    process.env.SFIA_QUALIFY_MODE = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const campaignId = "camp-no-qualify-renew";
+    try {
+      runWithProviderEmissionStore(() => {
+        const c = beginCampaignEnvelope({
+          campaignId,
+          maxHttpAttempts: 2,
+          required: true,
+        });
+        const r = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-5.1",
+            max_output_tokens: 50,
+            sfia_estimated_input_tokens: 20,
+          }),
+          skipModelAdmission: true,
+          env: laneEnv,
+        });
+        expect(r.ok).toBe(true);
+        if (r.ok) commitProviderEmission(r);
+        suspendCampaignEnvelope("CAMPAIGN_HTTP_ATTEMPTS_EXHAUSTED");
+        expect(c.suspended).toBe(true);
+        expect(c.httpAttemptsCommitted).toBe(1);
+      });
+      runWithProviderEmissionStore(() => {
+        const c = beginCampaignEnvelope({
+          campaignId,
+          maxHttpAttempts: 2,
+          required: true,
+        });
+        expect(c.suspended).toBe(true);
+        expect(c.httpAttemptsCommitted).toBe(1);
+        const blocked = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-5.1",
+            max_output_tokens: 50,
+            sfia_estimated_input_tokens: 20,
+          }),
+          skipModelAdmission: true,
+          env: laneEnv,
+        });
+        expect(blocked.ok).toBe(false);
+        if (!blocked.ok) expect(blocked.reasonCode).toBe("CAMPAIGN_SUSPENDED");
+      });
+    } finally {
+      delete process.env.SFIA_QUALIFY_MODE;
+      endProcessCampaign(campaignId);
+      __resetProviderEmissionFrontierForTests();
+    }
+  });
+
+  it("refuses LIVE attach when native input bound escape is set to 0", () => {
+    const prev = process.env.SFIA_G_LIVE_API;
+    const prevLane = process.env.STUDIO_LANE;
+    const prevBound = process.env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND;
+    process.env.SFIA_G_LIVE_API = "1";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND = "0";
+    process.env.SFIA_LIVE_CAMPAIGN_ID = "g-live-native-refuse";
+    try {
+      runWithProviderEmissionStore(() => {
+        expect(() => attachConfiguredLiveCampaignFromEnv()).toThrow(
+          ProviderEmissionRefusedError,
+        );
+      });
+    } finally {
+      if (prev === undefined) delete process.env.SFIA_G_LIVE_API;
+      else process.env.SFIA_G_LIVE_API = prev;
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevBound === undefined) delete process.env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND;
+      else process.env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND = prevBound;
+      delete process.env.SFIA_LIVE_CAMPAIGN_ID;
+      endProcessCampaign();
+      __resetProviderEmissionFrontierForTests();
+    }
+  });
+
+  it("exports scrubbed frontier metrics distinct from studio turns", () => {
+    runWithProviderEmissionStore(() => {
+      beginCampaignEnvelope({
+        campaignId: "camp-metrics-export",
+        maxHttpAttempts: 4,
+        required: true,
+      });
+      const r = reserveHttpEmission({
+        url: "https://api.openai.com/v1/responses",
+        body: JSON.stringify({
+          model: "gpt-5.1",
+          max_output_tokens: 40,
+          sfia_estimated_input_tokens: 10,
+        }),
+        skipModelAdmission: true,
+        env: laneEnv,
+      });
+      expect(r.ok).toBe(true);
+      if (r.ok) commitProviderEmission(r);
+      const m = getCampaignEnvelopeMetrics("camp-metrics-export");
+      expect(m).not.toBeNull();
+      expect(m?.httpAttemptsCommitted).toBe(1);
+      expect(m?.campaignId).toBe("camp-metrics-export");
+    });
+    endProcessCampaign("camp-metrics-export");
+    __resetProviderEmissionFrontierForTests();
   });
 
   it("reattaches the same counters across ALS boundaries", async () => {

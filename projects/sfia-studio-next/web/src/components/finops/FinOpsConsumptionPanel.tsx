@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { FinOpsSummaryDto, FinOpsWorkListItem } from "@/domains/finops/usage-read-service";
+import type {
+  FinOpsProviderReconciliationDto,
+  FinOpsSummaryDto,
+  FinOpsWorkListItem,
+} from "@/domains/finops/usage-read-service";
 import {
   FINOPS_PERIOD_OPTIONS,
   finOpsDailyChartScaleMax,
@@ -16,6 +20,16 @@ import {
   formatUsdAxisFr,
   displayModelShort,
 } from "@/domains/finops/usage-projection";
+import {
+  costComparabilityBadgeClass,
+  costComparabilityLabel,
+  costFreshnessLabel,
+  formatCompareWindowUtc,
+  formatDeltaDisplay,
+  formatProviderCostDisplay,
+  formatStudioEstimateDisplay,
+  pilotCostComparisonMessages,
+} from "@/domains/finops/finops-cost-comparison-labels";
 import "./finops-consumption.css";
 
 type FilterOptions = {
@@ -29,8 +43,8 @@ type SummaryResponse = {
 };
 
 function kpiSubCost(metric: FinOpsSummaryDto["kpis"]["estimatedCostUsd"]): string {
-  if (metric.kind === "unknown") return "Estimation indisponible";
-  return "USD · hors rapprochement facture";
+  if (metric.kind === "unknown") return "Estimation Studio indisponible";
+  return "USD · estimation Studio";
 }
 
 function kpiSubTokens(metric: FinOpsSummaryDto["kpis"]["totalTokens"]): string {
@@ -250,6 +264,8 @@ export function FinOpsConsumptionPanel() {
               </article>
             </div>
 
+            <CostComparisonBanner recon={summary.providerReconciliation} />
+
             <div className="finops-1306-charts">
               <section className="finops-1306-panel finops-1306-daily-panel">
                 <div className="finops-1306-panel-head">
@@ -324,6 +340,79 @@ export function FinOpsConsumptionPanel() {
         ) : null}
       </div>
     </div>
+  );
+}
+
+function CostComparisonBanner({
+  recon,
+}: {
+  recon: FinOpsProviderReconciliationDto;
+}) {
+  const studio = formatStudioEstimateDisplay(
+    recon.studioEstimatedUsd,
+    recon.studioEstimationKind,
+  );
+  const provider = formatProviderCostDisplay(recon);
+  const delta = formatDeltaDisplay(recon);
+  const messages = pilotCostComparisonMessages(recon.limits);
+  const period = formatCompareWindowUtc(
+    recon.compareWindowStartUtc,
+    recon.compareWindowEndUtc,
+  );
+  const freshness = costFreshnessLabel(recon.freshness.status);
+  const badge = costComparabilityLabel(recon.comparability);
+  const badgeClass = costComparabilityBadgeClass(recon.comparability);
+
+  return (
+    <aside
+      className="finops-1306-compare"
+      data-testid="finops-cost-comparison"
+      data-comparability={recon.comparability}
+      aria-label="Comparaison des coûts"
+    >
+      <p className="finops-1306-compare-title">Comparaison des coûts</p>
+      <div className="finops-1306-compare-grid">
+        <div className="finops-1306-compare-cell" data-testid="finops-compare-studio">
+          <p className="finops-1306-compare-label">Estimation Studio</p>
+          <p className="finops-1306-compare-value">{studio.value}</p>
+          <p className="finops-1306-compare-hint">{studio.hint}</p>
+        </div>
+        <div className="finops-1306-compare-cell" data-testid="finops-compare-provider">
+          <p className="finops-1306-compare-label">Coût fournisseur</p>
+          <p className="finops-1306-compare-value">{provider.value}</p>
+          <p className="finops-1306-compare-hint">{provider.hint}</p>
+        </div>
+        <div className="finops-1306-compare-cell" data-testid="finops-compare-period">
+          <p className="finops-1306-compare-label">Période de comparaison</p>
+          <p className="finops-1306-compare-value finops-1306-compare-value-sm">{period}</p>
+          <p className="finops-1306-compare-hint">UTC</p>
+        </div>
+        <div className="finops-1306-compare-cell" data-testid="finops-compare-status">
+          <p className="finops-1306-compare-label">Comparabilité</p>
+          <p className="finops-1306-compare-value">
+            <span className={`finops-1306-compare-badge ${badgeClass}`}>{badge}</span>
+          </p>
+          <p className="finops-1306-compare-hint">
+            Fraîcheur : {freshness}
+            {recon.freshness.snapshotCount > 0
+              ? ` · ${recon.freshness.snapshotCount} collecte${recon.freshness.snapshotCount > 1 ? "s" : ""}`
+              : ""}
+          </p>
+        </div>
+      </div>
+      {delta ? (
+        <p className="finops-1306-compare-delta" data-testid="finops-compare-delta">
+          {delta}
+        </p>
+      ) : null}
+      {messages.length > 0 ? (
+        <ul className="finops-1306-compare-messages" data-testid="finops-compare-messages">
+          {messages.map((m) => (
+            <li key={m}>{m}</li>
+          ))}
+        </ul>
+      ) : null}
+    </aside>
   );
 }
 

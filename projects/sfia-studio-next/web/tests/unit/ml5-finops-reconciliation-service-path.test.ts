@@ -114,4 +114,48 @@ describe("FinOps service-path reconciliation", () => {
     expect(r.comparability).toBe("PARTIAL");
     expect(r.disclosed).toBe(false);
   });
+
+  it("org:unspecified never fabricates COMPARABLE", () => {
+    const snap = liveSnap("3.7127983200");
+    snap.organizationScope = "org:unspecified";
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 3.5,
+      studioEstimationKind: "known",
+      snapshots: [snap],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:unspecified",
+      configuredOrgId: null,
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
+    });
+    expect(r.comparability).toBe("NON_COMPARABLE");
+    expect(r.disclosed).toBe(false);
+    expect(r.providerCostUsd).toBeNull();
+    expect(r.limits).toContain("ORG_IDENTITY_UNPROVEN");
+  });
+
+  it("READY alone does not prove coverageComplete / groupingCompatible", () => {
+    const snap = liveSnap("1.0000000000");
+    // Mismatched window → period not equal; READY must not force COMPARABLE.
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.8,
+      studioEstimationKind: "known",
+      snapshots: [snap],
+      windowStartUtc: "2023-11-01T00:00:00.000Z",
+      windowEndUtc: "2023-11-30T00:00:00.000Z",
+      organizationScope: "org:demo",
+      configuredOrgId: "demo",
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
+    });
+    expect(r.comparability).not.toBe("COMPARABLE");
+    expect(r.disclosed).toBe(false);
+  });
 });

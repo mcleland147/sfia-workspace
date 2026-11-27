@@ -82,10 +82,14 @@ export function evaluateFinOpsReconciliation(
     };
   }
 
+  const scope = (input.organizationScope || "").trim();
+  const configuredOrg = (input.configuredOrgId || "").trim();
   const orgIdentityProven = Boolean(
-    input.configuredOrgId &&
-      (input.organizationScope === input.configuredOrgId ||
-        input.organizationScope === `org:${input.configuredOrgId}`),
+    configuredOrg &&
+      configuredOrg !== "unspecified" &&
+      scope &&
+      scope !== "org:unspecified" &&
+      (scope === configuredOrg || scope === `org:${configuredOrg}`),
   );
   if (!orgIdentityProven) limits.push("ORG_IDENTITY_UNPROVEN");
 
@@ -111,12 +115,33 @@ export function evaluateFinOpsReconciliation(
     attributed.length > 0 &&
     input.freshnessSnapshotCount > 0;
 
+  // groupingCompatible requires proven project dimension + uniform granularity —
+  // never hardcode true.
+  const granularities = new Set(attributed.map((s) => s.granularity));
+  const groupingCompatible =
+    Boolean(input.configuredProjectId) &&
+    attributed.length > 0 &&
+    attributed.every(
+      (s) => s.dimensions.project_id === input.configuredProjectId,
+    ) &&
+    granularities.size === 1;
+
+  // coverageComplete ≠ READY alone; every attributed row must carry MEASURED amount
+  // and the counted sum must cover the attributed population for the equal window.
+  const coverageComplete =
+    attributed.length > 0 &&
+    period.periodEqual &&
+    sum.counted > 0 &&
+    sum.counted === attributed.length &&
+    !sum.limits.includes("COST_AMOUNT_ABSENT") &&
+    attributed.every((s) => s.metrics.amount.presence === "MEASURED");
+
   const evidence: FinOpsScopeEvidence = {
     organizationMatches: orgIdentityProven,
     organizationIdentityProven: orgIdentityProven,
     projectIdsOverlap: attributed.length > 0,
     projectAttributionProven: Boolean(
-      input.configuredProjectId && sum.counted > 0,
+      input.configuredProjectId && sum.counted > 0 && attributed.length > 0,
     ),
     apiKeyIdsOverlap: Boolean(
       input.configuredApiKeyId &&
@@ -129,10 +154,8 @@ export function evaluateFinOpsReconciliation(
     currencyMatches: sum.currency === "usd",
     providerCurrency: sum.currency,
     surfacesRequested: ["/organization/costs"],
-    groupingCompatible: true,
-    coverageComplete:
-      input.freshnessStatus === "READY" &&
-      !sum.limits.includes("COST_AMOUNT_ABSENT"),
+    groupingCompatible,
+    coverageComplete,
     freshnessAcceptable,
     evidenceNotes: ["SERVICE_PATH_EVALUATOR"],
   };
