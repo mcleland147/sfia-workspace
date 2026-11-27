@@ -379,12 +379,29 @@ export function beginCampaignEnvelope(input: {
     input.campaignId?.trim() || `camp_${randomBytes(6).toString("hex")}`;
   const existing = processCampaignRegistry.get(campaignId);
   if (existing) {
-    // Re-attach the same process counters across ALS request boundaries.
-    cur.campaign = existing;
-    if (existing.required && !existing.suspended) {
-      requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
+    // Qualify DEV: a suspended required campaign must not permanently poison
+    // the process registry — renew counters for the next ALS turn.
+    const qualifyRenew =
+      existing.suspended &&
+      (process.env.SFIA_QUALIFY_MODE || "").trim() === "1" &&
+      (process.env.STUDIO_LANE || "").trim().toUpperCase() === "DEV";
+    if (qualifyRenew) {
+      processCampaignRegistry.delete(campaignId);
+      const persisted = readLiveCampaignStateFile();
+      if (persisted?.campaignId === campaignId) {
+        deleteLiveCampaignStateFile();
+      }
+      if (requiredCampaignLatch?.campaignId === campaignId) {
+        requiredCampaignLatch = null;
+      }
+    } else {
+      // Re-attach the same process counters across ALS request boundaries.
+      cur.campaign = existing;
+      if (existing.required && !existing.suspended) {
+        requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
+      }
+      return existing;
     }
-    return existing;
   }
   invalidateCampaignOnProcessRestartCheck(campaignId);
   const maxHttp = Math.max(
@@ -486,14 +503,18 @@ export function attachConfiguredLiveCampaignFromEnv(
     return Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : fallback;
   };
   // §13.2 G-LIVE-API defaults; §13.3 G-WEB-PUBLIC when that gate is set.
+  const requireNative =
+    (env.SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND || "1").trim() !== "0";
+  const maxHttp = num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 12 : 12);
   return beginCampaignEnvelope({
     campaignId,
     required: true,
-    requireNativeInputBound: true,
-    maxHttpAttempts: num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 12 : 12),
+    requireNativeInputBound: requireNative,
+    maxHttpAttempts: maxHttp,
     maxInputTokenCountAttempts: num(
       "SFIA_LIVE_MAX_INPUT_TOKEN_COUNT_ATTEMPTS",
-      24,
+      // Tool-heavy Nora turns can count once per SDK attempt; keep headroom.
+      Math.max(48, maxHttp * 4),
     ),
     maxInputTokens: num("SFIA_LIVE_MAX_INPUT_TOKENS", web ? 500_000 : 600_000),
     maxOutputTokens: num("SFIA_LIVE_MAX_OUTPUT_TOKENS", web ? 100_000 : 60_000),

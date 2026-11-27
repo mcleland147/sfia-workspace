@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.19 candidate — 27 novembre 2026 : Integrated foundation completion (025 security+canon · FinOps service-path · real SDK tracing · D3 owner continuity · A3/gates · campagne substituée) — **MACRO-LOT 1 READY FOR CONSOLIDATED MORRIS GATES** ; v0.18 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
+| Version | v0.20 candidate — 27 novembre 2026 : Intervention 2 LIVE qualification (Admin LIVE · FinOps COMPARABLE · tracing LOCAL · WEB A3 opt2 · D3 V1 comparative · campagne Nora) — **MACRO-LOT 1 LIVE QUALIFICATION COMPLETED WITH EXPLICIT RESERVES** ; v0.19 : Integrated foundation completion — READY FOR CONSOLIDATED MORRIS GATES ; v0.18 : Admin/FinOps qualification — LIVE NOT EXECUTED ; v0.17 : operational DEV foundation |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-LIVE-QUALIFICATION
+
+- **date_utc**: 2026-11-27T02:45Z
+- **lane**: DEV — Macro-lot 1 Intervention 2 integrated LIVE qualification
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **focus**: Admin LIVE borné · FinOps COMPARABLE · tracing LOCAL · WEB A3 opt2 · D3 V1 comparative · campagne Nora intégrée
+- **BUILD_ID**: `3WGrMVrEU7z1yoSrUW8l7` · digest `d14121112552e87af48d2d91c059e19f465aa96d5beab4d3d1276c879f51769a`
+- **DEV**: `127.0.0.1:3100` · RECETTE pid 89199 intacte
+- **migration**: `026` ops collector + PASSWORD NULL (DEV)
+- **campaign**: `.tmp-sfia-review/i2-integrated-live/` · MDN Fetch WEB PARTIAL
+- **web_live**: rolled back OFF after campaign · push projet NON · NO RELEASE · NOT ADOPTED
+- **reserves**: UX 13.03 visual Morris · org scope unspecified · native V2–V4 off
+- **statut**: **MACRO-LOT 1 — LIVE QUALIFICATION COMPLETED WITH EXPLICIT RESERVES — MORRIS ACCEPTANCE REQUIRED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-INTEGRATED-COMPLETION
 
 - **date_utc**: 2026-11-27T01:50Z

@@ -83,12 +83,13 @@ export function getAdminCollectorSql(
 export async function proveAdminCollectorDbIdentity(
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<AdminCollectorDbIdentity> {
-  const sql = getAdminCollectorSql(env);
-  const rows = await sql<{
-    current_user: string;
-    session_user: string;
-  }>`SELECT current_user, session_user`;
-  const row = rows[0];
+  const client = getAdminCollectorSql(env);
+  const rows = await client`
+    SELECT current_user::text AS current_user, session_user::text AS session_user
+  `;
+  const row = rows[0] as
+    | { current_user: string; session_user: string }
+    | undefined;
   if (!row || row.current_user !== "sfia_admin_collector_ops") {
     throw new Error(
       `COLLECTOR_IDENTITY_MISMATCH:current=${row?.current_user ?? "none"}`,
