@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.2, revue E1 du handoff d08fc94e |
+| Date / version | 27 novembre 2026 — v0.3, revue des compléments E1 (108044ef / 41087f1b) |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche locale rapportée `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486003805f74e69a0842f2c0792a7184437`, worktree dirty rapporté ; état local NON OBSERVÉ directement par ChatGPT ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | NOT READY pour qualification LIVE et exit E1 ; complément ciblé E1 recommandé, soumis à GO Morris ; E2 non engagé. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
+| Gate courant | Sortie construction E1 recommandée avec réserves proposées de preuve et traçabilité ; gate Morris requis avant E2. NOT READY pour qualification LIVE globale ; E2 non engagé. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
 
 ## 1. Objectif et sources
 
@@ -33,7 +33,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
-| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | REVU — acquis DET ciblés, exit incomplet ; complément E1 recommandé | §9 ci-dessous ; passage E2 après revue et gate Morris |
+| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | REVU — construction favorable, preuve DET ciblée et inspection ; gate Morris attendu | §10 ; reports recette et régularisation documentaire proposés ; E2 après GO |
 | E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | À FAIRE (acquis antérieurs conservés) | Interfaces E1 ; risques d'autorité critiques signalés immédiatement ; calibration préparée, pas de LIVE |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
@@ -52,14 +52,14 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 | A.5 | E2 | Helper terminal, IDLE corrigé après assemblage | Vérifier états/effets réels et travail restant, tests finaux et diff exact |
 | A.6 | E2 | Restitution améliorée, PARTIAL déclaré | Corrélation message/travail/segment/requête/capacité/effet/usage ; activité spécifique réelle |
 | A.7 | E2 | Filtre billable, attribution et couverture | Calculs/populations, estimations vs facturation, cache, finalisation, attribution projet, réconciliation fournisseur LIVE |
-| B.1 | E1 | 6 units extraction/sélectivité ; intégration appelle D4 directement | PARTIEL : résultat Nora réel du travail→qualification→mutation, messages/source réels, fence/reprise ; LIVE naturel distinct |
-| B.2 | E1 | Batch parent/enfant même tour par titre/intent ; PG isolation parent ; rename/reparent raccordés en code | PARTIEL : merge/split non raccordés, détachement racine à vérifier, tests réorganisation via capitalisation (test intégré appelle reparent direct), provenance, fence/concurrence et résolution de cibles non ambiguë ; LIVE |
-| B.3 | E1 | Création synthèse/acquis dans scénario PG | PARTIEL : pas de preuve discriminante consolidation/supersede/contradiction et accès message exact ; risque subjectId réutilisé après cible invalide ou titre contradictoire ; tests négatifs |
-| B.4 | E1 | PG ouverture/résolution directe et compteur ; shortTitle exposé | PARTIEL : shortTitle = editorialDisplayBullet(statement,72), pas de titre canonique qualifié ; raccord résolution depuis proposition, rapprochement, refus gouverné, source et rattachement exact ; E3 liens/UX |
-| B.5 | E1 | PG record, revise/replay, dialogue/recommandation et ambiguïté négatifs ; révocation propriétaire | ACQUIS DET CIBLÉ : compléter cas T07, arbitrage local utile, portée/restrictions/citation hostile et révocation conversationnelle si applicable ; LIVE compréhension |
-| B.6 | E1 | PROPOSE/RETAIN conversationnels, GO ouverture/finalité et Figma dialogue no-op PG | PARTIEL : forecastJson absent binding USER_MESSAGE, modification des étapes testée commande directe ; PROPOSED source encore courant après RETAIN ; liens D4/CKI et historique, projection ; LIVE naturel |
-| B.7 | E1 | PG sélection PREFERRED et omit marker + isolation ; fallback lexical flag OFF unit | PARTIEL : test n'exerce pas lecture D4 depuis conducteur, référence/version réelle, fraîcheur/reprise froide ; hybrid derivedUsed=false E2 ; LIVE pertinence/mesure |
-| B.8 | E1 | PG compteurs et Journal décisions, supersede APPLICABLE only | PARTIEL : PG→service, pas API→DOM ; vérifier portée/autorisations consommées/historique, V1→V2 réel, 4 surfaces ; DEV HTTP500, alternative qualify:start à exercer ; E3 visuel |
+| B.1 | E1 | Extraction sélective et chemin Pilote/Nora→D4 inspectés, tests ciblés antérieurs conservés | Construction revue ; R-REC-E1-01 : autonomie et provenance réelle des contributions, zéro mutation inutile |
+| B.2 | E1 | Batch parent/enfant ; rename/reparent/merge/split/detach raccordés ; fusion réparent enfants ACTIVE, refus ancêtre→descendant, fencing ; PG ciblés PASS | Construction revue, intégrité nominale et négatifs ciblés acquis ; R-REC-E1-01 pertinence des réorganisations ; E2 concurrence transverse si impact |
+| B.3 | E1 | Chemins synthèse/capitalisation/supersede inspectés ; ciblage invalide et conflit id/titre refusés ; tests ciblés | Construction revue ; R-REC-E1-01 consolidation CampusNova-like, contradictions, historique et références exactes |
+| B.4 | E1 | PG ouverture/résolution + compteur ; openPointTitle → provenance.canonicalTitle → shortTitle, PG/unit ciblés | Construction revue ; R-REC-E1-01 cycle de vie naturel et historique ; E3 accès exact et présentation |
+| B.5 | E1 | PG record/revise/replay/revoke et négatifs D6, non-régression 10 PG B.5/B.6 rapportée | Acquis DET ciblés ; R-REC-E1-01 cas T07, portée et reconnaissance naturelle ; E2 garanties multi-effets |
+| B.6 | E1 | forecastSteps durable → D5, RETAIN supersède PROPOSED ; refus body forecast USER_MESSAGE, chemin direct préservé ; tests PG ciblés | Construction revue ; R-REC-E1-01 réorientation naturelle, finalité/liens D4/CKI et historique en situation |
+| B.7 | E1 | Outils D4 exposés, PREFERRED + omit marker inspectés et PG ciblés | Construction revue ; R-REC-E1-01 exploitation des sources/version et fraîcheur ; hybrid derivedUsed=false et mesure T08 → E2 |
+| B.8 | E1 | Compteurs sujets/décisions, identité documentaire, shortTitle ; PG/service et inspection | Construction revue ; R-REC-E1-02 DOM/4 surfaces, refresh et V1→V2 à recetter ; E3 présentation ; DEV HTTP500 |
 | C.1 | E4 | NoraSharedComposer créé, sas/projet | Mutualisation réelle des interactions (deux branches textarea), contexte distinct |
 | C.2 | E4 | Saisie auto-grow et brouillons rapportés | Clavier, taille, navigation, isolation, mobile, pas d'envoi involontaire |
 | C.3 | E4 | Routes prep dictée, guards | Transport réel et diagnostic timeout LIVE ; droits/identité/finalisation DET |
@@ -81,17 +81,17 @@ Tous OPEN en RECETTE. État de construction/probatoire seulement, priorités du 
 | --- | --- | --- | --- |
 | 01 Micro sas | E4 | ACQUIS CIBLÉ navigateur | Préserver et vérifier compositeur commun et accessibilité |
 | 02 Compositeur extensible | E4 | PARTIEL | Mutualisation, clavier, brouillons |
-| 03 Points ouverts | E1 | PARTIEL — PG acquis ciblé | Raccord résolution, titre canonique, rattachement/rapprochement, projections ; E3 accès directs |
+| 03 Points ouverts | E1 | CONSTRUCTION REVUE — titre canonique et PG ciblés | R-REC-E1-01 cycle de vie naturel, E3 accès direct, DOM |
 | 04 Animation | E3 | PARTIEL | Preuve dynamique sur état final |
 | 05 Lisibilité | E3 | PARTIEL | Comparaisons avant/après, typographie |
 | 06 Dictée | E4 | GATE LIVE + DET PARTIEL | Transport, erreurs, reprise ; Realtime distinct |
 | 07 Onde audio | E4 | ACQUIS CIBLÉ unit | Préserver et vérifier signal réel |
 | 08 Panneau droit | E3 | MANQUANT/PARTIEL | Récents multitypes, accès direct/version/droits, Figma ; E1 données points |
 | 09 Multi-intentions | E2 | PARTIEL | PG nominal acquis, négatifs/dépendances/reprise ; LIVE naturel |
-| 10 Continuité | E1 | PARTIEL — création hiérarchique PG acquise | B.1–B.7 résiduels §9 ; preuve autonome LIVE ultérieure |
+| 10 Continuité | E1 | CONSTRUCTION REVUE — arborescence et réorganisation raccordées | R-REC-E1-01 capitalisation/consolidation/réutilisation naturelles ; E2 recherche hybride |
 | 11 Restitution/activité | E2 | PARTIEL | OBS réelle ; E3 restitution UX |
-| 12 Trajectoire | E1 | PARTIEL — PROPOSE/RETAIN/OPEN PG acquis | Forecast conversationnel, projection retenu/proposé, liens D4/CKI, navigateur |
-| 13 Compteurs | E1 | PARTIEL — PG compteurs améliorés | Portée D6, V1→V2 et PG→API→DOM, 4 surfaces |
+| 12 Trajectoire | E1 | CONSTRUCTION REVUE — forecast durable, retain et admission sécurisés | R-REC-E1-01 évolution naturelle et projections |
+| 13 Compteurs | E1 | CONSTRUCTION REVUE — PG et inspection | R-REC-E1-02 V1→V2 et PG→API→DOM, 4 surfaces |
 | 14 Performance | E2 | GATE LIVE + DET à vérifier | T08 909844 tokens / 6 segments / 13m33 ; 40 observations ≠ 40 HTTP ; qualité comparable |
 | 15 Allocation | E2 | GATE LIVE | Admission DET acquise ciblée, calibration et politique |
 | 16 FinOps | E2 | GATE LIVE + DET à vérifier | Calculs/attribution, coût estimé ≠ facturé |
@@ -100,6 +100,8 @@ Tous OPEN en RECETTE. État de construction/probatoire seulement, priorités du 
 Exigences complémentaires non négociables : arborescence dynamique, qualification des résultats Nora, réutilisation et trajectoire vivante (E1) ; compositeur partagé (E4) ; pied de rail commun et cinq récents (E3) ; compteur bibliothèque (E1). Préserver MP et exigences même si déjà implémentées : démontrer sans réécriture inutile.
 
 ## 5. Oracles de continuité §10 (18) — suivi d'exécution, pas simple mapping
+
+État historique v0.2 complété par la réconciliation §10.2 ; lire §10 pour les preuves nouvelles, les reports et le gate courant.
 
 | # | Oracle | Responsable / intégration | État initial / preuve restant à obtenir |
 | --- | --- | --- | --- |
@@ -156,6 +158,8 @@ Chaque parcours doit disposer d'un résultat observé, commande/scénario, nivea
 
 ## 7. Réserves et actions d'intégration
 
+Constats historiques à conserver ; les réserves E1 sont réconciliées au §10, sans acceptation Morris implicite.
+
 Aucune réserve de cette revue n'est acceptée par Morris à ce stade. Le GO de séquencement n'est pas une acceptation. Les IDs ci-dessous sont des repères de suivi, pas des identifiants produit.
 
 | Sujet | Nature / constat | Responsable / exit |
@@ -187,15 +191,17 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | e6ab1ab2 / 14177ee1 | S08/S05 régression A.4 corrigée, PG nominal, build PASS rapporté ; revue indépendante NOT READY, continuité et UX incomplètes ; GO Morris cinq ensembles et suivi D1 |
 | 27/11 | 6a211aea | Création suivi v0.1 ; E1 lancé sous Cycle 8 Critical DEV |
 | 27/11 | a97145b1 / d08fc94e | E1 58 PASS ciblés (20 PG), 7 PG rejoués rapportés ; revue ChatGPT NOT READY exit E1 ; réserves non acceptées ; complément ciblé recommandé |
+| 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
+| 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action recommandée : complément ciblé E1 (§9), sous GO Morris ; pas de troisième reprise générale. Préserver les acquis DET. E2 ensuite, selon revue et gate Morris. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action recommandée : arbitrage Morris de sortie construction E1 (§10), puis E2 sous mandat distinct. Préserver les acquis DET ; ne pas relancer E1 pour les preuves utilisateur reportables. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
 Morris décide ; ChatGPT prépare, revoit et tient le suivi ; Cursor exécute ; Git trace.
 
 
-## 9. Revue indépendante E1 — 27/11/2026
+## 9. Revue indépendante E1 — 27/11/2026 (historique v0.2, état supersédé par §10)
 
 [Handoff final E1](https://github.com/mcleland147/sfia-workspace/blob/d08fc94e1619c5593fa65188e1e3dd091fa326ba/sfia-review-handoff/latest-chatgpt-review.md), blob `7c05e3d508b5cc35584433478dc7e0685ffb9029`, 3677 lignes. Handoff distant vérifié ; 58 tests ciblés sur 9 fichiers dont 20 PG, exit 0 rapporté (§17–18). Handoff §16 diff de référence mélange aussi des changements MP09 précédents ; état local intégral NON OBSERVÉ. Pas de nouveau build/lint final E1 publié ; tsc global non vert, caractère préexistant rapporté mais comparaison non fournie ; DEV :3100 HTTP500 ; RECETTE préservée selon Cursor. Dossier §22 annonce modifications registre/Delivery History dont le contenu exploitable n'apparaît pas dans §16 ; vérifier aussi contenu complet des nouveaux tests, delta final et empreinte. REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING pour les modifications documentaires non publiées. Nouveau as-built présent. Aucun nouveau commit projet ni effet LIVE autorisé.
 
@@ -223,3 +229,62 @@ Morris décide ; ChatGPT prépare, revoit et tient le suivi ; Cursor exécute ; 
 - R-E1-TSC : tsc global FAIL ; preuve comparative manquante. E5 intégration globale, E1 vérifie son delta et les non-régressions directement affectées.
 
 Verdict indépendant : acquis DET ciblés, E1 PARTIEL / NOT READY pour passage E2. Toutes réserves non acceptées à cette date. Aucun nouveau gate produit. Recommandation : un complément E1 borné aux neuf reliquats ci-dessus, sous GO Morris ; pas de réécriture des 58 tests ni de réouverture des autres axes. E2/E3/E4/E5 restent À FAIRE.
+
+
+## 10. Revue consolidée des compléments E1 — 27/11/2026
+
+[Complément neuf reliquats](https://github.com/mcleland147/sfia-workspace/blob/108044efaefa80ebb09c6a21153e7d68d4ac53c8/sfia-review-handoff/latest-chatgpt-review.md), blob `95ef9e14c6e451a2ef417120cb49da8615f76507` (2151 lignes). [Sécurisation finale](https://github.com/mcleland147/sfia-workspace/blob/41087f1b36c6943070513c45c2ff61db40483b25/sfia-review-handoff/latest-chatgpt-review.md), blob `6e5326dba91b77758f80f736e6b60f025f809ec3` (1769 lignes). Tips et blobs vérifiés, main inchangé. Worktree exact NON OBSERVÉ ; tests et ENV locaux rapportés par Cursor. Pas de LIVE, pas de mutation RECETTE rapportée, aucun commit projet. Les tests de passages différents se recouvrent, ne pas sommer les PASS comme tests distincts.
+
+Morris a validé le principe d'une qualification proportionnée : cohérence/raccordement et invariants critiques en DEV, preuves naturelles ou navigateur disproportionnées à proposer en recette. Aucun report ni réserve individuelle n'est accepté implicitement. Pas de nouvelle campagne de simulation ou LIVE systématique.
+
+### 10.1 Réconciliation des neuf reliquats
+
+| Action | Acquis consolidé | Reliquat / niveau |
+| --- | --- | --- |
+| REL-01 Réorganisation | subjectOrganization MERGE/SPLIT/DETACH → propriétaires existants ; fusion réparent enfants ACTIVE dans transaction, conserve identité, event reparentedChildIds ; refuse ancêtre→descendant | DET ciblé merge et cycle, inspection split/detach ; pertinence naturelle en recette ; concurrence transverse E2 si impact |
+| REL-02 Intégrité D4 | Refus id invalide/étranger et conflit id/titre, fencing, rename fail explicite ; tests PG ciblés | Invariants ciblés acquis ; ne pas revendiquer preuve exhaustive concurrence |
+| REL-03 Capitalisation | Chemin extract→D4 étendu et inspecté, mécanismes de synthèse/supersede | R-REC-E1-01 : résultats Nora et Pilote, consolidation, provenance réelle, résolution |
+| REL-04 Point ouvert | openPointTitle → provenance.canonicalTitle → shortTitle ; compatibilité historique | DET ciblé ; E3 projection et navigation |
+| REL-05 Trajectoire | forecastSteps durable, RETAIN supersède propositions avec historique ; rejet body non vide USER_MESSAGE et garde mutation, direct préservé | 3 nouveaux PG admission + non-régression B.5/B.6 ; R-REC-E1-01 orientation naturelle et liens |
+| REL-06 D6 | 10 PG B.5/B.6 rejoués PASS rapportés | T07 naturel et portée à recetter, garanties multi-effets E2 |
+| REL-07 Réutilisation | PREFERRED/omit + outils D4 inspectés ; 3 PG B.7/B.8 rapportés au complément | R-REC-E1-01 exploitation, sources/versions et fraîcheur ; hybrid/T08 E2 |
+| REL-08 Projections | Compteurs, identité documentaire et shortTitle vérifiés par inspection/PG | R-REC-E1-02 : DOM, quatre surfaces, refresh et V1→V2 ; DEV HTTP500, E3 visuel |
+| REL-09 Pack/docs | Diffs code D4/D5, nouveau test complet, delivery et registre publiés ; as-built précédent intégral et RETAIN testé dans 108044ef L1913 | Réserve documentaire proposée : dernier pack annonce as-built local modifié, mais §1670–1765 ne publie que delivery et registre ; extrait test e1-ensemble L1659–1668 tronqué avant assertion. Régulariser contenu exact au prochain mandat E2 avant construction, ou démontrer absence de delta. Pas de nouveau cycle E1 autonome recommandé. |
+
+Validations finales rapportées : e1-final-safeguards 5/5, e1-reliquats 5/5, e1-ensemble-b5-b6 10/10, ml2-corrective-integrity 18/18, total 38 PASS (dont 33 non-régression), exit 0. Vérification du code et tests publiés, pas exécution indépendante. Pas de résultat final tsc/lint/build/diff-check dans le dernier pack ; ne pas les déclarer PASS. E5 consolide validations globales ; E2 vérifie les contrôles de son delta. DEV HTTP500 conservé, RECETTE intacte rapportée.
+
+### 10.2 Oracles : réconciliation des nouveaux acquis et preuves restantes
+
+| # | État consolidé / reliquat | Responsable |
+| --- | --- | --- |
+| 1 | Création historique acquise ; parcours naturel R-REC-E1-01 | E1 recette/E5 |
+| 2 | Parent/enfant même tour DET ciblé ; pertinence naturelle | E1 recette |
+| 3 | Réorganisation raccordée, merge arbre/cycle PG ; split/detach inspectés ; naturel | E1 recette |
+| 4 | Chaîne contributions inspectée ; capitalisation du résultat réel et provenance | E1 recette |
+| 5 | Consolidation/correction naturelle et historique | E1 recette |
+| 6 | Résolution propriétaire PG ; résolution naturelle/historique | E1 recette/E3 |
+| 7 | D6 PG ciblé ; T07 acte naturel | E1 recette/E2 |
+| 8 | PG nominal multi-intentions antérieur ; dépendances et reprise résiduelles | E2 |
+| 9 | Forecast conversationnel admis DET ; réorientation naturelle | E1 recette |
+| 10 | Finalité contextualisée PG ; liens D4/CKI et affichage réel | E1 recette |
+| 11 | Compteurs PG/inspection ; V1→V2 et DOM | E1 recette/E3 |
+| 12 | Récents multitypes toujours à traiter | E3 |
+| 13 | Titre canonique et identités acquis ciblés ; accès exact/DOM | E3 |
+| 14 | Navigation/interruption et actualisation réelles | E3/E5/recette |
+| 15 | PREFERRED/omit et outils ; fraîcheur/réemploi naturel et mesure T08 | E2/recette |
+| 16 | T09 non envoyé ; révision contextualisée en recette distincte | E5/recette |
+| 17 | Sélectivité DET ciblée ; absence mutation inutile réelle | E1 recette |
+| 18 | Isolation/fencing ciblés ; concurrence et reprise transverses | E2/E5 |
+
+### 10.3 Réserves proposées et gate
+
+- R-REC-E1-01 / R-E1-LIVE : parcours conversationnel naturel, capitalisation des deux contributions, arbre, consolidation, réorganisation, points ouverts, décision durable, réorientation, reprise d'ancien sujet, sources et connaissance. Observer persistance et cohérence, sans mots déclencheurs. Non accepté à ce stade.
+- R-REC-E1-02 / R-E1-DOM : vérifier Travail/Projet/Journal/Trajectoire, compteurs, révisions et rafraîchissement ; DEV :3100 HTTP500. Rétablissement via mécanisme existant au moment opportun E3/E5 ; preuve utilisateur proposée, non acquise.
+- R-E1-HYBRID : embedding derivedUsed=false, diagnostic causal et T08 → E2. Ne pas déclarer hybrid fonctionnel sur seul fallback flag OFF.
+- R-E1-E3 : panneau, navigation exacte, fidélité UX → E3.
+- R-E1-PACK : as-built final et extrait RETAIN incomplets dans publication finale, détail REL-09. Publication distante vérifiée, couverture du code cœur suffisante pour revue des deux risques ; conserver réserve formelle MODIFIED CONTENT MISSING pour delta documentaire annoncé non publié. Régularisation au pré-check E2 proposée, pas d'acceptation unilatérale.
+- R-E1-VALID : tsc/lint/build et diff-check finaux non fournis ; qualification proportionnée des changements et intégration E5 ; aucune preuve inventée.
+
+Verdict indépendant : favorable à sortie construction E1 avec réserves proposées (READY WITH RESERVES pour gate de construction, pas READY FOR REAL). Aucun nouveau cycle E1 autonome recommandé ; confirmer gate Morris, report des preuves et régularisation documentaire au démarrage E2. E2 non engagé, E3/E4/E5 à faire. 17 MP OPEN RECETTE, R5 IN PROGRESS, ML5 OPEN, Livraison 1 NOT ACCEPTED, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
+
+Prochain mandat E2 : A.1–A.7, intégrer acquis option C/MP09/S08/A.5 ; instruire dépendances inter-capacités, reprises/refus, recherche hybride, contexte, OBS et FinOps ; préparer preuves réelles proportionnées, pas de LIVE sans GO. Préserver E1, régulariser traces avant modifications. Ne pas rouvrir E1 sauf défaut critique démontré.
