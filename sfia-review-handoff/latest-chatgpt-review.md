@@ -1,345 +1,1216 @@
-# SFIA Review Pack — Full — Reprise diagnostic causal Equipéo
+# SFIA Review Pack — Full — Lot 1 intégrité du cycle documentaire
 
 ## 0. Identité
 
-- **Date/heure**: 2026-11-28T08:50:00+01:00
-- **Cycle**: 09 QA/validation · Critical · EVOL · reprise du dossier jugé insuffisant
-- **Entrée**: handoff `1a21618c26d89f05dd82e8fa1f8e82f01ce22251` blob `fd901cb601b0efd2577ade49b5b15fb8621eb16c` — verdict Cursor READY WITH RESERVES, revue ChatGPT NOT READY
-- **Produit**: `sfia/next-ml5-integrated-delivery-20261123` @ `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`
-- **main**: `997897fd7cf914771e7d08e8030dc7123fab7d25`
-- **docs**: `ed38685aa6ee3dd46961a88698d833a88f7a50a0` · PV blob `88474002768d1705258e5db3ad0510c21deb6fe4`
-- **RECETTE servie**: :3200 BUILD `p0S18hfVdGrMjGeNMGlbV` · PG :5434 `sfia_next_recette_ml4`
-- **DEV**: :3100 cwd worktree produit · PG :5433
-- **Nature**: diagnostic uniquement. Aucun correctif. Aucun appel fournisseur.
-- **Programme**: R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / NO RELEASE / NOT ADOPTED
-
-Le diagnostic `1a21618c` est une source historique. Les constats repris ci-dessous ont été revérifiés dans le code `0ae9e1f7` et, lorsque indiqué, dans PostgreSQL RECETTE en lecture seule (`SET default_transaction_read_only = on`).
-
-## 1. Git Truth
-
-| Check | Constat 2026-11-28T08:41+01 |
+| Champ | Valeur |
 |---|---|
-| Repo / remote | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` · `https://github.com/mcleland147/sfia-workspace.git` |
+| Date | 2026-11-28T09:20:09+0100 |
+| Cycle | 08 — Delivery / implémentation |
+| Profil | Critical |
+| Projet | SFIA Studio Next · R5 IN PROGRESS · ML5 OPEN |
+| Lot | 1 uniquement — DOC-A / DOC-B / DOC-C |
+| Livraison | LIVRAISON 1 NOT ACCEPTED · NO RELEASE · NOT ADOPTED |
+| Base produit | `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` |
+| Tree | `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` |
+| Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD local = origin | `0ae9e1f7…` |
-| Tree | `84253727…` |
-| merge-base main | `997897fd…` |
-| Handoff distant | `1a21618c…` |
-| status | `?? .tmp-sfia-review/` et `?? web/.tmp-sfia-review/` uniquement |
-| Services | non redémarrés · BUILD HTML `<!--p0S18hfVdGrMjGeNMGlbV-->` |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Docs | `b93cf033dc906c35ff5aecd949590c9d5d46d11b` (lue, non mergée) |
+| Handoff d'entrée | `515561e7e5bf395907bf4ec0f4c9990a36dc4aa7` blob `7dddb39b87405de30d997f2e8a6d4900ae56b1d2` |
+| Delivery | `DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV` |
+| SHA final | non attribué — diff local non committé |
+| Content coverage | N/A — aucune couverture de contenu produit |
+| CKC 08 | absent. Fallback `02-fifteen-cycles-synthetic-map.md` blob `aa574926dc6c597675f9fe9257f2820c2a11ed5e` · method-candidate · guidance seulement |
+| Verdict | READY WITH RESERVES |
 
-ENV ROUTING COMPLETE. Aucune divergence d'identité.
+## 1. Mandat
 
-## 2. Sources réellement lues
+Rendre le parcours naturel V1 → proposition V2 inspectée → conservation V2 → proposition V3 depuis V2 → conservation V3 fiable, sous une seule identité documentaire et dans le même fil. Ne pas reconstruire D4. Ne pas engager les lots 2 à 7. Pas de commit, push, PR, merge, ni promotion RECETTE.
 
-- PV Equipéo v0.2 §9 (ref docs `ed38685a`, déjà extrait intégralement au cycle précédent, relu pour T01–T09 bis, §9.3–9.6).
-- Code candidat `0ae9e1f7` : `page.tsx` focus/viewer/activity ; `document-act.ts` `resolveReviseTarget` ; `service.ts` historical + compositions L5009+ ; `provisional-cognitive-policy.ts` ; `resource-admission.ts` ; `create-project.ts` ; `initial-qualification.ts` ; `nora-adapter.ts` consignes capitalisation ; `activity-projection.ts` ; `activity-labels.ts` ; `knowledge-effect-restitution.ts` ; `ProjectJournal.tsx` badge ; `usage-read-service.ts` ; `usage-projection.ts` ; `composer-dictation-session.ts` ; `cognitive-work.ts` statuts.
-- Tests nommés : `documents-historical-revise.pg.test.ts` ; `ml5-cognitive-resources.test.ts` ; `ml3-composer-dictation-integrated.pg.test.ts` T08 ; `nora-shared-composer.test.ts`.
-- PG Equipéo `proj_ab38aa32-2a1b-4dc3-8aa4-42686690e651` : documents, révisions, sujets, acquis, points ouverts, décisions, travaux, événements d'activité, rattachement des observations d'usage.
-- Config non secrète DEV `.env.local` vs RECETTE `~/.config/sfia-studio-next/recette/.env.local` + `start-recette-ml5.sh`.
-- Journaux RECETTE : aucune ligne `PROVIDER_ERROR` / `dictation` / `Realtime` (erreur restée côté navigateur).
+## 2. Git Truth Check
 
-Non relu intégralement dans ce tour (cités via PV et cycle précédent, non re-quotés) : SEF, Roadmap, vision Figma pages. Aucun verdict F2.
+Contrôle du 2026-11-28T09:01+01, reconfirmé à 09:20+01.
 
-## 3. Famille A — cycle documentaire (approfondi)
+- Remote `origin` = `mcleland147/sfia-workspace`.
+- HEAD local = HEAD distant produit = `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`.
+- Tree inchangé `84253727…`. Merge-base avec main = `997897fd…`.
+- Au départ : aucun fichier staged, aucune modification produit. Seuls des fichiers `.tmp-sfia-review/` non suivis.
+- Worktree RECETTE détaché `…/sfia-workspace-next-ml5-recette-build-0ae9e1f7aaee` toujours sur `0ae9e1f7`.
+- Worktree handoff `…/sfia-review-handoff-m5a-gi-20261023` sur `sfia/review-handoff`.
+- Aucun stash, reset, ni nettoyage. La branche documentaire n'a pas été mergée.
 
-### 3.1 DOC-C — focus non rebasé — CONFIRMED code ; transaction T09 bis PROBABLE
+## 3. Environnements
 
-Chaîne après conservation réussie (`page.tsx` vers L3029) :
-
-`applyDocumentFocus({ ...documentFocusRef.current, clear pending/hauth })` conserve `sourceRevisionId` et `observedHeadRevisionId` d'avant la nouvelle révision.
-
-`resolveReviseTarget` (`document-act.ts` L442–471) : si le focus porte une révision différente de `latestRevision.id`, `baseRevisionId` devient cette ancienne révision, pas la head.
-
-`service.ts` L3813–3915 : `sourceIsHistorical = base !== actualHead` puis refus `HISTORICAL_CONFIRMATION_*` sans `historicalAuthorizationId`. Message utilisateur du PV (« confirmation de la base historique ») correspond à ce refus. Aucun bouton de conservation : la branche pending n'est pas atteinte.
-
-Autres écritures de focus (`applyDocumentFocus` aux L1611, 2215, 2257, 2669, 2938, 2997, 3006) : reprise historique, restauration session, choix USE_SOURCE, pending. Aucune ne rebase la head après un REVISE AVAILABLE. USE_HEAD (L2953) appelle `resumeNoraWithDocumentRevision` sur `latestRevision` — chemin de confirmation explicite, pas le chemin nominal post-conserve.
-
-PG Equipéo : un seul document `doc_449d0a30…`, titre stocké `Equipéo — Cadrage fonctionnel V1`. Révisions AVAILABLE : `drev_27d32806` n°1 (H1 V1) et `drev_d03e3e2b` n°2 base = rev1 (H1 V2). Pas de rev3. Cohérent avec un refus avant écriture. Le payload HTTP exact du tour T09 bis (baseRevisionId transmis) n'est pas rejoué ici : **cause de code CONFIRMED**, **liaison transactionnelle au tour précis PROBABLE** (état durable compatible, corps de requête non archivé).
-
-Protections à conserver : BASE_STALE, hauth serveur, conflit de head (`documents-historical-revise.pg.test.ts` « concurrent head after historical confirmation → CONFLICT »).
-
-### 3.2 DOC-A — prévisualisation — PROBABLE, conditions de preuve
-
-Sur `PROPOSAL_PENDING_CONSERVATION`, le client injecte `pendingCand.contentMarkdown` dans le viewer **et** fixe `versionSource: "exact"` + `revisionId` = `sourceRevisionId` du focus (base). Le bandeau « proposition » ne s'affiche que si `viewer.markdown === pendingProposal.contentMarkdown` (`page.tsx` L3255–3258). Toute consultation qui remplace le markdown par la révision source fait disparaître le bandeau et montre V1, tout en laissant `pendingCandidateId` (bouton conserver). Hypothèse d'écrasement **non infirmée** : il n'y a pas de garde « ne pas remplacer le markdown candidat ». Preuve manquante : trace DOM du tour T09 avant clic. Condition de confirmation : test BROWSER qui, après pending, ouvre le lien de la révision citée puis compare le markdown affiché au sha du candidat.
-
-La conservation elle-même relit le candidat scellé (`service.ts` L3523–3556), pas le markdown affiché. V2 PG (H1 V2, base rev1) montre que le contenu conservé n'était pas une copie identique de V1. L'inspection UI a échoué ; l'écriture D4 du test Pilote a réussi.
-
-### 3.3 DOC-B — CONFIRMED
-
-`revisionCurrencyLabel` : head null ⇒ « Historique ». Bandeau Travail si `versionSource==="exact"` et markdown ≠ proposition : « VERSION PLUS RÉCENTE… Aucun changement enregistré », y compris quand l'exact est la head. Post-conserve, rechargement D4 en `versionSource: "exact"` (L3067–3071).
-
-### 3.4 DOC-D — CONFIRMED
-
-Titre de ligne `documents.title` figé à la création (« … V1 »). H1 du markdown rev2 = V2. Compteur bibliothèque = 1 identité. Nommage stable Morris non appliqué à la création.
-
-### 3.5 DOC-E — PROBABLE libellé
-
-Après consommation, l'UI parle de propositions expirées (`NoraConversation.tsx`). Le serveur refuse un second write du même candidat (identité / sha). Sémantique non-rejeu correcte ; libellé « expirée » ≠ « conservée ». Pas de second enregistrement Equipéo (seulement 2 révisions).
-
-### 3.6 DOC-F — PROBABLE rendu ; comparaison persistée
-
-Aperçus historiques hors `SafeMarkdown` selon composants d'historique. La comparaison T09 bis **est** persistée (voir §5) : « Comparaison documentaire — +17/−14 — Equipéo — Cadrage fonctionnel V1 ». La paire de révisions n'est pas dans le libellé (titre document seulement).
-
-## 4. Famille B — MP-15 allocation — CONFIRMED config
-
-Résolution (`provisional-cognitive-policy.ts`) : `SFIA_COG_PROVISIONAL_POLICY` vide ⇒ `legacy_sol`, `provisionalActive=false`, code `COG_POLICY_ABSENT_FALLBACK_LEGACY_SOL`. RECETTE n'active v0.2 que si policy `v0.2` **et** `SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.2` (ou `qualified:v0.2`). `qualified` nu est refusé.
-
-Effectif lu (valeurs enum seulement) :
-
-- DEV `web/.env.local` : `STUDIO_LANE=DEV`, `SFIA_COG_PROVISIONAL_POLICY=v0.2`, admit RECETTE absent (inutile en DEV).
-- RECETTE config : policy **ABSENT**, admit **ABSENT**, `SFIA_COG_PROFILE_TYPE=OPERATIONAL_PROVISIONAL`.
-- Start script : n'écrit pas la policy ; il surcharge `SFIA_SOURCE_SHA` vers `0ae9e1f7`. Le fichier `.env` contient encore `SFIA_SOURCE_SHA=e8e6e069…` mais l'export du script prime. Effet : provenance/logs qui liraient le fichier seul seraient stale ; le process RECETTE lancé par le script annonce le SHA du build. Pas d'effet sur l'admission modèle.
-
-`admitModelEffort` operational : sans provisional, seuls Sol low|medium|high passent (`resource-admission.ts`). Terra/Luna refusés puis fallback défaut Sol. Ce n'est pas une preuve que l'allocation DEV est pertinente, seulement qu'elle **peut** choisir Terra/Luna.
-
-Non-détection E5 : tests unitaires `ml5-cognitive-resources.test.ts` « absent or unknown policy falls back to legacy_sol » et « v0.2 on RECETTE with … qualified-v0.2 admits couples » **décrivent** le gate. Le cutover a documenté « ne pas activer C provisoire sans admit » et n'a pas posé l'admit. Smoke non émissif n'a pas observé le modèle. Angle mort = **promotion de configuration**, pas absence de test.
-
-Activation future (hors mandat) : écrire les deux variables, redémarrer RECETTE, vérifier `modelApplied` ≠ copie silencieuse, rollback = retirer les variables (retour legacy_sol) sans migration.
-
-## 5. Activité Nora — chaîne reconstituée
-
-Persistance : `appendActivityEvent` → table `nora_activity_events` (phase, nature, status, summary ≤500, detailJson). Lecture : `listActivityEvents` par `turnCommandId`.
-
-Equipéo (conversation du projet), agrégat :
-
-| phase | nature | status | n |
-|---|---|---|---|
-| nora.objective | ANNOUNCED | RUNNING | 10 |
-| nora.objective | COMPLETED | COMPLETED | 10 |
-| nora.source.d4 | OBSERVED | RUNNING | 13 |
-| nora.source.d4 | OBSERVED | COMPLETED | 4 |
-
-Extraits récents (non sensibles) : « Orientation du travail à partir de la demande du Pilote » ; « Orientation du travail terminée » ; « Document identifié — Habilitations des agents » ; « Document consulté — … V1 » ; « Comparaison documentaire — +17/−14 » et une autre « +22/−17 ».
-
-Donc la comparaison **n'est pas seulement éphémère** : elle est un événement `nora.source.d4` OBSERVED COMPLETED. Le LIVE peut la montrer via `projectMissionHeadline` (préfère une comparaison). À l'arrêt (`resolveActivityDisplayHeadline`, `active=false`), un titre « Orientation du travail » est **écarté** s'il n'y a pas un titre de groupe plus riche ; sinon le headline idle devient null et la carte retombe sur le groupe générique. Les événements spécialisés restent en base mais le **résumé terminal affiché** privilégie l'objectif annoncé, volontairement générique (`activity-labels.ts` collapse IT-01).
-
-Distinction des sources dans les libellés persistés : « identifié » (RUNNING) vs « consulté » (COMPLETED) vs « comparaison » (delta de lignes). Aucun libellé Equipéo ne prouve une lecture intégrale. « Document consulté » ≠ couverture COMPLETE du fichier.
-
-Répétitions dans la réponse : `knowledge-effect-restitution.ts` L47 produit « La {label} a bien été enregistrée dans le Journal. » pour chaque effet connaissance. `service.ts` L5009–5031 concatène pilotage, connaissance et publication **dans assistantBody**. Trois sujets/effets ⇒ trois phrases. Ce n'est pas le modèle qui répète librement : c'est la composition déterministe post-réponse. Séparation voulue par Morris (activité vs échange) n'est pas implémentée : les lignes sont du texte conversationnel, pas des événements d'activité.
-
-## 6. FinOps — réconciliation
-
-Travaux Equipéo :
-
-| id | status | created | note |
-|---|---|---|---|
-| cgw_820c2df9 | COMPLETE | 05:49Z | |
-| cgw_0cbf64ee | OPEN | 05:54Z updated 06:16Z | objective = exploration responsabilités/habilitation **sans arrêter de règle** ; `interrupt_cause=AWAIT_PILOT` |
-| cgw_1b6c989b | COMPLETE | 06:21Z | |
-| cgw_469ef400 | COMPLETE | 06:27Z | proche création document 06:27 |
-| cgw_c5306beb | COMPLETE | 06:57Z | |
-| cgw_0c1e9f59 | COMPLETE | 07:10Z | |
-
-Le checkpoint UI « 0 abouti / 1 en cours » et l'état PG « 5 COMPLETE + 1 OPEN » ne se contredisent pas une fois le **lien d'observation** lu.
-
-`loadFinOpsSummary` ne compte comme aboutis que les travaux dont l'id apparaît sur des `provider_usage_observations` **et** dont le statut est COMPLETE (`usage-read-service.ts` L371–389). Libellé « Aucun travail abouti » si ce compte est 0 (`L405–406`). Statut OPEN → libellé « En cours » (`usage-projection.ts` `mapCognitiveWorkStatusLabel`).
-
-Jointure Equipéo : **44 observations sans cognitive_work_id**, **18 rattachées au seul travail OPEN**, **0 rattachées à un travail COMPLETE**. Donc l'UI peut afficher 0 abouti alors que cinq travaux sont COMPLETE : leurs générations ne portent pas l'id dans les observations filtrées. Cause de corrélation **CONFIRMED**. Le travail OPEN est un AWAIT_PILOT réel (T06 « on ne décide pas »), pas un oubli de finalisation de la réponse métier T09. La réponse terminée n'implique pas la clôture de ce travail : le contrat `workDisposition=AWAIT_PILOT` le laisse ouvert (`nora-adapter` consigne).
-
-Couverture 100 % = requêtes recensées (`computeMeasureCoveragePercent`), pas coûts. Admin OFF. Pas de nouvelle dépense.
-
-## 7. Continuité cognitive
-
-### 7.1 Sas → projet
-
-`createProjectCommand` (`create-project.ts`) : crée le projet, lie la préparation, passe la conversation et les documents déjà liés, **ne copie pas** sujets/acquis/points ouverts. La continuité structurée dépend ensuite de `initialQualificationExpected` et de `processInitialQualification` (trajectoire), puis des tours Nora qui émettent `d4.record_knowledge`.
-
-Consigne modèle (`nora-adapter.ts` ~L1177–1189) : sélectivité explicite — message banal ⇒ 0 intent ; pas une fiche par phrase ; OPEN_POINT seulement si question durable. Donc un Journal initial pauvre (PV T03 : 1 sujet, 0 point) est compatible avec : (1) aucun record_knowledge pendant le sas avant création ; (2) qualification initiale = trajectoire, pas capitalisation du fil ; (3) sélectivité qui omet les questions tant qu'un tour projet ne les requalifie pas. Premier sujet durable observé plus tard (« Parcours d'une inspection »), pas au sas.
-
-Ce n'est pas un second moteur manquant : le propriétaire D4 existe. L'insuffisance est le **déclenchement** à la création (pas d'intent de capitalisation du fil sas) — approfondissement Capacité 2 **et** anomalie de couverture fonctionnelle déjà spécifiée par l'arbitrage Morris (constitution initiale), pas un bug de projection seule.
-
-PG final : 2 sujets (enfant `Habilitations` `parent_subject_id` = parcours), 6 acquis, 2 points ouverts, 2 décisions (trajectoire + ouverture de cycle). Fil conversation = 21 messages. Les positifs T05–T07 sont réels.
-
-### 7.2 Points ouverts — première rupture
-
-Chemin : le modèle doit émettre un intent `d4.record_knowledge` `OPEN_POINT` ; D4 `openPoint()` persiste ; la projection liste `status=OPEN`. Il n'y a pas de quota code qui plafonne à 1. La rupture est **en amont de D4** : les questions rédigées dans la réponse ou dans V1/V2 ne sont pas des intents. T04 a créé le point « critères de validation » ; T09 bis le point « information des agents » (`opn_02efcb80`, statement sur le canal après changement de planning). Les autres questions de cadrage restent du texte. Résultat partiel T09 bis : un OPEN_POINT a été écrit pendant que le REVISE documentaire était refusé — effets indépendants (connaissance vs document). Cause : qualification sélective + absence de matérialisation systématique, **PROBABLE** comme politique de prompt, **CONFIRMED** comme absence d'extracteur qui transformerait les questions du document en points.
-
-### 7.3 Badge « Sujet autonome » — CONFIRMED
-
-`ProjectJournal.tsx` L540 : `isParentSelected = (tree.get(id) ?? []).length > 0` — vrai seulement si le sujet **a des enfants**. L'enfant avec `parent_subject_id` renseigné mais sans enfant propre reçoit le libellé « Sujet autonome » (L736). Le fil d'Ariane existe (`SubjectBreadcrumb`) mais le badge contredit la hiérarchie. Donnée PG correcte. Défaut de projection, pas de modèle.
-
-### 7.4 Provenance / finalité
-
-PV : acte Pilote étiqueté Contribution Nora ; finalité = ordre d'ouverture. Non re-démontré ligne à ligne dans ce tour au-delà du PV et de la composition d'effets qui injecte des confirmations Nora. Classement **PROBABLE** projection/restitution. Arbitrage gouvernance T07 : **NO DEFECT** runtime (2 HumanDecisions seulement). Réconciliation §7 du contrat continuité = D2 ultérieure, hors mandat.
-
-### 7.5 Contrat de sortie continuité
-
-| Phénomène | Classe |
+| Lane | Identité observée |
 |---|---|
-| Fil sas conservé (conversation.projectId) | comportement préservé |
-| Pas de capitalisation du sas à la création | insuffisance de déclenchement / Capacité 2 |
-| Sujets parent-enfant T06 | préservé (PG parent_subject_id) |
-| Peu de points ouverts vs questions | qualification cognitive (intents), pas filtre D4 |
-| Badge autonome sur enfant | défaut de projection UI |
-| 2 HumanDecisions seulement | conforme arbitrage Morris |
+| DEV | next PID 55011, cwd de ce worktree, `:3100`. PostgreSQL `sfia-next-dev-pg` `:5433`. Non utilisé pour les tests mutatifs. |
+| RECETTE | next PID 77113, cwd du worktree `0ae9e1f7`, `:3200`, BUILD `p0S18hf` encore servi à 09:20. Aucun restart, aucune écriture. |
+| Tests | Vitest réécrit la cible vers `sfia_next_e2e` sur `:5433` et refuse l'autre nom. Playwright isolé `:3101` / `sfia_next_e2e`. `OPENAI_API_KEY` vidé pour ce processus. Serveur `:3101` arrêté après la preuve. |
 
-## 8. Dictée MP-06 / MP-07
+## 4. Sources lues
 
-Code : ouverture échoue → `PROVIDER_ERROR` si message `PROVIDER_ERROR` ou timeout `SESSION_OPEN_TIMEOUT` 10s (`composer-dictation-session.ts` L82, L409–438). Événement fournisseur `error` → même code (L543–570), session failed, transport fermé, FinOps `failed`. Brouillon : les tests T06 annulent et restaurent la baseline ; le PV ne montre pas de perte de brouillon (poursuite clavier).
+- Diagnostic `515561e7` §§3, 9, 10, 11, 12, 13.
+- PV `ed38685a` blob `88474002` : T09, T09 bis, DOC-A à DOC-F.
+- Suivi `b93cf033` blob `ea10bc2f` (v0.1), lu par `git show`, non modifié.
+- Code d'entrée aux points cités : `page.tsx` focus après `AVAILABLE`, `resolveReviseTarget`, `sourceIsHistorical`, `revisionCurrencyLabel`, bannière `versionSource === "exact"`.
+- Tests existants : `documents-nora-v2-v4.spec.ts` (sas puis historique V2→V4, pas deux révisions naturelles), `ml5-pending-proposal-viewer.test.ts` (logique de bannière sans course navigateur), `documents-historical-revise.pg.test.ts`, `documents-proposal-candidate.pg.test.ts`, `documents-p0-hauth-pdoc.pg.test.ts`, `ml5-conserve-only-nominal.pg.test.ts`, `ml5-documentary-autonomy.pg.test.ts`, `documents-surfaces-projection.test.ts`.
+- `ml5-documentary-boundary-browser.spec.ts` lu comme qualification LIVE, non exécuté.
+- Contrats visuels réutilisés : lecture, Travail/visionneuse, historique, révision historique, proposition. Aucune maquette reconstruite. Pas de verdict F2.
 
-Config RECETTE : dictation=1, transport=live. Clé présente (non imprimée). Pas de fixture substituée (unset dans le start script).
+## 5. Reproduction avant correction
 
-Traces serveur : **aucune** ligne dictée/PROVIDER_ERROR dans les logs RECETTE cherchés. L'erreur affichée au sas n'a pas été journalisée côté process. Cause fournisseur (auth, modèle Realtime, URL) : **NOT OBSERVED**.
+Cause de code confirmée par lecture, puis par un test qui fige le comportement de `resolveReviseTarget` :
 
-Éliminé : bouton absent ; flag dictée off ; transport forcé fixture ; lien causal démontré avec legacy_sol (catalogue Responses ≠ Realtime).
+- Un focus dont `sourceRevisionId` et `observedHeadRevisionId` restent sur la révision précédente, alors que D4 a déjà une tête plus récente, fait choisir cette ancienne source comme base. Le serveur applique alors, légitimement, la garde historique.
+- La projection de proposition posait `versionSource: "exact"` et l'identifiant de la révision source sur la visionneuse, sans incrémenter le numéro de requête. Une lecture D4 encore en vol pouvait remplacer le corps du candidat par celui de la source. Le bandeau « version plus récente » suivait `exact`, y compris quand la révision citée était déjà la tête, et quand la tête était inconnue (`revisionCurrencyLabel(n, null)` valait « Historique »).
+- Le payload HTTP exact de T09 bis n'est toujours pas archivé. Le lien transactionnel avec ce tour reste probable. Le mécanisme, lui, est confirmé et maintenant corrigé sur le chemin client.
 
-Tests : `ml3-composer-dictation-integrated.pg.test.ts` « T08 — provider error fails session and blocks finalize » injecte une erreur de fixture. « T11 — finalize with PCM records FinOps » utilise un transport de test. Niveau DET/PG. Aucun test n'ouvre une socket Realtime RECETTE.
+## 6. Contrat technique retenu
 
-Test LIVE futur (non exécuté) : 1 session sas, plafond 1 essai / 60s, capturer code UI + event `error` ou `session.updated`, vérifier cleanup et brouillon, STOP si 401/403 ou silence > timeout. GO Morris distinct.
+- D4 reste le seul propriétaire. Aucune garde `BASE_STALE`, conflit de tête, autorisation historique, empreinte ou isolation n'est retirée.
+- `focusAfterAvailableConservation` ne rebase que si le résultat est `AVAILABLE`, porte le même `documentId`, et fournit un `revisionId`. La source et la tête observée deviennent cette révision. Le candidat et l'autorisation historique sont retirés.
+- Une réponse de tour plus ancienne que le tour courant ne réécrit ni le focus ni la visionneuse.
+- Une proposition n'a pas de `revisionId` durable. Son corps est celui du candidat scellé. Une lecture D4 antérieure est ignorée parce que le numéro de requête a avancé.
+- Corps de proposition absent : visionneuse indisponible, pas de substitution par V1.
+- Consultation d'une autre version pendant qu'une proposition existe : bannière « autre version », action « Revenir à la proposition ».
+- Monnaie : identifiants D4. Référence exacte égale à la tête = courante. Tête absente = non vérifiée. Le mode `exact` reste visible comme « révision citée », sans impliquer l'historique.
+- ACK perdu avant persistance du nouveau focus : pas de rebase automatique vers une tête qu'on ne peut pas attribuer à cette conservation. La garde historique reste. C'est voulu.
 
-MP-07 : onde non qualifiable sans capture. **NOT RUN**.
+## 7. Changements
 
-## 9. UX (sans F2)
+Fichiers modifiés, non commités :
 
-| Écart PV | Responsabilité | Class |
-|---|---|---|
-| Animation préparation statique | non observée dynamiquement ici | HYPOTHESIS — capture fixe insuffisante |
-| Points à clarifier en liens | présentation panneau | PROBABLE fidélité, Figma non rouvert |
-| Icône récent peu documentaire | `project-recent-items` / chrome | PROBABLE |
-| Identifiants trj_ dans titres | projection décisions | PROBABLE (PV T05) |
-| Courant/historique | DOC-B | CONFIRMED |
-| Proposition expirée | DOC-E | PROBABLE |
-| Finalité = ordre d'ouverture | projection cycle | PROBABLE |
-| Markdown brut historique | rendu non SafeMarkdown | PROBABLE |
-| Listes concaténées | restitution texte | PROBABLE |
-| Compositeur croissance | non ré-exercé | NOT RUN au-delà du PV PARTIAL |
-| MP-13 compteurs | `setProjectActivity` seulement L2169 ; refresh post-tour L3115 met à jour documents/knowledge **sans** activité | CONFIRMED |
+- `web/src/app/projects/[projectId]/page.tsx`
+- `web/src/components/figma/DocumentSurfaces.tsx`
+- `web/src/components/figma/TravailViewer.tsx`
+- `web/src/domains/conversation/fixture-semantic-qualify.ts` — extension de lane de test seulement : une seconde proposition distincte, « Je souhaite préciser le suivi entre les centres. » La conservation continue d'enregistrer le candidat scellé, pas ce texte fixe.
+- `web/tests/unit/documents-surfaces-projection.test.ts`
+- `web/tests/e2e/document-revision-lifecycle.spec.ts` (nouveau, non suivi)
+- `construction/delivery-history.md`
+- `construction/as-built-ensemble-06-journal-documents-20261120.md` — section datée ajoutée, preuves historiques laissées en place
 
-Compteur documents : `countProjectLibraryDocuments` déduplique par id. 1 document / 2 révisions reste 1. Le bug T07 est la fraîcheur du state `projectActivity`, pas le comptage des révisions. Autres surfaces : Journal lit `knowledge` rafraîchi ; la carte Projet lit `projectActivity` stale. Navigation reload corrige. Pas de cache HTTP démontré.
+Les fonctions pures vivent dans `DocumentSurfaces.tsx`, déjà importé par la page. Un import de `document-act.ts` depuis la page client a été retiré : il tirait `document-command` puis le client PostgreSQL (`fs`) dans le bundle navigateur. Le premier essai navigateur l'a montré par une erreur de build. `document-act.ts` et `service.ts` ne sont pas modifiés. Les gardes serveur restent celles de `0ae9e1f7`.
 
-## 10. Angles morts E1–E5 (assertions)
+DOC-D reporté. Le titre est le titre métier produit par Nora. Retirer « V1 » par une règle de caractères serait aveugle et hors du contrat sémantique. Aucun renommage d'Equipéo, aucune migration.
 
-| Cas | Test exact | Ce qu'il affirme | Pourquoi le défaut passe |
-|---|---|---|---|
-| V1→V2→V3 + historique | `documents-historical-revise.pg.test.ts` « V1→V2→V3 then historical V2→V4 with confirmation » | API/PG avec confirmation **explicite** quand la base n'est pas la head | Ne passe pas par le focus React post-conserve qui réinjecte l'ancienne sourceRevisionId |
-| Conflit | même fichier « concurrent head … CONFLICT » | D4 refuse si head a bougé | Ne couvre pas le faux historique dû au client |
-| BASE_STALE | « legacy baseRevisionId-only still requires head match » | garde serveur | La garde est correcte ; le client l'enclenche à tort |
-| Pending conserve | helpers `document-conserve.ts` attendent `PROPOSAL_PENDING_CONSERVATION` | raison serveur | Pas d'assertion DOM markdown === candidat après clic révision |
-| Policy RECETTE | `ml5-cognitive-resources.test.ts` fallback legacy_sol et admit qualified-v0.2 | fonctions pures sur env injecté | Le process RECETTE réel n'a pas les variables ; le test ne lit pas `~/.config` |
-| Dictée erreur | PG T08 provider error | fixture | Pas de handshake LIVE |
-| Compteurs | helpers `countProjectLibraryDocuments` | dédup id | Ne montent pas le state React après un tour |
-| Activité | labels unitaires (collapse orientation) | headline stable | Le collapse **produit** l'historique générique ; les tests le figent comme voulu IT-01 |
-| Capitalisation sas | pas de test « create project copie les questions du sas » | — | Création ne capitalise pas ; aucun oracle UI T03 |
+DOC-E reporté. « Propositions expirées » est le libellé de tout groupe de choix devenu non actionnable. Distinguer « conservée » exigerait un état de projection que ce lot ne crée pas.
 
-## 11. Matrice — 23 fiches × 18 dimensions
+## 8. Preuves
 
-Identifiant = titre. Les 17 autres dimensions suivent.
+| Preuve | Résultat |
+|---|---|
+| Unit `documents-surfaces-projection.test.ts` | 18 passed, dont reproduction du focus périmé et rebase vers la tête écrite |
+| Unit `document-act.test.ts` + `ml5-pending-proposal-viewer.test.ts` | 8 passed (avant déplacement des fonctions pures ; le fichier `document-act` n'a plus ces fonctions, les assertions sont dans le test de projection rejoué après) |
+| PG `documents-historical-revise` | 4 passed — historique, conflit, base stale |
+| PG `ml5-documentary-autonomy` | 3 passed |
+| PG `ml5-conserve-only-nominal` | 1 passed |
+| PG `documents-proposal-candidate` | 1 passed |
+| PG `documents-p0-hauth-pdoc` | 1 passed |
+| BROWSER `document-revision-lifecycle.spec.ts` | 1 passed (24,2 s) |
+| Lint `next lint` sur les fichiers touchés | exit 0, avertissements préexistants de `page.tsx`, aucune nouvelle erreur |
+| `git diff --check` | clean |
+| Fournisseur | aucune émission. Clé vidée sur le processus `:3101`. |
 
-### MP-01
-- Tour: R00/T01. Attendu: micro accessible. Observé: visible. Propriétaire: compositeur. Chemin: ComposerDictationControl. Cause: pas de défaut d'accès. Preuves: PV. Class: NO DEFECT accès. Confiance: haute. Impact: nul sur le bouton. Blast: UI. Tests: nora-shared-composer exposition. Angle mort: pas de session réelle. Correctif: aucun. Risques: néant. Sortie: couplée MP-06. Décision: ne pas clôturer la MP audio.
+Le lanceur webpack de `scripts/e2e-web-server.sh` n'a pas servi `/login` : `Module parse failed` sur `node_modules/@cursor/sdk/dist/esm/agent.d.ts.map`, indépendant de ce lot. La preuve navigateur a été prise sur `:3101`, base `sfia_next_e2e`, `STUDIO_E2E=1`, `STUDIO_FORCE_NORA_FIXTURE=1`, avec Turbopack. Ce n'est pas le lanceur canonique. Le parcours client, D4 et PostgreSQL de test sont réels. Nora est substituée.
 
-### MP-02
-- Tour: T01–T02. Attendu: compositeur partagé, croissance, brouillon. Observé: présent ; croissance non exhaustive. Propriétaire: NoraSharedComposer. Chemin: drafts isolés prep/projet. Cause: parcours incomplet. Preuves: PV PARTIAL. Class: NOT RUN partiel. Confiance: moyenne. Impact: inconnu. Blast: compositeur. Tests: isolation des clés de draft. Angle mort: pas de long brouillon RECETTE. Correctif: BROWSER plus tard. Risques: faible. Sortie: scénario T02 complet. Décision: aucune.
+Captures locales, non accessibles sur Git :
 
-### MP-03
-- Tour: T02–T09 bis. Attendu: questions significatives matérialisées sans quota. Observé: 0 au sas, 1 puis 2 (`opn_9dc9f8e6`, `opn_02efcb80`). Propriétaire: qualification Nora + D4 openPoint. Chemin: intent record_knowledge puis `knowledge/service.ts` openPoint. Cause: questions texte ≠ intents ; pas de plafond code à 1. Preuves: PG 2 OPEN ; consignes nora-adapter sélectivité. Class: PROBABLE qualification / CONFIRMED absence d'extracteur document→OP. Confiance: haute sur le lieu de rupture. Impact: Journal incomplet. Blast: D4 knowledge. Tests: pas d'oracle « questions V1 devenues OP ». Angle mort: tests d'un intent fabriqué, pas du fil sas. Correctif: déclenchement borné à la création + tours riches, pas quota. Risques: sur-capitalisation. Sortie: sas synthétique → N OP justifiés, pas tous les « ? ». Décision: périmètre Capacité 2.
+| Fichier | SHA-256 |
+|---|---|
+| `.tmp-sfia-review/lot1-captures/01-proposition-v2.png` | `58d4d95bd240298233e141eb7b942b942c884179f6b04e93b3e4bebdbf0c9fac` |
+| `02-v2-courante.png` | `39e57da2c1e57672c260f34b7a7a1e5356746a77bc65afc9e023f67f01d37e6a` |
+| `03-proposition-v3.png` | `9d2913adf3cc70ca5cc69180a6e765f2bbd9149d76cd8621013af05f223f5184` |
+| `04-v3-courante.png` | `770e7d9b40a5d472e3a3974c20b36f8e1bfd62b8e1f10df9ca381615d563b511` |
+| `05-historique-v1-v2-v3.png` | `8a69e9d2056d6b49c047a97f7ff4bef010fc3df31a556084638658965e2265d1` |
+| `06-revision-historique-gouvernee.png` | `d27ff2c25fe059ccc1b51fa07d6ddd2182eda06463ed75e905bc82633e992399` |
 
-### MP-04
-- Tour: T03. Attendu: animation réelle puis arrêt. Observé: spinner statique selon Pilote. Propriétaire: UI qualification. Chemin: initial qualification phases. Cause: non mesurée (pas de vidéo dans ce cycle). Preuves: PV seulement. Class: HYPOTHESIS. Confiance: faible. Impact: perception. Blast: modal création. Tests: non déterminants sur le mouvement. Angle mort: capture fixe. Correctif: à confirmer par enregistrement reduced-motion. Risques: décor vs progression. Sortie: séquence DOM. Décision: ne pas corriger sur capture seule.
+## 9. Oracles
 
-### MP-05
-- Tour: multi. Attendu: Markdown lisible, listes, confort. Observé: document principal lisible ; historique brut ; listes concatenées. Propriétaire: rendu. Chemin: SafeMarkdown vs texte brut historique. Cause: composants d'aperçu. Preuves: PV. Class: PROBABLE. Confiance: moyenne. Impact: lisibilité. Blast: historique. Tests: non appariés Figma. Angle mort: pas de DOM historique. Correctif: même renderer que la visionneuse. Risques: faible. Sortie: BROWSER apparié. Décision: pas de F2.
+| Oracle | Couvert par |
+|---|---|
+| A01–A08 création, inspection V2, pas de V2 durable avant conservation, conservation | BROWSER |
+| A09 pas de faux historique après V2 | BROWSER, badge COURANTE, bannière absente |
+| A10–A15 V3 depuis le même fil, sans reload ni injection d'identifiant, un document, trois révisions | BROWSER |
+| A16 V1 et V2 relues intactes | BROWSER |
+| A17 liens exacts | partiel : la lecture historique ouvre le corps V1 ou V2 cité. Pas de second fil de citations Nora rejoué. |
+| A18 reload | BROWSER, V3 toujours courante |
+| B empreinte et identité | le serveur conserve le candidat scellé (chemin inchangé, PG conserve-only passed). Le navigateur compare les textes distinctifs V1 / V2 / V3. L'empreinte n'est pas recalculée dans le spec. |
+| C01 lecture sans mutation | BROWSER, pas de V4 pendant les lectures |
+| C02 vraie base historique | BROWSER, bouton « Repartir de la v1 » exigé |
+| C03 refus | pas de bouton de refus dans le fixture. Sans clic, aucune V4. Le refus explicite reste couvert par les tests PG historiques. |
+| C04 autorisation valide | PG historique, non rejoué dans le nouveau spec |
+| C05–C07 concurrence, autorisation obsolète, double conservation | PG existants passed, code serveur non modifié |
+| C08 candidat consommé / hash | PG conserve-only (traces `CANDIDATE_CONSUMED`, `CANDIDATE_CLIENT_HASH_MISMATCH`) |
+| C09 corps absent | code : visionneuse indisponible. Pas de spec navigateur dédié. |
+| C10 autre projet | non rejoué ici ; garde D4 préexistante, non modifiée |
+| C11 exacte et courante | unit + BROWSER après conservation |
+| C12 tête inconnue | unit `Non vérifiée`, bannière nulle |
+| C13 autre version pendant une proposition | unit `other-version`. Le spec navigateur ne clique pas ce retour. |
+| C14 réponse tardive | le tour porte un numéro ; une réponse plus ancienne ne réapplique pas le focus. Pas de course réelle injectée dans le navigateur. |
+| D non-régression | PG documentaires ci-dessus. Le spec `documents-nora-v2-v4` n'a pas été rejoué. |
 
-### MP-06
-- Tour: T01. Attendu: dictée FR, erreur propre, brouillon gardé. Observé: PROVIDER_ERROR immédiat, clavier. Propriétaire: session dictée. Chemin: open transport live, timeout 10s ou event error. Cause LIVE: NOT OBSERVED. Preuves: code L409–570 ; logs RECETTE sans PROVIDER_ERROR ; config live on. Class: NOT OBSERVED. Confiance: haute sur l'élimination config off. Impact: audio inutilisable. Blast: Realtime. Tests: PG T08 fixture. Angle mort: pas de socket réelle. Correctif: après 1 essai GO. Risques: coût/auth. Sortie: event error corrélé. Décision: GO LIVE distinct.
+## 10. Fake / Real
 
-### MP-07
-- Tour: T01. Attendu: onde après signal. Observé: non jugeable. Propriétaire: UI onde. Chemin: dépend session open. Cause: bloqué par MP-06. Preuves: PV. Class: NOT RUN. Confiance: haute. Impact: idem. Blast: idem. Tests: aucun signal réel. Angle mort: total. Correctif: couplé. Risques: idem. Sortie: silence/parole. Décision: avec MP-06.
+- DET : focus, monnaie, bannière.
+- PG : PostgreSQL de test `sfia_next_e2e`, gardes réelles.
+- BROWSER : vrai navigateur, vraie orchestration, Nora fixture.
+- LIVE : non exécuté. Claim interdit : END-TO-END REAL PROVEN, READY FOR REAL, recette acceptée, MP closes, ADOPTED.
 
-### MP-08
-- Tour: T07–T09 bis. Attendu: récents, versions, visionneuse, pas de faux historique. Observé: accès utile ; états DOC-A/B/C. Propriétaire: D4 + page focus. Chemin: voir §3. Cause: focus/versionSource. Preuves: code + 2 révisions PG. Class: CONFIRMED sous-parcours docs. Confiance: haute. Impact: révision bloquée. Blast: viewer Travail. Tests: PG historique avec confirmation explicite. Angle mort: focus React. Correctif: lot documentaire. Risques: affaiblir hauth. Sortie: V2→V3 sans hauth si head. Décision: GO correctif.
+Claims retenus : IMPLEMENTED sur le focus, la visionneuse de proposition et la monnaie. COVERAGE VERIFIED pour les tests listés. BEHAVIOR PROVEN pour le parcours fixture V1→V2→V3 et pour les gardes PG rejouées.
 
-### MP-09
-- Tour: T05. Attendu: multi-intentions gouvernées. Observé: trajectoire + cycle + sujet, un cycle actif. Propriétaire: D3/D5/D6. Chemin: intents distincts. Cause: nominal conforme. Preuves: PV + 2 human_decisions PG. Class: NO DEFECT nominal. Confiance: haute. Impact: positif. Blast: —. Tests: E2 conduite. Angle mort: cas négatifs non rejoués. Correctif: aucun immédiat. Risques: régression si on retouche D3. Sortie: conserver. Décision: ne pas rouvrir.
+## 11. Réserves
 
-### MP-10
-- Tour: T03–T09 bis. Attendu: hiérarchie, acquis, réutilisation. Observé: parent/enfant, 6 acquis, V1/V2 ; init sas pauvre ; badge faux. Propriétaire: D4 subjects. Chemin: record_knowledge + parentSubjectId. Cause: mix déclenchement + badge. Preuves: PG parent_subject_id. Class: PARTIAL. Confiance: haute. Impact: mémoire incomplète au départ. Blast: Journal. Tests: pas de bootstrap sas. Angle mort: voir MP-03. Correctif: lots continuité + badge. Risques: doublons de sujets. Sortie: création idempotente. Décision: Capacité 2.
+1. Le lanceur webpack canonique `:3101` est bloqué par le parse de `@cursor/sdk`. La preuve utilise Turbopack sur la même base et le même port.
+2. DOC-D et DOC-E reportés au lot UX, avec la raison ci-dessus.
+3. Le payload T09 bis n'est pas rejoué ; le mécanisme l'est.
+4. C03, C04, C10, C13 navigateur et C14 en course réelle ne sont pas tous rejoués dans le nouveau spec.
+5. Aucun commit. Le diff peut encore changer avant un GO de publication produit.
 
-### MP-11
-- Tour: T04–T09 bis. Attendu: activité vraie, historique conservé, réponse métier sans acks répétés. Observé: LIVE spécialisé ; terminal générique ; 3 confirmations. Propriétaire: OBS + composition. Chemin: nora_activity_events + compose* dans assistantBody. Cause: collapse headline idle + concat effets. Preuves: 10+13 events PG ; restitution L47. Class: CONFIRMED. Confiance: haute. Impact: bruit conversationnel. Blast: toutes réponses à effets. Tests: IT-01 fige le collapse. Angle mort: test = comportement contesté. Correctif: acks vers activité ; headline idle garde la comparaison. Risques: perdre un échec utile en conversation. Sortie: T06 sans triple phrase, comparaison encore visible après fin. Décision: quelles alertes restent dans le fil.
+## 12. Décisions Morris
 
-### MP-12
-- Tour: T03–T05. Attendu: finalité métier. Observé: ordre d'ouverture / id technique. Propriétaire: projection trajectoire. Chemin: décisions OPEN_CYCLE / RETAIN_TRAJECTORY. Cause: libellé = statement technique. Preuves: PG statements. Class: PROBABLE. Confiance: moyenne. Impact: lisibilité. Blast: Journal décisions. Tests: non UX. Angle mort: pas d'oracle de finalité. Correctif: titre métier distinct de l'id. Risques: masquer l'acte. Sortie: libellé sans trj_. Décision: forme du libellé.
+- Relire le diff local avant tout commit ou push produit.
+- Laisser DOC-D et DOC-E au lot 7, sauf arbitrage contraire.
+- Ne pas promouvoir RECETTE sur ce diff.
+- Ne pas ouvrir le lot 2 tant que cette revue n'est pas acceptée.
+- Ne clôturer aucune MP. Ne pas accepter la Livraison 1.
 
-### MP-13
-- Tour: T07/T09. Attendu: compteurs à jour, 1 doc malgré versions. Observé: 2/2/0 puis 3/2/1 après reload ; 1 doc après V2. Propriétaire: project activity client. Chemin: setProjectActivity unique au load L2169. Cause: pas de refresh de l'agrégat. Preuves: code ; count déduplique. Class: CONFIRMED. Confiance: haute. Impact: méfiance compteurs. Blast: carte Projet. Tests: helper de comptage seulement. Angle mort: pas de cycle React. Correctif: recalcul après fetch projet post-tour. Risques: faible. Sortie: T07 sans reload. Décision: aucune.
+## 13. Hors lot, signalé et non corrigé
 
-### MP-14
-- Tour: T08. Attendu: investigation comparable. Observé: non lancée. Propriétaire: —. Chemin: —. Cause: report Morris. Preuves: PV DEFERRED. Class: NOT RUN. Confiance: haute. Impact: pas de comparatif. Blast: —. Tests: —. Angle mort: —. Correctif: après allocation. Risques: coût. Sortie: mission bornée. Décision: déjà reportée.
+Compteurs Projet, allocation RECETTE, FinOps, dictée, activité transverse, capitalisation, comparaison enrichie, navigation, Figma global.
 
-### MP-15
-- Tour: campagne. Attendu: allocation selon complexité, pas Sol forcé. Observé: Sol seul RECETTE ; Terra/Luna DEV. Propriétaire: policy env. Chemin: resolveProvisionalPolicy → legacy_sol. Cause: policy et admit absents en RECETTE. Preuves: fichiers env ; code L159. Class: CONFIRMED. Confiance: haute. Impact: coût/modèle. Blast: toutes générations RECETTE. Tests: unit fallback. Angle mort: cutover sans assert env process. Correctif: config qualified-v0.2 sous GO. Risques: qualité non recalibrée. Sortie: modelApplied Terra ou Luna sur un tour simple, Sol sur un tour lourd, sans forcer. Décision: activer ou non.
+## 14. Verdict
 
-### MP-16
-- Tour: T07. Attendu: travaux corrélés, finalisés, coûts honnêtes. Observé: 0 abouti UI ; 1 en cours ; PG 5 COMPLETE + 1 OPEN. Propriétaire: FinOps read + cognitive work. Chemin: observations.cognitive_work_id. Cause: 44 obs sans work, 18 sur OPEN seul, 0 sur COMPLETE ; OPEN = AWAIT_PILOT T06. Preuves: jointure SQL. Class: CONFIRMED corrélation. Confiance: haute. Impact: pilotage coût faux. Blast: page consommation. Tests: non sur ce rattachement Equipéo. Angle mort: tests d'agrégat avec work id déjà posé. Correctif: écrire l'id sur les observations des travaux COMPLETE ; ne pas clôturer AWAIT_PILOT par réflexe. Risques: double comptage. Sortie: aboutis = nombre de COMPLETE liés. Décision: Admin reste OFF.
+READY WITH RESERVES
 
-### MP-17
-- Tour: R00. Attendu: paramètres, rail, navigation. Observé: accès nominal partiel. Propriétaire: shell. Chemin: routes settings. Cause: parcours non exhaustif. Preuves: PV PASS partiel. Class: NOT RUN exhaustif. Confiance: moyenne. Impact: inconnu. Blast: shell. Tests: E3 rail partiel. Angle mort: viewport 1280. Correctif: campagne UI plus tard. Risques: faible. Sortie: T11. Décision: aucune.
+Le parcours central V1 → V2 inspectée → V3 est démontré dans le navigateur de test, et les gardes historiques PG restent vertes. Les réserves portent sur le lanceur webpack, les oracles négatifs non tous rejoués dans le nouveau spec, et DOC-D/E reportés. Ce n'est pas une autorisation de commit, de push, ni de RECETTE.
 
-### DOC-A
-- Tour: T09. Attendu: brouillon inspectable avant conserve. Observé: V1 à l'écran, V2 après clic. Propriétaire: viewer Travail. Chemin: pending markdown puis revisionId = base. Cause: identité viewer = source ; overwrite possible. Preuves: L2967–3027 ; rev2 PG différente. Class: PROBABLE. Confiance: moyenne-haute. Impact: revue impossible. Blast: visionneuse. Tests: raison serveur seulement. Angle mort: pas de DOM. Correctif: viewer candidat distinct, revisionId proposition. Risques: conserver le mauvais texte. Sortie: markdown affiché = sha candidat. Décision: aucune.
+## 15. Diff local et fichier nouveau
 
-### DOC-B
-- Tour: T07/T09. Attendu: courante ≠ historique. Observé: HISTORIQUE + bandeau sur courante. Propriétaire: DocumentSurfaces + TravailViewer. Chemin: revisionCurrencyLabel ; versionSource exact. Cause: exact traité comme historique. Preuves: L45–50 DocumentSurfaces ; L201 TravailViewer. Class: CONFIRMED. Confiance: haute. Impact: mauvaise base ensuite. Blast: labels. Tests: aucun sur head === exact. Angle mort: total UI. Correctif: exact n'est historique que si id ≠ head. Risques: masquer un vrai historique. Sortie: V2 courante sans bandeau. Décision: aucune.
+Le diff `git diff` et le spec nouveau suivent. Ils sont la source de revue tant que le produit n'est pas publié.
 
-### DOC-C
-- Tour: T09 bis. Attendu: head naturelle ; confirmation seulement si base vraiment ancienne. Observé: aucun enregistrement, confirmation historique, pas de V3. Propriétaire: focus client + D4 garde. Chemin: focus non rebasé → resolveReviseTarget → sourceIsHistorical. Cause: rebase manquant. Preuves: L3029 ; document-act L454–470 ; service L3819 ; PG 2 revs seulement. Class: CONFIRMED code / PROBABLE lien au payload du tour. Confiance: haute / moyenne. Impact: révision suivante bloquée. Blast: tout REVISE après conserve dans la même session. Tests: V1→V3 via API avec ids explicites. Angle mort: pas le state React. Correctif: après AVAILABLE, source=observed=nouvelle head. Risques: sauter une vraie base historique choisie. Sortie: V2→V3 sans hauth. Décision: ne pas lever la garde serveur.
+## Annexe A — git diff projects/sfia-studio-next
 
-### DOC-D
-- Tour: T07/T09. Attendu: titre métier stable, versions à part. Observé: title SQL « … V1 », H1 V2. Propriétaire: create document. Chemin: documents.title. Cause: titre figé avec suffixe. Preuves: SELECT documents. Class: CONFIRMED. Confiance: haute. Impact: confusion. Blast: bibliothèque. Tests: non sur le nommage Morris. Angle mort: —. Correctif: titre sans Vx ; Vx = revision_number. Risques: rename rétroactif hors scope. Sortie: nouveau doc. Décision: pas de rename Equipéo automatique.
+```diff
+diff --git a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
+index 792a0bd6..eadc24f3 100644
+--- a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
++++ b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
+@@ -29,3 +29,13 @@ DOC-TECH-15 NOT RUN · DOC-TECH-16 PARTIAL · Journal R-01…R-11 · Sas KNOWN G
 
-### DOC-E
-- Tour: T09 après conserve. Attendu: état conservée, non rejouable. Observé: libellé expirée. Propriétaire: NoraConversation. Chemin: liste propositions consommées. Cause: vocabulaire. Preuves: composant ; une seule rev2. Class: PROBABLE. Confiance: moyenne. Impact: doute sur la conservation. Blast: fil. Tests: non UI. Angle mort: —. Correctif: libellé conservée. Risques: faible. Sortie: copie d'écran. Décision: libellé.
+ - As-built Journal historique : `as-built-ensemble-06-journal-20261119.md` (ne pas réécrire).
+ - Handoff RECETTE : `sfia/review-handoff@3bc3af40` blob `3724604c…`.
++
++## 2026-11-28 — cycle documentaire reproductible (lot 1, DEV local)
++
++Section factuelle du candidat local non committé. Elle ne remplace pas les preuves historiques ci-dessus. Base `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`. Pas de migration. RECETTE non touchée.
++
++1. Après une conservation `AVAILABLE` qui renvoie l'identifiant de révision, le focus de travail aligne la source et la tête observée sur cette révision, et retire le candidat ainsi que l'autorisation historique. Une sauvegarde sans identifiant, un autre document, ou un statut autre que `AVAILABLE` ne rebasent pas le focus.
++2. La visionneuse d'une proposition affiche le corps du candidat, sans identifiant de révision durable, et invalide une lecture D4 encore en vol. Si le corps manque, l'ancienne version n'est pas affichée à la place.
++3. Le bandeau « version plus récente » ne s'appuie plus sur le seul mode `exact`. Une référence exacte qui est la tête D4 est courante. Une tête inconnue est « non vérifiée ». Une autre version consultée pendant qu'une proposition existe reste distincte, et la proposition peut être réaffichée.
++4. Une vraie base historique continue d'exiger la confirmation serveur. `BASE_STALE`, le conflit de tête et l'idempotence de conservation ne sont pas assouplis.
++5. Le titre métier n'est pas réécrit, et Equipéo n'est pas renommé. Une proposition déjà consommée n'a pas de nouvel état durable : le libellé générique « propositions expirées » des choix non actionnables reste hors de ce lot.
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 026bc170..e7f0c1ea 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -5562,3 +5562,17 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+ - **WEB**: OFF
+ - **NO RELEASE** · RECETTE protégée · livraison 2 non engagée
 
-### DOC-F
-- Tour: T09 bis. Attendu: historique lisible, paire explicite. Observé: Markdown brut ; +17/−14 sans ids de révisions. Propriétaire: rendu + libellé activité. Chemin: summary nora.source.d4. Cause: summary = titre document + delta, pas base/head ids. Preuves: ligne PG comparaison. Class: PROBABLE. Confiance: haute sur le libellé, moyenne sur le Markdown. Impact: preuve de comparaison incomplète. Blast: activité. Tests: pas d'assertion de paire. Angle mort: —. Correctif: inclure n° de révisions dans le summary. Risques: faible. Sortie: paire rev1/rev2 lisible. Décision: aucune.
++## DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV
++
++- **Date** : 2026-11-28T09:20+01:00
++- **Cycle** : 08 Delivery / Critical · lot 1 uniquement
++- **Base** : `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` · tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`
++- **SHA final** : non attribué — changements locaux non committés, non poussés
++- **Nature** : correctif de fiabilité du cycle documentaire, compatible avec les invariants D4
++- **Schéma** : aucun changement · 027 inchangé
++- **Build DEV de production** : non produit
++- **Preuve navigateur** : Playwright isolé `:3101` / `sfia_next_e2e`, Nora substituée, `document-revision-lifecycle.spec.ts` 1 passed. Le serveur webpack canonique n'a pas démarré (parse préexistant de `@cursor/sdk` `agent.d.ts.map`) ; le parcours a été exécuté sur le même port et la même base avec Turbopack.
++- **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés ; lots 2 à 7 non engagés
++- **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
++- **Statut** : DEV LOCAL — REVIEW REQUIRED — NOT ADOPTED
++
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index a33f573e..5d6996eb 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -34,7 +34,9 @@ import {
+   DocumentCompareSurface,
+   DocumentHistorySurface,
+   DocumentReadSurface,
++  focusAfterAvailableConservation,
+   formatPilotFacingProvenance,
++  resolveTravailDocumentPresentation,
+   type DocumentComparePayload,
+   type RevisionRow,
+   revisionCurrencyLabel,
+@@ -413,6 +415,8 @@ export default function ProjectPage() {
+   const pendingDocumentOpenIdRef = useRef<string | null>(null);
+   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
+   const viewerRequestSeqRef = useRef(0);
++  /** Increments at each send. A late response must not restore an older document focus. */
++  const documentTurnGenRef = useRef(0);
+   const viewerOpenRef = useRef(false);
+   /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
+   const surfaceNavGenRef = useRef(0);
+@@ -706,6 +710,7 @@ export default function ProjectPage() {
+     seq: number;
+     projectIdAtStart: string;
+     revisionNumber?: number | null;
++    knownHeadRevisionId?: string | null;
+   }) {
+     // Consultation is recorded only after a successful D4 read (available content).
+     const prepId = preparationIdRef.current;
+@@ -868,6 +873,9 @@ export default function ProjectPage() {
+           revisionId: resolvedRevisionId,
+           revisionNumber: resolvedRevisionNumber,
+           versionSource: input.versionSource,
++          knownHeadRevisionId:
++            input.knownHeadRevisionId ??
++            (input.versionSource === "current" ? resolvedRevisionId : null),
+           markdown,
+           available: Boolean(markdown),
+           unavailableReason: markdown
+@@ -1649,6 +1657,7 @@ export default function ProjectPage() {
+       titleHint: input.doc.document.title,
+       revisionId: historical ? input.sourceRevisionId : null,
+       versionSource: historical ? "exact" : "current",
++      knownHeadRevisionId: head.id,
+       seq,
+       projectIdAtStart,
+     });
+@@ -2243,15 +2252,23 @@ export default function ProjectPage() {
+                     revisionNumberHint: headNum != null ? headNum + 1 : null,
+                   });
+                   setStatusHint("Examiner une proposition de Nora");
++                  viewerRequestSeqRef.current += 1;
++                  viewerOpenRef.current = true;
+                   setViewer({
+                     kind: "document",
+                     documentId: restored.documentId,
+                     title: cj.candidate.title ?? "Document",
+-                    revisionId: restored.sourceRevisionId,
+-                    revisionNumber: headNum != null ? headNum + 1 : null,
+-                    versionSource: "exact",
+-                    markdown: md,
+-                    available: true,
++                    revisionId: null,
++                    revisionNumber: null,
++                    proposalCandidateId: restored.pendingCandidateId,
++                    knownHeadRevisionId: restored.observedHeadRevisionId,
++                    baseRevisionNumber: restored.sourceRevisionNumber ?? null,
++                    markdown: typeof md === "string" && md.length > 0 ? md : null,
++                    available: typeof md === "string" && md.length > 0,
++                    unavailableReason:
++                      typeof md === "string" && md.length > 0
++                        ? undefined
++                        : "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
+                   });
+                   // Re-bind focus with server hash; never set conserveProposal.
+                   applyDocumentFocus({
+@@ -2713,6 +2730,7 @@ export default function ProjectPage() {
+     const raw = (overrideText ?? draft).trim();
+     const text = mergeDraftWithDossierAttachment(raw, dossierAttachment).trim();
+     if (!text || !preparationId) return;
++    const turnGen = ++documentTurnGenRef.current;
+     const fromChoice = opts?.fromChoice === true;
+     const sentVersion = fromChoice ? null : draftVersionRef.current;
+     const pendingMeta: Pick<
+@@ -2853,7 +2871,9 @@ export default function ProjectPage() {
+       } catch {
+         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
+       }
+-      if (res.ok) {
++      if (res.ok && turnGen !== documentTurnGenRef.current) {
++        // A newer turn started. Do not restore this response's focus or viewer.
++      } else if (res.ok) {
+         const prepared = j.preparedContract as
+           | {
+               contractId: string;
+@@ -2908,7 +2928,13 @@ export default function ProjectPage() {
+           }
+         }
+         const save = j.documentSave as
+-          | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
++          | {
++              status?: string;
++              reason?: string;
++              documentId?: string;
++              revisionId?: string;
++              revisionNumber?: number;
++            }
+           | null
+           | undefined;
+         const pendingCand = j.pendingDocumentCandidate as
+@@ -2983,6 +3009,9 @@ export default function ProjectPage() {
+           const match = documentsRef.current.find((d) => d.document.id === docId);
+           const title = pendingCand.title || match?.document.title || "Document";
+           const revisionHint = headNum != null ? headNum + 1 : null;
++          const baseRevisionNumber = documentFocusRef.current?.sourceRevisionNumber ?? headNum;
++          const knownHeadId =
++            documentFocusRef.current?.observedHeadRevisionId ?? match?.latestRevision?.id ?? null;
+           // Single coherent object — Candidate badge only with this exact markdown.
+           setPendingProposal({
+             candidateId: pendingCand.candidateId,
+@@ -2990,7 +3019,8 @@ export default function ProjectPage() {
+             documentId: docId,
+             title,
+             contentMarkdown: pendingCand.contentMarkdown,
+-            sourceRevisionId: documentFocusRef.current?.sourceRevisionId ?? null,
++            sourceRevisionId:
++              pendingCand.sourceRevisionId ?? documentFocusRef.current?.sourceRevisionId ?? null,
+             revisionNumberHint: revisionHint,
+           });
+           if (documentFocusRef.current) {
+@@ -3014,21 +3044,55 @@ export default function ProjectPage() {
+               pendingCandidateContentSha256: pendingCand.contentSha256,
+             });
+           }
+-          // Always project the candidate body — never leave V1 under a Candidate badge.
++          // Drop any in-flight D4 read of the source revision so it cannot replace the candidate.
++          viewerRequestSeqRef.current += 1;
++          viewerOpenRef.current = true;
+           setViewer({
+             kind: "document",
+             documentId: docId || match?.document.id || "document",
+             title,
+-            revisionId: documentFocusRef.current?.sourceRevisionId ?? match?.latestRevision?.id ?? null,
+-            revisionNumber: revisionHint,
+-            versionSource: "exact",
++            revisionId: null,
++            revisionNumber: null,
++            proposalCandidateId: pendingCand.candidateId,
++            knownHeadRevisionId: knownHeadId,
++            baseRevisionNumber: baseRevisionNumber ?? null,
+             markdown: pendingCand.contentMarkdown,
+             available: true,
+           });
+           setStatusHint("Examiner une proposition de Nora");
++        } else if (
++          save?.reason === "PROPOSAL_PENDING_CONSERVATION" &&
++          pendingCand?.candidateId
++        ) {
++          viewerRequestSeqRef.current += 1;
++          viewerOpenRef.current = true;
++          setViewer({
++            kind: "document",
++            documentId:
++              pendingCand.documentId ||
++              save.documentId ||
++              documentFocusRef.current?.documentId ||
++              "document",
++            title: pendingCand.title || "Document",
++            revisionId: null,
++            revisionNumber: null,
++            markdown: null,
++            available: false,
++            unavailableReason:
++              "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
++          });
++          setStatusHint("Proposition indisponible");
+         } else if (save?.status === "AVAILABLE") {
+           setPendingProposal(null);
+-          if (documentFocusRef.current) {
++          const conserved = focusAfterAvailableConservation(documentFocusRef.current, {
++            status: save.status,
++            documentId: save.documentId,
++            revisionId: save.revisionId,
++            revisionNumber: save.revisionNumber,
++          });
++          if (conserved.rebased && conserved.focus) {
++            applyDocumentFocus(conserved.focus);
++          } else if (documentFocusRef.current) {
+             applyDocumentFocus({
+               ...documentFocusRef.current,
+               conserveProposal: false,
+@@ -3046,9 +3110,9 @@ export default function ProjectPage() {
+           if (
+             viewer?.kind === "document" &&
+             typeof save.documentId === "string" &&
+-            typeof (save as { revisionId?: string }).revisionId === "string"
++            typeof save.revisionId === "string"
+           ) {
+-            const newRevId = (save as { revisionId: string }).revisionId;
++            const newRevId = save.revisionId;
+             const newRevNum =
+               typeof save.revisionNumber === "number" ? save.revisionNumber : null;
+             const seq = ++viewerRequestSeqRef.current;
+@@ -3060,6 +3124,9 @@ export default function ProjectPage() {
+                 revisionId: newRevId,
+                 revisionNumber: newRevNum,
+                 versionSource: "current",
++                proposalCandidateId: null,
++                knownHeadRevisionId: newRevId,
++                baseRevisionNumber: null,
+                 available: false,
+                 unavailableReason: "Chargement de la version enregistrée…",
+               };
+@@ -3068,7 +3135,8 @@ export default function ProjectPage() {
+               documentId: save.documentId,
+               titleHint: viewer.title,
+               revisionId: newRevId,
+-              versionSource: "exact",
++              versionSource: "current",
++              knownHeadRevisionId: newRevId,
+               seq,
+               projectIdAtStart,
+             });
+@@ -3227,7 +3295,7 @@ export default function ProjectPage() {
+   const readCurrency =
+     readingRevisionNumber != null
+       ? revisionCurrencyLabel(readingRevisionNumber, headRevisionNumber)
+-      : "Courante";
++      : "Non vérifiée";
 
-## 12. Lots proposés (pas ceux du premier rapport tels quels)
+   const documentHero =
+     surface !== "document"
+@@ -3252,14 +3320,26 @@ export default function ProjectPage() {
+                 sub: "Deux documents côte à côte, avec un résumé des différences en lecture seule.",
+               };
 
-Ne pas fusionner parce que `page.tsx` est commun.
+-  const travailDocumentFocusBanner =
+-    pendingProposal &&
+-    viewer?.kind === "document" &&
+-    viewer.markdown === pendingProposal.contentMarkdown
+-      ? ("proposal" as const)
+-      : viewer?.kind === "document" && viewer.versionSource === "exact"
+-        ? ("historical" as const)
+-        : null;
++  const viewerHead =
++    viewer?.kind === "document"
++      ? documents.find((d) => d.document.id === viewer.documentId)?.latestRevision ?? null
++      : null;
++  const travailPresentation =
++    viewer?.kind === "document"
++      ? resolveTravailDocumentPresentation({
++          proposalActive: Boolean(
++            pendingProposal && pendingProposal.documentId === viewer.documentId,
++          ),
++          proposalMarkdown: pendingProposal?.contentMarkdown ?? null,
++          viewerMarkdown: viewer.markdown,
++          revisionId: viewer.revisionId ?? null,
++          revisionNumber: viewer.revisionNumber ?? null,
++          headRevisionId: viewerHead?.id ?? null,
++          headRevisionNumber: viewerHead?.revisionNumber ?? null,
++          knownHeadRevisionId: viewer.knownHeadRevisionId ?? null,
++        })
++      : null;
++  const travailDocumentFocusBanner = travailPresentation?.banner ?? null;
 
-1. **Révision reproductible** — DOC-B, DOC-C, DOC-A. Résultat : voir le candidat, étiquette courante juste, enchaîner une révision sans hauth si la head est la base. IN : focus post-AVAILABLE, versionSource, viewer candidat. OUT : titre documents, FinOps, dictée. Risque : garde historique. Preuve : BROWSER V1 conserve V2 puis V3. Premier lot recommandé.
+   const qualificationLockActive =
+     initialQualification?.status === "PENDING" ||
+@@ -3404,6 +3484,28 @@ export default function ProjectPage() {
+                 resource={viewer}
+                 enlarged={viewerEnlarged}
+                 documentFocusBanner={travailDocumentFocusBanner}
++                documentCurrency={travailPresentation?.currency ?? null}
++                onRestoreProposal={
++                  pendingProposal
++                    ? () => {
++                        viewerRequestSeqRef.current += 1;
++                        viewerOpenRef.current = true;
++                        setViewer({
++                          kind: "document",
++                          documentId: pendingProposal.documentId,
++                          title: pendingProposal.title,
++                          revisionId: null,
++                          revisionNumber: null,
++                          proposalCandidateId: pendingProposal.candidateId,
++                          knownHeadRevisionId:
++                            documentFocus?.observedHeadRevisionId ?? null,
++                          baseRevisionNumber: documentFocus?.sourceRevisionNumber ?? null,
++                          markdown: pendingProposal.contentMarkdown,
++                          available: true,
++                        });
++                      }
++                    : undefined
++                }
+                 onEnlarge={() => setViewerEnlarged(true)}
+                 onReduce={() => setViewerEnlarged(false)}
+                 onClose={closeViewer}
+diff --git a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
+index 950313ba..33c87041 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
+@@ -41,15 +41,162 @@ export type DocumentComparePayload = {
+   note?: string;
+ };
 
-2. **Fraîcheur carte Projet** — MP-13 seul. Recalcul `projectActivity` après effets. Petit, indépendant du focus.
+-/** Projection UI only — Courante = max AVAILABLE revision number. */
++/** Projection UI only. Missing head is unverified, never a false Historique. */
++export type RevisionCurrencyLabel = "Courante" | "Historique" | "Non vérifiée";
++
+ export function revisionCurrencyLabel(
+   revisionNumber: number,
+   headRevisionNumber: number | null | undefined,
+-): "Courante" | "Historique" {
+-  if (headRevisionNumber != null && revisionNumber === headRevisionNumber) return "Courante";
++): RevisionCurrencyLabel {
++  if (headRevisionNumber == null) return "Non vérifiée";
++  if (revisionNumber === headRevisionNumber) return "Courante";
+   return "Historique";
+ }
 
-3. **Corrélation FinOps** — MP-16. Rattacher les observations aux travaux COMPLETE ; laisser AWAIT_PILOT ouvert. OUT : changement de modèle.
++export function revisionCurrencyBadgeClass(currency: RevisionCurrencyLabel): string {
++  if (currency === "Courante") return "doc-badge doc-badge-current";
++  if (currency === "Historique") return "doc-badge doc-badge-historical";
++  return "doc-badge";
++}
++
++export type DocumentarySaveIdentity = {
++  status?: string;
++  documentId?: string;
++  revisionId?: string;
++  revisionNumber?: number;
++};
++
++/** Client-safe working focus. Kept out of document-act so the page bundle stays free of the DB client. */
++export type WorkingDocumentFocus = {
++  documentId: string;
++  sourceRevisionId: string;
++  sourceRevisionNumber?: number;
++  sourceContentMarkdown?: string;
++  observedHeadRevisionId: string;
++  observedHeadRevisionNumber?: number;
++  confirmedHistoricalSource?: boolean;
++  historicalConfirmation?: {
++    documentId: string;
++    sourceRevisionId: string;
++    observedHeadRevisionId: string;
++    choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
++  };
++  historicalAuthorizationId?: string;
++  conserveProposal?: boolean;
++  pendingCandidateId?: string;
++  pendingCandidateContentSha256?: string;
++};
++
++/**
++ * After D4 reports AVAILABLE, the working focus follows the revision just written.
++ * Does not move another document, and does not invent a head when the revision id is missing.
++ */
++export function focusAfterAvailableConservation<T extends WorkingDocumentFocus>(
++  focus: T | null,
++  save: DocumentarySaveIdentity,
++): { focus: T | null; rebased: boolean } {
++  if (!focus) return { focus, rebased: false };
++  if (save.status !== "AVAILABLE") return { focus, rebased: false };
++  if (!save.documentId || !save.revisionId) return { focus, rebased: false };
++  if (focus.documentId !== save.documentId) return { focus, rebased: false };
++  const revisionNumber =
++    typeof save.revisionNumber === "number" ? save.revisionNumber : focus.sourceRevisionNumber;
++  return {
++    rebased: true,
++    focus: {
++      ...focus,
++      sourceRevisionId: save.revisionId,
++      sourceRevisionNumber: revisionNumber,
++      sourceContentMarkdown: undefined,
++      observedHeadRevisionId: save.revisionId,
++      observedHeadRevisionNumber: revisionNumber,
++      confirmedHistoricalSource: false,
++      historicalConfirmation: undefined,
++      historicalAuthorizationId: undefined,
++      conserveProposal: false,
++      pendingCandidateId: undefined,
++      pendingCandidateContentSha256: undefined,
++    },
++  };
++}
++
++/** Exact resolution is not currency. A missing head stays unverified. */
++export function revisionCurrencyFromIdentity(input: {
++  revisionId?: string | null;
++  revisionNumber?: number | null;
++  headRevisionId?: string | null;
++  headRevisionNumber?: number | null;
++  knownHeadRevisionId?: string | null;
++}): RevisionCurrencyLabel {
++  const revisionId = input.revisionId ?? null;
++  const known = input.knownHeadRevisionId ?? null;
++  const listed = input.headRevisionId ?? null;
++  if (revisionId && known && revisionId === known) {
++    if (!listed || listed === known) return "Courante";
++    const listedIsOlder =
++      input.headRevisionNumber != null &&
++      input.revisionNumber != null &&
++      input.headRevisionNumber < input.revisionNumber;
++    if (listedIsOlder) return "Courante";
++  }
++  if (revisionId && listed) {
++    return revisionId === listed ? "Courante" : "Historique";
++  }
++  if (revisionId && known) {
++    return revisionId === known ? "Courante" : "Historique";
++  }
++  if (
++    input.revisionNumber != null &&
++    input.headRevisionNumber != null &&
++    input.revisionNumber === input.headRevisionNumber
++  ) {
++    return "Courante";
++  }
++  if (
++    input.revisionNumber != null &&
++    input.headRevisionNumber != null &&
++    input.revisionNumber !== input.headRevisionNumber
++  ) {
++    return "Historique";
++  }
++  return "Non vérifiée";
++}
++
++export function resolveTravailDocumentPresentation(input: {
++  proposalActive: boolean;
++  proposalMarkdown?: string | null;
++  viewerMarkdown?: string | null;
++  revisionId?: string | null;
++  revisionNumber?: number | null;
++  headRevisionId?: string | null;
++  headRevisionNumber?: number | null;
++  knownHeadRevisionId?: string | null;
++}): {
++  banner: "proposal" | "historical" | "other-version" | null;
++  currency: RevisionCurrencyLabel | "Proposition";
++} {
++  const showingProposal =
++    input.proposalActive &&
++    typeof input.proposalMarkdown === "string" &&
++    input.proposalMarkdown.length > 0 &&
++    input.viewerMarkdown === input.proposalMarkdown;
++  if (showingProposal) {
++    return { banner: "proposal", currency: "Proposition" };
++  }
++  const currency = revisionCurrencyFromIdentity(input);
++  if (
++    input.proposalActive &&
++    typeof input.proposalMarkdown === "string" &&
++    input.proposalMarkdown.length > 0
++  ) {
++    return { banner: "other-version", currency };
++  }
++  return {
++    banner: currency === "Historique" ? "historical" : null,
++    currency,
++  };
++}
++
+ /**
+  * R4 — pilot-facing provenance only. Never invents Git commits or sources from titles.
+  * Never surfaces correlationKey / requestId / raw provenanceJson / debug ids.
+@@ -565,7 +712,7 @@ export function DocumentReadSurface(props: {
+   markdown: string | null;
+   missing?: string | null;
+   revisionLabel: string;
+-  currency: "Courante" | "Historique";
++  currency: "Courante" | "Historique" | "Non vérifiée";
+   loading?: boolean;
+   onRequestRevision: () => void;
+   onHistory: () => void;
+@@ -700,13 +847,7 @@ export function DocumentHistorySurface(props: {
+                   >
+                     <div className="doc-version-row-top">
+                       <span className="doc-version-title">Version {r.revisionNumber}</span>
+-                      <span
+-                        className={
+-                          currency === "Courante"
+-                            ? "doc-badge doc-badge-current"
+-                            : "doc-badge doc-badge-historical"
+-                        }
+-                      >
++                      <span className={revisionCurrencyBadgeClass(currency)}>
+                         {currency.toUpperCase()}
+                       </span>
+                     </div>
+@@ -733,12 +874,9 @@ export function DocumentHistorySurface(props: {
+           <>
+             <h3 className="doc-aside-title">Version {selected.revisionNumber}</h3>
+             <span
+-              className={
+-                revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
+-                "Courante"
+-                  ? "doc-badge doc-badge-current"
+-                  : "doc-badge doc-badge-historical"
+-              }
++              className={revisionCurrencyBadgeClass(
++                revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber),
++              )}
+             >
+               {revisionCurrencyLabel(
+                 selected.revisionNumber,
+@@ -751,7 +889,10 @@ export function DocumentHistorySurface(props: {
+                 revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
+                 "Courante"
+                   ? "Version courante"
+-                  : "Version précédente conservée"
++                  : revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
++                      "Historique"
++                    ? "Version précédente conservée"
++                    : "Actualité non vérifiée"
+               }
+             />
+             <div className="doc-aside-divider" />
+diff --git a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
+index db0d0b84..665c6387 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
+@@ -12,6 +12,12 @@ export type TravailViewerResource =
+       revisionNumber?: number | null;
+       /** Explicit when no revisionId was requested — never silent latest substitution. */
+       versionSource?: "exact" | "current";
++      /** Set only while the body is the unsealed candidate. Not a durable revision id. */
++      proposalCandidateId?: string | null;
++      /** Head known when this view was produced (save or current resolution). */
++      knownHeadRevisionId?: string | null;
++      /** Documentary base of a proposal — display only. */
++      baseRevisionNumber?: number | null;
+       markdown: string | null;
+       available: boolean;
+       unavailableReason?: string;
+@@ -48,8 +54,11 @@ export type TravailViewerResource =
+ export function TravailViewer(props: {
+   resource: TravailViewerResource;
+   enlarged: boolean;
+-  /** When Nora works from a non-current revision — informational only. */
+-  documentFocusBanner?: "historical" | "proposal" | null;
++  /** Informational only — does not authorize a write. */
++  documentFocusBanner?: "historical" | "proposal" | "other-version" | null;
++  /** D4 currency. Exact resolution alone never implies Historique. */
++  documentCurrency?: "Courante" | "Historique" | "Non vérifiée" | "Proposition" | null;
++  onRestoreProposal?: () => void;
+   onEnlarge: () => void;
+   onReduce: () => void;
+   onClose: () => void;
+@@ -77,34 +86,44 @@ export function TravailViewer(props: {
+           : "VISIONNEUSE  /  SOURCE GIT";
+   const currencyBadge =
+     resource.kind === "document"
+-      ? props.documentFocusBanner === "proposal"
++      ? props.documentCurrency === "Proposition" || props.documentFocusBanner === "proposal"
+         ? "PROPOSITION"
+-        : resource.versionSource === "exact"
++        : props.documentCurrency === "Historique"
+           ? "HISTORIQUE"
+-          : "COURANTE"
++          : props.documentCurrency === "Non vérifiée"
++            ? "NON VÉRIFIÉE"
++            : props.documentCurrency === "Courante"
++              ? "COURANTE"
++              : resource.versionSource === "current"
++                ? "COURANTE"
++                : "NON VÉRIFIÉE"
+       : resource.kind === "web"
+         ? resource.consulted
+           ? "CONSULTÉE"
+           : "DÉCOUVERTE"
+         : null;
+-  // Journal V4 accepted label ("Version N · révision citée") preserved;
+-  // Documents adds proposal candidate wording + currency badge separately.
+   const versionLine =
+-    resource.kind === "document" && resource.revisionNumber != null
+-      ? props.documentFocusBanner === "proposal"
+-        ? `Version ${resource.revisionNumber} · Candidate`
+-        : [
++    resource.kind === "document" &&
++    (props.documentFocusBanner === "proposal" || props.documentCurrency === "Proposition")
++      ? [
++          "Proposition non enregistrée",
++          resource.baseRevisionNumber != null ? `base v${resource.baseRevisionNumber}` : null,
++        ]
++          .filter(Boolean)
++          .join(" · ")
++      : resource.kind === "document" && resource.revisionNumber != null
++        ? [
+             `Version ${resource.revisionNumber}`,
+-            resource.revisionId ? resource.revisionId.slice(0, 8) : null,
+-            resource.versionSource === "current"
+-              ? "version courante"
+-              : resource.versionSource === "exact"
+-                ? "révision citée"
+-                : null,
++            resource.versionSource === "exact" ? "révision citée" : null,
++            props.documentCurrency === "Historique"
++              ? "version historique"
++              : props.documentCurrency === "Non vérifiée"
++                ? "actualité non vérifiée"
++                : "version courante",
+           ]
+             .filter(Boolean)
+             .join(" · ")
+-      : null;
++        : null;
 
-4. **Restitution activité** — MP-11. Sortir les acks Journal de assistantBody ; conserver comparaison dans l'historique idle. Décision Morris sur ce qui reste dans le fil (échecs).
+   return (
+     <div
+@@ -128,7 +147,9 @@ export function TravailViewer(props: {
+                   ? "doc-badge doc-badge-current"
+                   : currencyBadge === "PROPOSITION"
+                     ? "doc-badge doc-badge-proposal"
+-                    : "doc-badge doc-badge-historical"
++                    : currencyBadge === "HISTORIQUE"
++                      ? "doc-badge doc-badge-historical"
++                      : "doc-badge"
+               }
+               data-testid="travail-viewer-currency"
+             >
+@@ -206,6 +227,20 @@ export function TravailViewer(props: {
+           <div className="fig-alert" data-testid="document-focus-banner" role="status">
+             PROPOSITION NON ENREGISTRÉE · Pas de publication Git automatique
+           </div>
++        ) : props.documentFocusBanner === "other-version" ? (
++          <div className="fig-alert" data-testid="document-focus-banner" role="status">
++            AUTRE VERSION CONSULTÉE · La proposition non enregistrée reste disponible
++            {props.onRestoreProposal ? (
++              <button
++                type="button"
++                className="btn secondary"
++                data-testid="document-restore-proposal"
++                onClick={props.onRestoreProposal}
++              >
++                Revenir à la proposition
++              </button>
++            ) : null}
++          </div>
+         ) : null}
+         {!resource.available ? (
+           <div className="fig-alert" role="alert" data-testid="travail-viewer-unavailable">
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index b5ebecd9..85a19871 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -2047,6 +2047,46 @@ register(
+   },
+ );
 
-5. **Admission RECETTE** — MP-15. Config seulement, GO explicite `qualified-v0.2`, rollback par retrait. Pas une preuve d'optimalité DEV.
++/**
++ * Test lane only — second distinct revise body so V2→V3 can be exercised
++ * through the same orchestration as the first proposal. Not a product route.
++ */
++register(
++  "Je souhaite préciser le suivi entre les centres.",
++  {
++    ...effect(
++      "Réviser document — proposition V3",
++      "Je propose une formulation de suivi. Elle reste une proposition tant que tu n’as pas demandé la conservation.\n\n```sfia-document\n# Parcours de réservation et responsabilités\n\n## Suivi\n\nLe suivi V3 discriminant est assuré par le coordinateur.\n```\n",
++      [
++        {
++          capabilityId: "d4.revise_document",
++          mode: "REQUEST_EFFECT",
++          summary: "Préciser le suivi",
++          parameters: { sectionHint: "Suivi" },
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++      {
++        continueChoices: [
++          {
++            id: "conserve",
++            label: "Conserver comme nouvelle version",
++            transmitText:
++              "Conserver comme nouvelle version la proposition documentaire préparée.",
++          },
++        ],
++      },
++    ),
++    documentProposal: {
++      title: "Parcours de réservation et responsabilités",
++      contentMarkdown:
++        "# Parcours de réservation et responsabilités\n\n## Suivi\n\nLe suivi V3 discriminant est assuré par le coordinateur.\n",
++    },
++  },
++);
++
+ register(
+   "Conserver comme nouvelle version la proposition documentaire préparée.",
+   {
+diff --git a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+index 7c470ab6..c5e22da1 100644
+--- a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+@@ -1,6 +1,9 @@
+ import { describe, expect, it } from "vitest";
+ import {
++  focusAfterAvailableConservation,
+   formatPilotFacingProvenance,
++  resolveTravailDocumentPresentation,
++  revisionCurrencyFromIdentity,
+   revisionCurrencyLabel,
+ } from "@/components/figma/DocumentSurfaces";
+ import {
+@@ -22,7 +25,135 @@ describe("revisionCurrencyLabel", () => {
+   it("marks head as Courante and others Historique", () => {
+     expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
+     expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
+-    expect(revisionCurrencyLabel(1, null)).toBe("Historique");
++    expect(revisionCurrencyLabel(1, null)).toBe("Non vérifiée");
++  });
++});
++
++describe("documentary focus after conservation", () => {
++  const docs: DocumentListItem[] = [
++    {
++      document: { id: "doc-1", title: "Parcours" },
++      latestRevision: {
++        id: "rev-2",
++        revisionNumber: 2,
++        status: "AVAILABLE",
++        contentMarkdown: "# V2\n",
++      },
++    },
++  ];
++  const stale: DocumentReviseFocus = {
++    documentId: "doc-1",
++    sourceRevisionId: "rev-1",
++    sourceRevisionNumber: 1,
++    observedHeadRevisionId: "rev-1",
++    observedHeadRevisionNumber: 1,
++    pendingCandidateId: "pdoc-old",
++    pendingCandidateContentSha256: "abc",
++  };
++
++  it("reproduces the stale focus: the next revise still targets the previous source", () => {
++    const target = resolveReviseTarget(docs, null, stale);
++    expect(target.ok).toBe(true);
++    if (!target.ok) return;
++    expect(target.baseRevisionId).toBe("rev-1");
++  });
++
++  it("rebases source and observed head onto the revision D4 just wrote", () => {
++    const next = focusAfterAvailableConservation(stale, {
++      status: "AVAILABLE",
++      documentId: "doc-1",
++      revisionId: "rev-2",
++      revisionNumber: 2,
++    });
++    expect(next.rebased).toBe(true);
++    expect(next.focus?.sourceRevisionId).toBe("rev-2");
++    expect(next.focus?.observedHeadRevisionId).toBe("rev-2");
++    expect(next.focus?.pendingCandidateId).toBeUndefined();
++    const target = resolveReviseTarget(docs, null, next.focus);
++    expect(target.ok).toBe(true);
++    if (!target.ok) return;
++    expect(target.baseRevisionId).toBe("rev-2");
++  });
++
++  it("does not rebase another document or a save without a revision id", () => {
++    expect(
++      focusAfterAvailableConservation(stale, {
++        status: "AVAILABLE",
++        documentId: "doc-other",
++        revisionId: "rev-9",
++        revisionNumber: 9,
++      }).rebased,
++    ).toBe(false);
++    expect(
++      focusAfterAvailableConservation(stale, {
++        status: "AVAILABLE",
++        documentId: "doc-1",
++      }).rebased,
++    ).toBe(false);
++    expect(
++      focusAfterAvailableConservation(stale, {
++        status: "CONFLICT",
++        documentId: "doc-1",
++        revisionId: "rev-2",
++      }).rebased,
++    ).toBe(false);
++  });
++});
++
++describe("viewer currency is not inferred from exact resolution", () => {
++  it("treats an exact reference of the current head as Courante", () => {
++    const view = resolveTravailDocumentPresentation({
++      proposalActive: false,
++      revisionId: "rev-2",
++      revisionNumber: 2,
++      headRevisionId: "rev-2",
++      headRevisionNumber: 2,
++      knownHeadRevisionId: "rev-2",
++    });
++    expect(view.currency).toBe("Courante");
++    expect(view.banner).toBeNull();
++    expect(
++      revisionCurrencyFromIdentity({
++        revisionId: "rev-2",
++        revisionNumber: 2,
++        knownHeadRevisionId: "rev-2",
++        headRevisionId: "rev-3",
++        headRevisionNumber: 3,
++      }),
++    ).toBe("Historique");
++  });
++
++  it("does not call an unknown head historical", () => {
++    const view = resolveTravailDocumentPresentation({
++      proposalActive: false,
++      revisionId: "rev-2",
++      revisionNumber: 2,
++    });
++    expect(view.currency).toBe("Non vérifiée");
++    expect(view.banner).toBeNull();
++  });
++
++  it("shows the candidate body as a proposal and keeps it distinct from another version", () => {
++    const candidate = "# V2 candidate\n";
++    const shown = resolveTravailDocumentPresentation({
++      proposalActive: true,
++      proposalMarkdown: candidate,
++      viewerMarkdown: candidate,
++      revisionId: null,
++    });
++    expect(shown.banner).toBe("proposal");
++    expect(shown.currency).toBe("Proposition");
++    const other = resolveTravailDocumentPresentation({
++      proposalActive: true,
++      proposalMarkdown: candidate,
++      viewerMarkdown: "# V1\n",
++      revisionId: "rev-1",
++      headRevisionId: "rev-1",
++      revisionNumber: 1,
++      headRevisionNumber: 1,
++    });
++    expect(other.banner).toBe("other-version");
++    expect(other.currency).toBe("Courante");
+   });
+ });
+```
 
-6. **Continuité initiale et points ouverts** — MP-03/10 partie déclenchement. Capacité 2 bornée : à la création, intents depuis le fil sas déjà qualifié, sans nouveau moteur. Badge enfant (MP projection) peut être un correctif UI séparé d'une ligne dans ProjectJournal — micro-correctif acceptable avec le lot seulement s'il ne dilue pas la capitalisation ; sinon **lot UI badge** distinct (très petit, qualifiable seul).
+## Annexe B — document-revision-lifecycle.spec.ts
 
-7. **Dictée** — MP-06/07. Investigation LIVE 1 essai avant tout correctif de code. Tant que NOT OBSERVED, pas de patch spéculatif.
+```ts
+import { expect, test } from "@playwright/test";
+import { mkdir } from "node:fs/promises";
+import path from "node:path";
+import { constituteAndCreateProject, openNewPreparation } from "./helpers/g4-chat-first";
 
-8. **Différé** — MP-04/05/12/14/17, DOC-D rename, DOC-E libellé, DOC-F paire : après 1–4 ou en UX groupée si Morris veut un lot fidélité. DOC-D peut rejoindre le lot 1 seulement si le titre est posé au même endroit que la création V1 ; sinon lot nommage séparé.
+/**
+ * Lot 1 — natural V1 → inspected V2 → V3 in one Nora thread.
+ * Fixture Nora (STUDIO_E2E), isolated :3101 / sfia_next_e2e. No provider call.
+ * The second revise utterance exists only in the fixture lane.
+ */
+test("cycle documentaire V1 → V2 inspectée → V3 sans faux historique", async ({ page }) => {
+  test.setTimeout(240_000);
+  const shots = path.resolve(process.cwd(), "../../../.tmp-sfia-review/lot1-captures");
+  await mkdir(shots, { recursive: true });
 
-## 13. Positifs à préserver
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await openNewPreparation(page);
+  await constituteAndCreateProject(page, {
+    name: `CycleDoc ${Date.now()}`,
+    summary: "v1-v2-v3",
+  });
+  await page.waitForURL("**/projects/**");
 
-Multi-intentions T05 ; un cycle ; parent/enfant réel en PG ; 6 acquis ; V2 sous la même identité ; garde historique serveur ; fail-closed Option C ; AWAIT_PILOT non transformé en COMPLETE par erreur dans les données (le travail T06 est encore OPEN, correctement).
+  const composer = page.getByTestId("thread-draft");
+  await expect(composer).toBeEnabled({ timeout: 20000 });
+  await composer.fill("Rédige un document de synthèse sur les options A et B");
+  await page.getByTestId("thread-send").click();
+  await expect(page.getByText(/Options A et B/i).first()).toBeVisible({ timeout: 45000 });
 
-## 14. Fake / Real
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-open").click();
+  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i, {
+    timeout: 15000,
+  });
+  await page.getByTestId("doc-action-request-revision").click();
+  await expect(page).toHaveURL(/surface=travail/);
+  await expect(composer).toBeEnabled({ timeout: 20000 });
 
-Code et env : réel. PG Equipéo : réel lecture seule. PV et captures fournisseur : réels historiques. Dictée : erreur UI réelle, cause fournisseur non observée. Tests E4/E5 : déterministes/substitués. Aucune émission ce cycle.
+  await composer.fill("Je souhaite clarifier les responsabilités entre les trois centres.");
+  await page.getByTestId("thread-send").click();
+  const viewer = page.getByTestId("travail-viewer");
+  await expect(viewer).toBeVisible({ timeout: 45000 });
+  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i);
+  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/Options A et B/i);
+  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
+  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("PROPOSITION");
+  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
+  await page.screenshot({ path: path.join(shots, "01-proposition-v2.png"), fullPage: true });
 
-## 15. Contrôles
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
 
-Aucun fichier produit modifié. Aucune config écrite. Aucun redémarrage. Aucun appel OpenAI. Equipéo et MaintiPlan non mutés. Content coverage produit : **N/A**.
+  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
+  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
+  await expect(page.getByText(/Version v2 conservée|Nouvelle version disponible\s*:\s*v2/i).first()).toBeVisible({
+    timeout: 45000,
+  });
+  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i, {
+    timeout: 15000,
+  });
+  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
+  await expect(page.getByTestId("document-focus-banner")).toHaveCount(0);
+  await page.screenshot({ path: path.join(shots, "02-v2-courante.png"), fullPage: true });
 
-Checklist : 17 MP et 6 DOC fiches à 18 dimensions ; continuité, activité, FinOps, dictée, UX, tests nommés ; causes inconnues explicites (MP-06) ; pas de case inventée.
+  await expect(composer).toBeEnabled({ timeout: 20000 });
+  await composer.fill("Je souhaite préciser le suivi entre les centres.");
+  await page.getByTestId("thread-send").click();
+  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
+  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i, {
+    timeout: 45000,
+  });
+  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/coordinateur consolide/i);
+  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
+  await page.screenshot({ path: path.join(shots, "03-proposition-v3.png"), fullPage: true });
 
-## 16. Décisions Morris
+  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).last().click();
+  await expect(page.getByText(/Version v3 conservée|Nouvelle version disponible\s*:\s*v3/i).first()).toBeVisible({
+    timeout: 45000,
+  });
+  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
+  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i);
+  await page.screenshot({ path: path.join(shots, "04-v3-courante.png"), fullPage: true });
 
-1. GO correctif lot 1 (documentaire) oui/non.
-2. Activer `qualified-v0.2` en RECETTE oui/non (lot 5).
-3. Quelles confirmations d'effet restent dans la conversation (lot 4).
-4. Périmètre Capacité 2 capitalisation sas (lot 6).
-5. GO d'un essai dictée (lot 7).
-6. Pas d'acceptation Livraison 1 ni clôture de MP par ce dossier.
+  await page.getByTestId("nav-documents").click();
+  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
+  await expect(page.getByTestId("doc-rev-1")).toContainText(/HISTORIQUE/i);
+  await page.screenshot({ path: path.join(shots, "05-historique-v1-v2-v3.png"), fullPage: true });
 
-## 17. Verdict
+  await page.getByTestId("doc-rev-1").click();
+  await page.getByTestId("doc-action-read-version").click();
+  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i);
+  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
 
-**READY WITH RESERVES**
+  await page.getByTestId("doc-action-history").click();
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-read-version").click();
+  await expect(page.getByTestId("document-read-body")).toContainText(/coordinateur consolide/i);
+  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
 
-Le mandat de reprise est couvert : causes documentaires, allocation, compteurs, activité, FinOps et continuité sont argumentées avec code et PG. Réserves légitimes : payload HTTP exact T09 bis non archivé (cause code quand même démontrée) ; cause LIVE de PROVIDER_ERROR non observable sans essai ; animation et plusieurs écarts UX non mesurés. Ce n'est pas READY FOR IMPLEMENTATION.
+  await page.getByTestId("doc-action-history").click();
+  await page.getByTestId("doc-rev-1").click();
+  await page.getByTestId("doc-action-rework-nora").click();
+  await expect(page.getByRole("button", { name: /Repartir de la v1/i })).toBeVisible({
+    timeout: 45000,
+  });
+  await page.screenshot({ path: path.join(shots, "06-revision-historique-gouvernee.png"), fullPage: true });
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
+
+  await page.reload();
+  await page.getByTestId("nav-documents").click();
+  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
+});
+```
