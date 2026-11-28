@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.8, GO préparation L3 |
+| Date / version | 28 novembre 2026 — v0.9, revue préparation L3 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -12,7 +12,7 @@
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
 | Candidat DEV courant | `017487581c317f957ef7a96ff2f3d95450fcf9ab`, tree `b398725b2bbef59c295dbc3093f23a767f433994` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
-| Gate courant | L1 et L2 acceptés techniquement par Morris avec réserves RECETTE. L3 engagé en préparation non mutative (§13) ; GO config/restart/LIVE distincts restent attendus. Aucun GO promotion, PR ou merge. |
+| Gate courant | L1 et L2 acceptés techniquement avec réserves RECETTE. L3 préparation revue READY WITH RESERVES (§14) ; activation config/restart recommandée sous GO distinct. LIVE non prêt sous enveloppe stricte tant que son contrôle RECETTE n'est pas établi ; report possible à qualification intégrée. Aucun GO promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -27,13 +27,13 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.8 : 2/7 lots acceptés techniquement par Morris avec réserves RECETTE ; L3 préparation autorisée, 4 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.9 : 2/7 lots acceptés techniquement avec réserves RECETTE ; L3 préparation revue favorablement, activation à arbitrer ; 4 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
 
 | Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
 | 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 96c0129f / be036274 ; trois gardes revues, DET PASS ; BROWSER/RECETTE différés §9 |
 | 2 | Fraîcheur des projections projet | Chargement initial du contexte et de la continuité existante, cohérence des surfaces après effets, étape UX de préparation. MP13 ; MP03/04/10/12 au seul périmètre chargement/projections. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 01748758 / 30601c08 ; limites et PROJ-REC §12 maintenues |
-| 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | AUTHORIZED — PRÉPARATION NON MUTATIVE | Diagnostic §4 et §13 ; GO config/restart/LIVE distincts attendus |
+| 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | READY WITH RESERVES — PRÉPARATION REVUE | e1cf5dc0 ; GO config/restart attendu, LIVE borné non établi §14 |
 | 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | NOT STARTED | Diagnostic §5 ; arbitrer confirmations et états |
 | 5 | Corrélation et fiabilité FinOps | Rattachement des mesures aux travaux, compteurs, coûts et inconnues intelligibles. MP16, support MP14. | NOT STARTED | Diagnostic §6 ; cause d'écriture du lien à localiser |
 | 6 | Qualification et correction de la dictée | Diagnostic LIVE court, puis dictée et onde réellement fonctionnelles. MP06/07, MP01/02 associés. | NOT STARTED — GO LIVE DISTINCT | Diagnostic §8 ; cause fournisseur NOT OBSERVED |
@@ -134,7 +134,9 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 
 | 28/11/2026 | Morris accepte la sortie technique L2 et engage L3 | 01748758 / 30601c08 ; réserves §12 maintenues | Préparation non mutative L3 ; gates config/restart/LIVE distincts |
 
-**Prochaine action :** préparation opérationnelle bornée L3 (MP15), vérification de configuration effective, préflight déterministe, plan d'activation et rollback, protocole LIVE borné à arbitrer. Aucun changement de configuration, redémarrage, LIVE, promotion ou clôture MP implicite.
+| 28/11/2026 11:03 +01 | L3 — préparation non mutative et revue | e1cf5dc0 ; Cursor et ChatGPT READY WITH RESERVES pour préparation ; contrôle enveloppe LIVE RECETTE restant §14 | GO config et restart à arbitrer ensemble, LIVE non autorisé |
+
+**Prochaine action :** décision Morris explicite pour les deux paramètres et le redémarrage du même build RECETTE. Qualification LIVE à différer si enveloppe stricte non applicable dans cette lane. Pas de cutover, appel fournisseur, clôture MP ou L4 implicites.
 
 ## 7. Revue indépendante L1 — 28 novembre 2026
 
@@ -339,3 +341,24 @@ Morris répond « ok go » à la recommandation de validation technique L2 avec 
 - Suite : présenter en une seule décision de revue les autorisations spécifiques de configuration et redémarrage du même build (ou report au prochain cutover si justifié) et une enveloppe LIVE distincte. Ne pas requalifier T08, modifier les plafonds, ouvrir Admin/WEB, introduire une nouvelle policy, ni engager le L4. MP15 reste OPEN.
 
 Actualisation D1 du fichier unique à partir de `8bdcf096184ccbcc91211cb7fe70041a2485ff0b`, branche `docs/next-openai-studio-convergence-20261126`. Aucun changement normatif, produit, main, handoff ou environnement.
+
+## 14. Revue indépendante de préparation L3 — 28 novembre 2026
+
+### 14.1 Vérification et constat
+
+- [Handoff](https://github.com/mcleland147/sfia-workspace/blob/e1cf5dc0c34c0462b710bdd389f8966a9dd7ae25/sfia-review-handoff/latest-chatgpt-review.md), blob `81ec492ee5e6e8d807dd411fb947ee36f05e06af`, 381 lignes, mono-fichier, HEAD canonique vérifié. Rapport 11:03:16 CET, pack 11:01 CET ; cycle 07 Critical Full. Content coverage N/A code motivé, résultats et plan intégraux. Cursor READY WITH RESERVES.
+- DEV distant `017487581c317f957ef7a96ff2f3d95450fcf9ab` / tree `b398725b2bbef59c295dbc3093f23a767f433994` et main `997897fd7cf914771e7d08e8030dc7123fab7d25` inchangés, API Actions 0 run pour ce SHA. Aucun commit produit nécessaire. SEF, Roadmaps main/candidate, R4, SEM et ENV-01 relus aux sections applicables. Code d'admission et tests relus à DEV et RECETTE de référence. Certaines sources contractuelles n'ont pas été relues intégralement par Cursor ; réserve de processus non bloquante pour préparation.
+- Cursor rapporte 38 tests unitaires PASS et matrice 7 cas PASS hors processus RECETTE, sans émission. Lecture seule PG identité et présence de derived_embedding_chunks (marqueur 027, pas audit exhaustif du schéma). Pas de mutation ni redémarrage. État local et exécutions non observés indépendamment par ChatGPT.
+- RECETTE rapportée : port 3200, PID 77113, worktree 0ae9e1f7, BUILD p0S18hfVdGrMjGeNMGlbV ; DEV :3100 PID55011. Le BUILD_ID DEV sur disque a été réécrit après démarrage : build servi NON OBSERVÉ. Checkout main local ancien 4b1a0580 ; origin/main utilisé pour les sources.
+- Chaîne de lancement RECETTE inspectée : LaunchAgent (PATH seul) → start-recette-ml5.sh → fichier ~/.config/sfia-studio-next/recette/.env.local sourcé ; aucune surcharge policy/admit, pas de .env Next dans web servi, fichiers antérieurs au PID. Policy et admit absents, mode absent donc operational, profil et enveloppes 120/1M/2M présents. MP15 confirmé sur la configuration de lancement ; mémoire process NON OBSERVÉE, effectif inféré, pas preuve LIVE.
+- Code : fallback legacy_sol et défaut Sol medium ; v0.2 + qualified-v0.2 en RECETTE permet Terra medium (défaut), Luna low/medium, Sol low/medium/high ; candidats Terra/Luna high non admis. Tests de jeton absent/nu/mauvaise version et rollback conformes. Calibration 26/11 DEV v0.1 ≠ qualification RECETTE v0.2. Aucun changement moteur nécessaire.
+
+### 14.2 Gates et recommandation
+
+**Configuration et redémarrage recommandés sous GO Morris explicites, pouvant être donnés dans un même message :** ajouter exclusivement `SFIA_COG_PROVISIONAL_POLICY=v0.2` et `SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.2` au fichier RECETTE identifié, préserver tout autre paramètre, contrôler l'absence de doublon et l'inactivité de travaux en cours avant relance. Redémarrer uniquement le LaunchAgent com.sfia.studio.next.recette.ml4d-ux004, même SHA/BUILD, base et schéma, aucun cutover L1/L2. Vérifier nouveau PID, santé locale sans émission, identité et chaîne de lancement, résolution DET des valeurs effectives accessibles. Ne pas déclarer la mémoire du PID lue ni une qualification fournisseur acquise. Rollback par retrait des deux lignes uniquement et relance du même agent ; préserver les secrets actuels et la DB. Sauvegarde éventuelle locale protégée hors Git. Autorisation rollback à inclure explicitement au GO, sur échec de démarrage/admission. Prévoir contrôle de politique/admit versionnés lors du prochain cutover (liste du handoff §10).
+
+**LIVE : réserve bloquante pour le protocole à plafond strict, pas pour l'activation non émissive.** Handoff §11 propose 9 requêtes / 160k input / 10k output / 15 min / arrêt à 0,50 USD estimés. [provider-emission-frontier.ts L611–668](https://github.com/mcleland147/sfia-workspace/blob/0ae9e1f7aaee3658eb3e9a135523e83a72631b31/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts#L611-L668) : attachConfiguredLiveCampaignFromEnv refuse les lanes non DEV lorsque G-LIVE-API/G-WEB-PUBLIC actif ; le script historique de qualification est également DEV-only. Aucune preuve dans le pack d'un mécanisme autorisé de réservation de l'enveloppe sur le véritable serveur RECETTE. Ne pas contourner en changeant STUDIO_LANE, élargissant le gate ou activant les flags DEV. La surveillance après réponse n'est pas un plafond garanti. Les éventuels appels de création projet/qualification initiale, retries, comptage natif et autres émissions doivent être inclus ou budgétés explicitement ; distinguer générations Responses et tentatives HTTP (dont comptages). Vérifier que le solde d'entrée/sortie est réservé avant émission, que les limites sont applicables au processus et que l'arrêt est effectif. 0,50 USD reste un seuil estimatif, pas un maximum facturé garanti. Si aucun contrôle compatible existant n'est démontré, différer le LIVE à la recette intégrée sous GO dédié, sans construire de harness/contournement disproportionné. Toute future qualification utilise un projet synthétique, pas Equipéo/MaintiPlan ; pas de T08, pas de WEB/Admin, pas de modification des plafonds globaux. ModelApplied/effortApplied UNVERIFIED si non confirmés ; ne pas assimiler demandé à appliqué.
+
+**Verdict ChatGPT : READY WITH RESERVES — préparation L3 favorable, activation non effectuée.** MP15 OPEN. Configuration/restart peuvent être exécutés après GO et contrôles non émissifs ; une preuve comportementale reste nécessaire avant acceptation finale. L3 n'est pas encore accepté ; 2/7 lots acceptés techniquement. Neuf contrôles DOC-REC/PROJ-REC maintenus ; MP14 et FinOps non qualifiés. Aucun GO LIVE, L4, promotion, PR, merge ou adoption implicite.
+
+Actualisation D1 du fichier unique à partir de `2a003f0db9386daf9436f032aced1c870f8f3cf3`, branche `docs/next-openai-studio-convergence-20261126`. Aucun changement produit, configuration, main, handoff ou norme.
