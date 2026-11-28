@@ -1,5 +1,15 @@
 # As-built — Portefeuille personnel et navigation
 
+## Dernier correctif — proportions v0.3
+
+Contrat UX v0.3, ref documentaire 5008d51d. Synthèse 160 px, reprise 180 px, ligne 60 px, écart 12 px. Le séparateur est entre la synthèse et la reprise. Le pied se rejoint en défilement.
+La barre place les filtres à gauche et la recherche, le tri et les vues à droite, sans marge intérieure supplémentaire.
+La grille a trois colonnes au nominal, tuiles de 116 px, écart 12/8. Le type et l'activité n'apparaissent qu'une fois. Le menu fait 298 px, actions 270×35, avec pictogrammes.
+Une relecture n'est pertinente que si le JSON nomme l'espace attendu et si le portefeuille affiché a été rafraîchi. Un statut 200 seul ne débloque pas. L'ordre enregistré n'est annoncé qu'après un accusé confirmé et cette relecture.
+Les dialogues et le tiroir prennent le focus, le confinent, et le rendent à la fermeture.
+
+# As-built — Portefeuille personnel et navigation
+
 Date : 28 novembre 2026. Finalisation du complément B. Classe NO RELEASE.
 
 ## Finalisation — composition nominale

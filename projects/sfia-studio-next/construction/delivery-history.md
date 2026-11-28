@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-RESIDUAL-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — dernier correctif ciblé du complément B
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `d79fd252684b0be76b61ab607cc88d00b7fb7232`
+- **commit**: `fix(next): finish the portfolio proportions, grid, and reread`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: barre pleine largeur, proportions 160/180/60/12, tuiles, menus, relecture JSON
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-FINAL-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

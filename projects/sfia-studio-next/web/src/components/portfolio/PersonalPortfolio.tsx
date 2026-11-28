@@ -54,9 +54,22 @@ export function classifyPortfolioResponse(
 }
 
 /** Reading the owner record is enough to look again. It does not prove the previous intention. */
-export function portfolioReadReview(status: number): PortfolioReread {
-  if (status === 200 || status === 404) return "reviewed";
-  return "failed";
+/** A status alone is not a reread. The record must name the expected space. */
+export function pertinentSpaceRecord(
+  body: unknown,
+  expected: { spaceType: string; id: string },
+): boolean {
+  if (!body || typeof body !== "object") return false;
+  const record = body as Record<string, unknown>;
+  return (
+    record.spaceType === expected.spaceType &&
+    record.id === expected.id &&
+    typeof record.eligible === "boolean" &&
+    typeof record.favorite === "boolean" &&
+    typeof record.archived === "boolean" &&
+    typeof record.rowVersion === "number" &&
+    (record.customPosition === null || typeof record.customPosition === "number")
+  );
 }
 
 /**
@@ -104,6 +117,29 @@ function hrefFor(space: PersonalSpace): string {
     : `/preparations/${space.id}?resume=1`;
 }
 
+function Mark({ name }: { name: "star" | "more" | "arrow" | "edit" | "grip" | "archive" | "trash" }) {
+  const common = { width: 20, height: 20, viewBox: "0 0 20 20", fill: "none", "aria-hidden": true as const };
+  if (name === "more") {
+    return <svg {...common}><path d="M4.17 10h.01M10 10h.01M15.83 10h.01" stroke="#A5B1C5" strokeWidth="2.2" strokeLinecap="round" /></svg>;
+  }
+  if (name === "arrow") {
+    return <svg {...common}><path d="M4.17 10h11.66M10 4.17 15.83 10 10 15.83" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+  }
+  if (name === "edit") {
+    return <svg {...common}><path d="M11.7 4.2 15.8 8.3 7.2 16.9H3.1v-4.1L11.7 4.2Z" stroke="#A5B1C5" strokeWidth="1.4" strokeLinejoin="round" /></svg>;
+  }
+  if (name === "grip") {
+    return <svg {...common}><path d="M7 5h.01M13 5h.01M7 10h.01M13 10h.01M7 15h.01M13 15h.01" stroke="#A5B1C5" strokeWidth="2.2" strokeLinecap="round" /></svg>;
+  }
+  if (name === "archive") {
+    return <svg {...common}><path d="M3.5 6.5h13v9.2H3.5V6.5ZM3 4.2h14V6.5H3V4.2ZM8.2 10h3.6" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+  }
+  if (name === "trash") {
+    return <svg {...common}><path d="M4.5 6.2h11M8 6.2V4.5h4v1.7M6.2 6.2l.6 9.2h6.4l.6-9.2" stroke="#FF9A9F" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+  }
+  return <svg {...common}><path d="M10 2.8 12.2 7.3 17 8l-3.5 3.4.8 4.8L10 14l-4.3 2.2.8-4.8L3 8l4.8-.7L10 2.8Z" stroke="#A5B1C5" strokeWidth="1.4" strokeLinejoin="round" /></svg>;
+}
+
 export function PersonalPortfolio() {
   const router = useRouter();
   const params = useSearchParams();
@@ -123,11 +159,52 @@ export function PersonalPortfolio() {
   const [scope, setScope] = useState<"current" | "archive">("current");
   const [expanded, setExpanded] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [menuBox, setMenuBox] = useState<{ top: number; left: number } | null>(null);
+  const menuTrigger = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
   const requestSeq = useRef(0);
 
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
+
+  useEffect(() => {
+    const open = Boolean(confirm || confirmRestore);
+    if (!open) return;
+    const root = dialogRef.current;
+    const previous = menuTrigger.current ?? (document.activeElement as HTMLElement | null);
+    const items = () =>
+      root
+        ? [...root.querySelectorAll<HTMLElement>("button, a, input, select, textarea")].filter((item) => !item.hasAttribute("disabled"))
+        : [];
+    items()[0]?.focus();
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        if (!blocked.current) {
+          setConfirm(null);
+          setConfirmRestore(null);
+        }
+        return;
+      }
+      if (event.key !== "Tab" || !root) return;
+      const focusable = items();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      previous?.focus();
+    };
+  }, [confirm, confirmRestore]);
 
   const load = useCallback(async (cursor?: string | null, issuedId?: number) => {
     const requestId = issuedId ?? ++requestSeq.current;
@@ -205,6 +282,7 @@ export function PersonalPortfolio() {
     knownMessage: string,
   ) {
     const follow = portfolioMutationFollowUp({ outcome, reread });
+    const settledKind = intentionRef.current?.kind;
     blocked.current = follow.blockFurtherMutations;
     setHeld(follow.blockFurtherMutations);
     if (!follow.blockFurtherMutations) intentionRef.current = null;
@@ -221,25 +299,36 @@ export function PersonalPortfolio() {
       setNotice(knownMessage);
       return;
     }
+    if (outcome === "confirmed" && settledKind === "order") {
+      setNotice("Ordre enregistré.");
+      return;
+    }
     if (outcome === "unknown") {
       setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
     }
   }
 
+  async function readTargetedRecord(type: PersonalSpace["spaceType"], id: string): Promise<boolean> {
+    const response = await fetch(`/api/portfolio/spaces/${type}/${id}`);
+    if (response.status === 404) return true;
+    if (!response.ok) return false;
+    const body = await response.json().catch(() => null);
+    return pertinentSpaceRecord(body, { spaceType: type, id });
+  }
+
   async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
     try {
-      if (intention.kind === "preference") {
-        const board = await loadRef.current();
-        return board ? "reviewed" : "failed";
-      }
       const ids = [
         { type: intention.spaceType, id: intention.spaceId },
         { type: intention.beforeSpaceType, id: intention.beforeSpaceId },
-      ].filter((item): item is { type: NonNullable<PortfolioIntention["spaceType"]>; id: string } => Boolean(item.type && item.id));
-      if (ids.length === 0) return "failed";
-      const responses = await Promise.all(ids.map((item) => fetch(`/api/portfolio/spaces/${item.type}/${item.id}`)));
-      if (responses.some((response) => portfolioReadReview(response.status) === "failed")) return "failed";
-      return "reviewed";
+      ].filter((item): item is { type: PersonalSpace["spaceType"]; id: string } => Boolean(item.type && item.id));
+      if (intention.kind !== "preference") {
+        if (ids.length === 0) return "failed";
+        const reads = await Promise.all(ids.map((item) => readTargetedRecord(item.type, item.id)));
+        if (reads.some((ok) => !ok)) return "failed";
+      }
+      const refreshed = await loadRef.current();
+      return refreshed ? "reviewed" : "failed";
     } catch {
       return "failed";
     }
@@ -266,8 +355,7 @@ export function PersonalPortfolio() {
         return;
       }
       const reread = await probeIntention(intention);
-      if (outcome === "confirmed") notifyPortfolioChanged();
-      await loadRef.current();
+      if (outcome === "confirmed" && reread === "reviewed") notifyPortfolioChanged();
       settleMutation(
         outcome,
         reread,
@@ -289,7 +377,6 @@ export function PersonalPortfolio() {
   async function rereadHeld() {
     const intention = intentionRef.current;
     const reread = intention ? await probeIntention(intention) : "failed";
-    await loadRef.current();
     if (!intention) return;
     settleMutation("unknown", reread, "");
   }
@@ -339,6 +426,22 @@ export function PersonalPortfolio() {
       }))
     : null;
 
+  function openMenu(spaceId: string, button: HTMLButtonElement) {
+    if (menu === spaceId) {
+      setMenu(null);
+      setMenuBox(null);
+      return;
+    }
+    const rect = button.getBoundingClientRect();
+    const width = 298;
+    const height = 359;
+    const left = Math.max(8, Math.min(rect.right - width, window.innerWidth - width - 8));
+    const top = rect.bottom + 8 + height > window.innerHeight ? Math.max(8, rect.top - height - 8) : rect.bottom + 8;
+    menuTrigger.current = button;
+    setMenuBox({ top, left });
+    setMenu(spaceId);
+  }
+
   function renderSpace(space: PersonalSpace) {
     const activity = space.lastOpenedAt
       ? `Dernière ouverture · ${formatWhen(space.lastOpenedAt)}`
@@ -382,40 +485,61 @@ export function PersonalPortfolio() {
         }}
         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
       >
-        <div className="personal-portfolio-identity">
-          <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
-          <div>
-            <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
-            <small>{activity}</small>
-          </div>
-          {space.favorite ? (
-            <svg className="personal-portfolio-star" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M10 2.5L12.3333 7.25L17.5 8L13.75 11.6667L14.6667 16.8333L10 14.3333L5.33333 16.8333L6.25 11.6667L2.5 8L7.66667 7.25L10 2.5Z" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinejoin="round" />
-            </svg>
-          ) : null}
-        </div>
-        <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
-        <span className="personal-portfolio-meta">{activity}</span>
-        <span className="personal-portfolio-actions">
-          <button type="button" aria-expanded={menu === space.id} aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); setMenu(menu === space.id ? null : space.id); }}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M4.17 10h.01M10 10h.01M15.83 10h.01" stroke="#A5B1C5" strokeWidth="2.4" strokeLinecap="round" />
-            </svg>
-          </button>
-          {menu === space.id ? (
-            <div className="personal-portfolio-menu" role="menu">
-              <p>{space.label}</p>
-              <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
-              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
-              <button type="button" disabled aria-disabled="true" title="Le renommage arrive avec le parcours de préparation.">Renommer</button>
-              <button type="button" disabled={locked} aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}>{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
-              <button type="button" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}>Monter</button>
-              <button type="button" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}>Descendre</button>
-              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>{scope === "archive" ? "Restaurer" : "Archiver"}</button>
-              <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible.">Supprimer</button>
+        {board!.preferences.view === "grid" ? (
+          <>
+            <div className="personal-portfolio-tile-head">
+              <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
+              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
+              <span className="personal-portfolio-grow" />
+              {space.favorite ? <Mark name="star" /> : null}
+              <button type="button" aria-expanded={menu === space.id} aria-haspopup="menu" aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); event.stopPropagation(); openMenu(space.id, event.currentTarget); }}><Mark name="more" /></button>
             </div>
-          ) : null}
-        </span>
+            <p>{space.spaceType === "project" ? "Projet" : "Préparation"} · {activity}</p>
+          </>
+        ) : (
+          <>
+            <div className="personal-portfolio-identity">
+              <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
+              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
+              {space.favorite ? <Mark name="star" /> : null}
+            </div>
+            <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
+            <span className="personal-portfolio-meta">{activity}</span>
+            <span className="personal-portfolio-actions">
+              <button type="button" aria-expanded={menu === space.id} aria-haspopup="menu" aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); openMenu(space.id, event.currentTarget); }}><Mark name="more" /></button>
+            </span>
+          </>
+        )}
+        {menu === space.id && menuBox ? (
+          <div
+            className="personal-portfolio-menu"
+            role="menu"
+            style={{ top: menuBox.top, left: menuBox.left }}
+            onKeyDown={(event) => {
+              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+              const index = items.indexOf(document.activeElement as HTMLElement);
+              if (event.key === "Escape") {
+                setMenu(null);
+                setMenuBox(null);
+                menuTrigger.current?.focus();
+              } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                event.preventDefault();
+                const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
+                items[next]?.focus();
+              }
+            }}
+          >
+            <p>{space.label}</p>
+            <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
+            <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
+            <button type="button" role="menuitem" disabled title="Le renommage arrive avec le parcours de préparation."><Mark name="edit" />Renommer</button>
+            <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
+            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}><Mark name="grip" />Monter</button>
+            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}><Mark name="grip" />Descendre</button>
+            <button type="button" role="menuitem" disabled={locked} onClick={() => { menuTrigger.current = menuTrigger.current; scope === "archive" ? setConfirmRestore(space) : setConfirm(space); }}><Mark name="archive" />{scope === "archive" ? "Restaurer" : "Archiver"}</button>
+            <button type="button" role="menuitem" disabled title="La suppression n'est pas disponible."><Mark name="trash" />Supprimer</button>
+          </div>
+        ) : null}
       </article>
     );
   }
@@ -451,6 +575,7 @@ export function PersonalPortfolio() {
         <div className="personal-portfolio-rule" />
         <button type="button" className="personal-portfolio-stat" onClick={() => setFilter("favorites")}><span>Favoris</span><strong data-testid="portfolio-count-favorites">{formatCount(board.counters.favorites)}</strong><em>Accès rapide</em></button>
       </section>
+      <div className="personal-portfolio-separator" />
 
       {board.resume && scope === "current" ? (
         <section className="personal-portfolio-resume" data-testid="portfolio-resume">
@@ -469,11 +594,10 @@ export function PersonalPortfolio() {
         </section>
       ) : null}
 
-      <div className="personal-portfolio-separator" />
       <section className="personal-portfolio-library" aria-label="Mes espaces">
         <h2>Mes espaces</h2>
       <div className="personal-portfolio-tools">
-        <div className="personal-portfolio-filters" role="tablist" aria-label="Filtres">
+        <div className="personal-portfolio-filters" role="group" aria-label="Filtres">
           {([
             ["all", "Tout"],
             ["projects", "Projets"],
@@ -489,6 +613,7 @@ export function PersonalPortfolio() {
             </button>
           ))}
         </div>
+        <div className="personal-portfolio-commands">
         <label className="personal-portfolio-search">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="M15 9.16667C15 12.3883 12.3883 15 9.16667 15C5.94501 15 3.33333 12.3883 3.33333 9.16667C3.33333 5.94501 5.94501 3.33333 9.16667 3.33333C12.3883 3.33333 15 5.94501 15 9.16667Z" stroke="#A5B1C5" strokeWidth="1.41667" />
@@ -539,6 +664,7 @@ export function PersonalPortfolio() {
             </button>
           ))}
         </div>
+        </div>
       </div>
       {scope === "archive" ? (
         <p className="personal-portfolio-status"><button type="button" onClick={() => setScope("current")}>Retour aux espaces</button></p>
@@ -550,7 +676,7 @@ export function PersonalPortfolio() {
         ) : groups ? (
           groups.map((group) => (
             <div key={group.type} className="personal-portfolio-group">
-              <h3>{group.type === "project" ? `Projets · ${board.groups.project}` : `Préparations · ${board.groups.preparation}`}</h3>
+              <h3><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" /></svg>{group.type === "project" ? `Projets · ${board.groups.project}` : `Préparations · ${board.groups.preparation}`}</h3>
               {group.items.map(renderSpace)}
             </div>
           ))
@@ -574,7 +700,7 @@ export function PersonalPortfolio() {
 
       {confirm ? (
         <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirm(null); }}>
-          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirm(null); }}>
+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()}>
             <h2>Retirer {confirm.label} du portefeuille courant ?</h2>
             <p>L’espace reste accessible dans Archives et par ses liens. Le travail n’est pas interrompu.</p>
             <div className="personal-portfolio-modal-actions">
@@ -586,7 +712,7 @@ export function PersonalPortfolio() {
       ) : null}
       {confirmRestore ? (
         <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirmRestore(null); }}>
-          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirmRestore(null); }}>
+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()}>
             <h2>Restaurer {confirmRestore.label} ?</h2>
             <p>Le même espace revient dans le portefeuille courant, avec son organisation personnelle.</p>
             <div className="personal-portfolio-modal-actions">

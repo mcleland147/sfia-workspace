@@ -398,4 +398,16 @@ describe("personal portfolio organization (PG)", () => {
     expect(record.rowVersion).toBeGreaterThan(0);
     await expect(readPersonalSpaceRecord(other, "project", projectId)).rejects.toMatchObject({ httpStatus: 404 });
   });
+
+  it("reads a space that is past the first page", async () => {
+    const owner = await seedPilot("Page");
+    const ids = Array.from({ length: 26 }, () => newId("prj"));
+    await db.insert(projects).values(ids.map((id, index) => ({ id, ownerPilotId: owner, name: `Espace ${String(index).padStart(2, "0")}` })));
+    const firstPage = await loadPersonalBoard(owner, { preview: false });
+    const missing = ids.find((id) => !firstPage.items.some((item) => item.id === id));
+    expect(missing).toBeTruthy();
+    const record = await readPersonalSpaceRecord(owner, "project", missing as string);
+    expect(record.id).toBe(missing);
+    expect(record.eligible).toBe(true);
+  });
 });

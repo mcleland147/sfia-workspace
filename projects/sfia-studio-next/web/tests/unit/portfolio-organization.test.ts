@@ -3,7 +3,7 @@ import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/
 import {
   classifyPortfolioResponse,
   portfolioMutationFollowUp,
-  portfolioReadReview,
+  pertinentSpaceRecord,
 } from "@/components/portfolio/PersonalPortfolio";
 
 describe("portfolio organization rules", () => {
@@ -33,9 +33,10 @@ describe("portfolio organization rules", () => {
     expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true }, "favorite")).toBe("confirmed");
     expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("confirmed");
     expect(classifyPortfolioResponse(409, { message: "conflict" }, "preference")).toBe("conflict");
-    expect(portfolioReadReview(200)).toBe("reviewed");
-    expect(portfolioReadReview(404)).toBe("reviewed");
-    expect(portfolioReadReview(500)).toBe("failed");
+    const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: false, archived: false, rowVersion: 3, customPosition: null };
+    expect(pertinentSpaceRecord(record, { spaceType: "project", id: "prj_1" })).toBe(true);
+    expect(pertinentSpaceRecord({ ...record, id: "other" }, { spaceType: "project", id: "prj_1" })).toBe(false);
+    expect(pertinentSpaceRecord({ ok: true }, { spaceType: "project", id: "prj_1" })).toBe(false);
     expect(portfolioMutationFollowUp({ outcome: "conflict", reread: "reviewed" })).toEqual({
       uncertain: false,
       retry: false,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   runOpenPreparation,
@@ -87,6 +87,40 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
   const onSasPreparation = Boolean(preparationId) || onSasVisual;
   const [openingPrep, setOpeningPrep] = useState(false);
   const [personalNavOpen, setPersonalNavOpen] = useState(false);
+  const personalDrawerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!personalNavOpen) return;
+    const root = personalDrawerRef.current;
+    const previous = document.activeElement as HTMLElement | null;
+    const focusable = () =>
+      root
+        ? [...root.querySelectorAll<HTMLElement>("button, a, input, select, textarea")].filter((item) => !item.hasAttribute("disabled"))
+        : [];
+    focusable()[0]?.focus();
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setPersonalNavOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      previous?.focus();
+    };
+  }, [personalNavOpen]);
   const [prepNotice, setPrepNotice] = useState("");
   const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
   const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
@@ -532,7 +566,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
 
         {personalSpace && personalNavOpen ? (
           <div className="studio-personal-drawer md:hidden" onClick={() => setPersonalNavOpen(false)}>
-            <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
+            <div ref={personalDrawerRef} id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()}>
               <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
               <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
               <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
