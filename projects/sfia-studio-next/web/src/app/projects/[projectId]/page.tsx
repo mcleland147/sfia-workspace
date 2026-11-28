@@ -34,7 +34,11 @@ import {
   DocumentCompareSurface,
   DocumentHistorySurface,
   DocumentReadSurface,
+  documentTurnMayApply,
+  focusAfterAvailableConservation,
   formatPilotFacingProvenance,
+  pendingCandidateRestoreIsCurrent,
+  resolveTravailDocumentPresentation,
   type DocumentComparePayload,
   type RevisionRow,
   revisionCurrencyLabel,
@@ -413,7 +417,15 @@ export default function ProjectPage() {
   const pendingDocumentOpenIdRef = useRef<string | null>(null);
   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
   const viewerRequestSeqRef = useRef(0);
+  /** Increments at each send. A late response must not restore an older document focus. */
+  const documentTurnGenRef = useRef(0);
+  const lastAppliedTurnGenRef = useRef(0);
+  const viewerRef = useRef<TravailViewerResource | null>(null);
   const viewerOpenRef = useRef(false);
+  function commitViewer(next: TravailViewerResource | null) {
+    viewerRef.current = next;
+    setViewer(next);
+  }
   /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
   const surfaceNavGenRef = useRef(0);
   const docViewRef = useRef<DocView>("library");
@@ -633,7 +645,7 @@ export default function ProjectPage() {
     // Invalidate in-flight viewer fetches when project changes.
     viewerRequestSeqRef.current += 1;
     viewerOpenRef.current = false;
-    setViewer(null);
+    commitViewer(null);
     setViewerEnlarged(false);
   }, [params.projectId]);
 
@@ -656,7 +668,7 @@ export default function ProjectPage() {
   function closeViewer() {
     viewerRequestSeqRef.current += 1;
     viewerOpenRef.current = false;
-    setViewer(null);
+    commitViewer(null);
     setViewerEnlarged(false);
     setContractViewer(null);
     setContractInstructionExpanded(false);
@@ -670,7 +682,7 @@ export default function ProjectPage() {
     if (seq !== viewerRequestSeqRef.current) return;
     if (!viewerOpenRef.current) return;
     if (projectIdRef.current !== projectIdAtStart) return;
-    setViewer(next);
+    commitViewer(next);
     setViewerEnlarged(false);
   }
 
@@ -706,6 +718,7 @@ export default function ProjectPage() {
     seq: number;
     projectIdAtStart: string;
     revisionNumber?: number | null;
+    knownHeadRevisionId?: string | null;
   }) {
     // Consultation is recorded only after a successful D4 read (available content).
     const prepId = preparationIdRef.current;
@@ -868,6 +881,9 @@ export default function ProjectPage() {
           revisionId: resolvedRevisionId,
           revisionNumber: resolvedRevisionNumber,
           versionSource: input.versionSource,
+          knownHeadRevisionId:
+            input.knownHeadRevisionId ??
+            (input.versionSource === "current" ? resolvedRevisionId : null),
           markdown,
           available: Boolean(markdown),
           unavailableReason: markdown
@@ -915,7 +931,7 @@ export default function ProjectPage() {
     const seq = ++viewerRequestSeqRef.current;
     viewerOpenRef.current = true;
     // Placeholder while rights + current revision are revalidated.
-    setViewer({
+    commitViewer({
       kind: "document",
       documentId: doc.document.id,
       title: doc.document.title,
@@ -1012,7 +1028,7 @@ export default function ProjectPage() {
         setStatus("Contrat introuvable pour la visionneuse Travail");
         return;
       }
-      setViewer(null);
+      commitViewer(null);
       setViewerEnlarged(false);
       setContractInstructionExpanded(false);
       setReadyContracts(
@@ -1627,7 +1643,7 @@ export default function ProjectPage() {
     const seq = ++viewerRequestSeqRef.current;
     viewerOpenRef.current = true;
     selectSurface("travail");
-    setViewer({
+    commitViewer({
       kind: "document",
       documentId: input.doc.document.id,
       title: input.doc.document.title,
@@ -1649,6 +1665,7 @@ export default function ProjectPage() {
       titleHint: input.doc.document.title,
       revisionId: historical ? input.sourceRevisionId : null,
       versionSource: historical ? "exact" : "current",
+      knownHeadRevisionId: head.id,
       seq,
       projectIdAtStart,
     });
@@ -2184,6 +2201,8 @@ export default function ProjectPage() {
             setDocumentFocus(restored);
             documentFocusRef.current = restored;
             if (restored.pendingCandidateId) {
+              const restoreSeq = ++viewerRequestSeqRef.current;
+              const projectIdAtRestore = params.projectId;
               void (async () => {
                 try {
                   const q = restored.pendingCandidateContentSha256
@@ -2232,7 +2251,20 @@ export default function ProjectPage() {
                     return;
                   }
                   const headNum = restored.observedHeadRevisionNumber ?? null;
-                  const md = cj.candidate.contentMarkdown;
+                  const md = cj.candidate.contentMarkdown ?? null;
+                  const stillCurrent = pendingCandidateRestoreIsCurrent({
+                    projectIdAtStart: projectIdAtRestore,
+                    projectIdNow: projectIdRef.current,
+                    documentId: restored.documentId,
+                    candidateId: restored.pendingCandidateId!,
+                    focusDocumentId: documentFocusRef.current?.documentId ?? null,
+                    focusCandidateId: documentFocusRef.current?.pendingCandidateId,
+                    requestSeqAtStart: restoreSeq,
+                    requestSeqNow: viewerRequestSeqRef.current,
+                    candidateDocumentId: cj.candidate.documentId ?? null,
+                    candidateMarkdown: md,
+                  });
+                  if (!stillCurrent) return;
                   setPendingProposal({
                     candidateId: restored.pendingCandidateId!,
                     contentSha256: cj.candidate.contentSha256 ?? restored.pendingCandidateContentSha256 ?? "",
@@ -2243,15 +2275,22 @@ export default function ProjectPage() {
                     revisionNumberHint: headNum != null ? headNum + 1 : null,
                   });
                   setStatusHint("Examiner une proposition de Nora");
-                  setViewer({
+                  viewerOpenRef.current = true;
+                  commitViewer({
                     kind: "document",
                     documentId: restored.documentId,
                     title: cj.candidate.title ?? "Document",
-                    revisionId: restored.sourceRevisionId,
-                    revisionNumber: headNum != null ? headNum + 1 : null,
-                    versionSource: "exact",
-                    markdown: md,
-                    available: true,
+                    revisionId: null,
+                    revisionNumber: null,
+                    proposalCandidateId: restored.pendingCandidateId,
+                    knownHeadRevisionId: restored.observedHeadRevisionId,
+                    baseRevisionNumber: restored.sourceRevisionNumber ?? null,
+                    markdown: typeof md === "string" && md.length > 0 ? md : null,
+                    available: typeof md === "string" && md.length > 0,
+                    unavailableReason:
+                      typeof md === "string" && md.length > 0
+                        ? undefined
+                        : "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
                   });
                   // Re-bind focus with server hash; never set conserveProposal.
                   applyDocumentFocus({
@@ -2713,6 +2752,9 @@ export default function ProjectPage() {
     const raw = (overrideText ?? draft).trim();
     const text = mergeDraftWithDossierAttachment(raw, dossierAttachment).trim();
     if (!text || !preparationId) return;
+    const turnGen = ++documentTurnGenRef.current;
+    const focusDocumentAtSend = documentFocusRef.current?.documentId ?? null;
+    const viewerOpenAtSend = viewerOpenRef.current;
     const fromChoice = opts?.fromChoice === true;
     const sentVersion = fromChoice ? null : draftVersionRef.current;
     const pendingMeta: Pick<
@@ -2853,7 +2895,22 @@ export default function ProjectPage() {
       } catch {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
-      if (res.ok) {
+      if (res.ok && turnGen < lastAppliedTurnGenRef.current) {
+        // An older response arrived after a newer turn was painted.
+        // Leave the thread, owner results and document state as they are.
+      } else if (res.ok) {
+        lastAppliedTurnGenRef.current = turnGen;
+        const documentEffect = (effectDocumentId: string | null) =>
+          documentTurnMayApply({
+            turnGen,
+            latestTurnGen: documentTurnGenRef.current,
+            focusDocumentAtSend,
+            focusDocumentNow: documentFocusRef.current?.documentId ?? null,
+            viewerClosedByPilot: viewerOpenAtSend && !viewerOpenRef.current,
+            viewerDocumentId:
+              viewerRef.current?.kind === "document" ? viewerRef.current.documentId : null,
+            effectDocumentId,
+          });
         const prepared = j.preparedContract as
           | {
               contractId: string;
@@ -2908,7 +2965,13 @@ export default function ProjectPage() {
           }
         }
         const save = j.documentSave as
-          | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
+          | {
+              status?: string;
+              reason?: string;
+              documentId?: string;
+              revisionId?: string;
+              revisionNumber?: number;
+            }
           | null
           | undefined;
         const pendingCand = j.pendingDocumentCandidate as
@@ -2933,7 +2996,11 @@ export default function ProjectPage() {
             }
           | null
           | undefined;
-        if (histAuth?.authorizationId && documentFocusRef.current) {
+        if (
+          histAuth?.authorizationId &&
+          documentFocusRef.current &&
+          documentEffect(histAuth.documentId ?? documentFocusRef.current.documentId).focus
+        ) {
           if (histAuth.choice === "USE_SOURCE") {
             applyDocumentFocus({
               ...documentFocusRef.current,
@@ -2970,105 +3037,143 @@ export default function ProjectPage() {
           typeof pendingCand.contentMarkdown === "string" &&
           pendingCand.contentMarkdown.length > 0
         ) {
-          const headNum =
-            documentFocusRef.current?.observedHeadRevisionNumber ??
-            documentsRef.current.find((d) => d.document.id === (pendingCand.documentId || save.documentId))
-              ?.latestRevision?.revisionNumber ??
-            null;
-          const docId =
-            pendingCand.documentId ||
-            save.documentId ||
-            documentFocusRef.current?.documentId ||
-            "";
+          const docId = pendingCand.documentId || save.documentId || "";
+          const apply = documentEffect(docId);
+          if (!apply.focus && !apply.viewer) {
+            // The pilot moved to another document or a newer turn owns the selection.
+          } else {
           const match = documentsRef.current.find((d) => d.document.id === docId);
+          const headNum = match?.latestRevision?.revisionNumber ?? null;
           const title = pendingCand.title || match?.document.title || "Document";
           const revisionHint = headNum != null ? headNum + 1 : null;
-          // Single coherent object — Candidate badge only with this exact markdown.
-          setPendingProposal({
-            candidateId: pendingCand.candidateId,
-            contentSha256: pendingCand.contentSha256 || "",
-            documentId: docId,
-            title,
-            contentMarkdown: pendingCand.contentMarkdown,
-            sourceRevisionId: documentFocusRef.current?.sourceRevisionId ?? null,
-            revisionNumberHint: revisionHint,
-          });
-          if (documentFocusRef.current) {
-            applyDocumentFocus({
-              ...documentFocusRef.current,
-              conserveProposal: false,
-              pendingCandidateId: pendingCand.candidateId,
-              pendingCandidateContentSha256: pendingCand.contentSha256,
-            });
-          } else if (docId) {
-            // No prior focus — still bind identities so conserve / reopen stay coherent.
-            const head = match?.latestRevision;
-            applyDocumentFocus({
+          const focusForDoc =
+            documentFocusRef.current?.documentId === docId ? documentFocusRef.current : null;
+          const baseRevisionNumber = focusForDoc?.sourceRevisionNumber ?? headNum;
+          const knownHeadId =
+            pendingCand.observedHeadRevisionId ?? match?.latestRevision?.id ?? null;
+          if (apply.focus) {
+            setPendingProposal({
+              candidateId: pendingCand.candidateId,
+              contentSha256: pendingCand.contentSha256 || "",
               documentId: docId,
-              sourceRevisionId: head?.id ?? docId,
-              sourceRevisionNumber: head?.revisionNumber,
-              observedHeadRevisionId: head?.id ?? docId,
-              observedHeadRevisionNumber: head?.revisionNumber,
-              conserveProposal: false,
-              pendingCandidateId: pendingCand.candidateId,
-              pendingCandidateContentSha256: pendingCand.contentSha256,
+              title,
+              contentMarkdown: pendingCand.contentMarkdown,
+              sourceRevisionId: pendingCand.sourceRevisionId ?? focusForDoc?.sourceRevisionId ?? null,
+              revisionNumberHint: revisionHint,
+            });
+            if (focusForDoc) {
+              applyDocumentFocus({
+                ...focusForDoc,
+                conserveProposal: false,
+                pendingCandidateId: pendingCand.candidateId,
+                pendingCandidateContentSha256: pendingCand.contentSha256,
+              });
+            } else if (docId) {
+              const head = match?.latestRevision;
+              applyDocumentFocus({
+                documentId: docId,
+                sourceRevisionId: pendingCand.sourceRevisionId ?? head?.id ?? docId,
+                sourceRevisionNumber: head?.revisionNumber,
+                observedHeadRevisionId: pendingCand.observedHeadRevisionId ?? head?.id ?? docId,
+                observedHeadRevisionNumber: head?.revisionNumber,
+                conserveProposal: false,
+                pendingCandidateId: pendingCand.candidateId,
+                pendingCandidateContentSha256: pendingCand.contentSha256,
+              });
+            }
+            setStatusHint("Examiner une proposition de Nora");
+          }
+          if (apply.viewer && docId) {
+            viewerRequestSeqRef.current += 1;
+            viewerOpenRef.current = true;
+            commitViewer({
+              kind: "document",
+              documentId: docId,
+              title,
+              revisionId: null,
+              revisionNumber: null,
+              proposalCandidateId: pendingCand.candidateId,
+              knownHeadRevisionId: knownHeadId,
+              baseRevisionNumber: baseRevisionNumber ?? null,
+              markdown: pendingCand.contentMarkdown,
+              available: true,
             });
           }
-          // Always project the candidate body — never leave V1 under a Candidate badge.
-          setViewer({
-            kind: "document",
-            documentId: docId || match?.document.id || "document",
-            title,
-            revisionId: documentFocusRef.current?.sourceRevisionId ?? match?.latestRevision?.id ?? null,
-            revisionNumber: revisionHint,
-            versionSource: "exact",
-            markdown: pendingCand.contentMarkdown,
-            available: true,
-          });
-          setStatusHint("Examiner une proposition de Nora");
-        } else if (save?.status === "AVAILABLE") {
-          setPendingProposal(null);
-          if (documentFocusRef.current) {
-            applyDocumentFocus({
-              ...documentFocusRef.current,
-              conserveProposal: false,
-              pendingCandidateId: undefined,
-              pendingCandidateContentSha256: undefined,
-              confirmedHistoricalSource: false,
-              historicalConfirmation: undefined,
-              historicalAuthorizationId: undefined,
+          }
+        } else if (
+          save?.reason === "PROPOSAL_PENDING_CONSERVATION" &&
+          pendingCand?.candidateId
+        ) {
+          const docId = pendingCand.documentId || save.documentId || "";
+          const apply = documentEffect(docId);
+          if (apply.viewer && docId) {
+            viewerRequestSeqRef.current += 1;
+            viewerOpenRef.current = true;
+            commitViewer({
+              kind: "document",
+              documentId: docId,
+              title: pendingCand.title || "Document",
+              revisionId: null,
+              revisionNumber: null,
+              proposalCandidateId: pendingCand.candidateId,
+              markdown: null,
+              available: false,
+              unavailableReason:
+                "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
             });
+            setStatusHint("Proposition indisponible");
           }
-          if (typeof save.revisionNumber === "number") {
-            setStatusHint(`Version v${save.revisionNumber} conservée.`);
+        } else if (save?.status === "AVAILABLE" && save.documentId) {
+          const apply = documentEffect(save.documentId);
+          if (!save.revisionId) {
+            if (apply.focus) {
+              setStatusHint("Conservation non confirmée — aucune révision identifiée.");
+            }
+          } else if (apply.focus) {
+            const conserved = focusAfterAvailableConservation(documentFocusRef.current, {
+              status: save.status,
+              documentId: save.documentId,
+              revisionId: save.revisionId,
+              revisionNumber: save.revisionNumber,
+            });
+            if (conserved.rebased && conserved.focus) {
+              applyDocumentFocus(conserved.focus);
+            }
+            setPendingProposal((prev) =>
+              !prev || prev.documentId === save.documentId ? null : prev,
+            );
+            if (typeof save.revisionNumber === "number") {
+              setStatusHint(`Version v${save.revisionNumber} conservée.`);
+            }
           }
-          // Refresh viewer to the newly conserved revision (no longer a pending proposal).
-          if (
-            viewer?.kind === "document" &&
-            typeof save.documentId === "string" &&
-            typeof (save as { revisionId?: string }).revisionId === "string"
-          ) {
-            const newRevId = (save as { revisionId: string }).revisionId;
+          if (apply.viewer && save.revisionId) {
+            const newRevId = save.revisionId;
             const newRevNum =
               typeof save.revisionNumber === "number" ? save.revisionNumber : null;
             const seq = ++viewerRequestSeqRef.current;
             const projectIdAtStart = params.projectId;
-            setViewer((prev) => {
-              if (!prev || prev.kind !== "document") return prev;
-              return {
-                ...prev,
+            const currentViewer = viewerRef.current;
+            const titleHint =
+              currentViewer?.kind === "document" ? currentViewer.title : "Document";
+            if (currentViewer?.kind === "document" && currentViewer.documentId === save.documentId) {
+              commitViewer({
+                ...currentViewer,
                 revisionId: newRevId,
                 revisionNumber: newRevNum,
                 versionSource: "current",
+                proposalCandidateId: null,
+                knownHeadRevisionId: newRevId,
+                baseRevisionNumber: null,
                 available: false,
                 unavailableReason: "Chargement de la version enregistrée…",
-              };
-            });
+              });
+            }
             void fetchDocumentViewerViaD4({
               documentId: save.documentId,
-              titleHint: viewer.title,
+              titleHint,
               revisionId: newRevId,
-              versionSource: "exact",
+              versionSource: "current",
+              knownHeadRevisionId: newRevId,
               seq,
               projectIdAtStart,
             });
@@ -3163,7 +3268,8 @@ export default function ProjectPage() {
         }
       }
     } catch {
-      // Network loss after click: fail closed — freeze until reconcile proves outcome.
+      // Network loss after click: fail closed. Do not select a head from another
+      // operation and do not replay a conservation whose result is unknown.
       setChoiceFrozen(true);
       rememberPending(buildPending());
       setNoraActivity("error");
@@ -3227,7 +3333,7 @@ export default function ProjectPage() {
   const readCurrency =
     readingRevisionNumber != null
       ? revisionCurrencyLabel(readingRevisionNumber, headRevisionNumber)
-      : "Courante";
+      : "Non vérifiée";
 
   const documentHero =
     surface !== "document"
@@ -3252,14 +3358,30 @@ export default function ProjectPage() {
                 sub: "Deux documents côte à côte, avec un résumé des différences en lecture seule.",
               };
 
-  const travailDocumentFocusBanner =
-    pendingProposal &&
-    viewer?.kind === "document" &&
-    viewer.markdown === pendingProposal.contentMarkdown
-      ? ("proposal" as const)
-      : viewer?.kind === "document" && viewer.versionSource === "exact"
-        ? ("historical" as const)
-        : null;
+  const viewerHead =
+    viewer?.kind === "document"
+      ? documents.find((d) => d.document.id === viewer.documentId)?.latestRevision ?? null
+      : null;
+  const travailPresentation =
+    viewer?.kind === "document"
+      ? resolveTravailDocumentPresentation({
+          proposalActive: Boolean(
+            pendingProposal && pendingProposal.documentId === viewer.documentId,
+          ),
+          proposalCandidateId: pendingProposal?.candidateId ?? null,
+          viewerProposalCandidateId: viewer.proposalCandidateId ?? null,
+          proposalDocumentId: pendingProposal?.documentId ?? null,
+          viewerDocumentId: viewer.documentId,
+          proposalMarkdown: pendingProposal?.contentMarkdown ?? null,
+          viewerMarkdown: viewer.markdown,
+          revisionId: viewer.revisionId ?? null,
+          revisionNumber: viewer.revisionNumber ?? null,
+          headRevisionId: viewerHead?.id ?? null,
+          headRevisionNumber: viewerHead?.revisionNumber ?? null,
+          knownHeadRevisionId: viewer.knownHeadRevisionId ?? null,
+        })
+      : null;
+  const travailDocumentFocusBanner = travailPresentation?.banner ?? null;
 
   const qualificationLockActive =
     initialQualification?.status === "PENDING" ||
@@ -3404,6 +3526,28 @@ export default function ProjectPage() {
                 resource={viewer}
                 enlarged={viewerEnlarged}
                 documentFocusBanner={travailDocumentFocusBanner}
+                documentCurrency={travailPresentation?.currency ?? null}
+                onRestoreProposal={
+                  pendingProposal
+                    ? () => {
+                        viewerRequestSeqRef.current += 1;
+                        viewerOpenRef.current = true;
+                        commitViewer({
+                          kind: "document",
+                          documentId: pendingProposal.documentId,
+                          title: pendingProposal.title,
+                          revisionId: null,
+                          revisionNumber: null,
+                          proposalCandidateId: pendingProposal.candidateId,
+                          knownHeadRevisionId:
+                            documentFocus?.observedHeadRevisionId ?? null,
+                          baseRevisionNumber: documentFocus?.sourceRevisionNumber ?? null,
+                          markdown: pendingProposal.contentMarkdown,
+                          available: true,
+                        });
+                      }
+                    : undefined
+                }
                 onEnlarge={() => setViewerEnlarged(true)}
                 onReduce={() => setViewerEnlarged(false)}
                 onClose={closeViewer}
@@ -3556,7 +3700,7 @@ export default function ProjectPage() {
                               const projectIdAtStart = params.projectId;
                               const seq = ++viewerRequestSeqRef.current;
                               viewerOpenRef.current = true;
-                              setViewer({
+                              commitViewer({
                                 kind: "document",
                                 documentId,
                                 title: item.title,
@@ -4070,7 +4214,7 @@ export default function ProjectPage() {
               documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
             const seq = ++viewerRequestSeqRef.current;
             viewerOpenRef.current = true;
-            setViewer({
+            commitViewer({
               kind: "document",
               documentId,
               title: titleHint,

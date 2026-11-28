@@ -41,13 +41,229 @@ export type DocumentComparePayload = {
   note?: string;
 };
 
-/** Projection UI only — Courante = max AVAILABLE revision number. */
+/** Projection UI only. Missing head is unverified, never a false Historique. */
+export type RevisionCurrencyLabel = "Courante" | "Historique" | "Non vérifiée";
+
 export function revisionCurrencyLabel(
   revisionNumber: number,
   headRevisionNumber: number | null | undefined,
-): "Courante" | "Historique" {
-  if (headRevisionNumber != null && revisionNumber === headRevisionNumber) return "Courante";
+): RevisionCurrencyLabel {
+  if (headRevisionNumber == null) return "Non vérifiée";
+  if (revisionNumber === headRevisionNumber) return "Courante";
   return "Historique";
+}
+
+export function revisionCurrencyBadgeClass(currency: RevisionCurrencyLabel): string {
+  if (currency === "Courante") return "doc-badge doc-badge-current";
+  if (currency === "Historique") return "doc-badge doc-badge-historical";
+  return "doc-badge";
+}
+
+export type DocumentarySaveIdentity = {
+  status?: string;
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+};
+
+/** Client-safe working focus. Kept out of document-act so the page bundle stays free of the DB client. */
+export type WorkingDocumentFocus = {
+  documentId: string;
+  sourceRevisionId: string;
+  sourceRevisionNumber?: number;
+  sourceContentMarkdown?: string;
+  observedHeadRevisionId: string;
+  observedHeadRevisionNumber?: number;
+  confirmedHistoricalSource?: boolean;
+  historicalConfirmation?: {
+    documentId: string;
+    sourceRevisionId: string;
+    observedHeadRevisionId: string;
+    choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
+  };
+  historicalAuthorizationId?: string;
+  conserveProposal?: boolean;
+  pendingCandidateId?: string;
+  pendingCandidateContentSha256?: string;
+};
+
+/**
+ * After D4 reports AVAILABLE, the working focus follows the revision just written.
+ * Does not move another document, and does not invent a head when the revision id is missing.
+ */
+export function focusAfterAvailableConservation<T extends WorkingDocumentFocus>(
+  focus: T | null,
+  save: DocumentarySaveIdentity,
+): { focus: T | null; rebased: boolean } {
+  if (!focus) return { focus, rebased: false };
+  if (save.status !== "AVAILABLE") return { focus, rebased: false };
+  if (!save.documentId || !save.revisionId) return { focus, rebased: false };
+  if (focus.documentId !== save.documentId) return { focus, rebased: false };
+  const revisionNumber =
+    typeof save.revisionNumber === "number" ? save.revisionNumber : focus.sourceRevisionNumber;
+  return {
+    rebased: true,
+    focus: {
+      ...focus,
+      sourceRevisionId: save.revisionId,
+      sourceRevisionNumber: revisionNumber,
+      sourceContentMarkdown: undefined,
+      observedHeadRevisionId: save.revisionId,
+      observedHeadRevisionNumber: revisionNumber,
+      confirmedHistoricalSource: false,
+      historicalConfirmation: undefined,
+      historicalAuthorizationId: undefined,
+      conserveProposal: false,
+      pendingCandidateId: undefined,
+      pendingCandidateContentSha256: undefined,
+    },
+  };
+}
+
+/** Exact resolution is not currency. A missing head stays unverified. */
+export function revisionCurrencyFromIdentity(input: {
+  revisionId?: string | null;
+  revisionNumber?: number | null;
+  headRevisionId?: string | null;
+  headRevisionNumber?: number | null;
+  knownHeadRevisionId?: string | null;
+}): RevisionCurrencyLabel {
+  const revisionId = input.revisionId ?? null;
+  const known = input.knownHeadRevisionId ?? null;
+  const listed = input.headRevisionId ?? null;
+  if (revisionId && known && revisionId === known) {
+    if (!listed || listed === known) return "Courante";
+    const listedIsOlder =
+      input.headRevisionNumber != null &&
+      input.revisionNumber != null &&
+      input.headRevisionNumber < input.revisionNumber;
+    if (listedIsOlder) return "Courante";
+  }
+  if (revisionId && listed) {
+    return revisionId === listed ? "Courante" : "Historique";
+  }
+  if (revisionId && known) {
+    return revisionId === known ? "Courante" : "Historique";
+  }
+  if (
+    input.revisionNumber != null &&
+    input.headRevisionNumber != null &&
+    input.revisionNumber === input.headRevisionNumber
+  ) {
+    return "Courante";
+  }
+  if (
+    input.revisionNumber != null &&
+    input.headRevisionNumber != null &&
+    input.revisionNumber !== input.headRevisionNumber
+  ) {
+    return "Historique";
+  }
+  return "Non vérifiée";
+}
+
+/**
+ * A late document effect may update only the document the turn still owns.
+ * A closed viewer stays closed. Another document's focus and viewer stay put.
+ * Thread and owner results are decided separately by the caller.
+ */
+export function documentTurnMayApply(input: {
+  turnGen: number;
+  latestTurnGen: number;
+  focusDocumentAtSend: string | null;
+  focusDocumentNow: string | null;
+  viewerClosedByPilot: boolean;
+  viewerDocumentId: string | null;
+  effectDocumentId: string | null;
+}): { focus: boolean; viewer: boolean } {
+  const selectionUnchanged =
+    input.focusDocumentAtSend == null ||
+    input.focusDocumentNow == null ||
+    input.focusDocumentAtSend === input.focusDocumentNow;
+  const turnStillOwnsSelection = input.turnGen === input.latestTurnGen && selectionUnchanged;
+  const effectDoc = input.effectDocumentId;
+  const focus =
+    turnStillOwnsSelection &&
+    typeof effectDoc === "string" &&
+    effectDoc.length > 0 &&
+    (input.focusDocumentNow == null || input.focusDocumentNow === effectDoc);
+  const viewer =
+    focus &&
+    !input.viewerClosedByPilot &&
+    (input.viewerDocumentId == null || input.viewerDocumentId === effectDoc);
+  return { focus, viewer };
+}
+
+/**
+ * A restored candidate is shown only if the project, document, candidate and
+ * viewer generation are still the ones captured before the request returned.
+ */
+export function pendingCandidateRestoreIsCurrent(input: {
+  projectIdAtStart: string;
+  projectIdNow: string | null;
+  documentId: string;
+  candidateId: string;
+  focusDocumentId: string | null;
+  focusCandidateId: string | null | undefined;
+  requestSeqAtStart: number;
+  requestSeqNow: number;
+  candidateDocumentId: string | null;
+  candidateMarkdown: string | null;
+}): boolean {
+  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
+  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
+  if (input.focusDocumentId !== input.documentId) return false;
+  if (input.focusCandidateId !== input.candidateId) return false;
+  if (!input.candidateDocumentId || input.candidateDocumentId !== input.documentId) return false;
+  return typeof input.candidateMarkdown === "string" && input.candidateMarkdown.length > 0;
+}
+
+export function resolveTravailDocumentPresentation(input: {
+  proposalActive: boolean;
+  proposalCandidateId?: string | null;
+  viewerProposalCandidateId?: string | null;
+  proposalDocumentId?: string | null;
+  viewerDocumentId?: string | null;
+  proposalMarkdown?: string | null;
+  viewerMarkdown?: string | null;
+  revisionId?: string | null;
+  revisionNumber?: number | null;
+  headRevisionId?: string | null;
+  headRevisionNumber?: number | null;
+  knownHeadRevisionId?: string | null;
+}): {
+  banner: "proposal" | "historical" | "other-version" | null;
+  currency: RevisionCurrencyLabel | "Proposition";
+} {
+  const sameDocument =
+    !input.proposalDocumentId ||
+    !input.viewerDocumentId ||
+    input.proposalDocumentId === input.viewerDocumentId;
+  const showingProposal =
+    input.proposalActive &&
+    sameDocument &&
+    !input.revisionId &&
+    typeof input.proposalCandidateId === "string" &&
+    input.proposalCandidateId.length > 0 &&
+    input.viewerProposalCandidateId === input.proposalCandidateId &&
+    typeof input.proposalMarkdown === "string" &&
+    input.proposalMarkdown.length > 0 &&
+    input.viewerMarkdown === input.proposalMarkdown;
+  if (showingProposal) {
+    return { banner: "proposal", currency: "Proposition" };
+  }
+  const currency = revisionCurrencyFromIdentity(input);
+  if (
+    input.proposalActive &&
+    typeof input.proposalMarkdown === "string" &&
+    input.proposalMarkdown.length > 0
+  ) {
+    return { banner: "other-version", currency };
+  }
+  return {
+    banner: currency === "Historique" ? "historical" : null,
+    currency,
+  };
 }
 
 /**
@@ -565,7 +781,7 @@ export function DocumentReadSurface(props: {
   markdown: string | null;
   missing?: string | null;
   revisionLabel: string;
-  currency: "Courante" | "Historique";
+  currency: "Courante" | "Historique" | "Non vérifiée";
   loading?: boolean;
   onRequestRevision: () => void;
   onHistory: () => void;
@@ -700,13 +916,7 @@ export function DocumentHistorySurface(props: {
                   >
                     <div className="doc-version-row-top">
                       <span className="doc-version-title">Version {r.revisionNumber}</span>
-                      <span
-                        className={
-                          currency === "Courante"
-                            ? "doc-badge doc-badge-current"
-                            : "doc-badge doc-badge-historical"
-                        }
-                      >
+                      <span className={revisionCurrencyBadgeClass(currency)}>
                         {currency.toUpperCase()}
                       </span>
                     </div>
@@ -733,12 +943,9 @@ export function DocumentHistorySurface(props: {
           <>
             <h3 className="doc-aside-title">Version {selected.revisionNumber}</h3>
             <span
-              className={
-                revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
-                "Courante"
-                  ? "doc-badge doc-badge-current"
-                  : "doc-badge doc-badge-historical"
-              }
+              className={revisionCurrencyBadgeClass(
+                revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber),
+              )}
             >
               {revisionCurrencyLabel(
                 selected.revisionNumber,
@@ -751,7 +958,10 @@ export function DocumentHistorySurface(props: {
                 revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
                 "Courante"
                   ? "Version courante"
-                  : "Version précédente conservée"
+                  : revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
+                      "Historique"
+                    ? "Version précédente conservée"
+                    : "Actualité non vérifiée"
               }
             />
             <div className="doc-aside-divider" />

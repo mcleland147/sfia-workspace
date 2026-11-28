@@ -12,6 +12,12 @@ export type TravailViewerResource =
       revisionNumber?: number | null;
       /** Explicit when no revisionId was requested — never silent latest substitution. */
       versionSource?: "exact" | "current";
+      /** Set only while the body is the unsealed candidate. Not a durable revision id. */
+      proposalCandidateId?: string | null;
+      /** Head known when this view was produced (save or current resolution). */
+      knownHeadRevisionId?: string | null;
+      /** Documentary base of a proposal — display only. */
+      baseRevisionNumber?: number | null;
       markdown: string | null;
       available: boolean;
       unavailableReason?: string;
@@ -48,8 +54,11 @@ export type TravailViewerResource =
 export function TravailViewer(props: {
   resource: TravailViewerResource;
   enlarged: boolean;
-  /** When Nora works from a non-current revision — informational only. */
-  documentFocusBanner?: "historical" | "proposal" | null;
+  /** Informational only — does not authorize a write. */
+  documentFocusBanner?: "historical" | "proposal" | "other-version" | null;
+  /** D4 currency. Exact resolution alone never implies Historique. */
+  documentCurrency?: "Courante" | "Historique" | "Non vérifiée" | "Proposition" | null;
+  onRestoreProposal?: () => void;
   onEnlarge: () => void;
   onReduce: () => void;
   onClose: () => void;
@@ -77,34 +86,44 @@ export function TravailViewer(props: {
           : "VISIONNEUSE  /  SOURCE GIT";
   const currencyBadge =
     resource.kind === "document"
-      ? props.documentFocusBanner === "proposal"
+      ? props.documentCurrency === "Proposition" || props.documentFocusBanner === "proposal"
         ? "PROPOSITION"
-        : resource.versionSource === "exact"
+        : props.documentCurrency === "Historique"
           ? "HISTORIQUE"
-          : "COURANTE"
+          : props.documentCurrency === "Non vérifiée"
+            ? "NON VÉRIFIÉE"
+            : props.documentCurrency === "Courante"
+              ? "COURANTE"
+              : resource.versionSource === "current"
+                ? "COURANTE"
+                : "NON VÉRIFIÉE"
       : resource.kind === "web"
         ? resource.consulted
           ? "CONSULTÉE"
           : "DÉCOUVERTE"
         : null;
-  // Journal V4 accepted label ("Version N · révision citée") preserved;
-  // Documents adds proposal candidate wording + currency badge separately.
   const versionLine =
-    resource.kind === "document" && resource.revisionNumber != null
-      ? props.documentFocusBanner === "proposal"
-        ? `Version ${resource.revisionNumber} · Candidate`
-        : [
+    resource.kind === "document" &&
+    (props.documentFocusBanner === "proposal" || props.documentCurrency === "Proposition")
+      ? [
+          "Proposition non enregistrée",
+          resource.baseRevisionNumber != null ? `base v${resource.baseRevisionNumber}` : null,
+        ]
+          .filter(Boolean)
+          .join(" · ")
+      : resource.kind === "document" && resource.revisionNumber != null
+        ? [
             `Version ${resource.revisionNumber}`,
-            resource.revisionId ? resource.revisionId.slice(0, 8) : null,
-            resource.versionSource === "current"
-              ? "version courante"
-              : resource.versionSource === "exact"
-                ? "révision citée"
-                : null,
+            resource.versionSource === "exact" ? "révision citée" : null,
+            props.documentCurrency === "Historique"
+              ? "version historique"
+              : props.documentCurrency === "Non vérifiée"
+                ? "actualité non vérifiée"
+                : "version courante",
           ]
             .filter(Boolean)
             .join(" · ")
-      : null;
+        : null;
 
   return (
     <div
@@ -114,6 +133,10 @@ export function TravailViewer(props: {
       data-viewer-pdf={isPdf ? "1" : "0"}
       data-viewer-enlarged={props.enlarged ? "1" : "0"}
       data-focus-banner={props.documentFocusBanner ?? ""}
+      data-proposal-candidate-id={
+        resource.kind === "document" ? resource.proposalCandidateId ?? "" : ""
+      }
+      data-revision-id={resource.kind === "document" ? resource.revisionId ?? "" : ""}
     >
       <header className="fig-travail-viewer-head">
         <div>
@@ -128,7 +151,9 @@ export function TravailViewer(props: {
                   ? "doc-badge doc-badge-current"
                   : currencyBadge === "PROPOSITION"
                     ? "doc-badge doc-badge-proposal"
-                    : "doc-badge doc-badge-historical"
+                    : currencyBadge === "HISTORIQUE"
+                      ? "doc-badge doc-badge-historical"
+                      : "doc-badge"
               }
               data-testid="travail-viewer-currency"
             >
@@ -205,6 +230,20 @@ export function TravailViewer(props: {
         ) : props.documentFocusBanner === "proposal" ? (
           <div className="fig-alert" data-testid="document-focus-banner" role="status">
             PROPOSITION NON ENREGISTRÉE · Pas de publication Git automatique
+          </div>
+        ) : props.documentFocusBanner === "other-version" ? (
+          <div className="fig-alert" data-testid="document-focus-banner" role="status">
+            AUTRE VERSION CONSULTÉE · La proposition non enregistrée reste disponible
+            {props.onRestoreProposal ? (
+              <button
+                type="button"
+                className="btn secondary"
+                data-testid="document-restore-proposal"
+                onClick={props.onRestoreProposal}
+              >
+                Revenir à la proposition
+              </button>
+            ) : null}
           </div>
         ) : null}
         {!resource.available ? (

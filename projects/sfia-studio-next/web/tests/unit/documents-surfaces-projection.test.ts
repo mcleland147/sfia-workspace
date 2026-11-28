@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  documentTurnMayApply,
+  focusAfterAvailableConservation,
   formatPilotFacingProvenance,
+  pendingCandidateRestoreIsCurrent,
+  resolveTravailDocumentPresentation,
+  revisionCurrencyFromIdentity,
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
 import {
@@ -22,7 +27,220 @@ describe("revisionCurrencyLabel", () => {
   it("marks head as Courante and others Historique", () => {
     expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
     expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
-    expect(revisionCurrencyLabel(1, null)).toBe("Historique");
+    expect(revisionCurrencyLabel(1, null)).toBe("Non vérifiée");
+  });
+});
+
+describe("documentary focus after conservation", () => {
+  const docs: DocumentListItem[] = [
+    {
+      document: { id: "doc-1", title: "Parcours" },
+      latestRevision: {
+        id: "rev-2",
+        revisionNumber: 2,
+        status: "AVAILABLE",
+        contentMarkdown: "# V2\n",
+      },
+    },
+  ];
+  const stale: DocumentReviseFocus = {
+    documentId: "doc-1",
+    sourceRevisionId: "rev-1",
+    sourceRevisionNumber: 1,
+    observedHeadRevisionId: "rev-1",
+    observedHeadRevisionNumber: 1,
+    pendingCandidateId: "pdoc-old",
+    pendingCandidateContentSha256: "abc",
+  };
+
+  it("reproduces the stale focus: the next revise still targets the previous source", () => {
+    const target = resolveReviseTarget(docs, null, stale);
+    expect(target.ok).toBe(true);
+    if (!target.ok) return;
+    expect(target.baseRevisionId).toBe("rev-1");
+  });
+
+  it("rebases source and observed head onto the revision D4 just wrote", () => {
+    const next = focusAfterAvailableConservation(stale, {
+      status: "AVAILABLE",
+      documentId: "doc-1",
+      revisionId: "rev-2",
+      revisionNumber: 2,
+    });
+    expect(next.rebased).toBe(true);
+    expect(next.focus?.sourceRevisionId).toBe("rev-2");
+    expect(next.focus?.observedHeadRevisionId).toBe("rev-2");
+    expect(next.focus?.pendingCandidateId).toBeUndefined();
+    const target = resolveReviseTarget(docs, null, next.focus);
+    expect(target.ok).toBe(true);
+    if (!target.ok) return;
+    expect(target.baseRevisionId).toBe("rev-2");
+  });
+
+  it("does not rebase another document or a save without a revision id", () => {
+    expect(
+      focusAfterAvailableConservation(stale, {
+        status: "AVAILABLE",
+        documentId: "doc-other",
+        revisionId: "rev-9",
+        revisionNumber: 9,
+      }).rebased,
+    ).toBe(false);
+    expect(
+      focusAfterAvailableConservation(stale, {
+        status: "AVAILABLE",
+        documentId: "doc-1",
+      }).rebased,
+    ).toBe(false);
+    expect(
+      focusAfterAvailableConservation(stale, {
+        status: "CONFLICT",
+        documentId: "doc-1",
+        revisionId: "rev-2",
+      }).rebased,
+    ).toBe(false);
+  });
+});
+
+describe("viewer currency is not inferred from exact resolution", () => {
+  it("treats an exact reference of the current head as Courante", () => {
+    const view = resolveTravailDocumentPresentation({
+      proposalActive: false,
+      revisionId: "rev-2",
+      revisionNumber: 2,
+      headRevisionId: "rev-2",
+      headRevisionNumber: 2,
+      knownHeadRevisionId: "rev-2",
+    });
+    expect(view.currency).toBe("Courante");
+    expect(view.banner).toBeNull();
+    expect(
+      revisionCurrencyFromIdentity({
+        revisionId: "rev-2",
+        revisionNumber: 2,
+        knownHeadRevisionId: "rev-2",
+        headRevisionId: "rev-3",
+        headRevisionNumber: 3,
+      }),
+    ).toBe("Historique");
+  });
+
+  it("does not call an unknown head historical", () => {
+    const view = resolveTravailDocumentPresentation({
+      proposalActive: false,
+      revisionId: "rev-2",
+      revisionNumber: 2,
+    });
+    expect(view.currency).toBe("Non vérifiée");
+    expect(view.banner).toBeNull();
+  });
+
+  it("shows the candidate body as a proposal and keeps it distinct from another version", () => {
+    const candidate = "# V2 candidate\n";
+    const shown = resolveTravailDocumentPresentation({
+      proposalActive: true,
+      proposalCandidateId: "cand-2",
+      viewerProposalCandidateId: "cand-2",
+      proposalDocumentId: "doc-1",
+      viewerDocumentId: "doc-1",
+      proposalMarkdown: candidate,
+      viewerMarkdown: candidate,
+      revisionId: null,
+    });
+    expect(shown.banner).toBe("proposal");
+    expect(shown.currency).toBe("Proposition");
+    const sameTextRevision = resolveTravailDocumentPresentation({
+      proposalActive: true,
+      proposalCandidateId: "cand-2",
+      viewerProposalCandidateId: null,
+      proposalDocumentId: "doc-1",
+      viewerDocumentId: "doc-1",
+      proposalMarkdown: candidate,
+      viewerMarkdown: candidate,
+      revisionId: "rev-2",
+      revisionNumber: 2,
+      headRevisionId: "rev-2",
+      headRevisionNumber: 2,
+      knownHeadRevisionId: "rev-2",
+    });
+    expect(sameTextRevision.banner).toBe("other-version");
+    expect(sameTextRevision.currency).toBe("Courante");
+    const other = resolveTravailDocumentPresentation({
+      proposalActive: true,
+      proposalMarkdown: candidate,
+      viewerMarkdown: "# V1\n",
+      revisionId: "rev-1",
+      headRevisionId: "rev-1",
+      revisionNumber: 1,
+      headRevisionNumber: 1,
+    });
+    expect(other.banner).toBe("other-version");
+    expect(other.currency).toBe("Courante");
+  });
+});
+
+describe("document turn scope and candidate restore", () => {
+  const base = {
+    turnGen: 2,
+    latestTurnGen: 2,
+    focusDocumentAtSend: "doc-a",
+    focusDocumentNow: "doc-a",
+    viewerClosedByPilot: false,
+    viewerDocumentId: "doc-a",
+    effectDocumentId: "doc-a",
+  };
+
+  it("does not move document B when a late result belongs to document A", () => {
+    const late = documentTurnMayApply({
+      ...base,
+      focusDocumentNow: "doc-b",
+      viewerDocumentId: "doc-b",
+    });
+    expect(late.focus).toBe(false);
+    expect(late.viewer).toBe(false);
+  });
+
+  it("does not reopen a viewer the pilot closed", () => {
+    const closed = documentTurnMayApply({ ...base, viewerClosedByPilot: true });
+    expect(closed.focus).toBe(true);
+    expect(closed.viewer).toBe(false);
+  });
+
+  it("does not apply an older document result after a newer turn", () => {
+    const older = documentTurnMayApply({ ...base, turnGen: 1, latestTurnGen: 2 });
+    expect(older.focus).toBe(false);
+    expect(older.viewer).toBe(false);
+  });
+
+  it("does not restore a candidate over a newer selection", () => {
+    expect(
+      pendingCandidateRestoreIsCurrent({
+        projectIdAtStart: "proj-1",
+        projectIdNow: "proj-1",
+        documentId: "doc-a",
+        candidateId: "cand-a",
+        focusDocumentId: "doc-b",
+        focusCandidateId: "cand-a",
+        requestSeqAtStart: 4,
+        requestSeqNow: 4,
+        candidateDocumentId: "doc-a",
+        candidateMarkdown: "# A",
+      }),
+    ).toBe(false);
+    expect(
+      pendingCandidateRestoreIsCurrent({
+        projectIdAtStart: "proj-1",
+        projectIdNow: "proj-1",
+        documentId: "doc-a",
+        candidateId: "cand-a",
+        focusDocumentId: "doc-a",
+        focusCandidateId: "cand-a",
+        requestSeqAtStart: 4,
+        requestSeqNow: 5,
+        candidateDocumentId: "doc-a",
+        candidateMarkdown: "# A",
+      }),
+    ).toBe(false);
   });
 });
 

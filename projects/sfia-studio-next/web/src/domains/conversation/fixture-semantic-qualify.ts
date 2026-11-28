@@ -2047,6 +2047,46 @@ register(
   },
 );
 
+/**
+ * Test lane only — second distinct revise body so V2→V3 can be exercised
+ * through the same orchestration as the first proposal. Not a product route.
+ */
+register(
+  "Je souhaite préciser le suivi entre les centres.",
+  {
+    ...effect(
+      "Réviser document — proposition V3",
+      "Je propose une formulation de suivi. Elle reste une proposition tant que tu n’as pas demandé la conservation.\n\n```sfia-document\n# Parcours de réservation et responsabilités\n\n## Suivi\n\nLe suivi V3 discriminant est assuré par le coordinateur.\n```\n",
+      [
+        {
+          capabilityId: "d4.revise_document",
+          mode: "REQUEST_EFFECT",
+          summary: "Préciser le suivi",
+          parameters: { sectionHint: "Suivi" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      {
+        continueChoices: [
+          {
+            id: "conserve",
+            label: "Conserver comme nouvelle version",
+            transmitText:
+              "Conserver comme nouvelle version la proposition documentaire préparée.",
+          },
+        ],
+      },
+    ),
+    documentProposal: {
+      title: "Parcours de réservation et responsabilités",
+      contentMarkdown:
+        "# Parcours de réservation et responsabilités\n\n## Suivi\n\nLe suivi V3 discriminant est assuré par le coordinateur.\n",
+    },
+  },
+);
+
 register(
   "Conserver comme nouvelle version la proposition documentaire préparée.",
   {

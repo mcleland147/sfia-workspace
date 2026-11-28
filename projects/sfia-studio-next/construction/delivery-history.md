@@ -5562,3 +5562,17 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 - **WEB**: OFF
 - **NO RELEASE** · RECETTE protégée · livraison 2 non engagée
 
+## DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV
+
+- **Date** : 2026-11-28T09:20+01:00, finalisé le même jour
+- **Cycle** : 08 Delivery / Critical · lot 1 uniquement
+- **Base** : `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` · tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`
+- **SHA final** : publié sur `sfia/next-ml5-integrated-delivery-20261123` et reporté dans le Review Pack. Il n'est pas inscrit dans ce commit, pour éviter une seconde publication dont le seul objet serait son propre identifiant.
+- **Nature** : correctif de fiabilité du cycle documentaire, compatible avec les invariants D4. Le complément distingue le candidat d'une révision de même texte et borne les retours tardifs au document encore sélectionné.
+- **Schéma** : aucun changement · 027 inchangé
+- **Build DEV de production** : voir le Review Pack du candidat publié
+- **Preuve navigateur** : Playwright isolé `:3101` / `sfia_next_e2e`, Nora substituée. Le serveur webpack canonique n'a pas démarré (parse préexistant de `@cursor/sdk` `agent.d.ts.map`) ; le parcours a été exécuté sur le même port et la même base avec Turbopack.
+- **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés au lot 7 ; lots 2 à 7 non engagés
+- **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
+- **Statut** : DEV PUBLIÉ POUR REVUE — NOT ACCEPTED — NOT ADOPTED
+
