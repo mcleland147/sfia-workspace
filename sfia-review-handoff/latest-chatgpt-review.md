@@ -1,1279 +1,904 @@
-# Review Pack — SFIA Studio Next — Lot 5 FinOps ciblé
+# Review Pack — SFIA Studio Next — Lot 6 dictée temps réel
 
 Cycle: 08 — Delivery / implémentation
 Profil: Standard
-Typologie: EVOL — correctif compatible borné
+Typologie: EVOL — correctif ciblé
 Jalon: R5 / ML5
 Review level: Light
 Mono-cycle: oui
 Stub: non
-Date: 2026-11-28T12:05+01:00
+Date: 2026-11-28T12:20+01:00
 
 ## 1. Identité et mandat
 
-Trois corrections utiles, sans refonte FinOps.
-
-A. Rattacher la consommation d'un probe réellement consommé au travail validé.
-B. Rendre les compteurs et le ratio honnêtes.
-C. Distinguer coût connu, partiel, inconnu, non attribué, et estimation Studio.
-
-Pas de migration, pas de backfill, pas de LIVE, pas de promotion, pas de lot 6.
+Morris accepte la sortie technique du lot 5 avec réserves et autorise le lot 6.
+Objectif: identifier pourquoi la dictée ne fonctionne pas, corriger les causes établies, rendre la capacité utilisable pour le Pilote.
+Anomalies: MP06 échec de la dictée, MP07 onde non qualifiée. Acquis MP01/02 conservés.
+Intentions: A conformité du transport Realtime, B diagnostic et cycle de vie, C parcours du compositeur.
+Pas de reconstruction de l'architecture audio. Pas de LIVE dans ce mandat. Pas de CI distante. Pas de promotion RECETTE. Pas de lot 7.
 
 ## 2. Git Truth Check
 
 Worktree: /Users/morris/Projects/sfia-wt-next-ml5-20261123
 Branche: sfia/next-ml5-integrated-delivery-20261123
-HEAD de départ = origin: 9bc9f3462f1e0eb91122bb6060efc23a08b71a7a
-Tree de départ: 5e7e8822e3e34b1c7df2f060a305e140a824d748
+HEAD de départ = origin: 9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b
+Tree de départ: 85c1eb14e76ad5a654e7c5e8063b140eed68f832
 origin/main = merge-base: 997897fd7cf914771e7d08e8030dc7123fab7d25
-Suivi: 37f23f7b099bb73c7108e6c2e7875ab982dffb97, blob 62da6845e39b7a98fbab014b05f8e45e908d9173, v0.14 §3 L5, §9.1, §19
-Diagnostic: 515561e7e5bf395907bf4ec0f4c9990a36dc4aa7 §6
-Handoff précédent: 5f8770a221cd5ec156de7aa3a9e4c93a05f01212
-Untracked conservés: .tmp-sfia-review/ et web/.tmp-sfia-review/
-Aucune divergence. main non synchronisé.
+Suivi documentaire: 0f416cf7343a30dea7b1b314047eb084a950041e, blob 84d424c9b8ff5138b528ac53e116b984e5a5c681, v0.16, §3 L6, §9.1, §21
+Diagnostic historique: 515561e7e5bf395907bf4ec0f4c9990a36dc4aa7 §8
+Handoff précédent: 4953fe72a3df425632f073a8745bf7833f788814
+Untracked conservés, non commités: .tmp-sfia-review/ et web/.tmp-sfia-review/
+Aucune divergence. main non synchronisé. Le suivi des sept lots n'est pas modifié.
 
-## 3. Cause
+## 3. Diagnostic
 
-Confirmée sur le chemin actuel, sans l'étendre aux 44 observations historiques.
+Cause historique du PROVIDER_ERROR observé en RECETTE: NON OBSERVÉE.
+Le microphone était accessible, le drapeau dictée activé, le transport live configuré. Aucune trace fournisseur discriminante n'avait été conservée. Ce mandat ne rejoue pas cet appel et ne lui attribue pas le header Beta.
 
-Le probe de qualification appelle generateNoraReply avant la résolution du travail, sans cognitiveWorkId. S'il est réutilisé comme premier segment, son coût est déjà parti en écriture asynchrone avec un travail vide. La clé d'idempotence contient ce travail. Une seconde insertion avec le travail résolu créerait une autre clé et un double comptage. Le tour n'était pas transmis à cet enregistrement.
+Écart de contrat confirmé sur le code de départ, blob 4838f811f824df839bf4a46fd76a95074b52671b:
+le socket ouvrait bien wss://api.openai.com/v1/realtime?intent=transcription, mais envoyait encore le header OpenAI-Beta: realtime=v1. La documentation officielle consultée le 2026-11-28 (guides realtime, transcription, dépréciations, client events) retire ce header pour l'interface GA depuis le 12 mai 2026.
 
-Les 44 lignes Equipéo et la capture MaintiPlan restent des observations historiques. Elles ne sont pas réécrites. AWAIT_PILOT n'est pas forcé à COMPLETE.
+Le payload session.update était déjà conforme: session.type transcription, PCM mono 24 kHz, modèle gpt-live-transcribe, languages ["fr"], prompt lexical, turn_detection null. Aucun champ supplémentaire n'a été ajouté. session.created n'ouvre toujours pas la session.
+
+Autre défaut établi: une erreur fournisseur objet était convertie par String(), donc "[object Object]", puis rejetée en PROVIDER_ERROR générique. Le timeout d'upgrade ne fermait pas la socket non encore retournée. Une fermeture après ouverture ne terminait pas explicitement la session.
+
+MP07: l'onde est dessinée par AnalyserNode, uniquement en phase listening. Si l'ouverture échoue, l'onde ne démarre pas. L'animation n'est pas modifiée. L'hypothèse que MP07 est une conséquence de MP06 reste une hypothèse, pas une preuve LIVE.
 
 ## 4. Corrections
 
-A. Quand le probe est réellement réutilisé, attributeConsumedProbeUsage met à jour les lignes déjà écrites de cette génération. La clé d'idempotence ne change pas. Les tokens et le coût non plus. Le companion HTTP de la même génération suit le même travail et reste hors des agrégats facturables. L'écriture en cours est attendue avant la mise à jour. Une écriture qui arrive après reçoit le même travail, toujours sans nouvelle clé. Un autre projet, un autre Pilote ou une ligne déjà rattachée ailleurs est refusé. Une qualification sans travail reste non rattachée. Le tour est maintenant transmis. Aucun travail n'est créé pour l'occasion.
+A. transcriptionSocketHeaders n'envoie que Authorization. buildTranscriptionSessionUpdate est l'objet unique envoyé après connexion. L'URL et le modèle sont inchangés. Aucun repli vers Whisper, un fichier ou un autre fournisseur.
 
-B. Le nombre de travaux aboutis est celui des travaux liés aux observations facturables du même filtre. S'il reste des observations non attribuées, le décompte est partiel et le dit : aboutis observés, en cours, non attribuées. Le ratio coût global / travail abouti n'est affiché que lorsque ce décompte est complet. Il reste un coût global divisé par les travaux aboutis observés, pas le coût moyen de ces seuls travaux. Les filtres de période, de projet et de modèle sont ceux de la lecture existante, partagés par le résumé et la liste.
+B. describeDictationProviderFailure distingue, quand le fournisseur le rend observable: authentification (401), permission (403), modèle indisponible, paramètre de session invalide, transcription échouée. Le timeout d'upgrade est REALTIME_OPEN_TIMEOUT. Une rupture après ouverture est TRANSPORT_CLOSED. Le message client est le code. Le journal technique porte l'étape, la session Studio, le code fournisseur, le type, le paramètre, le statut HTTP et l'état terminal. Les chaînes sk- et Bearer sont retirées. Aucune clé, aucun audio, aucune transcription, aucun brouillon n'est journalisé.
 
-C. Le catalogue tarifaire est inchangé. totalTokens prime, sinon entrée + sortie. Le cache et le raisonnement ne sont pas ajoutés une seconde fois. 100 % de couverture reste la part des requêtes recensées. Le sous-texte distingue les coûts partiels ou inconnus et rappelle que les émissions ne sont pas toutes établies. UNVERIFIED n'est pas affiché comme un modèle ou un effort appliqué. L'estimation Studio reste distincte d'une facture. Les libellés tiennent dans les cartes existantes. Figma n'est pas modifié.
+Le timeout et l'erreur d'upgrade ferment la socket avant de la retourner. Une fermeture pendant l'écoute ou la finalisation appelle failDictationTransport une seule fois. Un état déjà terminal n'est pas rouvert et ne produit pas une seconde observation FinOps. Aucune reconnexion automatique. L'admission admitDictationProviderEmission et assertOpenAiKeyForLane est inchangée. Le fixture reste refusé hors VITEST ou DEV substitué. Il n'est pas activé en RECETTE.
+
+C. Les deux compositeurs, projet (NoraConversation) et sas (PreparationConversation), passent par NoraSharedComposer puis ComposerDictationControl. Aucun câblage n'a été changé. Les phrases Pilote couvrent les nouveaux codes. La phrase historique de TRANSPORT_OPEN_FAILED est conservée. Annuler, Stop, brouillon, verrou d'envoi et onde existante sont conservés. Figma n'est pas modifié.
 
 ## 5. Candidat
 
-HEAD: 9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b
-Tree: 85c1eb14e76ad5a654e7c5e8063b140eed68f832
-URL: https://github.com/mcleland147/sfia-workspace/commit/9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b
-Fast-forward 9bc9f346..9e2f9911. Local = origin.
-10 fichiers, +882 / −53. Une création : le test PG d'attribution. CI non exécutée.
+HEAD = origin: d215a5272025b2d1c7aa8391dd14f6442ea512fe
+Tree: c5bab24132c7c745d6ddff0ba76dc8d5424ea13c
+URL: https://github.com/mcleland147/sfia-workspace/commit/d215a5272025b2d1c7aa8391dd14f6442ea512fe
+Message: fix(next): restore realtime composer dictation
+Fast-forward 9e2f9911..d215a527. 5 fichiers, +537 / −80. Aucune création de fichier.
+CI distante: NON EXÉCUTÉE — DEV REVIEW SNAPSHOT.
+origin/main inchangé: 997897fd7cf914771e7d08e8030dc7123fab7d25
 
 ## 6. Validations
 
-46 PASS sur 5 fichiers, dont le nouveau test PostgreSQL isolé :
+DET, après correction du commentaire qui contenait encore le nom du header retiré:
+- ml3-composer-dictation-session.test.ts: 32 PASS
+- nora-shared-composer.test.ts: 9 PASS
+- ml3-composer-dictation-reducer.test.ts: 3 PASS
+- ml3-composer-dictation-client-seq-contract.test.ts: 2 PASS
 
-- probe enregistré puis rattaché : 2 lignes, mêmes tokens, même coût, rejeu sans insertion
-- écriture et rattachement concurrents : une seule observation, 34 tokens
-- autre projet, autre Pilote, ligne déjà attribuée : refus, aucune mutation
-- résumé et liste sur le même filtre : décompte partiel, ratio non affiché, travail ouvert conservé
-- projection : compteur partiel, ratio global, modèle demandé non confirmé
-- corrélation HTTP et idempotence existantes rejouées
-- attribution de projet du test e2 rejouée
+Les nouveaux cas couvrent le payload GA, l'absence du header Beta dans la source réellement utilisée, l'erreur structurée SESSION_PARAMETER_INVALID, la fermeture au timeout, le classement HTTP 401, la rupture après ouverture et l'ignorance d'un delta tardif. Aucun appel réseau.
 
-Build isolé STUDIO_E2E=1 exit 0, .next-e2e 0w2QvFs8BbSfGwGfiNl5j.
-.next DEV inchangé, 31044BhyAFqJ_OpeQJS_K. Lint ciblé sans erreur nouvelle. git diff --check propre.
-DEV :3100 PID 55011 et RECETTE :3200 PID 58965 inchangés.
+PG isolé, transport fixture, base sfia_next_e2e:
+- ml3-composer-dictation-integrated.pg.test.ts: 8 PASS
+Isolation, brouillon et observation FinOps existante rejoués. Aucune émission fournisseur.
 
-## 7. Limites et reports
+BROWSER substitué, parcours produit existant, pas le harness isolé:
+Serveur de production isolé, port 3101, build .next-e2e ABlgl2JVMprRMm8SYQdx-, base sfia_next_e2e déjà migrée jusqu'à 027, sans DROP.
+Transport fixture, clé fournisseur neutralisée, STUDIO_FORCE_NORA_FIXTURE=1.
+GET /login: 200.
+ml3-dictation-nominal-path.spec.ts: 3 PASS (C01 écoute, transcription visible, arrêt, texte réintégré et envoi fixture; C02 dictées successives et annulation; C03 refus hors propriétaire, refus sans session, finalisation et événement tardif ignoré).
+Audio: synthétique. L'oscillateur du test est arrêté tout de suite et le PCM est injecté par la route produit. La capture pendant l'écoute montre le compositeur en écoute, le compteur, le brouillon conservé, le texte provisoire, et une onde au plancher de silence. Elle ne qualifie pas une onde de parole.
 
-Les observations historiques sans génération identifiable ne sont pas rattachées. Un probe qui n'est pas réutilisé comme segment reste non attribué. Ce n'est pas un oubli de clôture : AWAIT_PILOT reste ouvert.
+Build isolé STUDIO_E2E=1: exit 0. .next DEV inchangé, 31044BhyAFqJ_OpeQJS_K, mtime 27 nov 22:38.
+Lint ciblé eslint --quiet: aucune erreur. git diff --check: propre.
+DEV :3100 PID 55011 et RECETTE :3200 PID 58965 inchangés. 3101 arrêté après l'essai.
 
-FIN-REC-01 — DEFERRED TO RECETTE. Scénario : un tour Nora réel dont le probe est réutilisé. Attendu : les observations de cette génération portent le travail, sans doublon de tokens. Preuve : extrait des observations et du travail, sans donnée sensible. Gate : requis avant acceptation Livraison 1, non bloquant pour cette sortie technique.
+Le fixture historique accepte session.update sans valider le contrat OpenAI. La conformité GA est prouvée par le builder exporté et par l'assertion de source du socket réellement ouvert, pas par le fixture.
 
-FIN-REC-02 — DEFERRED TO RECETTE. Scénario : plusieurs travaux réels, filtres de période, projet et modèle, avec au moins une mesure partielle. Attendu : le ratio disparaît si des observations restent non attribuées ; la couverture n'est pas présentée comme une facture. Preuve : captures du résumé et de la liste sur les mêmes filtres. Même gate.
+## 7. Limites
 
-DOC-REC-01 à 06, PROJ-REC-01/02/03, COG-REC-01 et ACT-01 à ACT-05 restent ouverts. MP16 et MP14 restent OPEN.
+La cause historique reste NON OBSERVÉE. Le retrait du header Beta est un écart de contrat corrigé, pas la démonstration que ce header causait le PROVIDER_ERROR de RECETTE.
+MP06 et MP07 restent ouverts jusqu'à une preuve LIVE courte, ou un arbitrage explicite de Morris.
+Aucune affirmation de dictée fonctionnelle en LIVE.
+DET, BROWSER substitué et LIVE sont trois preuves distinctes.
+L'onde n'a pas été requalifiée sur un signal de parole. Le plancher 0.12 est inchangé.
+Le tarif public consulté le 2026-11-28 sur https://developers.openai.com/api/docs/pricing affiche gpt-live-transcribe à 0,017 USD par minute. Ce n'est ni une facture ni un plafond garanti. Trente secondes d'audio à ce tarif représentent environ 0,0085 USD.
 
-## 8. Fake/Real
+## 8. Protocole LIVE prêt, non exécuté
 
-DET : fonctions de clé, de projection et de rattachement réellement appelées.
-PG : sfia_next_e2e, observations et travaux créés pour le test puis les observations et travaux de test sont supprimés. Aucun projet historique modifié. Aucune émission fournisseur.
-BROWSER : non joué. La page n'a pas changé de structure.
-LIVE : NOT RUN.
+Lane DEV isolée. Port 3101. Base sfia_next_e2e. Clé fournisseur DEV admise. Transport live. Fixture réellement OFF.
+Une session, une ouverture, aucun retry. 60 secondes pour l'essai complet. 30 secondes d'audio au plus. Aucun autre appel fournisseur. Aucune émission Nora.
+Corpus synthétique, non confidentiel: « Nous allons vérifier la configuration de Nora et la connexion PostgreSQL de SFIA Studio, avant de poursuivre le projet. »
+La limite doit couper avant l'émission. Les plafonds globaux de Studio ne sont pas modifiés.
+Preuves à recueillir: SHA et BUILD, admission, socket réellement ouvert, session.updated, paramètres résolus, deltas, commit, transcription finale, durée, usage audio, modèle appliqué ou UNVERIFIED, fermeture, restitution du brouillon.
+STOP immédiat sur HTTP 401 ou 403, modèle non admis, erreur de protocole, timeout, dépassement, besoin de modifier un secret, ou émission supplémentaire.
+GO LIVE: en attente d'une autorisation distincte. Cet essai n'a pas été lancé.
 
 ## 9. Content coverage
 
-Les 10 fichiers sont dans le diff intégral ci-dessous, y compris le test créé.
+Fichiers modifiés, diff intégral dans la section 12. Aucune création.
 
-## 10. Diff intégral 9bc9f346..9e2f9911
+- construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md — note du 28 nov: header retiré, erreurs classées, timeout fermé, LIVE toujours non exécuté.
+- construction/delivery-history.md — entrée DELIV-2026-11-28-ML5-DICTATION-GA-DEV.
+- web/src/domains/conversation/composer-dictation-session.ts — transport GA, erreurs, cycle de vie.
+- web/src/components/figma/ComposerDictationControl.tsx — phrases Pilote des nouveaux codes. Disposition inchangée.
+- web/tests/unit/ml3-composer-dictation-session.test.ts — preuves de contrat et de cycle de vie.
 
-```
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index cae1a7bb..ae7e3680 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1,3 +1,14 @@
-+## delivery_id: DELIV-2026-11-28-ML5-FINOPS-ATTRIBUTION-DEV
-+
-+- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — lot 5, fiabilisation ciblée du FinOps
-+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `9bc9f3462f1e0eb91122bb6060efc23a08b71a7a`
-+- **commit**: `fix(next): improve FinOps work attribution`
-+- **schema_revision**: unchanged
-+- **scope**: rattachement du probe consommé par mise à jour de l'observation existante ; compteurs et ratio honnêtes lorsqu'une observation n'est pas attribuée ; libellés de coût, de couverture et de modèle demandé
-+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · pas de backfill historique
-+
- ## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-INTEGRITY-DEV
+Non modifiés, et relus comme tels: admission, types, reducer, fixture, routes dictée, onde, RECETTE, workflows, suivi des sept lots.
 
- - **date_local**: 2026-11-28 (Europe/Paris)
-diff --git a/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx b/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
-index 77d79b50..39313626 100644
---- a/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
-+++ b/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
-@@ -45,6 +45,7 @@ type SummaryResponse = {
+## 10. Fake/Real Qualification
 
- function kpiSubCost(metric: FinOpsSummaryDto["kpis"]["estimatedCostUsd"]): string {
-   if (metric.kind === "unknown") return "Estimation Studio indisponible";
-+  if (metric.kind === "partial") return metric.note ?? "Estimation Studio partielle";
-   return "USD · estimation Studio";
- }
-
-@@ -54,9 +55,15 @@ function kpiSubTokens(metric: FinOpsSummaryDto["kpis"]["totalTokens"]): string {
- }
-
- function kpiSubCompleted(
-+  completed: FinOpsSummaryDto["kpis"]["completedWorks"],
-   costPer: FinOpsSummaryDto["kpis"]["costPerCompletedWorkUsd"],
- ): string {
--  if (costPer.kind === "known" || costPer.kind === "partial") {
-+  if (completed.kind === "partial") return completed.note ?? "Décompte partiel";
-+  if (completed.kind === "unknown") return completed.reason ?? "Travaux non établis";
-+  if (costPer.kind === "partial") {
-+    return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)} · estimation partielle`;
-+  }
-+  if (costPer.kind === "known") {
-     return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)}`;
-   }
-   if (costPer.kind === "unknown") return costPer.reason ?? "Ratio indisponible";
-@@ -136,9 +143,11 @@ export function FinOpsConsumptionPanel() {
-   const maxModel =
-     summary?.modelBreakdown.reduce((m, d) => Math.max(m, d.costUsd ?? 0), 0) ?? 1;
-
-+  const completedMetric = summary?.kpis.completedWorks;
-   const completedDisplay =
--    summary?.kpis.completedWorks.kind === "known"
--      ? formatIntegerFr(summary.kpis.completedWorks.value)
-+    completedMetric &&
-+    (completedMetric.kind === "known" || completedMetric.kind === "partial")
-+      ? formatIntegerFr(completedMetric.value)
-       : "—";
-
-   return (
-@@ -246,7 +255,10 @@ export function FinOpsConsumptionPanel() {
-                 <p className="finops-1306-kpi-label">Travaux aboutis</p>
-                 <p className="finops-1306-kpi-value">{completedDisplay}</p>
-                 <p className="finops-1306-kpi-sub">
--                  {kpiSubCompleted(summary.kpis.costPerCompletedWorkUsd)}
-+                  {kpiSubCompleted(
-+                    summary.kpis.completedWorks,
-+                    summary.kpis.costPerCompletedWorkUsd,
-+                  )}
-                 </p>
-               </article>
-               <article className="finops-1306-kpi">
-diff --git a/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx b/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
-index 071d3ef8..35251bf1 100644
---- a/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
-+++ b/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
-@@ -4,7 +4,7 @@ import Link from "next/link";
- import { useCallback, useEffect, useState } from "react";
- import type { FinOpsWorkDetailDto } from "@/domains/finops/usage-read-service";
- import {
--  displayModelShort,
-+  finOpsShortModelLabel,
-   formatIntegerFr,
-   formatMeasuredTokens,
-   formatMeasuredUsd,
-@@ -113,7 +113,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
-                 <p className="finops-1306-kpi-value">
-                   {formatMeasuredTokens(detail.kpis.totalTokens)}
-                 </p>
--                <p className="finops-1306-kpi-sub">Entrée + sortie</p>
-+                <p className="finops-1306-kpi-sub">Entrée + sortie · cache inclus dans l&apos;entrée</p>
-               </article>
-               <article className="finops-1306-kpi">
-                 <p className="finops-1306-kpi-label">Requêtes</p>
-@@ -142,7 +142,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
-                       <span>{String(s.segmentIndex + 1).padStart(2, "0")}</span>
-                       <span>{s.label}</span>
-                       <span>
--                        {displayModelShort(s.model) ?? "—"}
-+                        {finOpsShortModelLabel(s.model) ?? "—"}
-                         {s.effort ? ` · ${s.effort}` : ""}
-                       </span>
-                       <span>{formatMeasuredTokens(s.tokens)}</span>
-@@ -174,7 +174,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
-                       <span className="finops-1306-timeline-op">
-                         {ev.operation?.trim() || "Observation fournisseur"}
-                       </span>
--                      <span>{displayModelShort(ev.model) ?? "—"}</span>
-+                      <span>{finOpsShortModelLabel(ev.model) ?? "—"}</span>
-                       <span className="finops-1306-timeline-coverage">
-                         {mapCostCoverageLabel(ev.costCoverage)}
-                       </span>
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 99ee7f03..9d74b517 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -97,6 +97,17 @@ export type NoraGenerateInput = {
-   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
-   cognitiveWorkId?: string | null;
-   segmentIndex?: number | null;
-+  /**
-+   * Identities already known for the usage row.
-+   * Does not enable tools and does not decide the cognitive work.
-+   */
-+  usageIdentity?: {
-+    ownerPilotId?: string | null;
-+    projectId?: string | null;
-+    preparationId?: string | null;
-+    conversationId?: string | null;
-+    turnId?: string | null;
-+  };
-   /**
-    * D3 continuity snapshot owned by the cognitive conductor.
-    * Bound into the provider frontier ALS; native chain stays OFF by default.
-@@ -1313,6 +1324,7 @@ async function runLiveWithToolsInner(
-
-       providerUsage = extractProviderUsageFromRunResult(result);
-       // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
-+      const usageIdentity = input.usageIdentity;
-       void recordNoraProviderUsageWithHttpCorrelation({
-         runResult: result,
-         status: "succeeded",
-@@ -1321,10 +1333,19 @@ async function runLiveWithToolsInner(
-         generationId,
-         cognitiveWorkId: input.cognitiveWorkId ?? null,
-         segmentIndex: input.segmentIndex ?? null,
--        conversationId: input.toolScope?.activityContext?.conversationId ?? null,
--        projectId: input.toolScope?.projectId ?? null,
--        preparationId: input.toolScope?.preparationId ?? null,
-+        conversationId:
-+          usageIdentity?.conversationId ??
-+          input.toolScope?.activityContext?.conversationId ??
-+          null,
-+        turnId:
-+          usageIdentity?.turnId ??
-+          input.toolScope?.activityContext?.turnCommandId ??
-+          null,
-+        projectId: usageIdentity?.projectId ?? input.toolScope?.projectId ?? null,
-+        preparationId:
-+          usageIdentity?.preparationId ?? input.toolScope?.preparationId ?? null,
-         ownerPilotId:
-+          usageIdentity?.ownerPilotId ??
-           input.toolScope?.pilotId ??
-           input.toolScope?.activityContext?.ownerPilotId ??
-           null,
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-index b6c45c86..562f533c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-@@ -33,6 +33,7 @@ import {
-   type NoraGenerateInput,
-   type NoraGenerateResult,
- } from "./nora-adapter";
-+import { attributeConsumedProbeUsage } from "./usage-accounting";
- import { buildStudioContinuityFromWork } from "./provider-response-continuity";
- import { resolvePublicWebRegistry } from "./public-web-registry";
- import {
-@@ -1025,6 +1026,13 @@ export async function runNoraCognitiveTurn(
-       onProvisionalChunk: input.onProvisionalChunk,
-       toolScope: input.toolScope,
-       policyOverride: probePolicy,
-+      usageIdentity: {
-+        ownerPilotId: input.pilotId,
-+        preparationId: input.preparationId,
-+        projectId: input.projectId ?? null,
-+        conversationId: input.conversationId ?? null,
-+        turnId: input.turnCommandId ?? null,
-+      },
-     });
-     segmentBox.reply = probeReply;
-     attachment = await resolveCognitiveWorkAttachment({
-@@ -1525,6 +1533,19 @@ export async function runNoraCognitiveTurn(
-       if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
-         probeConsumed = true;
-         reply = probeReply;
-+        try {
-+          await attributeConsumedProbeUsage({
-+            generationId: probeReply.generationId,
-+            ownerPilotId: input.pilotId,
-+            preparationId: input.preparationId,
-+            projectId: input.projectId ?? null,
-+            conversationId: input.conversationId ?? null,
-+            turnId: input.turnCommandId ?? null,
-+            cognitiveWorkId: work.id,
-+          });
-+        } catch {
-+          /* a missed attribution must not cancel the consumed reply */
-+        }
-       } else {
-         // FinOps / reallocation trace: use work-level ordinal (segmentCalls), not the
-         // per-invocation local segmentIndex which resets to 0 on each product turn.
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
-index 5efdbe21..a5019be5 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
-@@ -1,6 +1,7 @@
- import { createHash, randomUUID } from "node:crypto";
-+import { and, eq, isNull, sql } from "drizzle-orm";
- import { db } from "@/db/client";
--import { providerUsageObservations } from "@/db/schema";
-+import { cognitiveWorks, providerUsageObservations } from "@/db/schema";
- import type { CognitiveModelId } from "./cognitive-resources/resource-catalog";
- import {
-   LONG_CONTEXT_INPUT_THRESHOLD_TOKENS,
-@@ -284,6 +285,167 @@ export type RecordProviderUsageObservationResult = {
-   id: string;
- };
-
-+export type ProbeUsageClaim = {
-+  generationId: string;
-+  ownerPilotId: string;
-+  preparationId: string;
-+  projectId?: string | null;
-+  conversationId?: string | null;
-+  turnId?: string | null;
-+  cognitiveWorkId: string;
-+};
-+
-+const probeClaims = new Map<string, ProbeUsageClaim>();
-+const usageWriteInflight = new Map<string, Promise<void>>();
-+
-+function textOrEmpty(value: string | null | undefined): string {
-+  return value?.trim() ?? "";
-+}
-+
-+function claimMatchesObservation(
-+  claim: ProbeUsageClaim,
-+  input: Pick<
-+    ProviderUsageObservationInput,
-+    "ownerPilotId" | "preparationId" | "projectId" | "conversationId" | "turnId"
-+  >,
-+): boolean {
-+  if (textOrEmpty(input.ownerPilotId) !== claim.ownerPilotId) return false;
-+  if (textOrEmpty(input.preparationId) !== claim.preparationId) return false;
-+  const obsProject = textOrEmpty(input.projectId);
-+  const claimProject = textOrEmpty(claim.projectId);
-+  if (obsProject && claimProject && obsProject !== claimProject) return false;
-+  const obsTurn = textOrEmpty(input.turnId);
-+  const claimTurn = textOrEmpty(claim.turnId);
-+  if (obsTurn && claimTurn && obsTurn !== claimTurn) return false;
-+  const obsConversation = textOrEmpty(input.conversationId);
-+  const claimConversation = textOrEmpty(claim.conversationId);
-+  if (obsConversation && claimConversation && obsConversation !== claimConversation) {
-+    return false;
-+  }
-+  return true;
-+}
-+
-+/** Apply a validated claim onto a row that is still unattributed. The idempotency key stays unchanged. */
-+function claimedWorkId(input: ProviderUsageObservationInput): string | null {
-+  if (textOrEmpty(input.cognitiveWorkId)) return null;
-+  const generationId = textOrEmpty(input.generationId);
-+  if (!generationId) return null;
-+  const claim = probeClaims.get(generationId);
-+  if (!claim || !claimMatchesObservation(claim, input)) return null;
-+  return claim.cognitiveWorkId;
-+}
-+
-+/**
-+ * Attach an already recorded probe to the work that actually consumed it.
-+ * Updates the existing rows. Does not insert a second observation.
-+ */
-+export async function attributeConsumedProbeUsage(
-+  claim: ProbeUsageClaim,
-+): Promise<{ updated: number; refused: boolean }> {
-+  const generationId = textOrEmpty(claim.generationId);
-+  const cognitiveWorkId = textOrEmpty(claim.cognitiveWorkId);
-+  const ownerPilotId = textOrEmpty(claim.ownerPilotId);
-+  const preparationId = textOrEmpty(claim.preparationId);
-+  if (!generationId || !cognitiveWorkId || !ownerPilotId || !preparationId) {
-+    return { updated: 0, refused: true };
-+  }
-+  const normalized: ProbeUsageClaim = {
-+    generationId,
-+    cognitiveWorkId,
-+    ownerPilotId,
-+    preparationId,
-+    projectId: textOrEmpty(claim.projectId) || null,
-+    conversationId: textOrEmpty(claim.conversationId) || null,
-+    turnId: textOrEmpty(claim.turnId) || null,
-+  };
-+  const work = (
-+    await db
-+      .select({
-+        id: cognitiveWorks.id,
-+        ownerPilotId: cognitiveWorks.ownerPilotId,
-+        preparationId: cognitiveWorks.preparationId,
-+        projectId: cognitiveWorks.projectId,
-+      })
-+      .from(cognitiveWorks)
-+      .where(eq(cognitiveWorks.id, cognitiveWorkId))
-+      .limit(1)
-+  )[0];
-+  if (
-+    !work ||
-+    work.ownerPilotId !== ownerPilotId ||
-+    work.preparationId !== preparationId ||
-+    (normalized.projectId && work.projectId && normalized.projectId !== work.projectId)
-+  ) {
-+    return { updated: 0, refused: true };
-+  }
-+  probeClaims.set(generationId, normalized);
-+  const inflight = usageWriteInflight.get(generationId);
-+  if (inflight) await inflight;
-+
-+  const lane = process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
-+  const found = await db
-+    .select({
-+      id: providerUsageObservations.id,
-+      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
-+      projectId: providerUsageObservations.projectId,
-+      conversationId: providerUsageObservations.conversationId,
-+      turnId: providerUsageObservations.turnId,
-+    })
-+    .from(providerUsageObservations)
-+    .where(
-+      and(
-+        eq(providerUsageObservations.generationId, generationId),
-+        eq(providerUsageObservations.ownerPilotId, ownerPilotId),
-+        eq(providerUsageObservations.preparationId, preparationId),
-+        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
-+      ),
-+    );
-+  if (found.length === 0) return { updated: 0, refused: false };
-+
-+  const conflicts = found.some((row) => {
-+    if (row.cognitiveWorkId && row.cognitiveWorkId !== cognitiveWorkId) return true;
-+    if (row.projectId && work.projectId && row.projectId !== work.projectId) return true;
-+    if (
-+      normalized.projectId &&
-+      row.projectId &&
-+      row.projectId !== normalized.projectId
-+    ) {
-+      return true;
-+    }
-+    if (normalized.turnId && row.turnId && row.turnId !== normalized.turnId) return true;
-+    if (
-+      normalized.conversationId &&
-+      row.conversationId &&
-+      row.conversationId !== normalized.conversationId
-+    ) {
-+      return true;
-+    }
-+    return false;
-+  });
-+  if (conflicts) {
-+    probeClaims.delete(generationId);
-+    return { updated: 0, refused: true };
-+  }
-+
-+  let updated = 0;
-+  for (const row of found) {
-+    if (row.cognitiveWorkId) continue;
-+    const written = await db
-+      .update(providerUsageObservations)
-+      .set({ cognitiveWorkId })
-+      .where(
-+        and(
-+          eq(providerUsageObservations.id, row.id),
-+          isNull(providerUsageObservations.cognitiveWorkId),
-+        ),
-+      )
-+      .returning({ id: providerUsageObservations.id });
-+    updated += written.length;
-+  }
-+  probeClaims.delete(generationId);
-+  return { updated, refused: false };
-+}
-+
- /** Insert one durable observation; duplicate idempotency_key is a no-op. */
- export async function recordProviderUsageObservation(
-   input: ProviderUsageObservationInput,
-@@ -317,6 +479,7 @@ export async function recordProviderUsageObservation(
-
-   const mergedLimits = [...new Set([...(input.limits ?? []), ...cost.limits])];
-   const id = randomUUID();
-+  const cognitiveWorkId = claimedWorkId(input) ?? input.cognitiveWorkId ?? null;
-
-   const inserted = await db
-     .insert(providerUsageObservations)
-@@ -331,7 +494,7 @@ export async function recordProviderUsageObservation(
-       preparationId: input.preparationId ?? null,
-       conversationId: input.conversationId ?? null,
-       turnId: input.turnId ?? null,
--      cognitiveWorkId: input.cognitiveWorkId ?? null,
-+      cognitiveWorkId,
-       segmentIndex: input.segmentIndex ?? null,
-       generationId: input.generationId ?? null,
-       operation: input.operation ?? null,
-@@ -563,6 +726,25 @@ export async function recordNoraProviderUsageFromRunResult(
-  */
- export async function recordNoraProviderUsageWithHttpCorrelation(
-   input: NoraProviderUsageHookInput,
-+): Promise<RecordProviderUsageObservationResult> {
-+  const generationId = input.generationId?.trim() ?? "";
-+  let release: () => void = () => {};
-+  const gate = new Promise<void>((resolve) => {
-+    release = resolve;
-+  });
-+  if (generationId) usageWriteInflight.set(generationId, gate);
-+  try {
-+    return await recordNoraProviderUsageWithHttpCorrelationBody(input);
-+  } finally {
-+    release();
-+    if (generationId && usageWriteInflight.get(generationId) === gate) {
-+      usageWriteInflight.delete(generationId);
-+    }
-+  }
-+}
-+
-+async function recordNoraProviderUsageWithHttpCorrelationBody(
-+  input: NoraProviderUsageHookInput,
- ): Promise<RecordProviderUsageObservationResult> {
-   const httpAttempts = getHttpAttemptsSnapshot();
-   const sdkAttemptId = input.attemptId?.trim() ?? "";
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-index b05402d6..2d18be8e 100644
---- a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-+++ b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-@@ -142,17 +142,118 @@ export function finOpsMeasureCoverageSubtext(kpis: {
-   totalRequests: number;
-   measuredRequests: number;
-   estimationCompletenessPercent: MeasuredValue<number>;
-+  measureCoveragePercent?: MeasuredValue<number>;
- }): string {
-   if (kpis.totalRequests <= 0) return "Requêtes non recensées";
-   const observed = `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
-+  const census =
-+    kpis.measureCoveragePercent?.kind === "partial"
-+      ? " · observations recensées, pas toutes les émissions"
-+      : "";
-   const est = kpis.estimationCompletenessPercent;
-   if (est.kind === "partial" && est.value === 0) {
--    return `${observed} · coûts entièrement PARTIAL ou inconnus`;
-+    return `${observed} · coûts entièrement PARTIAL ou inconnus${census}`;
-   }
-   if (est.kind === "known" || est.kind === "partial") {
--    return `${observed} · estimation connue ${est.value} %`;
-+    return `${observed} · estimation connue ${est.value} %${census}`;
-   }
--  return observed;
-+  return `${observed}${census}`;
-+}
-+
-+const OPEN_WORK_STATUSES = new Set(["OPEN", "RUNNING", "SUSPENDED"]);
-+
-+/**
-+ * Completed-work count from observations actually linked in the same filter.
-+ * Unattributed billable rows make the count partial. They do not invent a work.
-+ */
-+export function classifyObservedWorkCounts(input: {
-+  statuses: string[];
-+  unattributedBillable: number;
-+  hasAnyObservation: boolean;
-+}): { completed: MeasuredValue<number>; openCount: number } {
-+  const openCount = input.statuses.filter((status) =>
-+    OPEN_WORK_STATUSES.has(status.toUpperCase()),
-+  ).length;
-+  const complete = input.statuses.filter((status) => status.toUpperCase() === "COMPLETE").length;
-+  if (input.unattributedBillable > 0 && input.statuses.length === 0) {
-+    return {
-+      completed: { kind: "unknown", reason: "Observations non attribuées" },
-+      openCount,
-+    };
-+  }
-+  if (input.unattributedBillable > 0) {
-+    return {
-+      completed: {
-+        kind: "partial",
-+        value: complete,
-+        note: `Travaux aboutis observés : ${complete}. En cours : ${openCount}. Observations non attribuées : ${input.unattributedBillable}.`,
-+      },
-+      openCount,
-+    };
-+  }
-+  if (input.statuses.length === 0) {
-+    return {
-+      completed: input.hasAnyObservation
-+        ? { kind: "unknown", reason: "Travaux non liés" }
-+        : { kind: "empty" },
-+      openCount,
-+    };
-+  }
-+  return { completed: { kind: "known", value: complete }, openCount };
-+}
-+
-+/**
-+ * Global estimated cost divided by observed completed works.
-+ * This is not the average cost of those works alone.
-+ * Hidden when the completed-work count is partial or unknown.
-+ */
-+export function costPerObservedCompletedWork(input: {
-+  cost: MeasuredValue<number>;
-+  completed: MeasuredValue<number>;
-+}): MeasuredValue<number> {
-+  if (input.completed.kind === "partial" || input.completed.kind === "unknown") {
-+    return {
-+      kind: "unknown",
-+      reason: "Ratio non affiché : décompte des travaux incomplet",
-+    };
-+  }
-+  if (input.completed.kind !== "known" || input.completed.value <= 0) {
-+    if (input.completed.kind === "known") {
-+      return { kind: "unknown", reason: "Aucun travail abouti observé" };
-+    }
-+    return { kind: "empty" };
-+  }
-+  if (input.cost.kind !== "known" && input.cost.kind !== "partial") {
-+    return { kind: "empty" };
-+  }
-+  return {
-+    kind: input.cost.kind === "partial" ? "partial" : "known",
-+    value: input.cost.value / input.completed.value,
-+    note: "Coût estimé global / travaux aboutis observés",
-+  };
-+}
-+
-+export function finOpsConfirmedValueLabel(input: {
-+  applied?: string | null;
-+  requested?: string | null;
-+}): string | null {
-+  const applied = input.applied?.trim() || "";
-+  const requested = input.requested?.trim() || "";
-+  if (applied && applied.toUpperCase() !== "UNVERIFIED") return applied;
-+  if (requested) return `${requested} (demandé)`;
-+  if (applied.toUpperCase() === "UNVERIFIED") return "non vérifié";
-+  return null;
-+}
-+
-+export function finOpsShortModelLabel(label: string | null | undefined): string | null {
-+  if (!label) return null;
-+  if (label === "non vérifié") return label;
-+  const suffix = " (demandé)";
-+  if (label.endsWith(suffix)) {
-+    const short = displayModelShort(label.slice(0, -suffix.length)) ?? label;
-+    return `${short}${suffix}`;
-+  }
-+  return displayModelShort(label);
- }
-
- export function sumBillableProviderRequests(
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-index c0cb101a..6e104383 100644
---- a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-@@ -9,11 +9,14 @@ import { StudioError } from "@/lib/http-errors";
- import {
-   aggregateEstimatedCost,
-   aggregateTokenTotal,
-+  classifyObservedWorkCounts,
-   computeEstimationCompletenessPercent,
-   computeMeasureCoveragePercent,
-+  costPerObservedCompletedWork,
-   effectiveFinOpsProjectId,
-   effectiveFinOpsProjectIdForWork,
-   filterBillableFinOpsRows,
-+  finOpsConfirmedValueLabel,
-   finOpsModelDisplayLabel,
-   isFinOpsWorkAttributionConflict,
-   sumBillableProviderRequests,
-@@ -368,43 +371,35 @@ export async function loadFinOpsSummary(
-   const estimationCompletenessPercent =
-     computeEstimationCompletenessPercent(rows);
-
-+  const billable = filterBillableFinOpsRows(rows);
-+  const unattributedBillable = billable.filter((r) => !r.cognitiveWorkId).length;
-   const workIds = [
--    ...new Set(rows.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id))),
-+    ...new Set(
-+      billable.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id)),
-+    ),
-   ];
--  let completedWorks: MeasuredValue<number> = { kind: "empty" };
--  if (workIds.length > 0) {
--    const works = await db
--      .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
--      .from(cognitiveWorks)
--      .where(
--        and(
--          inArray(cognitiveWorks.id, workIds),
--          eq(cognitiveWorks.ownerPilotId, pilotId),
--        ),
--      );
--    const completeCount = works.filter((w) => w.status === "COMPLETE").length;
--    completedWorks =
--      completeCount > 0
--        ? { kind: "known", value: completeCount }
--        : { kind: "known", value: 0 };
--  } else if (rows.length > 0) {
--    completedWorks = { kind: "unknown", reason: "Travaux non liés" };
--  }
--
--  let costPerCompletedWorkUsd: MeasuredValue<number> = { kind: "empty" };
--  if (
--    completedWorks.kind === "known" &&
--    completedWorks.value > 0 &&
--    (estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial")
--  ) {
--    costPerCompletedWorkUsd = {
--      kind: estimatedCostUsd.kind === "partial" ? "partial" : "known",
--      value: estimatedCostUsd.value / completedWorks.value,
--      note: estimatedCostUsd.kind === "partial" ? estimatedCostUsd.note : undefined,
--    };
--  } else if (rows.length > 0 && completedWorks.kind === "known" && completedWorks.value === 0) {
--    costPerCompletedWorkUsd = { kind: "unknown", reason: "Aucun travail abouti" };
--  }
-+  const linkedWorks =
-+    workIds.length === 0
-+      ? []
-+      : await db
-+          .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
-+          .from(cognitiveWorks)
-+          .where(
-+            and(
-+              inArray(cognitiveWorks.id, workIds),
-+              eq(cognitiveWorks.ownerPilotId, pilotId),
-+            ),
-+          );
-+  const observedWorks = classifyObservedWorkCounts({
-+    statuses: linkedWorks.map((work) => work.status),
-+    unattributedBillable,
-+    hasAnyObservation: rows.length > 0,
-+  });
-+  const completedWorks = observedWorks.completed;
-+  const costPerCompletedWorkUsd = costPerObservedCompletedWork({
-+    cost: estimatedCostUsd,
-+    completed: completedWorks,
-+  });
-
-   const totalRequests = sumBillableProviderRequests(rows);
-   const measuredRequests = sumBillableProviderRequests(rows, {
-@@ -901,8 +896,14 @@ export async function loadFinOpsWorkDetail(
-       return {
-         segmentIndex,
-         label: head?.operation?.trim() || `Segment ${String(segmentIndex + 1).padStart(2, "0")}`,
--        model: head?.modelApplied ?? head?.modelRequested ?? null,
--        effort: head?.effortApplied ?? head?.effortRequested ?? null,
-+        model: finOpsModelDisplayLabel({
-+          modelApplied: head?.modelApplied,
-+          modelRequested: head?.modelRequested,
-+        }),
-+        effort: finOpsConfirmedValueLabel({
-+          applied: head?.effortApplied,
-+          requested: head?.effortRequested,
-+        }),
-         tokens,
-         estimatedCostUsd: aggregateEstimatedCost(slice),
-       };
-diff --git a/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts
-new file mode 100644
-index 00000000..ae9be152
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts
-@@ -0,0 +1,423 @@
-+/**
-+ * Probe consumption is attached to the work that consumed it.
-+ * The existing observation is updated. It is not inserted again.
-+ */
-+import { afterAll, beforeAll, describe, expect, it } from "vitest";
-+import { config } from "dotenv";
-+config({ path: ".env.local" });
-+
-+import { eq } from "drizzle-orm";
-+import { db, sql as pgSql } from "@/db/client";
-+import {
-+  cognitiveWorks,
-+  pilots,
-+  preparations,
-+  projects,
-+  providerUsageObservations,
-+} from "@/db/schema";
-+import { newId } from "@/lib/ids";
-+import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
-+import { createProjectCommand } from "@/domains/preparation/create-project";
-+import {
-+  attributeConsumedProbeUsage,
-+  buildIdempotencyKey,
-+  recordNoraProviderUsageWithHttpCorrelation,
-+  recordProviderUsageObservation,
-+} from "@/domains/conversation/usage-accounting";
-+import { loadFinOpsSummary, loadFinOpsWorks } from "@/domains/finops/usage-read-service";
-+
-+async function seedPilot() {
-+  const pilotId = newId("pilot");
-+  await db.insert(pilots).values({
-+    id: pilotId,
-+    displayName: "finops-probe",
-+    githubUserId: `gh-${pilotId}`,
-+  });
-+  const prep = await openOrCreatePreparation(pilotId);
-+  return { pilotId, preparationId: prep.id };
-+}
-+
-+describe("FinOps probe attribution (PG)", () => {
-+  let pilotId = "";
-+  let preparationId = "";
-+  let projectA = "";
-+  let projectB = "";
-+  let workComplete = "";
-+  let workOpen = "";
-+  let workOther = "";
-+  const observationIds: string[] = [];
-+
-+  beforeAll(async () => {
-+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-+    process.env.STUDIO_LANE = "DEV";
-+    const seeded = await seedPilot();
-+    pilotId = seeded.pilotId;
-+    preparationId = seeded.preparationId;
-+    const projectName = `finops-${newId("p").slice(-6)}`;
-+    await updatePreview(pilotId, preparationId, projectName, "probe");
-+    const refreshed = (
-+      await db.select().from(preparations).where(eq(preparations.id, preparationId))
-+    )[0]!;
-+    const created = await createProjectCommand({
-+      pilotId,
-+      preparationId,
-+      expectedCreationRevision: refreshed.creationRevision,
-+      projectName,
-+      previewSummary: "probe",
-+      idempotencyKey: newId("idem"),
-+    });
-+    if (created.status !== "CREATED" || !created.projectId) {
-+      throw new Error(`project seed failed: ${created.status}`);
-+    }
-+    projectA = created.projectId;
-+    projectB = newId("proj");
-+    await db.insert(projects).values({
-+      id: projectB,
-+      ownerPilotId: pilotId,
-+      name: `finops-b-${projectB.slice(-6)}`,
-+    });
-+    workComplete = newId("cgw");
-+    workOpen = newId("cgw");
-+    workOther = newId("cgw");
-+    await db.insert(cognitiveWorks).values([
-+      {
-+        id: workComplete,
-+        ownerPilotId: pilotId,
-+        preparationId,
-+        projectId: projectA,
-+        status: "COMPLETE",
-+        objective: "travail abouti",
-+        revision: 1,
-+      },
-+      {
-+        id: workOpen,
-+        ownerPilotId: pilotId,
-+        preparationId,
-+        projectId: projectA,
-+        status: "OPEN",
-+        interruptCause: "AWAIT_PILOT",
-+        objective: "attente du pilote",
-+        revision: 1,
-+      },
-+      {
-+        id: workOther,
-+        ownerPilotId: pilotId,
-+        preparationId,
-+        projectId: projectB,
-+        status: "COMPLETE",
-+        objective: "autre projet",
-+        revision: 1,
-+      },
-+    ]);
-+  });
-+
-+  afterAll(async () => {
-+    if (observationIds.length) {
-+      await pgSql`DELETE FROM provider_usage_observations WHERE id = ANY(${observationIds})`;
-+    }
-+    await pgSql`DELETE FROM cognitive_works WHERE id = ANY(${[workComplete, workOpen, workOther]})`;
-+    if (projectB) await pgSql`DELETE FROM projects WHERE id = ${projectB}`;
-+  });
-+
-+  async function remember(generationId: string) {
-+    const rows = await db
-+      .select({ id: providerUsageObservations.id })
-+      .from(providerUsageObservations)
-+      .where(eq(providerUsageObservations.generationId, generationId));
-+    for (const row of rows) observationIds.push(row.id);
-+    return rows.length;
-+  }
-+
-+  it("attaches a recorded probe without duplicating tokens or cost", async () => {
-+    const generationId = newId("gen");
-+    const key = buildIdempotencyKey({
-+      granularity: "REQUEST",
-+      projectId: projectA,
-+      preparationId,
-+      cognitiveWorkId: null,
-+      operation: "nora.generate_reply",
-+      generationId,
-+      attemptId: "attempt-probe",
-+      callOrdinal: 0,
-+    });
-+    const first = await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId,
-+      operation: "nora.generate_reply",
-+      attemptId: "attempt-probe",
-+      cognitiveWorkId: null,
-+      modelRequested: "gpt-test",
-+      modelApplied: "UNVERIFIED",
-+      effortRequested: "medium",
-+      effortApplied: "UNVERIFIED",
-+      inputTokens: 100,
-+      outputTokens: 20,
-+      cachedInputTokens: 5,
-+      reasoningTokens: 7,
-+      totalTokens: 120,
-+      providerRequests: 1,
-+      estimatedCostUsd: 0.42,
-+      costCoverage: "PARTIAL",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: key,
-+      lane: "DEV",
-+    });
-+    expect(first.inserted).toBe(true);
-+    const companion = await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId,
-+      operation: "nora.generate_reply",
-+      attemptId: "http-1",
-+      cognitiveWorkId: null,
-+      inputTokens: null,
-+      outputTokens: null,
-+      totalTokens: null,
-+      providerRequests: null,
-+      estimatedCostUsd: null,
-+      costCoverage: "PARTIAL",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: `${key}:http`,
-+      limits: ["HTTP_ATTEMPT_CORRELATION_ONLY"],
-+      lane: "DEV",
-+    });
-+    expect(companion.inserted).toBe(true);
-+    const before = await remember(generationId);
-+    expect(before).toBe(2);
-+
-+    const attached = await attributeConsumedProbeUsage({
-+      generationId,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workComplete,
-+    });
-+    expect(attached.refused).toBe(false);
-+    expect(attached.updated).toBe(2);
-+
-+    const again = await attributeConsumedProbeUsage({
-+      generationId,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workComplete,
-+    });
-+    expect(again).toEqual({ updated: 0, refused: false });
-+
-+    const replay = await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId,
-+      operation: "nora.generate_reply",
-+      attemptId: "attempt-probe",
-+      cognitiveWorkId: workComplete,
-+      totalTokens: 999,
-+      estimatedCostUsd: 9,
-+      costCoverage: "KNOWN",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: key,
-+      lane: "DEV",
-+    });
-+    expect(replay.inserted).toBe(false);
-+
-+    const rows = await db
-+      .select()
-+      .from(providerUsageObservations)
-+      .where(eq(providerUsageObservations.generationId, generationId));
-+    expect(rows).toHaveLength(2);
-+    expect(rows.every((row) => row.cognitiveWorkId === workComplete)).toBe(true);
-+    const billable = rows.find((row) => row.attemptId === "attempt-probe")!;
-+    expect(billable.totalTokens).toBe(120);
-+    expect(Number(billable.estimatedCostUsd)).toBeCloseTo(0.42);
-+    expect(billable.cachedInputTokens).toBe(5);
-+    expect(billable.idempotencyKey).toBe(key);
-+    const http = rows.find((row) => row.attemptId === "http-1")!;
-+    expect(http.providerRequests).toBeNull();
-+    expect(http.totalTokens).toBeNull();
-+  });
-+
-+  it("keeps an in-flight write and its later attachment as one observation", async () => {
-+    const generationId = newId("gen");
-+    const writing = recordNoraProviderUsageWithHttpCorrelation({
-+      runResult: {
-+        state: {
-+          usage: { inputTokens: 30, outputTokens: 4, totalTokens: 34, requests: 1 },
-+        },
-+      },
-+      status: "succeeded",
-+      operation: "nora.generate_reply",
-+      attemptId: "attempt-race",
-+      generationId,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: null,
-+      modelRequested: "gpt-test",
-+      modelApplied: "UNVERIFIED",
-+      effortRequested: "medium",
-+      effortApplied: "UNVERIFIED",
-+    });
-+    const attaching = attributeConsumedProbeUsage({
-+      generationId,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workComplete,
-+    });
-+    const [, attached] = await Promise.all([writing, attaching]);
-+    expect(attached.refused).toBe(false);
-+    const count = await remember(generationId);
-+    expect(count).toBe(1);
-+    const row = (
-+      await db
-+        .select()
-+        .from(providerUsageObservations)
-+        .where(eq(providerUsageObservations.generationId, generationId))
-+    )[0]!;
-+    expect(row.cognitiveWorkId).toBe(workComplete);
-+    expect(row.totalTokens).toBe(34);
-+  });
-+
-+  it("refuses a cross-project or already attributed observation", async () => {
-+    const foreignGeneration = newId("gen");
-+    await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId: foreignGeneration,
-+      operation: "nora.generate_reply",
-+      cognitiveWorkId: null,
-+      totalTokens: 8,
-+      estimatedCostUsd: 0.01,
-+      costCoverage: "KNOWN",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: `foreign-${foreignGeneration}`,
-+      lane: "DEV",
-+    });
-+    await remember(foreignGeneration);
-+    const foreign = await attributeConsumedProbeUsage({
-+      generationId: foreignGeneration,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workOther,
-+    });
-+    expect(foreign).toEqual({ updated: 0, refused: true });
-+
-+    const takenGeneration = newId("gen");
-+    await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId: takenGeneration,
-+      operation: "nora.generate_reply",
-+      cognitiveWorkId: workOpen,
-+      modelRequested: "gpt-test",
-+      modelApplied: "UNVERIFIED",
-+      totalTokens: 9,
-+      estimatedCostUsd: 0.02,
-+      costCoverage: "KNOWN",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: `taken-${takenGeneration}`,
-+      lane: "DEV",
-+    });
-+    await remember(takenGeneration);
-+    const taken = await attributeConsumedProbeUsage({
-+      generationId: takenGeneration,
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workComplete,
-+    });
-+    expect(taken).toEqual({ updated: 0, refused: true });
-+    const still = (
-+      await db
-+        .select({ workId: providerUsageObservations.cognitiveWorkId })
-+        .from(providerUsageObservations)
-+        .where(eq(providerUsageObservations.generationId, takenGeneration))
-+    )[0]!;
-+    expect(still.workId).toBe(workOpen);
-+
-+    const otherPilot = newId("pilot");
-+    await db.insert(pilots).values({
-+      id: otherPilot,
-+      displayName: "other-probe",
-+      githubUserId: `gh-${otherPilot}`,
-+    });
-+    const denied = await attributeConsumedProbeUsage({
-+      generationId: takenGeneration,
-+      ownerPilotId: otherPilot,
-+      preparationId,
-+      projectId: projectA,
-+      cognitiveWorkId: workComplete,
-+    });
-+    expect(denied.refused).toBe(true);
-+    expect(denied.updated).toBe(0);
-+  });
-+
-+  it("reports linked, open and unattributed observations without a false ratio", async () => {
-+    const loose = newId("gen");
-+    await recordProviderUsageObservation({
-+      ownerPilotId: pilotId,
-+      preparationId,
-+      projectId: projectA,
-+      generationId: loose,
-+      operation: "nora.generate_reply",
-+      cognitiveWorkId: null,
-+      modelRequested: "gpt-test",
-+      modelApplied: "UNVERIFIED",
-+      totalTokens: 11,
-+      providerRequests: 1,
-+      estimatedCostUsd: 0.03,
-+      costCoverage: "KNOWN",
-+      status: "succeeded",
-+      granularity: "REQUEST",
-+      idempotencyKey: `loose-${loose}`,
-+      lane: "DEV",
-+    });
-+    await remember(loose);
-+
-+    const summary = await loadFinOpsSummary(pilotId, {
-+      period: "30",
-+      projectId: projectA,
-+      model: "gpt-test",
-+    });
-+    const works = await loadFinOpsWorks(pilotId, {
-+      period: "30",
-+      projectId: projectA,
-+      model: "gpt-test",
-+    });
-+    expect(summary.kpis.completedWorks.kind).toBe("partial");
-+    if (summary.kpis.completedWorks.kind === "partial") {
-+      expect(summary.kpis.completedWorks.value).toBeGreaterThanOrEqual(1);
-+      expect(summary.kpis.completedWorks.note).toContain("non attribuées");
-+      expect(summary.kpis.completedWorks.note).toContain("En cours");
-+    }
-+    expect(summary.kpis.costPerCompletedWorkUsd.kind).toBe("unknown");
-+    expect(works.items.some((item) => item.cognitiveWorkId === workComplete)).toBe(true);
-+    expect(works.items.some((item) => item.cognitiveWorkId === workOpen)).toBe(true);
-+    expect(works.items.some((item) => item.cognitiveWorkId === workOther)).toBe(false);
-+
-+    const otherModel = await loadFinOpsSummary(pilotId, {
-+      period: "30",
-+      projectId: projectA,
-+      model: "model-absent-from-this-fixture",
-+    });
-+    const otherWorks = await loadFinOpsWorks(pilotId, {
-+      period: "30",
-+      projectId: projectA,
-+      model: "model-absent-from-this-fixture",
-+    });
-+    expect(otherModel.hasObservations).toBe(false);
-+    expect(otherWorks.items).toHaveLength(0);
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-index 9926704a..2a87488a 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-@@ -1,6 +1,10 @@
- import { describe, expect, it } from "vitest";
- import {
-   aggregateEstimatedCost,
-+  classifyObservedWorkCounts,
-+  costPerObservedCompletedWork,
-+  finOpsConfirmedValueLabel,
-+  finOpsShortModelLabel,
-   aggregateTokenTotal,
-   computeEstimationCompletenessPercent,
-   computeMeasureCoveragePercent,
-@@ -57,6 +61,59 @@ describe("ML5 E06 — FinOps usage projection", () => {
-     expect(tokenTotalForRow({ totalTokens: 5, inputTokens: 1, outputTokens: 1 })).toBe(5);
-     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: 4 })).toBe(7);
-     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: null })).toBeNull();
-+    expect(
-+      tokenTotalForRow({
-+        totalTokens: 12,
-+        inputTokens: 10,
-+        outputTokens: 4,
-+      }),
-+    ).toBe(12);
-+  });
-+
-+  it("keeps an unattributed observation from turning the completed count into a known zero", () => {
-+    const mixed = classifyObservedWorkCounts({
-+      statuses: ["COMPLETE", "OPEN"],
-+      unattributedBillable: 3,
-+      hasAnyObservation: true,
-+    });
-+    expect(mixed.completed.kind).toBe("partial");
-+    if (mixed.completed.kind === "partial") {
-+      expect(mixed.completed.value).toBe(1);
-+      expect(mixed.completed.note).toContain("Observations non attribuées : 3");
-+      expect(mixed.completed.note).toContain("En cours : 1");
-+    }
-+    expect(
-+      costPerObservedCompletedWork({
-+        cost: { kind: "known", value: 1.2 },
-+        completed: mixed.completed,
-+      }).kind,
-+    ).toBe("unknown");
-+  });
-+
-+  it("keeps the global ratio only when every billable observation is linked", () => {
-+    const completed = classifyObservedWorkCounts({
-+      statuses: ["COMPLETE", "COMPLETE"],
-+      unattributedBillable: 0,
-+      hasAnyObservation: true,
-+    }).completed;
-+    const ratio = costPerObservedCompletedWork({
-+      cost: { kind: "partial", value: 2 },
-+      completed,
-+    });
-+    expect(completed).toEqual({ kind: "known", value: 2 });
-+    expect(ratio.kind).toBe("partial");
-+    if (ratio.kind === "partial") {
-+      expect(ratio.value).toBe(1);
-+      expect(ratio.note).toContain("global");
-+    }
-+  });
-+
-+  it("does not present a requested model or effort as confirmed", () => {
-+    expect(
-+      finOpsConfirmedValueLabel({ applied: "UNVERIFIED", requested: "medium" }),
-+    ).toBe("medium (demandé)");
-+    expect(finOpsShortModelLabel("gpt-6.1-terra (demandé)")).toBe("Terra (demandé)");
-+    expect(finOpsShortModelLabel("non vérifié")).toBe("non vérifié");
-   });
-
-   it("computeMeasureCoveragePercent handles empty", () => {
-```
+DET: sockets factices et lecture de source. Aucun fournisseur.
+BROWSER substitué: parcours produit /projects/{id}?surface=travail, transport fixture, audio synthétique, Nora fixture. Pas une preuve OpenAI.
+LIVE: NOT RUN.
+Le fixture ne vaut pas une conformité fournisseur.
 
 ## 11. Verdict
 
-READY WITH RESERVES
+READY WITH RESERVES — PRÊT POUR REVUE ET GO LIVE
 
-Les trois corrections sont en place et couvertes par des tests ciblés. Les parcours naturels restent reportés. Aucune acceptation produit, aucune promotion, aucune CI.
+Ce verdict qualifie les corrections et les preuves non émissives. Il n'est pas la sortie technique définitive du lot 6. La sortie définitive demande la preuve LIVE courte, sauf arbitrage explicite de Morris.
+
+MP06 OPEN. MP07 OPEN.
+FIN-REC-01, FIN-REC-02, DOC-REC-01..06, PROJ-REC-01/02/03, COG-REC-01, ACT-01..05 restent ouverts ou différés comme à la fin du lot 5.
+R5 IN PROGRESS. ML5 OPEN. LIVRAISON 1 NOT ACCEPTED. 17 MP OPEN. R6 NOT STARTED.
+NO RELEASE. STABLE NOT AVAILABLE. NOT ADOPTED.
+REMOTE CI NOT RUN — DEV REVIEW SNAPSHOT.
+
+Instruction: avant de répondre à Morris, lire le candidat d215a5272025b2d1c7aa8391dd14f6442ea512fe et ce handoff canonique distant. Vérifier causes, corrections, diff, preuves, réserves et content coverage. Si un fichier modifié manque: REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING. Actualiser ensuite le suivi des sept lots. Ne pas lancer le LIVE sans GO distinct.
+
+## 12. Diff intégral du commit d215a527
+
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md
+index 3971e72c..3bf38973 100644
+--- a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md
+@@ -11,6 +11,14 @@
+ | UI | mic uniquement si `dictationEnabled === true` (capability produit) |
+ | LIVE fournisseur | **non déclenché** |
+
++## Complément 2026-11-28 — contrat GA
++
++Le socket d'ouverture n'envoie plus le header `OpenAI-Beta`. L'URL reste `wss://api.openai.com/v1/realtime?intent=transcription`. `session.update` reste une session `transcription`, PCM 24 kHz, `gpt-live-transcribe`, `languages: ["fr"]`, `turn_detection: null`. L'ouverture n'est acquittée que par `session.updated`.
++
++Une erreur fournisseur objet expose un code distinct (authentification, permission, modèle, paramètre, transcription, timeout, rupture). Le message renvoyé au Pilote reste une phrase courte. Le journal technique porte l'étape, la session Studio, le code fournisseur, le paramètre et le statut HTTP, sans clé, audio ni transcription.
++
++Un timeout d'upgrade ferme la socket avant de la retourner. Une fermeture après ouverture termine la session et n'est pas rouverte. L'onde reste celle de l'analyseur, démarrée seulement en écoute. La cause historique du premier `PROVIDER_ERROR` en recette n'est pas rejouée : aucun appel fournisseur dans ce complément.
++
+ ## Flux
+
+ Pilote → capability → micro → `POST …/sessions` (admission) → `session.updated` → PCM `seq=0,1,…` → auto-commit → SSE deltas/items → Arrêter → drain → finalize (attend **commitsAwaitingAck** + items + provisionals) → brouillon → Envoyer USER.
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index ae7e3680..69e70fdd 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -1,3 +1,14 @@
++## delivery_id: DELIV-2026-11-28-ML5-DICTATION-GA-DEV
++
++- **date_local**: 2026-11-28 (Europe/Paris)
++- **lane**: DEV only — lot 6, correction du transport de dictée
++- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
++- **HEAD_base**: `9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b`
++- **commit**: `fix(next): restore realtime composer dictation`
++- **schema_revision**: unchanged
++- **scope**: header Beta retiré, erreurs fournisseur discriminantes, fermeture de socket au timeout et après rupture. LIVE non exécuté.
++- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN
++
+ ## delivery_id: DELIV-2026-11-28-ML5-FINOPS-ATTRIBUTION-DEV
+
+ - **date_local**: 2026-11-28 (Europe/Paris)
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx b/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
+index ef08f4a2..e0a5eb1f 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
+@@ -117,10 +117,24 @@ export function dictationClientErrorMessage(input: {
+   const code = (input.code || "").trim();
+   const raw = (input.message || "").trim();
+   const fromCode =
+-    code === "SESSION_OPEN_TIMEOUT" || raw === "SESSION_OPEN_TIMEOUT"
++    code === "SESSION_OPEN_TIMEOUT" ||
++    raw === "SESSION_OPEN_TIMEOUT" ||
++    code === "REALTIME_OPEN_TIMEOUT"
+       ? "Connexion dictée expirée — réessayez ou utilisez le clavier"
+       : code === "TRANSPORT_OPEN_FAILED"
+         ? "Transport dictée indisponible — réessayez ou utilisez le clavier"
++        : code === "TRANSPORT_CLOSED" || code === "TRANSPORT_ERROR"
++          ? "La connexion de dictée s'est interrompue — réessayez ou utilisez le clavier"
++        : code === "SESSION_PARAMETER_INVALID"
++          ? "La configuration de la dictée a été refusée — réessayez ou utilisez le clavier"
++          : code === "MODEL_UNAVAILABLE"
++            ? "Le modèle de dictée n'est pas disponible"
++            : code === "AUTHENTICATION" || code === "PROVIDER_PERMISSION"
++              ? "Dictée indisponible (accès fournisseur refusé)"
++              : code === "TRANSCRIPTION_FAILED"
++                ? "La transcription n'a pas abouti — le brouillon est conservé"
++                : code === "PROVIDER_ERROR"
++                  ? "La dictée n'a pas pu démarrer — réessayez ou utilisez le clavier"
+         : code === "FLAG_OFF"
+           ? "Dictée non activée sur cet environnement"
+           : code === "CONCURRENCY_LIMIT"
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+index 4838f811..5cb34250 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+@@ -22,13 +22,32 @@ import {
+   mergeDictationIntoDraft,
+ } from "./composer-dictation-reducer";
+
++export type DictationTransportLifecycle = {
++  code: string;
++  message: string;
++  httpStatus?: number | null;
++};
++
+ export type RealtimeTransport = {
+   send: (payload: Record<string, unknown>) => void;
+   close: () => void;
+   /** Register handler for provider JSON events. */
+   onEvent: (handler: (event: Record<string, unknown>) => void) => void;
++  /** Socket close or error after the local handshake, including a close that raced the handler. */
++  onLifecycle?: (handler: (event: DictationTransportLifecycle) => void) => void;
+ };
+
++export class DictationTransportError extends Error {
++  code: string;
++  httpStatus: number | null;
++  constructor(code: string, message: string, httpStatus: number | null = null) {
++    super(message);
++    this.name = "DictationTransportError";
++    this.code = code;
++    this.httpStatus = httpStatus;
++  }
++}
++
+ export type RealtimeTransportFactory = (input: {
+   sessionId: string;
+   model: string;
+@@ -348,7 +367,6 @@ export async function createDictationSession(input: {
+       };
+     }
+     record.transport = transport;
+-    transport.onEvent((event) => handleProviderEvent(record, event));
+     let providerReady = false;
+     const sessionReady = new Promise<void>((resolve, reject) => {
+       const t = setTimeout(() => {
+@@ -373,23 +391,18 @@ export async function createDictationSession(input: {
+         reject(err);
+       };
+     });
+-    transport.send({
+-      type: "session.update",
+-      session: {
+-        type: "transcription",
+-        audio: {
+-          input: {
+-            format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
+-            transcription: {
+-              model: COMPOSER_DICTATION_MODEL,
+-              languages: ["fr"],
+-              prompt: DICTATION_VOCAB_HINT,
+-            },
+-            turn_detection: null,
+-          },
+-        },
+-      },
++    transport.onLifecycle?.((info) => {
++      failDictationTransport(record, {
++        step: record.status === "pending" ? "open" : record.status,
++        code: info.code,
++        message: info.message,
++        httpStatus: info.httpStatus ?? null,
++      });
+     });
++    transport.onEvent((event) => handleProviderEvent(record, event));
++    if (!isTerminalStatus(record.status)) {
++      transport.send(buildTranscriptionSessionUpdate());
++    }
+     await sessionReady;
+     // Terminal wins: cancel/fail during wait must not reopen as open.
+     if (isTerminalStatus(record.status)) {
+@@ -407,18 +420,34 @@ export async function createDictationSession(input: {
+     emit(record, { type: "session.open", sessionId });
+     return { ok: true, session: record };
+   } catch (e) {
+-    const rawMessage =
+-      e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+-    const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
+-    const providerErr = rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR");
+-    const code = timedOut
+-      ? "SESSION_OPEN_TIMEOUT"
+-      : providerErr
+-        ? "PROVIDER_ERROR"
+-        : "TRANSPORT_OPEN_FAILED";
+-    if (!isTerminalStatus(record.status)) {
++    const fromTransport = e instanceof DictationTransportError ? e : null;
++    const rawMessage = (
++      fromTransport?.message ??
++      (e instanceof Error ? e.message : "TRANSPORT_OPEN_FAILED")
++    ).slice(0, 240);
++    const timedOut =
++      rawMessage === "SESSION_OPEN_TIMEOUT" || fromTransport?.code === "SESSION_OPEN_TIMEOUT";
++    const alreadyTerminal = isTerminalStatus(record.status);
++    const code =
++      alreadyTerminal && record.errorCode
++        ? record.errorCode
++        : fromTransport?.code
++          ? fromTransport.code
++          : timedOut
++            ? "SESSION_OPEN_TIMEOUT"
++            : rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR")
++              ? "PROVIDER_ERROR"
++              : "TRANSPORT_OPEN_FAILED";
++    if (!alreadyTerminal) {
+       record.status = "failed";
+       record.errorCode = code;
++      emit(record, {
++        type: "session.error",
++        sessionId,
++        code,
++        message: code,
++      });
++      void recordDictationFinops(record, "failed");
+     }
+     try {
+       record.transport?.close();
+@@ -428,13 +457,6 @@ export async function createDictationSession(input: {
+     record.transport = null;
+     record.onProviderSessionReady = null;
+     record.onProviderSessionReadyReject = null;
+-    emit(record, {
+-      type: "session.error",
+-      sessionId,
+-      code,
+-      message: rawMessage,
+-    });
+-    void recordDictationFinops(record, "failed");
+     return { ok: false, code, message: rawMessage };
+   }
+ }
+@@ -541,32 +563,11 @@ function handleProviderEvent(
+     return;
+   }
+   if (type === "error" || type === "conversation.item.input_audio_transcription.failed") {
+-    // Never reopen / overwrite a terminal cancel/complete/expire with failed.
+-    if (isTerminalStatus(session.status)) {
+-      return;
+-    }
+-    const message = String(
+-      event.error ?? event.message ?? "transcription failed",
+-    ).slice(0, 240);
+-    const stillOpening = session.status === "pending";
+-    session.status = "failed";
+-    session.errorCode = "PROVIDER_ERROR";
+-    emit(session, {
+-      type: "session.error",
+-      sessionId: session.sessionId,
+-      code: "PROVIDER_ERROR",
+-      message,
++    const described = describeDictationProviderFailure(event);
++    failDictationTransport(session, {
++      step: session.status === "pending" ? "session.update" : "transcription",
++      ...described,
+     });
+-    if (stillOpening && session.onProviderSessionReadyReject) {
+-      session.onProviderSessionReadyReject(new Error("PROVIDER_ERROR"));
+-    }
+-    try {
+-      session.transport?.close();
+-    } catch {
+-      /* */
+-    }
+-    session.transport = null;
+-    void recordDictationFinops(session, "failed");
+   }
+ }
+
+@@ -927,32 +928,222 @@ async function recordDictationFinops(
+   }
+ }
+
+-async function openOpenAiTranscriptionTransport(input: {
+-  sessionId: string;
+-  model: string;
+-  apiKey: string;
+-}): Promise<RealtimeTransport> {
+-  const { default: WebSocket } = await import("ws");
+-  const url = "wss://api.openai.com/v1/realtime?intent=transcription";
+-  const ws = new WebSocket(url, {
+-    headers: {
+-      Authorization: `Bearer ${input.apiKey}`,
+-      "OpenAI-Beta": "realtime=v1",
++/** GA transcription session.update. The live opener sends this object unchanged. */
++export function buildTranscriptionSessionUpdate(): Record<string, unknown> {
++  return {
++    type: "session.update",
++    session: {
++      type: "transcription",
++      audio: {
++        input: {
++          format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
++          transcription: {
++            model: COMPOSER_DICTATION_MODEL,
++            languages: ["fr"],
++            prompt: DICTATION_VOCAB_HINT,
++          },
++          turn_detection: null,
++        },
++      },
+     },
++  };
++}
++
++/** GA WebSocket headers. Authorization only — no retired realtime beta header. */
++export function transcriptionSocketHeaders(apiKey: string): Record<string, string> {
++  return { Authorization: `Bearer ${apiKey}` };
++}
++
++function traceField(value: unknown): string | null {
++  if (typeof value !== "string") return null;
++  const trimmed = value.trim();
++  return trimmed ? trimmed.slice(0, 80) : null;
++}
++
++function sanitizeTrace(value: string): string {
++  return value
++    .replace(/sk-[A-Za-z0-9_-]{6,}/g, "[redacted]")
++    .replace(/Bearer\s+\S+/gi, "Bearer [redacted]")
++    .slice(0, 160);
++}
++
++export function describeDictationProviderFailure(event: Record<string, unknown>): {
++  code: string;
++  message: string;
++  providerCode: string | null;
++  errorType: string | null;
++  parameter: string | null;
++  httpStatus: number | null;
++} {
++  const err = event.error;
++  const obj = err && typeof err === "object" ? (err as Record<string, unknown>) : null;
++  const providerCode = traceField(obj?.code ?? event.code);
++  const errorType = traceField(obj?.type);
++  const parameter = traceField(obj?.param ?? obj?.parameter);
++  const rawMessage =
++    traceField(obj?.message) ??
++    (typeof err === "string" ? traceField(err) : null) ??
++    traceField(event.message) ??
++    "";
++  const httpStatus = typeof obj?.status === "number" ? obj.status : null;
++  const blob = `${providerCode ?? ""} ${errorType ?? ""} ${parameter ?? ""} ${rawMessage}`.toLowerCase();
++  let code = "PROVIDER_ERROR";
++  if (event.type === "conversation.item.input_audio_transcription.failed") {
++    code = "TRANSCRIPTION_FAILED";
++  } else if (
++    httpStatus === 401 ||
++    blob.includes("invalid_api_key") ||
++    blob.includes("authentication")
++  ) {
++    code = "AUTHENTICATION";
++  } else if (httpStatus === 403 || blob.includes("permission") || blob.includes("insufficient_quota")) {
++    code = "PROVIDER_PERMISSION";
++  } else if (
++    providerCode === "model_not_found" ||
++    (blob.includes("model") &&
++      (blob.includes("not found") || blob.includes("unavailable") || blob.includes("does not exist")))
++  ) {
++    code = "MODEL_UNAVAILABLE";
++  } else if (
++    parameter ||
++    blob.includes("invalid_request") ||
++    blob.includes("invalid_value") ||
++    blob.includes("unknown_parameter")
++  ) {
++    code = "SESSION_PARAMETER_INVALID";
++  }
++  return {
++    code,
++    message: sanitizeTrace(rawMessage) || code,
++    providerCode,
++    errorType,
++    parameter,
++    httpStatus,
++  };
++}
++
++function classifySocketError(err: unknown): DictationTransportError {
++  const raw = err instanceof Error ? err.message : "";
++  const http = /(?:Unexpected server response:|status code)\s*(\d{3})/i.exec(raw);
++  const status = http ? Number(http[1]) : null;
++  if (status === 401) return new DictationTransportError("AUTHENTICATION", "HTTP 401", 401);
++  if (status === 403) return new DictationTransportError("PROVIDER_PERMISSION", "HTTP 403", 403);
++  if (status != null && status >= 400) {
++    return new DictationTransportError("TRANSPORT_OPEN_FAILED", `HTTP ${status}`, status);
++  }
++  return new DictationTransportError("TRANSPORT_OPEN_FAILED", "REALTIME_SOCKET_ERROR");
++}
++
++function traceDictationFailure(
++  session: DictationSessionRecord,
++  detail: {
++    step: string;
++    code: string;
++    providerCode?: string | null;
++    errorType?: string | null;
++    parameter?: string | null;
++    httpStatus?: number | null;
++  },
++): void {
++  console.error(
++    "[composer-dictation]",
++    JSON.stringify({
++      step: detail.step,
++      sessionId: session.sessionId,
++      code: detail.code,
++      providerCode: detail.providerCode ?? null,
++      errorType: detail.errorType ?? null,
++      parameter: detail.parameter ?? null,
++      httpStatus: detail.httpStatus ?? null,
++      status: session.status,
++    }),
++  );
++}
++
++function failDictationTransport(
++  session: DictationSessionRecord,
++  detail: {
++    step: string;
++    code: string;
++    message: string;
++    providerCode?: string | null;
++    errorType?: string | null;
++    parameter?: string | null;
++    httpStatus?: number | null;
++  },
++): void {
++  if (isTerminalStatus(session.status)) return;
++  const stillOpening = session.status === "pending";
++  session.status = "failed";
++  session.errorCode = detail.code;
++  emit(session, {
++    type: "session.error",
++    sessionId: session.sessionId,
++    code: detail.code,
++    message: detail.code,
+   });
++  traceDictationFailure(session, detail);
++  if (stillOpening && session.onProviderSessionReadyReject) {
++    session.onProviderSessionReadyReject(
++      new DictationTransportError(detail.code, detail.code, detail.httpStatus ?? null),
++    );
++  }
++  try {
++    session.transport?.close();
++  } catch {
++    /* */
++  }
++  session.transport = null;
++  void recordDictationFinops(session, "failed");
++}
++
++type TranscriptionSocket = {
++  readyState: number;
++  send: (data: string) => void;
++  close: () => void;
++  once: (event: string, cb: (...args: unknown[]) => void) => void;
++  on: (event: string, cb: (...args: unknown[]) => void) => void;
++};
++
++const SOCKET_OPEN_STATE = 1;
++
++/** Live socket handshake. A timeout or upgrade error closes the socket before it is returned. */
++export async function connectTranscriptionSocket(
++  ws: TranscriptionSocket,
++  openTimeoutMs = 15_000,
++): Promise<RealtimeTransport> {
+   await new Promise<void>((resolve, reject) => {
+-    const t = setTimeout(() => reject(new Error("REALTIME_OPEN_TIMEOUT")), 15_000);
++    const timer = setTimeout(() => {
++      try {
++        ws.close();
++      } catch {
++        /* */
++      }
++      reject(new DictationTransportError("REALTIME_OPEN_TIMEOUT", "REALTIME_OPEN_TIMEOUT"));
++    }, openTimeoutMs);
+     ws.once("open", () => {
+-      clearTimeout(t);
++      clearTimeout(timer);
+       resolve();
+     });
+-    ws.once("error", (err) => {
+-      clearTimeout(t);
+-      reject(err);
++    ws.once("error", (err: unknown) => {
++      clearTimeout(timer);
++      try {
++        ws.close();
++      } catch {
++        /* */
++      }
++      reject(classifySocketError(err));
+     });
+   });
++
+   let handler: ((event: Record<string, unknown>) => void) | null = null;
+-  ws.on("message", (data) => {
++  let lifecycle: ((event: DictationTransportLifecycle) => void) | null = null;
++  let pendingLifecycle: DictationTransportLifecycle | null = null;
++  const emitLife = (event: DictationTransportLifecycle) => {
++    if (lifecycle) lifecycle(event);
++    else pendingLifecycle = event;
++  };
++  ws.on("message", (data: unknown) => {
+     try {
+       const parsed = JSON.parse(String(data)) as Record<string, unknown>;
+       handler?.(parsed);
+@@ -960,11 +1151,20 @@ async function openOpenAiTranscriptionTransport(input: {
+       /* ignore malformed */
+     }
+   });
++  ws.on("close", () => {
++    emitLife({ code: "TRANSPORT_CLOSED", message: "socket closed" });
++  });
++  ws.on("error", (err: unknown) => {
++    const classified = classifySocketError(err);
++    emitLife({
++      code: classified.code,
++      message: classified.message,
++      httpStatus: classified.httpStatus,
++    });
++  });
+   return {
+     send: (payload) => {
+-      if (ws.readyState === WebSocket.OPEN) {
+-        ws.send(JSON.stringify(payload));
+-      }
++      if (ws.readyState === SOCKET_OPEN_STATE) ws.send(JSON.stringify(payload));
+     },
+     close: () => {
+       try {
+@@ -976,5 +1176,26 @@ async function openOpenAiTranscriptionTransport(input: {
+     onEvent: (h) => {
+       handler = h;
+     },
++    onLifecycle: (h) => {
++      lifecycle = h;
++      if (pendingLifecycle) {
++        const pending = pendingLifecycle;
++        pendingLifecycle = null;
++        h(pending);
++      }
++    },
+   };
+ }
++
++async function openOpenAiTranscriptionTransport(input: {
++  sessionId: string;
++  model: string;
++  apiKey: string;
++}): Promise<RealtimeTransport> {
++  const { default: WebSocket } = await import("ws");
++  const url = "wss://api.openai.com/v1/realtime?intent=transcription";
++  const ws = new WebSocket(url, {
++    headers: transcriptionSocketHeaders(input.apiKey),
++  });
++  return connectTranscriptionSocket(ws);
++}
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+index 2ab9714c..4a65bf2a 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+@@ -1,10 +1,16 @@
++import { readFileSync } from "node:fs";
++import { join } from "node:path";
+ import { afterEach, beforeEach, describe, expect, it } from "vitest";
+ import {
+   _resetDictationSessionsForTests,
+   appendDictationAudio,
++  buildTranscriptionSessionUpdate,
+   cancelDictationSession,
++  connectTranscriptionSocket,
+   createDictationSession,
++  describeDictationProviderFailure,
+   finalizeDictationSession,
++  transcriptionSocketHeaders,
+   type RealtimeTransport,
+ } from "@/domains/conversation/composer-dictation-session";
+ import { admitDictationProviderEmission } from "@/domains/conversation/composer-dictation-admission";
+@@ -998,3 +1004,200 @@ describe("ml3 composer dictation session (substituted transport)", () => {
+     expect(created.session.status).toBe("open");
+   });
+ });
++
++describe("GA transcription transport", () => {
++  it("builds the transcription session.update used by the live opener", () => {
++    const update = buildTranscriptionSessionUpdate() as {
++      type: string;
++      session: {
++        type: string;
++        audio: {
++          input: {
++            format: { type: string; rate: number };
++            transcription: { model: string; languages: string[]; language?: string };
++            turn_detection: null;
++          };
++        };
++      };
++    };
++    expect(update.type).toBe("session.update");
++    expect(update.session.type).toBe("transcription");
++    expect(update.session.audio.input.format).toEqual({ type: "audio/pcm", rate: 24000 });
++    expect(update.session.audio.input.transcription.model).toBe("gpt-live-transcribe");
++    expect(update.session.audio.input.transcription.languages).toEqual(["fr"]);
++    expect(update.session.audio.input.transcription.language).toBeUndefined();
++    expect(update.session.audio.input.turn_detection).toBeNull();
++    const src = readFileSync(
++      join(process.cwd(), "src/domains/conversation/composer-dictation-session.ts"),
++      "utf8",
++    );
++    expect(src).not.toContain("OpenAI-Beta");
++    expect(src).toContain("intent=transcription");
++    expect(src).toContain("transcriptionSocketHeaders");
++  });
++
++  it("sends only the GA authorization header", () => {
++    const headers = transcriptionSocketHeaders("sk-test-not-a-secret");
++    expect(Object.keys(headers)).toEqual(["Authorization"]);
++    expect(headers.Authorization.startsWith("Bearer ")).toBe(true);
++    expect(headers["OpenAI-Beta" as keyof typeof headers]).toBeUndefined();
++  });
++
++  it("keeps a structured provider error distinct from an empty history", () => {
++    const described = describeDictationProviderFailure({
++      type: "error",
++      error: {
++        type: "invalid_request_error",
++        code: "invalid_value",
++        message: "Unknown parameter: session.audio.input.language",
++        param: "session.audio.input.transcription.languages",
++      },
++    });
++    expect(described.code).toBe("SESSION_PARAMETER_INVALID");
++    expect(described.parameter).toBe("session.audio.input.transcription.languages");
++    expect(described.message).not.toContain("[object Object]");
++    expect(described.message).toContain("Unknown parameter");
++  });
++
++  it("closes the socket when the upgrade times out", async () => {
++    let closed = false;
++    const listeners = new Map<string, Array<(...args: unknown[]) => void>>();
++    const ws = {
++      readyState: 0,
++      send: () => undefined,
++      close: () => {
++        closed = true;
++        ws.readyState = 3;
++      },
++      once: (event: string, cb: (...args: unknown[]) => void) => {
++        const list = listeners.get(event) ?? [];
++        list.push(cb);
++        listeners.set(event, list);
++      },
++      on: (event: string, cb: (...args: unknown[]) => void) => {
++        const list = listeners.get(event) ?? [];
++        list.push(cb);
++        listeners.set(event, list);
++      },
++    };
++    await expect(connectTranscriptionSocket(ws, 20)).rejects.toMatchObject({
++      code: "REALTIME_OPEN_TIMEOUT",
++    });
++    expect(closed).toBe(true);
++  });
++
++  it("classifies an HTTP 401 upgrade without keeping the socket", async () => {
++    const listeners = new Map<string, Array<(...args: unknown[]) => void>>();
++    let closed = false;
++    const ws = {
++      readyState: 0,
++      send: () => undefined,
++      close: () => {
++        closed = true;
++      },
++      once: (event: string, cb: (...args: unknown[]) => void) => {
++        const list = listeners.get(event) ?? [];
++        list.push(cb);
++        listeners.set(event, list);
++        if (event === "error") {
++          queueMicrotask(() => cb(new Error("Unexpected server response: 401")));
++        }
++      },
++      on: () => undefined,
++    };
++    await expect(connectTranscriptionSocket(ws, 1_000)).rejects.toMatchObject({
++      code: "AUTHENTICATION",
++      httpStatus: 401,
++    });
++    expect(closed).toBe(true);
++  });
++});
++
++describe("dictation transport lifecycle", () => {
++  beforeEach(() => {
++    _resetDictationSessionsForTests();
++    process.env.SFIA_COMPOSER_DICTATION = "1";
++    process.env.STUDIO_LANE = "DEV";
++    process.env.SFIA_DICTATION_TRANSPORT = "fixture";
++    process.env.VITEST = "true";
++  });
++
++  afterEach(() => {
++    _resetDictationSessionsForTests();
++  });
++
++  it("fails an open session when the socket closes and ignores a later transcript", async () => {
++    let lifecycle: ((event: { code: string; message: string }) => void) | null = null;
++    let handler: ((event: Record<string, unknown>) => void) | null = null;
++    const transport: RealtimeTransport = {
++      send: (payload) => {
++        if (payload.type === "session.update") {
++          queueMicrotask(() => handler?.({ type: "session.updated" }));
++        }
++      },
++      close: () => undefined,
++      onEvent: (next) => {
++        handler = next;
++      },
++      onLifecycle: (next) => {
++        lifecycle = next;
++      },
++    };
++    const created = await createDictationSession({
++      pilotId: "pilot-close",
++      projectId: "proj-close",
++      conversationKey: "proj-close",
++      baselineDraft: "brouillon",
++      transportFactory: async () => transport,
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    lifecycle?.({ code: "TRANSPORT_CLOSED", message: "socket closed" });
++    expect(created.session.status).toBe("failed");
++    expect(created.session.errorCode).toBe("TRANSPORT_CLOSED");
++    handler?.({
++      type: "conversation.item.input_audio_transcription.delta",
++      item_id: "late",
++      delta: "tardif",
++    });
++    expect(created.session.draft.provisionalByItem.late).toBeUndefined();
++    lifecycle?.({ code: "TRANSPORT_CLOSED", message: "again" });
++    expect(created.session.status).toBe("failed");
++  });
++
++  it("returns a structured provider code when session.update is rejected", async () => {
++    const transport: RealtimeTransport = {
++      send: (payload) => {
++        if (payload.type === "session.update") {
++          queueMicrotask(() =>
++            handler?.({
++              type: "error",
++              error: {
++                type: "invalid_request_error",
++                code: "invalid_value",
++                message: "Unsupported language",
++                param: "session.audio.input.transcription.languages",
++              },
++            }),
++          );
++        }
++      },
++      close: () => undefined,
++      onEvent: (next) => {
++        handler = next;
++      },
++    };
++    let handler: ((event: Record<string, unknown>) => void) | null = null;
++    const created = await createDictationSession({
++      pilotId: "pilot-param",
++      projectId: "proj-param",
++      conversationKey: "proj-param",
++      baselineDraft: "",
++      transportFactory: async () => transport,
++    });
++    expect(created.ok).toBe(false);
++    if (created.ok) return;
++    expect(created.code).toBe("SESSION_PARAMETER_INVALID");
++    expect(created.message).not.toContain("[object Object]");
++  });
++});
