@@ -1,9 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { runOpenPreparation, subscribeOpenPreparationBusy } from "@/lib/open-preparation";
 import type { PersonalBoard, PersonalSpace, PortfolioFilter, PortfolioSort, PortfolioView } from "@/domains/identity/portfolio-organization";
+import { notePersonalSpaceEntry } from "./PersonalSpaceOpenSignal";
+import { notifyPortfolioChanged } from "./PersonalRailFavorites";
 import "./personal-portfolio.css";
 
 type BoardResponse = {
@@ -31,6 +33,9 @@ function hrefFor(space: PersonalSpace): string {
 
 export function PersonalPortfolio() {
   const router = useRouter();
+  const params = useSearchParams();
+  const busy = useRef(false);
+  const draggedSpace = useRef("");
   const [board, setBoard] = useState<PersonalBoard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -49,8 +54,8 @@ export function PersonalPortfolio() {
 
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
-  const load = useCallback(async (cursor?: string | null) => {
-    const requestId = ++requestSeq.current;
+  const load = useCallback(async (cursor?: string | null, issuedId?: number) => {
+    const requestId = issuedId ?? ++requestSeq.current;
     const params = new URLSearchParams();
     if (scope === "archive") params.set("scope", "archive");
     if (filter !== "all") params.set("filter", filter);
@@ -70,22 +75,39 @@ export function PersonalPortfolio() {
       setLoading(false);
       return;
     }
-    setBoard((prev) =>
-      cursor && prev ? { ...body.board!, items: [...prev.items, ...body.board!.items] } : body.board!,
-    );
+    setBoard((prev) => {
+      if (!cursor || !prev) return body.board!;
+      const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
+      const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
+      return { ...body.board!, items: [...prev.items, ...extra] };
+    });
+    notifyPortfolioChanged();
     setError("");
     setLoading(false);
   }, [expanded, filter, query, router, scope]);
 
   useEffect(() => {
+    const nextFilter = params.get("filter");
+    if (nextFilter === "all" || nextFilter === "projects" || nextFilter === "preparations" || nextFilter === "favorites") {
+      setFilter(nextFilter);
+    }
+    setScope(params.get("scope") === "archive" ? "archive" : "current");
+    const nextQuery = params.get("q");
+    if (nextQuery !== null) setQuery(nextQuery);
+  }, [params]);
+
+  useEffect(() => {
+    const requestId = ++requestSeq.current;
     const handle = setTimeout(() => {
       setLoading(true);
-      void load();
+      void load(null, requestId);
     }, 180);
     return () => clearTimeout(handle);
   }, [load]);
 
   async function mutate(path: string, method: string, payload: unknown) {
+    if (busy.current) return;
+    busy.current = true;
     setPending(path);
     setUncertain("");
     setNotice("");
@@ -97,7 +119,7 @@ export function PersonalPortfolio() {
       });
       const body = (await response.json().catch(() => ({}))) as { error?: string; message?: string };
       if (response.status === 409) {
-        setNotice(body.message || "Conflit : une autre modification a été enregistrée.");
+        setNotice(body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.");
         await load();
         return;
       }
@@ -105,11 +127,17 @@ export function PersonalPortfolio() {
         setNotice(body.message || body.error || "La modification n'a pas abouti.");
         return;
       }
+      notifyPortfolioChanged();
       await load();
     } catch {
-      setUncertain("Résultat incertain. Le portefeuille va être relu, sans relancer l'action.");
-      await load();
+      setUncertain("Résultat incertain. L'action n'est pas relancée.");
+      try {
+        await load();
+      } catch {
+        setUncertain("Résultat incertain. La relecture a échoué et l'action n'a pas été relancée.");
+      }
     } finally {
+      busy.current = false;
       setPending("");
       setConfirm(null);
       setConfirmRestore(null);
@@ -145,6 +173,9 @@ export function PersonalPortfolio() {
     );
   }
   if (!board) return null;
+  const canReorder =
+    board.preferences.sort === "custom" && filter === "all" && !query.trim() && scope === "current";
+  const orderContext = { filter, query: query.trim(), scope };
   const groups = board.preferences.view === "grouped"
     ? (["project", "preparation"] as const).map((type) => ({
         type,
@@ -160,11 +191,21 @@ export function PersonalPortfolio() {
       <article
         key={`${space.spaceType}-${space.id}`}
         className={board!.preferences.view === "grid" ? "personal-portfolio-card" : "personal-portfolio-row"}
-        draggable={board!.preferences.sort === "custom" && filter === "all" && !query}
-        onDragStart={(event) => event.dataTransfer.setData("text/plain", `${space.spaceType}:${space.id}`)}
-        onDragOver={(event) => event.preventDefault()}
+        draggable={canReorder}
+        onDragStart={(event) => {
+          const token = `${space.spaceType}:${space.id}`;
+          draggedSpace.current = token;
+          event.dataTransfer.setData("text/plain", token);
+          event.dataTransfer.effectAllowed = "move";
+        }}
+        onDragOver={(event) => {
+          if (canReorder) event.preventDefault();
+        }}
         onDrop={(event) => {
-          const raw = event.dataTransfer.getData("text/plain");
+          if (!canReorder) return;
+          event.preventDefault();
+          const raw = event.dataTransfer.getData("text/plain") || draggedSpace.current;
+          draggedSpace.current = "";
           const [spaceType, spaceId] = raw.split(":");
           if (!spaceId || spaceId === space.id) return;
           void mutate("/api/portfolio/order", "POST", {
@@ -173,11 +214,12 @@ export function PersonalPortfolio() {
             beforeSpaceType: space.spaceType,
             beforeSpaceId: space.id,
             expectedVersion: board!.preferences.version,
+            context: orderContext,
           });
         }}
         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
       >
-        <a href={hrefFor(space)}>{space.label}</a>
+        <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
         <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
         <span className="personal-portfolio-meta">{activity}</span>
         <span>
@@ -194,10 +236,10 @@ export function PersonalPortfolio() {
           >
             {space.favorite ? "★" : "☆"}
           </button>
-          {board!.preferences.sort === "custom" ? (
+          {canReorder ? (
             <>
-              <button type="button" aria-label="Monter" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version })}>↑</button>
-              <button type="button" aria-label="Descendre" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version })}>↓</button>
+              <button type="button" aria-label="Monter" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext })}>↑</button>
+              <button type="button" aria-label="Descendre" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext })}>↓</button>
             </>
           ) : null}
           <button type="button" aria-label="Actions de l'espace" onClick={() => setMenu(menu === space.id ? null : space.id)}>…</button>
@@ -235,11 +277,11 @@ export function PersonalPortfolio() {
       {pending ? <p role="status">Modification en cours…</p> : null}
 
       <section className="personal-portfolio-synthesis" aria-label="Synthèse du portefeuille">
-        <div className="personal-portfolio-stat"><span>Projets</span><strong data-testid="portfolio-count-projects">{formatCount(board.counters.projects)}</strong><em>Espaces de travail</em></div>
+        <button type="button" className="personal-portfolio-stat" onClick={() => setFilter("projects")}><span>Projets</span><strong data-testid="portfolio-count-projects">{formatCount(board.counters.projects)}</strong><em>Espaces de travail</em></button>
         <div className="personal-portfolio-rule" />
-        <div className="personal-portfolio-stat"><span>Préparations</span><strong data-testid="portfolio-count-preparations">{formatCount(board.counters.preparations)}</strong><em>À reprendre</em></div>
+        <button type="button" className="personal-portfolio-stat" onClick={() => setFilter("preparations")}><span>Préparations</span><strong data-testid="portfolio-count-preparations">{formatCount(board.counters.preparations)}</strong><em>À reprendre</em></button>
         <div className="personal-portfolio-rule" />
-        <div className="personal-portfolio-stat"><span>Favoris</span><strong data-testid="portfolio-count-favorites">{formatCount(board.counters.favorites)}</strong><em>Accès rapide</em></div>
+        <button type="button" className="personal-portfolio-stat" onClick={() => setFilter("favorites")}><span>Favoris</span><strong data-testid="portfolio-count-favorites">{formatCount(board.counters.favorites)}</strong><em>Accès rapide</em></button>
       </section>
 
       {board.resume && scope === "current" ? (
@@ -250,7 +292,7 @@ export function PersonalPortfolio() {
             <p>{board.resume.activityLabel} · {formatWhen(board.resume.lastOpenedAt || board.resume.createdAt)}</p>
           </div>
           <div className="personal-portfolio-grow" />
-          <a className="btn" href={hrefFor(board.resume)}>Continuer</a>
+          <a className="btn" href={hrefFor(board.resume)} onClick={() => notePersonalSpaceEntry(board.resume!.spaceType, board.resume!.id)}>Continuer</a>
         </section>
       ) : null}
 
@@ -323,7 +365,7 @@ export function PersonalPortfolio() {
         ) : groups ? (
           groups.map((group) => (
             <div key={group.type} className="personal-portfolio-group">
-              <h3>{group.type === "project" ? "Projets" : "Préparations"}</h3>
+              <h3>{group.type === "project" ? `Projets · ${board.groups.project}` : `Préparations · ${board.groups.preparation}`}</h3>
               {group.items.map(renderSpace)}
             </div>
           ))

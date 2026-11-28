@@ -17,9 +17,7 @@ export async function GET(req: Request) {
   try {
     const session = await requireStudioSession();
     const url = new URL(req.url);
-    const portfolio = await loadPortfolio(session.pilotId, {
-      preparationsCursor: url.searchParams.get("preparationsCursor"),
-    });
+    const preparationsCursor = url.searchParams.get("preparationsCursor");
     const board = await loadPersonalBoard(session.pilotId, {
       scope: url.searchParams.get("scope"),
       filter: url.searchParams.get("filter"),
@@ -27,6 +25,14 @@ export async function GET(req: Request) {
       cursor: url.searchParams.get("cursor"),
       preview: url.searchParams.get("expanded") !== "1",
     });
+    const portfolio = preparationsCursor
+      ? await loadPortfolio(session.pilotId, { preparationsCursor })
+      : {
+          kind: board.counters.projects + board.counters.preparations === 0 ? "empty" : "ready",
+          projects: [],
+          openPreparations: board.counters.preparations,
+          preparations: { items: [], nextCursor: null },
+        };
     return json({
       session: {
         pilotId: session.pilotId,

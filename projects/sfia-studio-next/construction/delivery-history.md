@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-RELIABILITY-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — complément A du mandat 1, fiabilisation D1
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e`
+- **commit**: `fix(next): make personal portfolio reads and writes reliable`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: projection SQL bornée, verrou d'écriture par Pilote, ordre gardé, signal d'ouverture dédupliqué, synchronisation du rail
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · complément B non engagé
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -51,6 +51,7 @@
   border-radius: 12px;
 }
 .personal-portfolio-stat { padding: 14px 16px 14px 24px; }
+button.personal-portfolio-stat { text-align: left; background: transparent; color: inherit; border: 0; cursor: pointer; }
 .personal-portfolio-stat span { display: block; color: var(--pf-muted); font-size: 15px; line-height: 21px; }
 .personal-portfolio-stat strong {
   font-size: 46px;

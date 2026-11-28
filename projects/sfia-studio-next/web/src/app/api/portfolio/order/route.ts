@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       direction?: "up" | "down";
       beforeSpaceId?: string | null;
       beforeSpaceType?: string | null;
+      context?: { filter?: string; query?: string; scope?: string };
     };
     if (!body.spaceType || !body.spaceId || !Number.isInteger(body.expectedVersion)) {
       return json({ error: "INVALID_REQUEST" }, 400);
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
       direction: body.direction,
       beforeSpaceId: body.beforeSpaceId,
       beforeSpaceType: body.beforeSpaceType ? parseSpaceType(body.beforeSpaceType) : null,
+      context: body.context,
     });
     return json({ ok: true, ...result });
   } catch (e) {

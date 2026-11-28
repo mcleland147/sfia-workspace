@@ -126,6 +126,7 @@ describe("personal portfolio organization (PG)", () => {
       spaceId: second,
       expectedVersion: 0,
       direction: "up",
+      context: { filter: "all", query: "", scope: "current" },
     });
     const board = await loadPersonalBoard(owner);
     expect(board.preferences.sort).toBe("custom");
@@ -136,6 +137,7 @@ describe("personal portfolio organization (PG)", () => {
         spaceId: first,
         expectedVersion: 0,
         direction: "down",
+        context: { filter: "all", query: "", scope: "current" },
       }),
     ).rejects.toMatchObject({ httpStatus: 409 });
     const saved = await updatePortfolioPreferences(owner, {
@@ -146,5 +148,84 @@ describe("personal portfolio organization (PG)", () => {
     expect(reread.preferences.view).toBe("grid");
     expect(reread.preferences.sort).toBe("custom");
     expect(saved.version).toBe(moved.version + 1);
+  });
+
+  it("keeps one winner when two first writes race, and ignores an older navigation key", async () => {
+    const owner = await seedPilot("PF-race");
+    const projectId = newId("proj");
+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Course" });
+    const raced = await Promise.allSettled([
+      setSpaceFavorite(owner, "project", projectId, { favorite: true, expectedVersion: 0 }),
+      setSpaceFavorite(owner, "project", projectId, { favorite: false, expectedVersion: 0 }),
+    ]);
+    expect(raced.filter((item) => item.status === "fulfilled")).toHaveLength(1);
+    expect(raced.filter((item) => item.status === "rejected")).toHaveLength(1);
+    const stored = await sql<{ row_version: number; favorite: boolean }[]>`
+      SELECT row_version, favorite FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    expect(stored[0]?.row_version).toBe(1);
+
+    await recordSpaceOpened(owner, "project", projectId, "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:2");
+    const first = await sql<{ navigation_key: string; opened: string }[]>`
+      SELECT navigation_key, last_opened_at::text AS opened
+      FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    const replay = await recordSpaceOpened(owner, "project", projectId, "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:1");
+    expect(replay.applied).toBe(false);
+    const second = await sql<{ navigation_key: string; opened: string }[]>`
+      SELECT navigation_key, last_opened_at::text AS opened
+      FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    expect(second[0]?.navigation_key).toBe(first[0]?.navigation_key);
+    expect(second[0]?.opened).toBe(first[0]?.opened);
+
+    const plan = await sql<{ "QUERY PLAN": string }[]>`
+      EXPLAIN SELECT id FROM projects WHERE owner_pilot_id = ${owner} ORDER BY created_at DESC, id DESC LIMIT 5
+    `;
+    expect(plan.map((row) => row["QUERY PLAN"]).join("\n")).toMatch(/Limit/);
+  });
+
+  it("rejects a move outside the full current collection and reports group totals", async () => {
+    const owner = await seedPilot("PF-guard");
+    const alpha = newId("proj");
+    const bravo = newId("proj");
+    const prep = newId("prep");
+    await db.insert(projects).values([
+      { id: alpha, ownerPilotId: owner, name: "Alpha" },
+      { id: bravo, ownerPilotId: owner, name: "Bravo" },
+    ]);
+    await db.insert(preparations).values({
+      id: prep,
+      ownerPilotId: owner,
+      status: "OPEN",
+      previewName: "Préparation",
+      previewSummary: "",
+    });
+    await expect(
+      movePersonalSpace(owner, {
+        spaceType: "project",
+        spaceId: bravo,
+        expectedVersion: 0,
+        direction: "up",
+        context: { filter: "projects", query: "", scope: "current" },
+      }),
+    ).rejects.toBeInstanceOf(StudioError);
+    await expect(
+      movePersonalSpace(owner, {
+        spaceType: "project",
+        spaceId: bravo,
+        expectedVersion: 0,
+        beforeSpaceId: "missing",
+        beforeSpaceType: "project",
+        context: { filter: "all", query: "", scope: "current" },
+      }),
+    ).rejects.toMatchObject({ httpStatus: 409 });
+    const board = await loadPersonalBoard(owner, { preview: false });
+    expect(board.groups.project).toBe(2);
+    expect(board.groups.preparation).toBe(1);
+    expect(board.filteredTotal).toBe(3);
   });
 });
