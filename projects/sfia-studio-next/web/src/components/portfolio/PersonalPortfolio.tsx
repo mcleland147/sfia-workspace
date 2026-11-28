@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { runOpenPreparation, subscribeOpenPreparationBusy } from "@/lib/open-preparation";
 import type { PersonalBoard, PersonalSpace, PortfolioFilter, PortfolioSort, PortfolioView } from "@/domains/identity/portfolio-organization";
@@ -45,10 +45,12 @@ export function PersonalPortfolio() {
   const [menu, setMenu] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
+  const requestSeq = useRef(0);
 
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
   const load = useCallback(async (cursor?: string | null) => {
+    const requestId = ++requestSeq.current;
     const params = new URLSearchParams();
     if (scope === "archive") params.set("scope", "archive");
     if (filter !== "all") params.set("filter", filter);
@@ -56,7 +58,9 @@ export function PersonalPortfolio() {
     if (expanded) params.set("expanded", "1");
     if (cursor) params.set("cursor", cursor);
     const response = await fetch(`/api/portfolio?${params.toString()}`);
+    if (requestId !== requestSeq.current) return;
     const body = (await response.json()) as BoardResponse;
+    if (requestId !== requestSeq.current) return;
     if (response.status === 401) {
       router.push("/login");
       return;
