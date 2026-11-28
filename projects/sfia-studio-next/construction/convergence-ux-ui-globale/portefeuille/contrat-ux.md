@@ -5,7 +5,7 @@
 **Mandat :** Morris a reçu la composition Figma et validé A1–A5, les volets Portefeuille/L7/commun, les frontières OUT et la continuité méthodologique ; GO explicite du 28/11 pour actualiser les trois contrats et le suivi post-Equipéo sur leurs branches documentaires respectives. Publication limitée aux quatre fichiers ; la trajectoire de mandats ciblés demeure PROPOSED, à valider ensemble. Aucun GO Cursor, code, migration, Figma, PR, merge, LIVE, promotion, release ou adoption.
 **Sources communes :** [SEF v0.2](../../../governance/SEF.md), [Roadmap](../../../governance/roadmap.md), [noms produit](../../../governance/product-naming-conventions.md), [P1–P3/F1–F2](../../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md), [ML4C/ML4D](../../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md), [registre central](../registre-central-revues.md), [contrat parcours intégré](../../convergence-ux-parcours-pilote-nora/contrat-acceptation.md), [vision fondatrice](../../../cadrage/vision-cible/README.md) (README lu ; PNG non réinspectés), [Figma page 14](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP/?node-id=1417-6). Git prévaut sur interprétation graphique et sur mémoire.
 
-**Statut :** v0.2 — composition page 14 validée par Morris après ajustement tableau de bord/reprise ; comportements A1–A5 reçus en conception, écarts des états source recensés ci-dessous. DOCUMENTED, G2 PARTIAL, runtime NOT PROVEN. [Fonctionnel](contrat-fonctionnel.md) · [Technique](contrat-technique.md).
+**Statut :** v0.3 — évolution des proportions desktop validée par Morris le 28/11/2026, page 14 actualisée et relue nativement (§2, §5.2) ; comportements A1–A5 et périmètre inchangés. VALIDATED SPEC pour ce delta de conception, G2 PARTIAL, runtime de la nouvelle cible NOT IMPLEMENTED / NOT PROVEN. Le v0.2 reste l'historique au commit 46215293. [Fonctionnel](contrat-fonctionnel.md) · [Technique](contrat-technique.md).
 Méthode : [Figma ↔ Cursor v1.1](../../../ux-ui/methodologie-contrat-figma-cursor.md), [transposition](../../../ux-ui/contrat-transposition-figma-code.md), [protocole F2](../../../ux-ui/protocole-fidelite-figma-runtime.md). Pas de nouveau template.
 
 ## 1. Direction artistique et composition
@@ -13,23 +13,23 @@ Méthode : [Figma ↔ Cursor v1.1](../../../ux-ui/methodologie-contrat-figma-cur
 Accueil personnel avant bibliothèque. DA Studio sombre indigo, Inter, hiérarchie sobre, séparation par espaces et traits fins. Rail fixe, bandeau, contenu scrollable ; un seul shell runtime et variante personnelle F1. Tableau de bord dominant ; carte Reprendre le travail accentuée ; bibliothèque compacte, cinq éléments au plus ; lien vers liste complète. Les grandes cartes ne sont plus la vue par défaut ; grille optionnelle compacte. Compteurs cliquables, ligne/tuile ouvrable, menu contextualisé ; pas de CTA répété par ligne. Le libellé affiché correspond aux faits, aucun statut ou activité décoratifs.
 Données Figma synthétiques : CampusFlow, Intervencia, Recette documentaire et cinq préparations ; 03/05/02 favoris, dates et résumés d'exemple. Ne pas copier en runtime ni considérer comme données réelles.
 
-## 2. Mesures natives de référence (relecture 28/11/2026)
+## 2. Mesures natives de référence (actualisation 28/11/2026 — v0.3)
 
-FileKey `itgvCulInEnFY6DvgIegvP`, page `1417:6`, nominal `1420:176`, viewport 1680×970. Frame HORIZONTAL. Rail instance `1420:177` 246×970 ; surface `1420:231` 1434×970 VERTICAL ; bandeau 70 px ; contenu `1420:241` 1434×900, VERTICAL, padding T/R/B/L 24/40/24/40, gap 8, overflow VERTICAL. Le corps est relatif à la surface ; les coordonnées ci-dessous sont **locales au contenu**, pas viewport. Pour ce nominal x absolu = 246 + x local, y absolu = 70 + y local. Vérifier via chaîne native au G2.
+FileKey `itgvCulInEnFY6DvgIegvP`, page `1417:6`, nominal `1420:176`, viewport 1680×970. Frame HORIZONTAL. Rail instance `1420:177` 246×970 ; surface `1420:231` 1434×970 VERTICAL ; bandeau 70 px ; contenu `1420:241` 1434×900, VERTICAL, padding T/R/B/L 24/40/24/40, gap inter-régions 12, overflow VERTICAL. Le corps est relatif à la surface ; les coordonnées ci-dessous sont **locales au contenu**, pas viewport. Pour ce nominal x absolu = 246 + x local, y absolu = 70 + y local. Vérifier via chaîne native au G2.
 | Nœud | ID | x / y locaux | w × h | Layout |
 |---|---|---:|---|---|
 | En-tête | 1420:242 | 40 / 24 | 1354×92 | H |
-| Synthèse | 1420:250 | 40 / 124 | 1354×136 | H |
-| Séparateur | 1420:268 | 40 / 268 | 1354×1 | — |
-| Reprise | 1420:269 | 40 / 277 | 1354×158 | H |
-| Mes espaces | 1420:281 | 40 / 443 | 1354×30 | H |
-| Filtres/recherche/tri/vues | 1420:285 | 40 / 481 | 1354×40 | H |
-| Colonnes | 1420:318 | 40 / 529 | 1354×30 | H |
-| Lignes | 1420:325 | 40 / 567 | 1354×255 | V |
-| Pied de liste | 1425:5758 | 40 / 830 | 1354×50 | H |
+| Synthèse | 1420:250 | 40 / 128 | 1354×160 | H |
+| Séparateur | 1420:268 | 40 / 300 | 1354×1 | — |
+| Reprise | 1420:269 | 40 / 313 | 1354×180 | H |
+| Mes espaces | 1420:281 | 40 / 505 | 1354×30 | H |
+| Filtres/recherche/tri/vues | 1420:285 | 40 / 547 | 1354×40 | H |
+| Colonnes | 1420:318 | 40 / 599 | 1354×30 | H |
+| Lignes | 1420:325 | 40 / 641 | 1354×305 | V |
+| Pied de liste | 1425:5758 | 40 / 958 | 1354×50 | H |
 
-Lignes 50 px + séparateur 1 px, 5×51. Pied « 5 sur 8 espaces » + Voir tous les espaces ; entièrement visible au nominal. Révision : synthèse 84→136 px, reprise 74→158 px, compteur 36→46 px, liste 8→5. Synthèse fond panel, radius 12 et border 1, diviseurs 92 ; reprise fond accentBg, stroke accent 1, radius 12, padding horizontal 24, gap 20, repère 64×64, titre CampusFlow 26, CTA composant existant 218×38. Contenus modifiables selon données, pas de géométrie absolue généralisée.
-Le desktop compact 1280×970 garde rail 246, corps 1034, padding horizontal 28, contenu 978 ; même hauteur synthèse/reprise. Mobile 390×844 et 320×568 : bandeau mobile 70, padding 16, synthèse compacte 3 colonnes, reprise verticale, filtres et contrôles reflow, rangées compactes, liste scrollable ; le rail devient tiroir 246 dans état 14.30. Aucun contenu masqué sans accès ; zoom 200 % et clavier à vérifier. Le pied peut être sous pli en mobile ou liste déployée ; le défilement natif est intentionnel.
+Lignes 60 px + séparateur 1 px, 5×61. Pied « 5 sur 8 espaces » + Voir tous les espaces ; sous le pli au nominal, accessible par défilement naturel (aucune compression ni hauteur vide artificielle). Révision validée : synthèse 136→160 px, reprise 158→180 px, ligne 50→60 px, gap inter-régions 8→12 px ; compteur 46 px et aperçu de cinq espaces conservés. Synthèse fond panel, radius 12 et border 1, diviseurs 92 ; reprise fond accentBg, stroke accent 1, radius 12, padding horizontal 24, gap 20, repère 64×64, titre CampusFlow 26, CTA composant existant 218×38. Contenus modifiables selon données, pas de géométrie absolue généralisée.
+Le desktop compact 1280×970 garde rail 246, corps 1034, padding horizontal 28, contenu 978 ; mêmes hauteurs desktop et gap inter-régions (160/180/60/12). Reflow selon largeur, sans compresser artificiellement. Les variantes mobiles restent inchangées. Mobile 390×844 et 320×568 : bandeau mobile 70, padding 16, synthèse compacte 3 colonnes, reprise verticale, filtres et contrôles reflow, rangées compactes, liste scrollable ; le rail devient tiroir 246 dans état 14.30. Aucun contenu masqué sans accès ; zoom 200 % et clavier à vérifier. Le pied peut être sous pli en desktop nominal/compact, en mobile ou liste déployée ; le défilement natif est intentionnel.
 
 ## 3. Inventaire des 34 états source (L0 observé)
 
@@ -80,7 +80,7 @@ Planches non runtime : 14.00 `1420:5392`, 14.A `1423:5443` (index), 14.B `1423:5
 |---|---|---|
 | Rail personnel | 1420:66 | Variante du StudioShell commun ; props/overrides favoris, 246 px |
 | Bandeau personnel | 1420:120 | Destination/compte, 70 px |
-| Ligne espace | 1420:129 | Nom, initiale, résumé, type, activité, favori, réordonner ; réutiliser, 50 px |
+| Ligne espace | 1420:129 | Nom, initiale, résumé, type, activité, favori, réordonner ; réutiliser, 60 px |
 | Ligne compacte | 1420:151 | Nom et métadonnée, reflow, menu ; 66 px |
 | Tuile compacte | 1420:162 | Nom, résumé, métadonnée, favori, actions ; 116 px |
 | Action primaire/secondaire | 12:14 / 12:16 | Instances existantes, libellé en prop |
@@ -99,7 +99,7 @@ Variables liées page 10 : ui/base VariableID:1074:1040, ui/rail :1041, ui/panel
 
 ## 5.1. Delta d'alignement A1–A5 et ML5 (28/11)
 
-La composition, les géométries, les 34 références L0 et les fondations F1/F2 sont conservées. Aucune mutation Figma ni nouvelle extraction native dans cette actualisation documentaire. G2 devra matérialiser et figer les seuls compléments applicables au mandat concerné ; pas de nouveau chantier de DA.
+Lors de l'actualisation v0.2, la composition, les géométries, les 34 références L0 et les fondations F1/F2 étaient conservées, sans mutation Figma. Le delta v0.3 §5.2 remplace uniquement les proportions desktop et leurs positions dérivées ; les fondations restent inchangées. G2 devra matérialiser et figer les seuls compléments applicables au mandat concerné ; pas de nouveau chantier de DA.
 
 | Sujet | Comportement cible | Source / complément |
 |---|---|---|
@@ -111,7 +111,26 @@ La composition, les géométries, les 34 références L0 et les fondations F1/F2
 
 Le shell ML5 et ses destinations existantes restent la base ; ne pas importer un shell parallèle de Figma. Les consultations récentes internes au projet (MP08) ne sont pas la liste des espaces du portefeuille ; ne pas modifier leur identité au nom d'A1. Volet L7 : sources existantes des surfaces concernées, notamment Travail avec Nora et FinOps, à extraire selon méthode ; pas de changement cognitif Capacité 2 ou dictée.
 
+## 5.2. Delta de conception desktop validé et finalisation ciblée (28/11/2026)
+
+**GO Morris :** après la revue visuelle DEV du candidat `d79fd252684b0be76b61ab607cc88d00b7fb7232`, accord explicite sur 160 px (synthèse), 180 px (reprise), 60 px (ligne desktop), 12 px (gap inter-régions), puis GO CONCEPTION ET DOCUMENTATION pour actualiser Figma et ce contrat sur branche dédiée et préparer le correctif. Ce delta remplace les anciennes dimensions de §2/4, pas les contrats d'autorité, A1–A5, F1/F2 ni la DA. Aucun GO Delivery, push projet, PR, merge, promotion, LIVE ou release implicite. La base produit courante est distincte de la base historique de préparation en tête du document.
+
+**Figma modifié et relu nativement :** file `itgvCulInEnFY6DvgIegvP`, page `1417:6` ; 34 frames conservées, 31 desktop (dont compact 14.22 et fonds des sept états fonctionnels OUT), 31 synthèses, 22 reprises, 108 instances de ligne et maître `1420:129` à 60 px ; les trois frames mobiles 14.20/21/30 et maître compact `1420:151` 66 px restent inchangés. Aucune nouvelle fonction dans A2/A5. Relecture native : zéro écart sur les hauteurs/gap des régions modifiées ; capture source nominale 1680×970 inspectée, pas de capture runtime appariée ni F2 PASS. Note source 14.C `1423:5610` actualisée ; pages 00–13 non modifiées. Les coordonnées révisées de §2 sont des valeurs natives relues, pas une estimation. Le pied nominal a y local 958, h50 ; contenu vertical scrollable 900 px, le cinquième élément et le pied sont accessibles par défilement.
+
+**Composants de correction (références inchangées sauf géométrie dérivée) :**
+
+| Région | Contrat applicable |
+|---|---|
+| Barre `1420:285` | 1354×40 au nominal, deux groupes aux extrémités, espace flexible (399 px observé avant révision à largeur nominale ; valeur dérivée, non un spacer rigide), filtres alignés avec bibliothèque, recherche/tri/vues à droite, sans double marge. |
+| Synthèse/reprise | 160/180 px, gap 12 entre régions ; séparateur entre synthèse et reprise ; contenu centré, compteur 46, repère 64×64 et CTA existant 218×38. |
+| Grille 14.02 | Nouveau conteneur natif `1447:4575` (1354×240, y local 599), deux rangées conservées `1420:653`, `1420:696` ; trois tuiles au nominal (443×116, gap horizontal 12, vertical 8), cinquième et quatrième en deuxième rangée. Maître `1420:162` inchangé (438×116 ; largeur instance 443). Reflow compact/mobile selon largeur disponible, pas auto-fill de cinq petites cartes ; vraie présentation tuile, données et actions D1 communes sans métadonnées répétées. |
+| Menu 14.08/09 | Overlays `1420:2138` et `1420:2506` 298×359, positions Figma y 464/584 ; choix tri `1422:5448` y646, taille 249×229. Header identité/type, séparateur, sept actions 270×35, gap 5, icônes natives 20×20, padding intérieur 14 + stroke ; placement runtime relatif au déclencheur et limité au viewport, pas de coordonnées absolues globales. Renommer/Supprimer indisponibles, Monter/Descendre selon ordre. |
+| Liste/groupée | Maître ligne 60 px + séparateur 1 ; identité et métadonnée sincère (pas d'activité dupliquée sous le nom et dans colonne), icônes favoris/actions, en-têtes groupes et chevron selon 14.03 ; ligne/tuile ouvrable hors actions. |
+| Rail / dialogues | Conserver améliorations reçues, appliquer focus initial/piégé/retour, Escape, une navigation personnelle mobile cohérente, états sincères et PF34 du contrat fonctionnel. Pas de nouvelle DA. |
+
+**Sortie :** correction ciblée selon le suivi v0.26 §31, avec intégration et revue visuelle du candidat DEV avant réception. Les 27 états IN restent le contrat de couverture ; ne pas relancer une campagne générale de construction ou de captures par état. G2 compléter les différences de source contractuelles non qualifiées et figer références modifiées ; G5 preuves discriminantes et qualification proportionnée (§28.3 du suivi), réserves visuelles non bloquantes seulement après décision Morris. F2 inchangé ; aucune dérogation implicite. R-PF34-UI et accessibilité ne sont pas de simples preuves différables. Les 7 états A2/A5 restent OUT de la livraison courante, même si leurs fonds ont suivi les proportions communes.
+
 ## 6. Protocole de réception UX
 
 G2 avant code : inventaire exhaustif par état, metadata + design_context si disponible + propriétés natives de tous les descendants contractuels, parents, bounds locaux/résolus, layout/sizing/padding/gap, variantes, tokens, overrides, typo, assets. PNG natif de chaque frame et SHA-256, date/version, manifeste avec empreinte sidecar, fixture DEV isolée, mapping node→composant→DOM/test-id→assertion. Ne pas importer le code illustratif MCP comme code produit. Sources critiques non résolues = STOP. Référence mutable : les IDs ici ne figent pas les octets. L0 et mesures ciblées observés ; L2 exhaustif et snapshots/hash non acquis.
-G5 : exercer les 34 états de référence et compléments contractés au fil des mandats qui portent leur capacité ; matrice de couverture cumulative, puis parcours intégrés. Si A5 reporté sur GO Morris, ses états restent DEFERRED/NOT RUN avec exit explicite, jamais 34/34 PASS par déduction. Même état/données/viewport/locale FR/Inter/DPR/zoom/navigateur ; F2 x/y/w/h cible 0, max 2 CSS px uniquement rectangles stables contractés ; structure, styles, assets, contenus et actions, PNG et diff régional, aucun seuil pixel global. 1680/1280/390/320, zoom 200 %, clavier, pas de collision. Prouver séparément effets, droits et persistance ; fixture ≠ LIVE. Chaque écart : cause, mesure, propriétaire, exit, arbitrage. UAT distincte ; tous tests NOT RUN pour la cible, G2/G5 non PASS.
+G5 : exercer les 34 états de référence et compléments contractés au fil des mandats qui portent leur capacité ; matrice de couverture cumulative, puis parcours intégrés. Si A5 reporté sur GO Morris, ses états restent DEFERRED/NOT RUN avec exit explicite, jamais 34/34 PASS par déduction. Même état/données/viewport/locale FR/Inter/DPR/zoom/navigateur ; F2 x/y/w/h cible 0, max 2 CSS px uniquement rectangles stables contractés ; structure, styles, assets, contenus et actions, PNG et diff régional, aucun seuil pixel global. 1680/1280/390/320, zoom 200 %, clavier, pas de collision. Prouver séparément effets, droits et persistance ; fixture ≠ LIVE. Chaque écart : cause, mesure, propriétaire, exit, arbitrage. UAT distincte ; tests de la nouvelle cible v0.3 NOT RUN, preuves historiques réutilisables uniquement si non invalidées ; G2/G5 globaux non PASS.
