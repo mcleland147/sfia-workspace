@@ -21,6 +21,7 @@ import {
   getPreparationContext,
   openOrCreatePreparation,
 } from "@/domains/preparation/service";
+import { applyFirstPreparationTitle } from "@/domains/preparation/space-naming";
 import {
   maybeCapitalizeFromExchange,
   reconstituteConfirmedD4Effects,
@@ -5425,6 +5426,19 @@ export async function postUserMessageAndNora(
       preparationProjectionAck = { status: "UNAVAILABLE" };
     }
     resultPayload.preparationProjection = preparationProjectionAck;
+  }
+
+  if (turnStatus === "COMPLETE" && applied.applied && !ctx.project?.id && !ownershipLostBeforeD4) {
+    try {
+      await applyFirstPreparationTitle({
+        pilotId,
+        preparationId,
+        turnCommandId: reserved.commandId,
+        suggested: qualification.suggestedPreparationTitle ?? "",
+      });
+    } catch {
+      // The confirmed turn stays confirmed. A title is never worth another provider call.
+    }
   }
 
   emitObs({

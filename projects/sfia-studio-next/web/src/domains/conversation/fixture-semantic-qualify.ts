@@ -45,6 +45,7 @@ type QualExtras = Partial<
     | "desiredOutcome"
     | "initialScope"
     | "proposedProjectName"
+    | "suggestedPreparationTitle"
     | "clarifications"
     | "continueChoices"
     | "resourceReferences"
@@ -68,6 +69,7 @@ function dialogue(
     desiredOutcome: extras?.desiredOutcome ?? "",
     initialScope: extras?.initialScope ?? "",
     proposedProjectName: extras?.proposedProjectName ?? "",
+    suggestedPreparationTitle: extras?.suggestedPreparationTitle,
     intents: [
       {
         id: "i1",
@@ -108,6 +110,7 @@ function effect(
     desiredOutcome: extras?.desiredOutcome ?? "",
     initialScope: extras?.initialScope ?? "",
     proposedProjectName: extras?.proposedProjectName ?? "",
+    suggestedPreparationTitle: extras?.suggestedPreparationTitle,
     intents: intents.map((it, idx) => ({
       ...it,
       id: it.id ?? `i${idx + 1}`,
@@ -2360,6 +2363,25 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification 
   const mergePr = text.match(MERGE_PR_FIXTURE_RE);
   if (mergePr?.[1]) {
     return mergePublicationQualification(Number(mergePr[1]));
+  }
+  if (text === "Je prépare la refonte des accès utilisateurs") {
+    return dialogue(
+      "Préparer la refonte des accès",
+      "Le sujet est suffisamment établi pour proposer un titre de préparation.",
+      ["FIXTURE_PREPARATION_TITLE"],
+      {
+        projectIntention: "Refondre la gestion des accès",
+        suggestedPreparationTitle: "Refonte des accès utilisateurs",
+      },
+    );
+  }
+  if (text === "Suggestion tardive de titre") {
+    return dialogue(
+      "Suggestion tardive",
+      "Cette suggestion arrive après un titre déjà retenu.",
+      ["FIXTURE_PREPARATION_TITLE_LATE"],
+      { suggestedPreparationTitle: "Titre tardif à ignorer" },
+    );
   }
   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
   return dialogue(

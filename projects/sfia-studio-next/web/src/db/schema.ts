@@ -95,6 +95,11 @@ export const preparations = pgTable(
     creationRevision: integer("creation_revision").notNull().default(1),
     previewName: text("preview_name").notNull().default(""),
     previewSummary: text("preview_summary").notNull().default(""),
+    title: text("title"),
+    titleSource: text("title_source").notNull().default("NONE"),
+    titleRevision: integer("title_revision").notNull().default(0),
+    titleSourceTurnId: text("title_source_turn_id"),
+    titleIntentionKey: text("title_intention_key"),
     /** D2 PreparationProjection v1 JSON snapshot — additive; null = legacy/partial. */
     projectionJson: jsonb("projection_json").$type<Record<string, unknown> | null>(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -111,6 +116,8 @@ export const projects = pgTable(
       .notNull()
       .references(() => pilots.id),
     name: text("name").notNull(),
+    nameRevision: integer("name_revision").notNull().default(0),
+    nameIntentionKey: text("name_intention_key"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("projects_owner_idx").on(t.ownerPilotId)],

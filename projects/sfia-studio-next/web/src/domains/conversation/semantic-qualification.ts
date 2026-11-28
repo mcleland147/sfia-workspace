@@ -272,6 +272,12 @@ export const NoraTurnQualificationSchema = z.object({
    * Permet une correction de nom sans second acte d'effet concurrent (S05).
    */
   proposedProjectName: z.string().max(120).default(""),
+  /**
+   * Autonomous preparation title. Empty or absent means no suggestion.
+   * It is not the future official project name. An unusable value is ignored
+   * by the owner and must not invalidate the rest of the qualification.
+   */
+  suggestedPreparationTitle: z.string().max(2000).optional(),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   /**
    * Questions encore ouvertes APRÈS ce tour.

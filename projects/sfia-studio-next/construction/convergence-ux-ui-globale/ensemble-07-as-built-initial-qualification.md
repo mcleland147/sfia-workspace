@@ -1,5 +1,7 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
+Le popup de création SAS06 reste celui déjà livré, à 702×823, et ses repères suivent la création, le contexte et la qualification réellement établis. Un titre de préparation, même proposé par Nora, ne crée pas le projet et ne remplace pas le nom inspecté. La reprise d'un projet existant ne rejoue pas ce popup.
+
 **Statut:** Morris UAT accepté (21/11) · réserve Acquis/À clarifier **techniquement levée** · RECETTE · NO RELEASE · prêt revue intégration Git
 **Base Git figée RECETTE antérieure:** `09a935bc71a3ab77eb063e9425b6f07ca1162417` · tree `5809a0bb707822eadde898b477e341125b746971`
 **Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery`

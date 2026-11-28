@@ -1,5 +1,12 @@
 # As-built — Portefeuille personnel et navigation
 
+## Titre de préparation et nom de projet
+
+Le titre d'une préparation est une donnée propre. Sans titre, le portefeuille affiche « Nouvelle préparation ». Le premier titre accepté vient de la qualification structurée déjà produite par Nora, après un tour terminé, et une seule fois. Le renommage manuel du Pilote devient la valeur durable. Une suggestion ultérieure ne la remplace pas.
+Le nom officiel reste `projects.name`. Le créer et le renommer réutilisent la même unicité et le même verrou. Le titre de la préparation ne devient pas ce nom. Une préparation rattachée n'est plus renommable comme espace autonome et disparaît de la projection autonome.
+Le dialogue de renommage reprend le cadre déjà utilisé par le portefeuille. Préparation : « Renommer la préparation », source `1420:2539`. Projet : « Renommer le projet ». Supprimer reste indisponible. La géométrie du menu, de la synthèse, de la reprise, des lignes et des tuiles n'est pas reprise dans ce chantier.
+La migration `029_preparation_title_and_project_name` ajoute les colonnes. Elle ne réécrit aucun titre ni aucun nom déjà présent.
+
 ## Finitions après revue visuelle
 
 Source relue, sans modification : menu projet `1420:2138`, barre `1420:285`. Le filet du menu est un enfant de 270×1 px dans un empilement dont l'écart est de 5 px. Le nom fait 15/21 et le type 12/17.

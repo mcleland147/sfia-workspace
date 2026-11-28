@@ -33,16 +33,17 @@ describe("A1 preparations cursor", () => {
 
 describe("A1 preparation labels", () => {
   it("stays neutral when preview empty", () => {
-    expect(preparationDisplayLabel({ id: "abcdefghij" })).toBe("Préparation abcdefgh");
+    expect(preparationDisplayLabel({ id: "abcdefghij" })).toBe("Nouvelle préparation");
   });
 
-  it("prefers previewName", () => {
+  it("uses the canonical title and ignores the preview", () => {
     expect(
       preparationDisplayLabel({
         id: "x",
+        title: "Refonte des accès",
         previewName: "  Sas alpha  ",
         previewSummary: "ignored",
       }),
-    ).toBe("Sas alpha");
+    ).toBe("Refonte des accès");
   });
 });

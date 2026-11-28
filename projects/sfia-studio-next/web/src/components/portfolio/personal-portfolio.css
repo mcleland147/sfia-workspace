@@ -342,6 +342,9 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
 .personal-portfolio-modal h2 { margin: 0 0 8px; font-size: 18px; }
 .personal-portfolio-modal p { margin: 0 0 16px; color: var(--pf-muted); }
 .personal-portfolio-modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.personal-portfolio-rename-field { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; }
+.personal-portfolio-rename-field span { font-size: 11px; letter-spacing: 0.04em; color: var(--pf-muted); }
+.personal-portfolio-rename-field input { height: 38px; border-radius: 9px; border: 1px solid #656fe1; background: #0a0e18; color: #f2f4fc; padding: 0 12px; }
 
 .personal-portfolio-skeleton {
   height: 136px;

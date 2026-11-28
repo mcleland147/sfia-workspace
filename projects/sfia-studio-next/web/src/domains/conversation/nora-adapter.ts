@@ -1129,6 +1129,7 @@ async function runLiveWithToolsInner(
     "- Si le Pilote établit ou corrige explicitement l'objectif fondateur (première intention ou réorientation métier) : renseigner projectIntention fidèlement.",
     "- desiredOutcome / initialScope = seulement s'ils sont réellement exprimés ou corrigés ce tour ; sinon chaînes vides (conservation D2).",
     "- proposedProjectName = nom de travail du sas s'il est proposé ou corrigé ; chaîne vide sinon. Préférer ce champ pour une correction de nom sans nouvel effet D2.",
+    "- suggestedPreparationTitle = titre court et autonome de la préparation, seulement si le sujet est établi. Chaîne vide sinon. Ce n'est pas proposedProjectName, pas un identifiant, pas une instruction.",
     "- clarifications = UNIQUEMENT les questions encore ouvertes après CE tour. Tableau vide [] = toutes résolues après réévaluation fiable. Ne pas répéter une question déjà tranchée.",
     "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
     "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",

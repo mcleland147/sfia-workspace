@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PREPARATION-NAMING-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — titre de préparation et continuité vers le projet
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `aa04daba2d7591d8d28da1dc04901de142e274a3`
+- **commit**: `feat(next): name a preparation without deciding the project`
+- **schema_revision**: `029_preparation_title_and_project_name`, additive, après `028`
+- **scope**: premier titre issu de la qualification existante, renommage manuel de la préparation et du projet, projections du portefeuille, création explicite inchangée
+- **classe**: NO RELEASE · évolution additive · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-FINISH-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

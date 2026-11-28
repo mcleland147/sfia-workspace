@@ -4,11 +4,9 @@ export type PreparationLabelInput = {
   previewSummary?: string;
 };
 
-/** Neutral label when preview fields are empty — never fabricate "recently modified". */
-export function preparationDisplayLabel(p: PreparationLabelInput): string {
-  const name = p.previewName?.trim();
-  if (name) return name;
-  const summary = p.previewSummary?.trim();
-  if (summary) return summary.slice(0, 80);
-  return `Préparation ${p.id.slice(0, 8)}`;
+/** Canonical title, otherwise the neutral label. Preview text is not a title. */
+export function preparationDisplayLabel(p: PreparationLabelInput & { title?: string | null }): string {
+  const title = p.title?.trim();
+  if (title) return title;
+  return "Nouvelle préparation";
 }

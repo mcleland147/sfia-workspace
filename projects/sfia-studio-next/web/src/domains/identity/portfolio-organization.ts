@@ -25,6 +25,7 @@ export type PersonalSpace = {
   archived: boolean;
   customPosition: number | null;
   rowVersion: number;
+  nameRevision: number;
   activityLabel: string;
 };
 
@@ -57,6 +58,7 @@ type Row = {
   archived_at: string | null;
   custom_position: number | null;
   row_version: number;
+  name_revision: number;
 };
 
 type ReadCursor = {
@@ -135,6 +137,7 @@ function asSpace(row: Row): PersonalSpace {
     archived: Boolean(row.archived_at),
     customPosition: row.custom_position,
     rowVersion: row.row_version ?? 0,
+    nameRevision: Number(row.name_revision) || 0,
     activityLabel: opened ? "Dernière ouverture" : "Créé le",
   };
 }
@@ -154,7 +157,8 @@ function collectionSql(pilotId: string) {
       COALESCE(o.favorite, false) AS favorite,
       o.archived_at,
       o.custom_position,
-      COALESCE(o.row_version, 0) AS row_version
+      COALESCE(o.row_version, 0) AS row_version,
+      COALESCE(p.name_revision, 0) AS name_revision
     FROM projects p
     LEFT JOIN pilot_space_organization o
       ON o.owner_pilot_id = p.owner_pilot_id
@@ -165,7 +169,7 @@ function collectionSql(pilotId: string) {
     SELECT
       'preparation'::text,
       pr.id,
-      COALESCE(NULLIF(pr.preview_name, ''), 'Nouvelle préparation'),
+      COALESCE(NULLIF(pr.title, ''), 'Nouvelle préparation'),
       pr.created_at,
       to_char(pr.created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'),
       o.last_opened_at,
@@ -175,7 +179,8 @@ function collectionSql(pilotId: string) {
       COALESCE(o.favorite, false),
       o.archived_at,
       o.custom_position,
-      COALESCE(o.row_version, 0)
+      COALESCE(o.row_version, 0),
+      COALESCE(pr.title_revision, 0)
     FROM preparations pr
     LEFT JOIN preparation_project_links l ON l.preparation_id = pr.id
     LEFT JOIN pilot_space_organization o
@@ -304,7 +309,7 @@ export async function loadPersonalBoard(
       created_text AS created_at,
       opened_text AS last_opened_at,
       activity_text AS activity_at,
-      favorite, archived_at, custom_position, row_version
+      favorite, archived_at, custom_position, row_version, name_revision
     FROM (${collectionSql(pilotId)}) spaces
     WHERE ${scopeSql} ${filterSql} ${searchSql}
     ${cursor ? keysetSql(cursor) : sql``}
@@ -319,7 +324,7 @@ export async function loadPersonalBoard(
             created_text AS created_at,
             opened_text AS last_opened_at,
             activity_text AS activity_at,
-            favorite, archived_at, custom_position, row_version
+            favorite, archived_at, custom_position, row_version, name_revision
           FROM (${collectionSql(pilotId)}) spaces
           WHERE archived_at IS NULL AND last_opened_at IS NOT NULL
           ORDER BY last_opened_at DESC, id DESC
@@ -688,7 +693,7 @@ export async function movePersonalSpace(
     }
     const rows = await tx<Row[]>`
       SELECT space_type, id, label, created_text AS created_at, opened_text AS last_opened_at,
-             activity_text AS activity_at, favorite, archived_at, custom_position, row_version
+             activity_text AS activity_at, favorite, archived_at, custom_position, row_version, name_revision
       FROM (${collectionSql(pilotId)}) spaces
       WHERE archived_at IS NULL
       ORDER BY custom_position ASC NULLS LAST, created_at DESC, id DESC
@@ -753,14 +758,21 @@ export async function movePersonalSpace(
 
 /** Owner read of one space, independent of the current page, filter, or sort. */
 export async function readPersonalSpaceRecord(pilotId: string, spaceType: SpaceType, spaceId: string) {
+  let projectLabel = "";
+  let projectRevision = 0;
   if (spaceType === "project") {
-    const owned = await sql<{ id: string }[]>`
-      SELECT id FROM projects WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
+    const owned = await sql<{ id: string; display_label: string; name_revision: number }[]>`
+      SELECT id, name AS display_label, name_revision FROM projects WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
     `;
     if (!owned[0]) throw new StudioError("NOT_FOUND", "Espace introuvable.", { httpStatus: 404 });
+    projectLabel = owned[0].display_label;
+    projectRevision = Number(owned[0].name_revision) || 0;
   } else {
-    const owned = await sql<{ id: string; eligible: boolean }[]>`
-      SELECT pr.id, (pr.status = 'OPEN' AND l.preparation_id IS NULL) AS eligible
+    const owned = await sql<{ id: string; eligible: boolean; display_label: string; name_revision: number }[]>`
+      SELECT pr.id,
+             (pr.status = 'OPEN' AND l.preparation_id IS NULL) AS eligible,
+             COALESCE(NULLIF(pr.title, ''), 'Nouvelle préparation') AS display_label,
+             pr.title_revision AS name_revision
       FROM preparations pr
       LEFT JOIN preparation_project_links l ON l.preparation_id = pr.id
       WHERE pr.id = ${spaceId} AND pr.owner_pilot_id = ${pilotId}
@@ -779,6 +791,8 @@ export async function readPersonalSpaceRecord(pilotId: string, spaceType: SpaceT
       archived: Boolean(org[0]?.archived_at),
       rowVersion: org[0]?.row_version ?? 0,
       customPosition: org[0]?.custom_position ?? null,
+      displayLabel: owned[0].display_label,
+      nameRevision: Number(owned[0].name_revision) || 0,
     };
   }
   const org = await sql<{ favorite: boolean; archived_at: string | null; row_version: number; custom_position: number | null }[]>`
@@ -794,13 +808,15 @@ export async function readPersonalSpaceRecord(pilotId: string, spaceType: SpaceT
     archived: Boolean(org[0]?.archived_at),
     rowVersion: org[0]?.row_version ?? 0,
     customPosition: org[0]?.custom_position ?? null,
+    displayLabel: projectLabel,
+    nameRevision: projectRevision,
   };
 }
 
 export async function listFavoriteSpaces(pilotId: string): Promise<PersonalSpace[]> {
   const rows = await sql<Row[]>`
     SELECT space_type, id, label, created_text AS created_at, opened_text AS last_opened_at,
-           activity_text AS activity_at, favorite, archived_at, custom_position, row_version
+           activity_text AS activity_at, favorite, archived_at, custom_position, row_version, name_revision
     FROM (${collectionSql(pilotId)}) spaces
     WHERE favorite AND archived_at IS NULL
     ORDER BY label ASC, id ASC

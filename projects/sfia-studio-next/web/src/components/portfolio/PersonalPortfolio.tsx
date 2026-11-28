@@ -17,7 +17,8 @@ export type PortfolioMutationOutcome = "confirmed" | "refused" | "conflict" | "u
 export type PortfolioReread = "reviewed" | "failed" | "not-attempted";
 
 export type PortfolioIntention = {
-  kind: "favorite" | "archive" | "preference" | "order";
+  kind: "favorite" | "archive" | "preference" | "order" | "rename";
+  intentionKey?: string;
   spaceType?: PersonalSpace["spaceType"];
   spaceId?: string;
   beforeSpaceType?: PersonalSpace["spaceType"];
@@ -38,6 +39,8 @@ export type OwnerSpaceRecord = {
   archived: boolean;
   rowVersion: number;
   customPosition: number | null;
+  displayLabel?: string;
+  nameRevision?: number;
 };
 
 export type OwnerEffect = "confirmed" | "current" | "absent" | "unchanged" | "unproven";
@@ -62,6 +65,11 @@ export function classifyPortfolioResponse(
     if (kind === "preference") return typeof body.version === "number" ? "confirmed" : "unknown";
     if (kind === "order") {
       return typeof body.version === "number" && typeof body.moved === "boolean" ? "confirmed" : "unknown";
+    }
+    if (kind === "rename") {
+      return typeof body.label === "string" && typeof body.revision === "number" && typeof body.intentionKey === "string" && typeof body.changed === "boolean"
+        ? "confirmed"
+        : "unknown";
     }
   }
   return "unknown";
@@ -100,6 +108,8 @@ export function ownerSpaceRecord(
     archived: record.archived,
     rowVersion: record.rowVersion,
     customPosition: record.customPosition,
+    ...(typeof record.displayLabel === "string" ? { displayLabel: record.displayLabel } : {}),
+    ...(typeof record.nameRevision === "number" ? { nameRevision: record.nameRevision } : {}),
   };
 }
 
@@ -120,6 +130,12 @@ export function correlatedAcknowledgement(
   if (intention.kind === "preference") return body.version === intention.knownVersion + 1;
   if (intention.kind === "order") {
     return body.version === intention.knownVersion + 1 && typeof body.moved === "boolean";
+  }
+  if (intention.kind === "rename") {
+    return body.intentionKey === intention.intentionKey
+      && typeof body.revision === "number"
+      && typeof body.label === "string"
+      && (body.revision === intention.knownVersion || body.revision === intention.knownVersion + 1);
   }
   return false;
 }
@@ -147,7 +163,7 @@ export function reconcileOwnerEffect(input: {
   records: Array<OwnerSpaceRecord | "absent">;
   board: {
     preferences: { view: string; sort: string; version: number };
-    items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition">>;
+    items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition"> & { label?: string }>;
   } | null;
 }): OwnerEffect {
   const { intention, outcome, acknowledgement, records, board } = input;
@@ -170,6 +186,15 @@ export function reconcileOwnerEffect(input: {
   }
   if (intention.kind === "archive") {
     return primary.archived === intention.desired && primary.rowVersion === acknowledgement.rowVersion ? "confirmed" : "current";
+  }
+  if (intention.kind === "rename") {
+    if (typeof primary.displayLabel !== "string" || typeof primary.nameRevision !== "number") return "unproven";
+    const named = board.items.find((entry) => entry.spaceType === primary.spaceType && entry.id === primary.id) as { label?: string } | undefined;
+    if (named && typeof named.label === "string" && named.label !== primary.displayLabel) return "unproven";
+    if (primary.displayLabel === acknowledgement.label && primary.nameRevision === acknowledgement.revision) {
+      return acknowledgement.changed === false ? "unchanged" : "confirmed";
+    }
+    return "current";
   }
   if (intention.kind === "order") {
     if (acknowledgement.moved !== true) return "unchanged";
@@ -286,12 +311,14 @@ export function PersonalPortfolio() {
   const acknowledgementRef = useRef<Record<string, unknown> | null>(null);
   const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
+  const [renameTarget, setRenameTarget] = useState<PersonalSpace | null>(null);
+  const [renameValue, setRenameValue] = useState("");
   const requestSeq = useRef(0);
 
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
   useEffect(() => {
-    const open = Boolean(confirm || confirmRestore);
+    const open = Boolean(confirm || confirmRestore || renameTarget);
     if (!open) return;
     const root = dialogRef.current;
     const previous = menuTrigger.current ?? (document.activeElement as HTMLElement | null);
@@ -305,6 +332,7 @@ export function PersonalPortfolio() {
         if (!blocked.current) {
           setConfirm(null);
           setConfirmRestore(null);
+          setRenameTarget(null);
         }
         return;
       }
@@ -326,7 +354,7 @@ export function PersonalPortfolio() {
       document.removeEventListener("keydown", onKey);
       previous?.focus();
     };
-  }, [confirm, confirmRestore]);
+  }, [confirm, confirmRestore, renameTarget]);
 
   useEffect(() => {
     if (!menu) return;
@@ -436,11 +464,11 @@ export function PersonalPortfolio() {
       return;
     }
     if (effect === "unchanged") {
-      setNotice("L'espace n'a pas changé de place.");
+      setNotice(settledKind === "rename" ? "Le nom est déjà celui-ci." : "L'espace n'a pas changé de place.");
       return;
     }
     if (outcome === "confirmed" && effect === "confirmed") {
-      setNotice(settledKind === "order" ? "Ordre enregistré." : "");
+      setNotice(settledKind === "order" ? "Ordre enregistré." : settledKind === "rename" ? "Nom enregistré." : "");
       return;
     }
     if (outcome === "confirmed") {
@@ -539,6 +567,7 @@ export function PersonalPortfolio() {
       setPending("");
       setConfirm(null);
       setConfirmRestore(null);
+      setRenameTarget(null);
     }
   }
 
@@ -718,7 +747,7 @@ export function PersonalPortfolio() {
             <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
             <div className="personal-portfolio-menu-rule" role="separator" />
             <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
-            <button type="button" role="menuitem" disabled title="Le renommage arrive avec le parcours de préparation."><Mark name="edit" />Renommer</button>
+            <button type="button" role="menuitem" disabled={locked} onClick={() => { setRenameTarget(space); setRenameValue(space.label); setMenu(null); }}><Mark name="edit" />Renommer</button>
             <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
             <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) - 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Monter</button>
             <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) + 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Descendre</button>
@@ -906,6 +935,32 @@ export function PersonalPortfolio() {
             <div className="personal-portfolio-modal-actions">
               <button type="button" onClick={() => setConfirmRestore(null)}>Annuler</button>
               <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirmRestore.spaceType}/${confirmRestore.id}/archive`, "PUT", { archived: false, confirm: true, expectedVersion: confirmRestore.rowVersion }, { kind: "archive", spaceType: confirmRestore.spaceType, spaceId: confirmRestore.id, desired: false, knownVersion: confirmRestore.rowVersion })}>Restaurer</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {renameTarget ? (
+        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setRenameTarget(null); }}>
+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label={renameTarget.spaceType === "preparation" ? "Renommer la préparation" : "Renommer le projet"} data-testid="portfolio-rename" onClick={(event) => event.stopPropagation()}>
+            <h2>{renameTarget.spaceType === "preparation" ? "Renommer la préparation" : "Renommer le projet"}</h2>
+            <p>{renameTarget.spaceType === "preparation" ? "Le titre sert à retrouver votre échange. Il ne modifie pas le nom du futur projet." : "Le nom officiel change. L’identité du projet, son fil et ses ressources restent les mêmes."}</p>
+            <label className="personal-portfolio-rename-field">
+              <span>{renameTarget.spaceType === "preparation" ? "TITRE DE LA PRÉPARATION" : "NOM DU PROJET"}</span>
+              <input data-testid="portfolio-rename-input" value={renameValue} onChange={(event) => setRenameValue(event.target.value)} />
+            </label>
+            {renameTarget.spaceType === "preparation" ? <p>Un titre manuel ne sera plus écrasé par Nora.</p> : null}
+            <div className="personal-portfolio-modal-actions">
+              <button type="button" onClick={() => setRenameTarget(null)}>Annuler</button>
+              <button type="button" className="personal-portfolio-primary" disabled={locked || !renameValue.trim()} onClick={() => {
+                const intentionKey = crypto.randomUUID();
+                const path = renameTarget.spaceType === "preparation"
+                  ? `/api/preparations/${renameTarget.id}/title`
+                  : `/api/projects/${renameTarget.id}/name`;
+                const payload = renameTarget.spaceType === "preparation"
+                  ? { title: renameValue, expectedRevision: renameTarget.nameRevision, intentionKey }
+                  : { name: renameValue, expectedRevision: renameTarget.nameRevision, intentionKey };
+                void mutate(path, "PUT", payload, { kind: "rename", spaceType: renameTarget.spaceType, spaceId: renameTarget.id, knownVersion: renameTarget.nameRevision, intentionKey });
+              }}>Enregistrer</button>
             </div>
           </div>
         </div>
