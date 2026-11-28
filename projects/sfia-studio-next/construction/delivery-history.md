@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-FINAL-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — finalisation intégrale du complément B
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `26698494ceed32af53d71b3e2e2248bab903de73`
+- **commit**: `fix(next): finish the personal portfolio composition and reconciliation`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: composition nominale page 14, menu à sept actions, lecture ciblée d'un espace, conflit 409
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

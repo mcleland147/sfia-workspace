@@ -1,6 +1,21 @@
 # As-built — Portefeuille personnel et navigation
 
-Date : 28 novembre 2026. Mandat 1, complément B. Classe NO RELEASE.
+Date : 28 novembre 2026. Finalisation du complément B. Classe NO RELEASE.
+
+## Finalisation — composition nominale
+
+Source relue : fichier `itgvCulInEnFY6DvgIegvP`, page 14.
+Nœuds de cette finalisation : en-tête `1420:242`, barre `1420:285`, colonnes `1420:318`, pied `1425:5758`.
+La reprise et la synthèse du candidat précédent sont conservées.
+Le titre Mes espaces précède la barre. Les filtres inactifs n'ont plus de cadre. La recherche, le tri et les icônes de vue occupent la droite.
+Le bouton Nouveau projet reprend l'action primaire `#292d58` / `#656fe1`.
+Chaque ligne rend un monogramme, le nom, l'activité réelle et un menu. Le menu porte l'ouverture, le favori, monter, descendre, archiver, et laisse Renommer et Supprimer indisponibles.
+Les archives restent dans le rail. La recherche rapide est un champ sombre sous la marque.
+Un conflit 409 relu débloque une nouvelle intention sans exiger la valeur refusée. L'ordre et le favori se relisent par `GET /api/portfolio/spaces/{type}/{id}`, hors page. Une hausse de version seule ne prouve pas le déplacement.
+
+Aucune mesure F2 appariée n'est produite. Le verdict visuel reste REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
+
+## Complément B — composition précédente
 
 ## Complément B — composition
 

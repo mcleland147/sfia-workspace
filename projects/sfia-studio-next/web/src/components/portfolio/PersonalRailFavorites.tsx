@@ -10,9 +10,28 @@ export function notifyPortfolioChanged() {
   window.dispatchEvent(new Event(PORTFOLIO_CHANGED));
 }
 
+export function PersonalRailSearch() {
+  const [query, setQuery] = useState("");
+  return (
+    <form action="/portfolio" className="portfolio-rail-search">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M15 9.17a5.83 5.83 0 1 1-11.66 0 5.83 5.83 0 0 1 11.66 0Z" stroke="#A5B1C5" strokeWidth="1.4" />
+        <path d="M16.67 16.67 13.33 13.33" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+      <input
+        name="q"
+        aria-label="Recherche rapide des espaces"
+        placeholder="Rechercher un espace"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        data-testid="portfolio-rail-search"
+      />
+    </form>
+  );
+}
+
 export function PersonalRailFavorites() {
   const [items, setItems] = useState<PersonalSpace[] | null>(null);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     let requestId = 0;
@@ -40,17 +59,6 @@ export function PersonalRailFavorites() {
 
   return (
     <div data-testid="portfolio-rail-favorites">
-      <form action="/portfolio" className="px-2 pb-2">
-        <input
-          name="q"
-          aria-label="Recherche rapide des espaces"
-          placeholder="Rechercher un espace"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          className="w-full"
-          data-testid="portfolio-rail-search"
-        />
-      </form>
       <a className="studio-rail-nav-item" href="/portfolio?scope=archive" data-testid="portfolio-rail-archives">
         Archives
       </a>

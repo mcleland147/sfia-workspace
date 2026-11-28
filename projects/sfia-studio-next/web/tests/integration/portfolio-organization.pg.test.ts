@@ -8,6 +8,7 @@ import { db } from "@/db/client";
 import { newId } from "@/lib/ids";
 import {
   loadPersonalBoard,
+  readPersonalSpaceRecord,
   movePersonalSpace,
   recordSpaceOpened,
   setSpaceArchive,
@@ -383,5 +384,18 @@ describe("personal portfolio organization (PG)", () => {
     await expect(loadPersonalBoard(owner, { cursor: "not-a-cursor", preview: false })).rejects.toMatchObject({
       httpStatus: 400,
     });
+  });
+
+  it("reads one owned space without the current page", async () => {
+    const owner = await seedPilot("Lecture");
+    const other = await seedPilot("Autre");
+    const projectId = newId("prj");
+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Hors page" });
+    await setSpaceFavorite(owner, "project", projectId, { favorite: true, expectedVersion: 0 });
+    const record = await readPersonalSpaceRecord(owner, "project", projectId);
+    expect(record.favorite).toBe(true);
+    expect(record.eligible).toBe(true);
+    expect(record.rowVersion).toBeGreaterThan(0);
+    await expect(readPersonalSpaceRecord(other, "project", projectId)).rejects.toMatchObject({ httpStatus: 404 });
   });
 });

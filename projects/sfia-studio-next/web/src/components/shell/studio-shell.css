@@ -14,6 +14,25 @@ html.studio-shell-lock body {
   min-width: 0;
 }
 
+.portfolio-rail-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  margin: 8px 8px 4px;
+  padding: 0 10px;
+  border: 1px solid #273248;
+  border-radius: 8px;
+  background: #151d2c;
+}
+.portfolio-rail-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #f2f4fc;
+  font-size: 13px;
+  outline: none;
+}
 .studio-shell-rail {
   flex-shrink: 0;
   height: 100%;

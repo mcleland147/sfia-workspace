@@ -25,7 +25,7 @@ import {
   SETTINGS_INTEGRATIONS_HREF,
 } from "./PersonalRailSettingsMenu";
 import "./studio-shell.css";
-import { PersonalRailFavorites } from "@/components/portfolio/PersonalRailFavorites";
+import { PersonalRailFavorites, PersonalRailSearch } from "@/components/portfolio/PersonalRailFavorites";
 
 /** Figma 652:* rail glyphs — decorative, paired with visible labels. */
 function railNavGlyph(key: string): string {
@@ -190,6 +190,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
+          {personalSpace && !projectId ? <PersonalRailSearch /> : null}
           <div className="studio-rail-rule shrink-0" aria-hidden />
 
           {projectId ? (
@@ -534,7 +535,6 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
             <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
               <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
               <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
-              <Link href="/portfolio?scope=archive" onClick={() => setPersonalNavOpen(false)}>Archives</Link>
               <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
               <PersonalRailFavorites />
             </div>

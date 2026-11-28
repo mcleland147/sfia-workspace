@@ -14,56 +14,49 @@ type BoardResponse = {
 };
 
 export type PortfolioMutationOutcome = "confirmed" | "refused" | "conflict" | "unknown";
-export type PortfolioReread = "matched" | "unverified" | "failed" | "not-attempted";
+export type PortfolioReread = "reviewed" | "failed" | "not-attempted";
 
 export type PortfolioIntention = {
   kind: "favorite" | "archive" | "preference" | "order";
   spaceType?: PersonalSpace["spaceType"];
   spaceId?: string;
+  beforeSpaceType?: PersonalSpace["spaceType"];
+  beforeSpaceId?: string;
+  direction?: "up" | "down";
   desired?: boolean;
   view?: string;
   sort?: string;
   knownVersion: number;
 };
 
-/** Confirmed refusals are the route contract. A 5xx or a 2xx without an acknowledgement stays unknown. */
-export function classifyPortfolioResponse(status: number, body: Record<string, unknown> | null): PortfolioMutationOutcome {
+/** An acknowledgement counts only for the route that was called. A 5xx stays unknown. */
+export function classifyPortfolioResponse(
+  status: number,
+  body: Record<string, unknown> | null,
+  kind: PortfolioIntention["kind"],
+): PortfolioMutationOutcome {
   if (status === 409) return "conflict";
   if (status === 400 || status === 401 || status === 403 || status === 404 || status === 422) return "refused";
   if (status >= 500 || status <= 0) return "unknown";
   if (status >= 200 && status < 300) {
     if (!body) return "unknown";
-    const acknowledged =
-      typeof body.rowVersion === "number" ||
-      typeof body.version === "number" ||
-      typeof body.favorite === "boolean" ||
-      typeof body.archived === "boolean" ||
-      typeof body.applied === "boolean";
-    return acknowledged ? "confirmed" : "unknown";
+    if (kind === "favorite") {
+      return typeof body.favorite === "boolean" && typeof body.rowVersion === "number" ? "confirmed" : "unknown";
+    }
+    if (kind === "archive") {
+      return typeof body.archived === "boolean" && typeof body.rowVersion === "number" ? "confirmed" : "unknown";
+    }
+    if (kind === "preference" || kind === "order") {
+      return typeof body.version === "number" ? "confirmed" : "unknown";
+    }
   }
   return "unknown";
 }
 
-/** A successful read counts only when it shows the state the intention was about. */
-export function intentionMatchesBoard(
-  intention: PortfolioIntention,
-  board: {
-    items: Array<{ spaceType: string; id: string; favorite: boolean; archived: boolean }>;
-    preferences: { view: string; sort: string; version: number };
-  },
-): boolean {
-  if (intention.kind === "preference") {
-    const viewOk = !intention.view || board.preferences.view === intention.view;
-    const sortOk = !intention.sort || board.preferences.sort === intention.sort;
-    return viewOk && sortOk && board.preferences.version > intention.knownVersion;
-  }
-  if (intention.kind === "order") {
-    return board.preferences.sort === "custom" && board.preferences.version > intention.knownVersion;
-  }
-  const item = board.items.find((entry) => entry.spaceType === intention.spaceType && entry.id === intention.spaceId);
-  if (!item) return false;
-  if (intention.kind === "favorite") return item.favorite === intention.desired;
-  return item.archived === intention.desired;
+/** Reading the owner record is enough to look again. It does not prove the previous intention. */
+export function portfolioReadReview(status: number): PortfolioReread {
+  if (status === 200 || status === 404) return "reviewed";
+  return "failed";
 }
 
 /**
@@ -77,10 +70,13 @@ export function portfolioMutationFollowUp(input: {
   if (input.outcome === "refused") {
     return { uncertain: false, retry: false, blockFurtherMutations: false };
   }
-  if (input.reread === "matched" && (input.outcome === "confirmed" || input.outcome === "conflict")) {
+  if (input.outcome === "conflict" && input.reread === "reviewed") {
     return { uncertain: false, retry: false, blockFurtherMutations: false };
   }
-  if (input.outcome === "unknown" && input.reread === "matched") {
+  if (input.outcome === "conflict") {
+    return { uncertain: false, retry: false, blockFurtherMutations: true };
+  }
+  if (input.reread === "reviewed") {
     return { uncertain: false, retry: false, blockFurtherMutations: false };
   }
   return {
@@ -216,9 +212,7 @@ export function PersonalPortfolio() {
       setUncertain(
         reread === "failed"
           ? "Résultat incertain. La relecture a échoué et l'action n'a pas été relancée."
-          : reread === "unverified"
-            ? "Résultat incertain. La relecture ne confirme pas l'espace concerné."
-            : "Résultat incertain. L'action n'est pas relancée.",
+          : "Résultat incertain. L'action n'est pas relancée.",
       );
       return;
     }
@@ -234,24 +228,18 @@ export function PersonalPortfolio() {
 
   async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
     try {
-      if (intention.kind === "favorite") {
-        const response = await fetch("/api/portfolio/favorites");
-        if (!response.ok) return "failed";
-        const body = (await response.json()) as { favorites?: PersonalSpace[] };
-        const found = Boolean(body.favorites?.some((item) => item.spaceType === intention.spaceType && item.id === intention.spaceId));
-        return found === intention.desired ? "matched" : "unverified";
+      if (intention.kind === "preference") {
+        const board = await loadRef.current();
+        return board ? "reviewed" : "failed";
       }
-      if (intention.kind === "archive") {
-        const scopeName = intention.desired ? "archive" : "current";
-        const response = await fetch(`/api/portfolio?scope=${scopeName}&expanded=1`);
-        if (!response.ok) return "failed";
-        const body = (await response.json()) as BoardResponse;
-        if (!body.board) return "failed";
-        return intentionMatchesBoard(intention, body.board) ? "matched" : "unverified";
-      }
-      const board = await loadRef.current();
-      if (!board) return "failed";
-      return intentionMatchesBoard(intention, board) ? "matched" : "unverified";
+      const ids = [
+        { type: intention.spaceType, id: intention.spaceId },
+        { type: intention.beforeSpaceType, id: intention.beforeSpaceId },
+      ].filter((item): item is { type: NonNullable<PortfolioIntention["spaceType"]>; id: string } => Boolean(item.type && item.id));
+      if (ids.length === 0) return "failed";
+      const responses = await Promise.all(ids.map((item) => fetch(`/api/portfolio/spaces/${item.type}/${item.id}`)));
+      if (responses.some((response) => portfolioReadReview(response.status) === "failed")) return "failed";
+      return "reviewed";
     } catch {
       return "failed";
     }
@@ -271,7 +259,7 @@ export function PersonalPortfolio() {
         body: JSON.stringify(payload),
       });
       const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
-      const outcome = classifyPortfolioResponse(response.status, body);
+      const outcome = classifyPortfolioResponse(response.status, body, intention.kind);
       if (outcome === "refused") {
         settleMutation("refused", "not-attempted", "");
         setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
@@ -383,42 +371,48 @@ export function PersonalPortfolio() {
             beforeSpaceId: space.id,
             expectedVersion: board!.preferences.version,
             context: orderContext,
-          }, { kind: "order", knownVersion: board!.preferences.version });
+          }, {
+            kind: "order",
+            spaceType: spaceType as PersonalSpace["spaceType"],
+            spaceId,
+            beforeSpaceType: space.spaceType,
+            beforeSpaceId: space.id,
+            knownVersion: board!.preferences.version,
+          });
         }}
         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
       >
-        <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
+        <div className="personal-portfolio-identity">
+          <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
+          <div>
+            <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
+            <small>{activity}</small>
+          </div>
+          {space.favorite ? (
+            <svg className="personal-portfolio-star" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 2.5L12.3333 7.25L17.5 8L13.75 11.6667L14.6667 16.8333L10 14.3333L5.33333 16.8333L6.25 11.6667L2.5 8L7.66667 7.25L10 2.5Z" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinejoin="round" />
+            </svg>
+          ) : null}
+        </div>
         <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
         <span className="personal-portfolio-meta">{activity}</span>
-        <span>
-          <button
-            type="button"
-            aria-pressed={space.favorite}
-            disabled={locked}
-            aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
-            onClick={() =>
-              void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", {
-                favorite: !space.favorite,
-                expectedVersion: space.rowVersion,
-              }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })
-            }
-          >
-            {space.favorite ? "★" : "☆"}
+        <span className="personal-portfolio-actions">
+          <button type="button" aria-expanded={menu === space.id} aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); setMenu(menu === space.id ? null : space.id); }}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4.17 10h.01M10 10h.01M15.83 10h.01" stroke="#A5B1C5" strokeWidth="2.4" strokeLinecap="round" />
+            </svg>
           </button>
-          {canReorder ? (
-            <>
-              <button type="button" aria-label="Monter" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↑</button>
-              <button type="button" aria-label="Descendre" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↓</button>
-            </>
-          ) : null}
-          <button type="button" aria-label="Actions de l'espace" onClick={() => setMenu(menu === space.id ? null : space.id)}>…</button>
           {menu === space.id ? (
             <div className="personal-portfolio-menu" role="menu">
-              <button type="button" disabled aria-disabled="true" title="Le renommage n'est pas disponible dans cette version.">Renommer — indisponible</button>
-              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>
-                {scope === "archive" ? "Restaurer" : "Archiver"}
-              </button>
-              <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible dans cette version.">Supprimer — indisponible</button>
+              <p>{space.label}</p>
+              <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
+              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
+              <button type="button" disabled aria-disabled="true" title="Le renommage arrive avec le parcours de préparation.">Renommer</button>
+              <button type="button" disabled={locked} aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}>{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
+              <button type="button" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}>Monter</button>
+              <button type="button" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}>Descendre</button>
+              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>{scope === "archive" ? "Restaurer" : "Archiver"}</button>
+              <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible.">Supprimer</button>
             </div>
           ) : null}
         </span>
@@ -435,7 +429,7 @@ export function PersonalPortfolio() {
           <p className="personal-portfolio-sub">Retrouvez et organisez vos projets et préparations.</p>
         </div>
         <div className="personal-portfolio-grow" />
-        <button type="button" className="btn" id="nouvelle-preparation" data-testid="portfolio-new-prep" disabled={creating} onClick={() => void startPreparation()}>
+        <button type="button" className="personal-portfolio-primary" id="nouvelle-preparation" data-testid="portfolio-new-prep" disabled={creating} onClick={() => void startPreparation()}>
           {creating ? "Création…" : "Nouveau projet"}
         </button>
       </header>
@@ -475,6 +469,9 @@ export function PersonalPortfolio() {
         </section>
       ) : null}
 
+      <div className="personal-portfolio-separator" />
+      <section className="personal-portfolio-library" aria-label="Mes espaces">
+        <h2>Mes espaces</h2>
       <div className="personal-portfolio-tools">
         <div className="personal-portfolio-filters" role="tablist" aria-label="Filtres">
           {([
@@ -492,7 +489,13 @@ export function PersonalPortfolio() {
             </button>
           ))}
         </div>
-        <input aria-label="Filtrer les espaces" placeholder="Filtrer les espaces…" value={query} onChange={(event) => setQuery(event.target.value)} data-testid="portfolio-search" />
+        <label className="personal-portfolio-search">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M15 9.16667C15 12.3883 12.3883 15 9.16667 15C5.94501 15 3.33333 12.3883 3.33333 9.16667C3.33333 5.94501 5.94501 3.33333 9.16667 3.33333C12.3883 3.33333 15 5.94501 15 9.16667Z" stroke="#A5B1C5" strokeWidth="1.41667" />
+            <path d="M16.6667 16.6667L13.3333 13.3333" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinecap="round" />
+          </svg>
+          <input aria-label="Filtrer les espaces" placeholder="Filtrer les espaces…" value={query} onChange={(event) => setQuery(event.target.value)} data-testid="portfolio-search" />
+        </label>
         <select
           aria-label="Tri"
           disabled={locked}
@@ -528,17 +531,18 @@ export function PersonalPortfolio() {
                 }, { kind: "preference", view: key, knownVersion: board.preferences.version })
               }
             >
-              {label}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                {key === "list" ? <path d="M3.33 5H16.67M3.33 10H16.67M3.33 15H16.67" stroke="currentColor" strokeWidth="1.42" strokeLinecap="round" /> : null}
+                {key === "grid" ? <path d="M3.3 2.5h4.2v4.8H3.3zM12.5 2.5h4.2v4.8h-4.2zM3.3 11.7h4.2V16.5H3.3zM12.5 11.7h4.2V16.5h-4.2z" stroke="currentColor" strokeWidth="1.42" /> : null}
+                {key === "grouped" ? <path d="M3.3 5H8.3M3.3 10H16.7M3.3 15H16.7M12.5 4.2H16.7" stroke="currentColor" strokeWidth="1.42" strokeLinecap="round" /> : null}
+              </svg>
             </button>
           ))}
         </div>
-        <button type="button" aria-pressed={scope === "archive"} onClick={() => setScope(scope === "archive" ? "current" : "archive")}>
-          {scope === "archive" ? "Retour aux espaces" : "Archives"}
-        </button>
       </div>
-
-      <section className="personal-portfolio-library" aria-label="Mes espaces">
-        <h2>Mes espaces</h2>
+      {scope === "archive" ? (
+        <p className="personal-portfolio-status"><button type="button" onClick={() => setScope("current")}>Retour aux espaces</button></p>
+      ) : null}
         {board.items.length === 0 ? (
           <p data-testid="portfolio-empty">{query ? "Aucun résultat." : scope === "archive" ? "Aucune archive." : filter === "favorites" ? "Aucun favori." : "Aucun espace pour le moment."}</p>
         ) : board.preferences.view === "grid" ? (
@@ -556,11 +560,13 @@ export function PersonalPortfolio() {
             {board.items.map(renderSpace)}
           </div>
         )}
-        <p>{board.items.length} sur {board.filteredTotal} espaces</p>
-        {!expanded && board.filteredTotal > board.items.length ? (
-          <button type="button" onClick={() => setExpanded(true)}>Voir tous les espaces</button>
-        ) : null}
-        {expanded ? <button type="button" onClick={() => setExpanded(false)}>Réduire la liste</button> : null}
+        <div className="personal-portfolio-foot">
+          <p>{board.items.length} sur {board.filteredTotal} espaces</p>
+          {!expanded && board.filteredTotal > board.items.length ? (
+            <button type="button" className="personal-portfolio-secondary" onClick={() => setExpanded(true)}>Voir tous les espaces</button>
+          ) : null}
+          {expanded ? <button type="button" className="personal-portfolio-secondary" onClick={() => setExpanded(false)}>Réduire la liste</button> : null}
+        </div>
         {expanded && board.nextCursor ? (
           <button type="button" data-testid="portfolio-load-more" onClick={() => void load(board.nextCursor)}>Charger la suite</button>
         ) : null}

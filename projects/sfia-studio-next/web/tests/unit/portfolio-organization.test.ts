@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/domains/identity/portfolio-organization";
 import {
   classifyPortfolioResponse,
-  intentionMatchesBoard,
   portfolioMutationFollowUp,
+  portfolioReadReview,
 } from "@/components/portfolio/PersonalPortfolio";
 
 describe("portfolio organization rules", () => {
@@ -27,36 +27,32 @@ describe("portfolio organization rules", () => {
     expect(acceptNavigationKey(remembered, `${other}:2`)).toBe(true);
   });
 
-  it("keeps an unknown mutation blocked until the relevant state is reread", () => {
-    expect(classifyPortfolioResponse(503, { message: "unavailable" })).toBe("unknown");
-    expect(classifyPortfolioResponse(500, {})).toBe("unknown");
-    expect(classifyPortfolioResponse(200, {})).toBe("unknown");
-    expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true })).toBe("confirmed");
-    expect(classifyPortfolioResponse(404, { error: "missing" })).toBe("refused");
-    expect(classifyPortfolioResponse(409, { message: "conflict" })).toBe("conflict");
+  it("reopens a refused intention after the current owner state is reread", () => {
+    expect(classifyPortfolioResponse(503, { message: "unavailable" }, "favorite")).toBe("unknown");
+    expect(classifyPortfolioResponse(200, { version: 4 }, "favorite")).toBe("unknown");
+    expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true }, "favorite")).toBe("confirmed");
+    expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("confirmed");
+    expect(classifyPortfolioResponse(409, { message: "conflict" }, "preference")).toBe("conflict");
+    expect(portfolioReadReview(200)).toBe("reviewed");
+    expect(portfolioReadReview(404)).toBe("reviewed");
+    expect(portfolioReadReview(500)).toBe("failed");
+    expect(portfolioMutationFollowUp({ outcome: "conflict", reread: "reviewed" })).toEqual({
+      uncertain: false,
+      retry: false,
+      blockFurtherMutations: false,
+    });
+    expect(portfolioMutationFollowUp({ outcome: "conflict", reread: "failed" }).blockFurtherMutations).toBe(true);
     expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "failed" })).toEqual({
       uncertain: true,
       retry: false,
       blockFurtherMutations: true,
     });
-    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "unverified" })).toEqual({
-      uncertain: true,
-      retry: false,
-      blockFurtherMutations: true,
-    });
-    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "matched" })).toEqual({
+    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "reviewed" })).toEqual({
       uncertain: false,
       retry: false,
       blockFurtherMutations: false,
     });
     expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" }).blockFurtherMutations).toBe(true);
-    expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).uncertain).toBe(false);
-    const board = {
-      items: [{ spaceType: "preparation" as const, id: "prep_1", favorite: false, archived: false }],
-      preferences: { view: "list", sort: "recent", version: 2 },
-    };
-    expect(intentionMatchesBoard({ kind: "favorite", spaceType: "preparation", spaceId: "prep_1", desired: true, knownVersion: 1 }, board)).toBe(false);
-    expect(intentionMatchesBoard({ kind: "favorite", spaceType: "preparation", spaceId: "prep_absent", desired: true, knownVersion: 1 }, board)).toBe(false);
-    expect(intentionMatchesBoard({ kind: "preference", view: "grid", knownVersion: 1 }, { ...board, preferences: { view: "grid", sort: "recent", version: 2 } })).toBe(true);
+    expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).retry).toBe(false);
   });
 });

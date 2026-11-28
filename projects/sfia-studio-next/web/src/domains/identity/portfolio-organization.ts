@@ -751,6 +751,52 @@ export async function movePersonalSpace(
   });
 }
 
+/** Owner read of one space, independent of the current page, filter, or sort. */
+export async function readPersonalSpaceRecord(pilotId: string, spaceType: SpaceType, spaceId: string) {
+  if (spaceType === "project") {
+    const owned = await sql<{ id: string }[]>`
+      SELECT id FROM projects WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
+    `;
+    if (!owned[0]) throw new StudioError("NOT_FOUND", "Espace introuvable.", { httpStatus: 404 });
+  } else {
+    const owned = await sql<{ id: string; eligible: boolean }[]>`
+      SELECT pr.id, (pr.status = 'OPEN' AND l.preparation_id IS NULL) AS eligible
+      FROM preparations pr
+      LEFT JOIN preparation_project_links l ON l.preparation_id = pr.id
+      WHERE pr.id = ${spaceId} AND pr.owner_pilot_id = ${pilotId}
+    `;
+    if (!owned[0]) throw new StudioError("NOT_FOUND", "Espace introuvable.", { httpStatus: 404 });
+    const org = await sql<{ favorite: boolean; archived_at: string | null; row_version: number; custom_position: number | null }[]>`
+      SELECT favorite, archived_at, row_version, custom_position
+      FROM pilot_space_organization
+      WHERE owner_pilot_id = ${pilotId} AND space_type = ${spaceType} AND space_id = ${spaceId}
+    `;
+    return {
+      spaceType,
+      id: spaceId,
+      eligible: owned[0].eligible,
+      favorite: org[0]?.favorite ?? false,
+      archived: Boolean(org[0]?.archived_at),
+      rowVersion: org[0]?.row_version ?? 0,
+      customPosition: org[0]?.custom_position ?? null,
+    };
+  }
+  const org = await sql<{ favorite: boolean; archived_at: string | null; row_version: number; custom_position: number | null }[]>`
+    SELECT favorite, archived_at, row_version, custom_position
+    FROM pilot_space_organization
+    WHERE owner_pilot_id = ${pilotId} AND space_type = ${spaceType} AND space_id = ${spaceId}
+  `;
+  return {
+    spaceType,
+    id: spaceId,
+    eligible: true,
+    favorite: org[0]?.favorite ?? false,
+    archived: Boolean(org[0]?.archived_at),
+    rowVersion: org[0]?.row_version ?? 0,
+    customPosition: org[0]?.custom_position ?? null,
+  };
+}
+
 export async function listFavoriteSpaces(pilotId: string): Promise<PersonalSpace[]> {
   const rows = await sql<Row[]>`
     SELECT space_type, id, label, created_text AS created_at, opened_text AS last_opened_at,
