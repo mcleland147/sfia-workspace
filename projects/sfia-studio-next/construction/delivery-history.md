@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-FINOPS-ATTRIBUTION-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — lot 5, fiabilisation ciblée du FinOps
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `9bc9f3462f1e0eb91122bb6060efc23a08b71a7a`
+- **commit**: `fix(next): improve FinOps work attribution`
+- **schema_revision**: unchanged
+- **scope**: rattachement du probe consommé par mise à jour de l'observation existante ; compteurs et ratio honnêtes lorsqu'une observation n'est pas attribuée ; libellés de coût, de couverture et de modèle demandé
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · pas de backfill historique
+
 ## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-INTEGRITY-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

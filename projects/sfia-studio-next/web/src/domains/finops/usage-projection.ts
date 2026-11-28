@@ -142,17 +142,118 @@ export function finOpsMeasureCoverageSubtext(kpis: {
   totalRequests: number;
   measuredRequests: number;
   estimationCompletenessPercent: MeasuredValue<number>;
+  measureCoveragePercent?: MeasuredValue<number>;
 }): string {
   if (kpis.totalRequests <= 0) return "Requêtes non recensées";
   const observed = `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
+  const census =
+    kpis.measureCoveragePercent?.kind === "partial"
+      ? " · observations recensées, pas toutes les émissions"
+      : "";
   const est = kpis.estimationCompletenessPercent;
   if (est.kind === "partial" && est.value === 0) {
-    return `${observed} · coûts entièrement PARTIAL ou inconnus`;
+    return `${observed} · coûts entièrement PARTIAL ou inconnus${census}`;
   }
   if (est.kind === "known" || est.kind === "partial") {
-    return `${observed} · estimation connue ${est.value} %`;
+    return `${observed} · estimation connue ${est.value} %${census}`;
   }
-  return observed;
+  return `${observed}${census}`;
+}
+
+const OPEN_WORK_STATUSES = new Set(["OPEN", "RUNNING", "SUSPENDED"]);
+
+/**
+ * Completed-work count from observations actually linked in the same filter.
+ * Unattributed billable rows make the count partial. They do not invent a work.
+ */
+export function classifyObservedWorkCounts(input: {
+  statuses: string[];
+  unattributedBillable: number;
+  hasAnyObservation: boolean;
+}): { completed: MeasuredValue<number>; openCount: number } {
+  const openCount = input.statuses.filter((status) =>
+    OPEN_WORK_STATUSES.has(status.toUpperCase()),
+  ).length;
+  const complete = input.statuses.filter((status) => status.toUpperCase() === "COMPLETE").length;
+  if (input.unattributedBillable > 0 && input.statuses.length === 0) {
+    return {
+      completed: { kind: "unknown", reason: "Observations non attribuées" },
+      openCount,
+    };
+  }
+  if (input.unattributedBillable > 0) {
+    return {
+      completed: {
+        kind: "partial",
+        value: complete,
+        note: `Travaux aboutis observés : ${complete}. En cours : ${openCount}. Observations non attribuées : ${input.unattributedBillable}.`,
+      },
+      openCount,
+    };
+  }
+  if (input.statuses.length === 0) {
+    return {
+      completed: input.hasAnyObservation
+        ? { kind: "unknown", reason: "Travaux non liés" }
+        : { kind: "empty" },
+      openCount,
+    };
+  }
+  return { completed: { kind: "known", value: complete }, openCount };
+}
+
+/**
+ * Global estimated cost divided by observed completed works.
+ * This is not the average cost of those works alone.
+ * Hidden when the completed-work count is partial or unknown.
+ */
+export function costPerObservedCompletedWork(input: {
+  cost: MeasuredValue<number>;
+  completed: MeasuredValue<number>;
+}): MeasuredValue<number> {
+  if (input.completed.kind === "partial" || input.completed.kind === "unknown") {
+    return {
+      kind: "unknown",
+      reason: "Ratio non affiché : décompte des travaux incomplet",
+    };
+  }
+  if (input.completed.kind !== "known" || input.completed.value <= 0) {
+    if (input.completed.kind === "known") {
+      return { kind: "unknown", reason: "Aucun travail abouti observé" };
+    }
+    return { kind: "empty" };
+  }
+  if (input.cost.kind !== "known" && input.cost.kind !== "partial") {
+    return { kind: "empty" };
+  }
+  return {
+    kind: input.cost.kind === "partial" ? "partial" : "known",
+    value: input.cost.value / input.completed.value,
+    note: "Coût estimé global / travaux aboutis observés",
+  };
+}
+
+export function finOpsConfirmedValueLabel(input: {
+  applied?: string | null;
+  requested?: string | null;
+}): string | null {
+  const applied = input.applied?.trim() || "";
+  const requested = input.requested?.trim() || "";
+  if (applied && applied.toUpperCase() !== "UNVERIFIED") return applied;
+  if (requested) return `${requested} (demandé)`;
+  if (applied.toUpperCase() === "UNVERIFIED") return "non vérifié";
+  return null;
+}
+
+export function finOpsShortModelLabel(label: string | null | undefined): string | null {
+  if (!label) return null;
+  if (label === "non vérifié") return label;
+  const suffix = " (demandé)";
+  if (label.endsWith(suffix)) {
+    const short = displayModelShort(label.slice(0, -suffix.length)) ?? label;
+    return `${short}${suffix}`;
+  }
+  return displayModelShort(label);
 }
 
 export function sumBillableProviderRequests(

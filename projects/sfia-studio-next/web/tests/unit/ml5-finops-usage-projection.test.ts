@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   aggregateEstimatedCost,
+  classifyObservedWorkCounts,
+  costPerObservedCompletedWork,
+  finOpsConfirmedValueLabel,
+  finOpsShortModelLabel,
   aggregateTokenTotal,
   computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
@@ -57,6 +61,59 @@ describe("ML5 E06 — FinOps usage projection", () => {
     expect(tokenTotalForRow({ totalTokens: 5, inputTokens: 1, outputTokens: 1 })).toBe(5);
     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: 4 })).toBe(7);
     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: null })).toBeNull();
+    expect(
+      tokenTotalForRow({
+        totalTokens: 12,
+        inputTokens: 10,
+        outputTokens: 4,
+      }),
+    ).toBe(12);
+  });
+
+  it("keeps an unattributed observation from turning the completed count into a known zero", () => {
+    const mixed = classifyObservedWorkCounts({
+      statuses: ["COMPLETE", "OPEN"],
+      unattributedBillable: 3,
+      hasAnyObservation: true,
+    });
+    expect(mixed.completed.kind).toBe("partial");
+    if (mixed.completed.kind === "partial") {
+      expect(mixed.completed.value).toBe(1);
+      expect(mixed.completed.note).toContain("Observations non attribuées : 3");
+      expect(mixed.completed.note).toContain("En cours : 1");
+    }
+    expect(
+      costPerObservedCompletedWork({
+        cost: { kind: "known", value: 1.2 },
+        completed: mixed.completed,
+      }).kind,
+    ).toBe("unknown");
+  });
+
+  it("keeps the global ratio only when every billable observation is linked", () => {
+    const completed = classifyObservedWorkCounts({
+      statuses: ["COMPLETE", "COMPLETE"],
+      unattributedBillable: 0,
+      hasAnyObservation: true,
+    }).completed;
+    const ratio = costPerObservedCompletedWork({
+      cost: { kind: "partial", value: 2 },
+      completed,
+    });
+    expect(completed).toEqual({ kind: "known", value: 2 });
+    expect(ratio.kind).toBe("partial");
+    if (ratio.kind === "partial") {
+      expect(ratio.value).toBe(1);
+      expect(ratio.note).toContain("global");
+    }
+  });
+
+  it("does not present a requested model or effort as confirmed", () => {
+    expect(
+      finOpsConfirmedValueLabel({ applied: "UNVERIFIED", requested: "medium" }),
+    ).toBe("medium (demandé)");
+    expect(finOpsShortModelLabel("gpt-6.1-terra (demandé)")).toBe("Terra (demandé)");
+    expect(finOpsShortModelLabel("non vérifié")).toBe("non vérifié");
   });
 
   it("computeMeasureCoveragePercent handles empty", () => {

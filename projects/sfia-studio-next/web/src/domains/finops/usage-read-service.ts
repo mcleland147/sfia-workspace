@@ -9,11 +9,14 @@ import { StudioError } from "@/lib/http-errors";
 import {
   aggregateEstimatedCost,
   aggregateTokenTotal,
+  classifyObservedWorkCounts,
   computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
+  costPerObservedCompletedWork,
   effectiveFinOpsProjectId,
   effectiveFinOpsProjectIdForWork,
   filterBillableFinOpsRows,
+  finOpsConfirmedValueLabel,
   finOpsModelDisplayLabel,
   isFinOpsWorkAttributionConflict,
   sumBillableProviderRequests,
@@ -368,43 +371,35 @@ export async function loadFinOpsSummary(
   const estimationCompletenessPercent =
     computeEstimationCompletenessPercent(rows);
 
+  const billable = filterBillableFinOpsRows(rows);
+  const unattributedBillable = billable.filter((r) => !r.cognitiveWorkId).length;
   const workIds = [
-    ...new Set(rows.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id))),
+    ...new Set(
+      billable.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id)),
+    ),
   ];
-  let completedWorks: MeasuredValue<number> = { kind: "empty" };
-  if (workIds.length > 0) {
-    const works = await db
-      .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
-      .from(cognitiveWorks)
-      .where(
-        and(
-          inArray(cognitiveWorks.id, workIds),
-          eq(cognitiveWorks.ownerPilotId, pilotId),
-        ),
-      );
-    const completeCount = works.filter((w) => w.status === "COMPLETE").length;
-    completedWorks =
-      completeCount > 0
-        ? { kind: "known", value: completeCount }
-        : { kind: "known", value: 0 };
-  } else if (rows.length > 0) {
-    completedWorks = { kind: "unknown", reason: "Travaux non liés" };
-  }
-
-  let costPerCompletedWorkUsd: MeasuredValue<number> = { kind: "empty" };
-  if (
-    completedWorks.kind === "known" &&
-    completedWorks.value > 0 &&
-    (estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial")
-  ) {
-    costPerCompletedWorkUsd = {
-      kind: estimatedCostUsd.kind === "partial" ? "partial" : "known",
-      value: estimatedCostUsd.value / completedWorks.value,
-      note: estimatedCostUsd.kind === "partial" ? estimatedCostUsd.note : undefined,
-    };
-  } else if (rows.length > 0 && completedWorks.kind === "known" && completedWorks.value === 0) {
-    costPerCompletedWorkUsd = { kind: "unknown", reason: "Aucun travail abouti" };
-  }
+  const linkedWorks =
+    workIds.length === 0
+      ? []
+      : await db
+          .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
+          .from(cognitiveWorks)
+          .where(
+            and(
+              inArray(cognitiveWorks.id, workIds),
+              eq(cognitiveWorks.ownerPilotId, pilotId),
+            ),
+          );
+  const observedWorks = classifyObservedWorkCounts({
+    statuses: linkedWorks.map((work) => work.status),
+    unattributedBillable,
+    hasAnyObservation: rows.length > 0,
+  });
+  const completedWorks = observedWorks.completed;
+  const costPerCompletedWorkUsd = costPerObservedCompletedWork({
+    cost: estimatedCostUsd,
+    completed: completedWorks,
+  });
 
   const totalRequests = sumBillableProviderRequests(rows);
   const measuredRequests = sumBillableProviderRequests(rows, {
@@ -901,8 +896,14 @@ export async function loadFinOpsWorkDetail(
       return {
         segmentIndex,
         label: head?.operation?.trim() || `Segment ${String(segmentIndex + 1).padStart(2, "0")}`,
-        model: head?.modelApplied ?? head?.modelRequested ?? null,
-        effort: head?.effortApplied ?? head?.effortRequested ?? null,
+        model: finOpsModelDisplayLabel({
+          modelApplied: head?.modelApplied,
+          modelRequested: head?.modelRequested,
+        }),
+        effort: finOpsConfirmedValueLabel({
+          applied: head?.effortApplied,
+          requested: head?.effortRequested,
+        }),
         tokens,
         estimatedCostUsd: aggregateEstimatedCost(slice),
       };

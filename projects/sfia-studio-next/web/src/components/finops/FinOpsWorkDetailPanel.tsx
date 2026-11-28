@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import type { FinOpsWorkDetailDto } from "@/domains/finops/usage-read-service";
 import {
-  displayModelShort,
+  finOpsShortModelLabel,
   formatIntegerFr,
   formatMeasuredTokens,
   formatMeasuredUsd,
@@ -113,7 +113,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
                 <p className="finops-1306-kpi-value">
                   {formatMeasuredTokens(detail.kpis.totalTokens)}
                 </p>
-                <p className="finops-1306-kpi-sub">Entrée + sortie</p>
+                <p className="finops-1306-kpi-sub">Entrée + sortie · cache inclus dans l&apos;entrée</p>
               </article>
               <article className="finops-1306-kpi">
                 <p className="finops-1306-kpi-label">Requêtes</p>
@@ -142,7 +142,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
                       <span>{String(s.segmentIndex + 1).padStart(2, "0")}</span>
                       <span>{s.label}</span>
                       <span>
-                        {displayModelShort(s.model) ?? "—"}
+                        {finOpsShortModelLabel(s.model) ?? "—"}
                         {s.effort ? ` · ${s.effort}` : ""}
                       </span>
                       <span>{formatMeasuredTokens(s.tokens)}</span>
@@ -174,7 +174,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
                       <span className="finops-1306-timeline-op">
                         {ev.operation?.trim() || "Observation fournisseur"}
                       </span>
-                      <span>{displayModelShort(ev.model) ?? "—"}</span>
+                      <span>{finOpsShortModelLabel(ev.model) ?? "—"}</span>
                       <span className="finops-1306-timeline-coverage">
                         {mapCostCoverageLabel(ev.costCoverage)}
                       </span>

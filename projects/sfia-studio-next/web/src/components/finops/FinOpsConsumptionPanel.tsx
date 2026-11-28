@@ -45,6 +45,7 @@ type SummaryResponse = {
 
 function kpiSubCost(metric: FinOpsSummaryDto["kpis"]["estimatedCostUsd"]): string {
   if (metric.kind === "unknown") return "Estimation Studio indisponible";
+  if (metric.kind === "partial") return metric.note ?? "Estimation Studio partielle";
   return "USD · estimation Studio";
 }
 
@@ -54,9 +55,15 @@ function kpiSubTokens(metric: FinOpsSummaryDto["kpis"]["totalTokens"]): string {
 }
 
 function kpiSubCompleted(
+  completed: FinOpsSummaryDto["kpis"]["completedWorks"],
   costPer: FinOpsSummaryDto["kpis"]["costPerCompletedWorkUsd"],
 ): string {
-  if (costPer.kind === "known" || costPer.kind === "partial") {
+  if (completed.kind === "partial") return completed.note ?? "Décompte partiel";
+  if (completed.kind === "unknown") return completed.reason ?? "Travaux non établis";
+  if (costPer.kind === "partial") {
+    return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)} · estimation partielle`;
+  }
+  if (costPer.kind === "known") {
     return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)}`;
   }
   if (costPer.kind === "unknown") return costPer.reason ?? "Ratio indisponible";
@@ -136,9 +143,11 @@ export function FinOpsConsumptionPanel() {
   const maxModel =
     summary?.modelBreakdown.reduce((m, d) => Math.max(m, d.costUsd ?? 0), 0) ?? 1;
 
+  const completedMetric = summary?.kpis.completedWorks;
   const completedDisplay =
-    summary?.kpis.completedWorks.kind === "known"
-      ? formatIntegerFr(summary.kpis.completedWorks.value)
+    completedMetric &&
+    (completedMetric.kind === "known" || completedMetric.kind === "partial")
+      ? formatIntegerFr(completedMetric.value)
       : "—";
 
   return (
@@ -246,7 +255,10 @@ export function FinOpsConsumptionPanel() {
                 <p className="finops-1306-kpi-label">Travaux aboutis</p>
                 <p className="finops-1306-kpi-value">{completedDisplay}</p>
                 <p className="finops-1306-kpi-sub">
-                  {kpiSubCompleted(summary.kpis.costPerCompletedWorkUsd)}
+                  {kpiSubCompleted(
+                    summary.kpis.completedWorks,
+                    summary.kpis.costPerCompletedWorkUsd,
+                  )}
                 </p>
               </article>
               <article className="finops-1306-kpi">

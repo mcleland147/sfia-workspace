@@ -33,6 +33,7 @@ import {
   type NoraGenerateInput,
   type NoraGenerateResult,
 } from "./nora-adapter";
+import { attributeConsumedProbeUsage } from "./usage-accounting";
 import { buildStudioContinuityFromWork } from "./provider-response-continuity";
 import { resolvePublicWebRegistry } from "./public-web-registry";
 import {
@@ -1025,6 +1026,13 @@ export async function runNoraCognitiveTurn(
       onProvisionalChunk: input.onProvisionalChunk,
       toolScope: input.toolScope,
       policyOverride: probePolicy,
+      usageIdentity: {
+        ownerPilotId: input.pilotId,
+        preparationId: input.preparationId,
+        projectId: input.projectId ?? null,
+        conversationId: input.conversationId ?? null,
+        turnId: input.turnCommandId ?? null,
+      },
     });
     segmentBox.reply = probeReply;
     attachment = await resolveCognitiveWorkAttachment({
@@ -1525,6 +1533,19 @@ export async function runNoraCognitiveTurn(
       if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
         probeConsumed = true;
         reply = probeReply;
+        try {
+          await attributeConsumedProbeUsage({
+            generationId: probeReply.generationId,
+            ownerPilotId: input.pilotId,
+            preparationId: input.preparationId,
+            projectId: input.projectId ?? null,
+            conversationId: input.conversationId ?? null,
+            turnId: input.turnCommandId ?? null,
+            cognitiveWorkId: work.id,
+          });
+        } catch {
+          /* a missed attribution must not cancel the consumed reply */
+        }
       } else {
         // FinOps / reallocation trace: use work-level ordinal (segmentCalls), not the
         // per-invocation local segmentIndex which resets to 0 on each product turn.

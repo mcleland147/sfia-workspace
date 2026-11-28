@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { providerUsageObservations } from "@/db/schema";
+import { cognitiveWorks, providerUsageObservations } from "@/db/schema";
 import type { CognitiveModelId } from "./cognitive-resources/resource-catalog";
 import {
   LONG_CONTEXT_INPUT_THRESHOLD_TOKENS,
@@ -284,6 +285,167 @@ export type RecordProviderUsageObservationResult = {
   id: string;
 };
 
+export type ProbeUsageClaim = {
+  generationId: string;
+  ownerPilotId: string;
+  preparationId: string;
+  projectId?: string | null;
+  conversationId?: string | null;
+  turnId?: string | null;
+  cognitiveWorkId: string;
+};
+
+const probeClaims = new Map<string, ProbeUsageClaim>();
+const usageWriteInflight = new Map<string, Promise<void>>();
+
+function textOrEmpty(value: string | null | undefined): string {
+  return value?.trim() ?? "";
+}
+
+function claimMatchesObservation(
+  claim: ProbeUsageClaim,
+  input: Pick<
+    ProviderUsageObservationInput,
+    "ownerPilotId" | "preparationId" | "projectId" | "conversationId" | "turnId"
+  >,
+): boolean {
+  if (textOrEmpty(input.ownerPilotId) !== claim.ownerPilotId) return false;
+  if (textOrEmpty(input.preparationId) !== claim.preparationId) return false;
+  const obsProject = textOrEmpty(input.projectId);
+  const claimProject = textOrEmpty(claim.projectId);
+  if (obsProject && claimProject && obsProject !== claimProject) return false;
+  const obsTurn = textOrEmpty(input.turnId);
+  const claimTurn = textOrEmpty(claim.turnId);
+  if (obsTurn && claimTurn && obsTurn !== claimTurn) return false;
+  const obsConversation = textOrEmpty(input.conversationId);
+  const claimConversation = textOrEmpty(claim.conversationId);
+  if (obsConversation && claimConversation && obsConversation !== claimConversation) {
+    return false;
+  }
+  return true;
+}
+
+/** Apply a validated claim onto a row that is still unattributed. The idempotency key stays unchanged. */
+function claimedWorkId(input: ProviderUsageObservationInput): string | null {
+  if (textOrEmpty(input.cognitiveWorkId)) return null;
+  const generationId = textOrEmpty(input.generationId);
+  if (!generationId) return null;
+  const claim = probeClaims.get(generationId);
+  if (!claim || !claimMatchesObservation(claim, input)) return null;
+  return claim.cognitiveWorkId;
+}
+
+/**
+ * Attach an already recorded probe to the work that actually consumed it.
+ * Updates the existing rows. Does not insert a second observation.
+ */
+export async function attributeConsumedProbeUsage(
+  claim: ProbeUsageClaim,
+): Promise<{ updated: number; refused: boolean }> {
+  const generationId = textOrEmpty(claim.generationId);
+  const cognitiveWorkId = textOrEmpty(claim.cognitiveWorkId);
+  const ownerPilotId = textOrEmpty(claim.ownerPilotId);
+  const preparationId = textOrEmpty(claim.preparationId);
+  if (!generationId || !cognitiveWorkId || !ownerPilotId || !preparationId) {
+    return { updated: 0, refused: true };
+  }
+  const normalized: ProbeUsageClaim = {
+    generationId,
+    cognitiveWorkId,
+    ownerPilotId,
+    preparationId,
+    projectId: textOrEmpty(claim.projectId) || null,
+    conversationId: textOrEmpty(claim.conversationId) || null,
+    turnId: textOrEmpty(claim.turnId) || null,
+  };
+  const work = (
+    await db
+      .select({
+        id: cognitiveWorks.id,
+        ownerPilotId: cognitiveWorks.ownerPilotId,
+        preparationId: cognitiveWorks.preparationId,
+        projectId: cognitiveWorks.projectId,
+      })
+      .from(cognitiveWorks)
+      .where(eq(cognitiveWorks.id, cognitiveWorkId))
+      .limit(1)
+  )[0];
+  if (
+    !work ||
+    work.ownerPilotId !== ownerPilotId ||
+    work.preparationId !== preparationId ||
+    (normalized.projectId && work.projectId && normalized.projectId !== work.projectId)
+  ) {
+    return { updated: 0, refused: true };
+  }
+  probeClaims.set(generationId, normalized);
+  const inflight = usageWriteInflight.get(generationId);
+  if (inflight) await inflight;
+
+  const lane = process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
+  const found = await db
+    .select({
+      id: providerUsageObservations.id,
+      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
+      projectId: providerUsageObservations.projectId,
+      conversationId: providerUsageObservations.conversationId,
+      turnId: providerUsageObservations.turnId,
+    })
+    .from(providerUsageObservations)
+    .where(
+      and(
+        eq(providerUsageObservations.generationId, generationId),
+        eq(providerUsageObservations.ownerPilotId, ownerPilotId),
+        eq(providerUsageObservations.preparationId, preparationId),
+        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
+      ),
+    );
+  if (found.length === 0) return { updated: 0, refused: false };
+
+  const conflicts = found.some((row) => {
+    if (row.cognitiveWorkId && row.cognitiveWorkId !== cognitiveWorkId) return true;
+    if (row.projectId && work.projectId && row.projectId !== work.projectId) return true;
+    if (
+      normalized.projectId &&
+      row.projectId &&
+      row.projectId !== normalized.projectId
+    ) {
+      return true;
+    }
+    if (normalized.turnId && row.turnId && row.turnId !== normalized.turnId) return true;
+    if (
+      normalized.conversationId &&
+      row.conversationId &&
+      row.conversationId !== normalized.conversationId
+    ) {
+      return true;
+    }
+    return false;
+  });
+  if (conflicts) {
+    probeClaims.delete(generationId);
+    return { updated: 0, refused: true };
+  }
+
+  let updated = 0;
+  for (const row of found) {
+    if (row.cognitiveWorkId) continue;
+    const written = await db
+      .update(providerUsageObservations)
+      .set({ cognitiveWorkId })
+      .where(
+        and(
+          eq(providerUsageObservations.id, row.id),
+          isNull(providerUsageObservations.cognitiveWorkId),
+        ),
+      )
+      .returning({ id: providerUsageObservations.id });
+    updated += written.length;
+  }
+  probeClaims.delete(generationId);
+  return { updated, refused: false };
+}
+
 /** Insert one durable observation; duplicate idempotency_key is a no-op. */
 export async function recordProviderUsageObservation(
   input: ProviderUsageObservationInput,
@@ -317,6 +479,7 @@ export async function recordProviderUsageObservation(
 
   const mergedLimits = [...new Set([...(input.limits ?? []), ...cost.limits])];
   const id = randomUUID();
+  const cognitiveWorkId = claimedWorkId(input) ?? input.cognitiveWorkId ?? null;
 
   const inserted = await db
     .insert(providerUsageObservations)
@@ -331,7 +494,7 @@ export async function recordProviderUsageObservation(
       preparationId: input.preparationId ?? null,
       conversationId: input.conversationId ?? null,
       turnId: input.turnId ?? null,
-      cognitiveWorkId: input.cognitiveWorkId ?? null,
+      cognitiveWorkId,
       segmentIndex: input.segmentIndex ?? null,
       generationId: input.generationId ?? null,
       operation: input.operation ?? null,
@@ -562,6 +725,25 @@ export async function recordNoraProviderUsageFromRunResult(
  * Does not invent per-HTTP token splits when only the SDK aggregate is known.
  */
 export async function recordNoraProviderUsageWithHttpCorrelation(
+  input: NoraProviderUsageHookInput,
+): Promise<RecordProviderUsageObservationResult> {
+  const generationId = input.generationId?.trim() ?? "";
+  let release: () => void = () => {};
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  if (generationId) usageWriteInflight.set(generationId, gate);
+  try {
+    return await recordNoraProviderUsageWithHttpCorrelationBody(input);
+  } finally {
+    release();
+    if (generationId && usageWriteInflight.get(generationId) === gate) {
+      usageWriteInflight.delete(generationId);
+    }
+  }
+}
+
+async function recordNoraProviderUsageWithHttpCorrelationBody(
   input: NoraProviderUsageHookInput,
 ): Promise<RecordProviderUsageObservationResult> {
   const httpAttempts = getHttpAttemptsSnapshot();

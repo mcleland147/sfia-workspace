@@ -98,6 +98,17 @@ export type NoraGenerateInput = {
   cognitiveWorkId?: string | null;
   segmentIndex?: number | null;
   /**
+   * Identities already known for the usage row.
+   * Does not enable tools and does not decide the cognitive work.
+   */
+  usageIdentity?: {
+    ownerPilotId?: string | null;
+    projectId?: string | null;
+    preparationId?: string | null;
+    conversationId?: string | null;
+    turnId?: string | null;
+  };
+  /**
    * D3 continuity snapshot owned by the cognitive conductor.
    * Bound into the provider frontier ALS; native chain stays OFF by default.
    */
@@ -1313,6 +1324,7 @@ async function runLiveWithToolsInner(
 
       providerUsage = extractProviderUsageFromRunResult(result);
       // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
+      const usageIdentity = input.usageIdentity;
       void recordNoraProviderUsageWithHttpCorrelation({
         runResult: result,
         status: "succeeded",
@@ -1321,10 +1333,19 @@ async function runLiveWithToolsInner(
         generationId,
         cognitiveWorkId: input.cognitiveWorkId ?? null,
         segmentIndex: input.segmentIndex ?? null,
-        conversationId: input.toolScope?.activityContext?.conversationId ?? null,
-        projectId: input.toolScope?.projectId ?? null,
-        preparationId: input.toolScope?.preparationId ?? null,
+        conversationId:
+          usageIdentity?.conversationId ??
+          input.toolScope?.activityContext?.conversationId ??
+          null,
+        turnId:
+          usageIdentity?.turnId ??
+          input.toolScope?.activityContext?.turnCommandId ??
+          null,
+        projectId: usageIdentity?.projectId ?? input.toolScope?.projectId ?? null,
+        preparationId:
+          usageIdentity?.preparationId ?? input.toolScope?.preparationId ?? null,
         ownerPilotId:
+          usageIdentity?.ownerPilotId ??
           input.toolScope?.pilotId ??
           input.toolScope?.activityContext?.ownerPilotId ??
           null,
