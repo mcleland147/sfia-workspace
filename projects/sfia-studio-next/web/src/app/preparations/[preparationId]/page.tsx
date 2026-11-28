@@ -128,6 +128,9 @@ export default function PreparationPage() {
   const [createProgressQualification, setCreateProgressQualification] =
     useState<InitialQualificationProjection | null>(null);
   const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
+  const [createContextLoad, setCreateContextLoad] = useState<"loading" | "ready" | "failed">(
+    "loading",
+  );
   /** RB-06 — UX min presentation for steps 2 and 3 (backend not delayed). Documented: 1200 ms. */
   const SAS_STEP_MIN_MS = 1200;
   const createProgressEnteredAtRef = useRef<number>(0);
@@ -166,6 +169,23 @@ export default function PreparationPage() {
       iq?.status === "FAILED"
     );
   }
+
+  useEffect(() => {
+    if (!createProgressVisible || !pendingNavigateProjectId) return;
+    let cancelled = false;
+    setCreateContextLoad("loading");
+    void fetch(`/api/projects/${pendingNavigateProjectId}`)
+      .then((res) => {
+        if (cancelled) return;
+        setCreateContextLoad(res.ok ? "ready" : "failed");
+      })
+      .catch(() => {
+        if (!cancelled) setCreateContextLoad("failed");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [createProgressVisible, pendingNavigateProjectId]);
 
   // RB-05/06/07 — drive popup from server qualification + UX min presentation for steps 2/3.
   // Backend is never artificially slowed; only the displayed step advances after min dwell.
@@ -1261,6 +1281,7 @@ export default function PreparationPage() {
         visible={createProgressVisible}
         projectName={previewName || "Projet"}
         step={createProgressStep}
+        contextLoad={createContextLoad}
         complete={createProgressComplete}
         qualification={createProgressQualification}
         onDismiss={() => {

@@ -5577,3 +5577,14 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 - **Statut** : DEV PUBLIÉ POUR REVUE — NOT ACCEPTED — NOT ADOPTED
 - **Complément** : gardes de contexte documentaire. Une erreur de restauration obsolète ne retire plus la proposition active. Un numéro de révision absent n'hérite plus de l'ancien numéro. Une tête résolue après un changement de sélection n'écrase plus le focus. Le SHA de ce complément est reporté dans le Review Pack, pas dans un second commit destiné à l'y inscrire.
 
+## DELIV-2026-11-28-ML5-PROJECT-CONTEXT-DEV
+
+- **Date** : 2026-11-28
+- **Cycle** : 08 Delivery / Critical · lot 2 uniquement
+- **Base** : `96c0129f6dce61cd1f545d1b07821ea6d6e67e9b` · tree `8b320ccaa383fa14cf296e7e3b0255eb9254397b`
+- **SHA final** : publié sur `sfia/next-ml5-integrated-delivery-20261123` et reporté dans le Review Pack.
+- **Nature** : chargement de la continuité déjà persistée à l'ouverture du projet, même application des projections après effet, quatrième repère de préparation lié à la lecture réelle du contexte. Aucune constitution cognitive nouvelle.
+- **Schéma** : aucun changement · aucune migration
+- **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
+- **Statut** : DEV CANDIDATE — NOT ACCEPTED — NOT ADOPTED
+

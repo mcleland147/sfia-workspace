@@ -1,6 +1,11 @@
 "use client";
 
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+import {
+  preparationContinuityMarks,
+  type ContextLoadState,
+  type PrepMark,
+} from "@/lib/project-projection-sync";
 
 /**
  * Figma SAS06 (1022:164) — Création et qualification initiale.
@@ -21,7 +26,9 @@ export function SasCreateProgressPopup(props: {
   visible: boolean;
   projectName: string;
   step: 1 | 2 | 3;
-  /** RB-07/08 — when true, all three steps are TERMINÉ and title is confirmation. */
+  /** Real project-context read. Independent from qualification. */
+  contextLoad?: ContextLoadState;
+  /** RB-07/08 — when true, the title is the confirmation. Rows follow real marks. */
   complete?: boolean;
   qualification: InitialQualificationProjection | null;
   onDismiss: () => void;
@@ -29,7 +36,6 @@ export function SasCreateProgressPopup(props: {
   if (!props.visible) return null;
 
   const complete = props.complete === true;
-  const displayStep = complete ? 3 : props.step;
   const iqStatus = props.qualification?.status ?? null;
   /** AT-03 — terminal ≠ always « trajectoire prête ». */
   const outcome: "PROPOSED" | "CLARIFICATION" | "FAILED" | "RUNNING" =
@@ -74,25 +80,38 @@ export function SasCreateProgressPopup(props: {
           ? "Une clarification est dans le fil du projet. Réponds-y pour que Nora propose une trajectoire. Aucun cycle n’est ouvert."
           : "Tu peux accéder au projet et reprendre la conversation. Aucun cycle n’a été ouvert.";
 
-  const steps = [
+  const marks = preparationContinuityMarks({
+    projectCreated: true,
+    context: props.contextLoad ?? "loading",
+    qualificationStatus: complete ? (iqStatus ?? "PROPOSED") : iqStatus,
+  });
+  const steps: Array<{
+    n: 1 | 2 | 3 | 4;
+    key: keyof typeof marks;
+    title: string;
+    detail: string;
+  }> = [
     {
-      n: 1 as const,
+      n: 1,
+      key: "project",
       title: "Projet créé",
       detail: "Il reste accessible, même si tu quittes Studio.",
-      statusDone: "01  TERMINÉ",
-      statusCurrent: "01  EN COURS",
-      statusPending: "01  À VENIR",
     },
     {
-      n: 2 as const,
+      n: 2,
+      key: "context",
+      title: "Chargement du contexte et de la continuité projet",
+      detail: "Sujets, acquis, points ouverts, documents et pilotage déjà disponibles.",
+    },
+    {
+      n: 3,
+      key: "cycles",
       title: "Identification des cycles pertinents",
       detail: "Analyse des cycles pertinents et des références CKI.",
-      statusDone: "02  TERMINÉ",
-      statusCurrent: "02  EN COURS",
-      statusPending: "02  À VENIR",
     },
     {
-      n: 3 as const,
+      n: 4,
+      key: "reply",
       title: "Première réponse de Nora",
       detail:
         outcome === "CLARIFICATION"
@@ -100,11 +119,8 @@ export function SasCreateProgressPopup(props: {
           : outcome === "FAILED"
             ? "La qualification n’a pas abouti ; tu peux reprendre dans le projet."
             : "Une proposition de trajectoire dans le fil du projet.",
-      statusDone: "03  TERMINÉ",
-      statusCurrent: "03  EN COURS",
-      statusPending: "03  À VENIR",
     },
-  ] as const;
+  ];
 
   return (
     <div
@@ -114,8 +130,8 @@ export function SasCreateProgressPopup(props: {
         // Figma desktop (1680×970): top = 124px when viewport fits card+chrome.
         // Short viewports (e.g. PW 1280×720): shrink top padding (floor 16px) so the
         // 702×726 card can scroll and "Accéder au projet" stays reachable.
-        // clamp(16px, 100vh − 726 − 24, 124px) → 124px @970h, 16px @720h.
-        padding: "clamp(16px, calc(100vh - 726px - 24px), 124px) 16px 24px",
+        // Four markers. Desktop padding shrinks when the card no longer fits 124px.
+        padding: "clamp(16px, calc(100vh - 816px - 24px), 124px) 16px 24px",
       }}
       role="dialog"
       aria-modal="true"
@@ -126,8 +142,8 @@ export function SasCreateProgressPopup(props: {
         className="relative overflow-y-auto"
         style={{
           width: 702,
-          // Contractual Figma card 702×726; maxHeight only engages when viewport is short.
-          height: 726,
+          // Morris 2026-11-28: fourth real context step. Height follows the added row.
+          height: 816,
           maxHeight: "calc(100vh - 40px)",
           maxWidth: "calc(100vw - 32px)",
           background: "#1b2639",
@@ -195,18 +211,29 @@ export function SasCreateProgressPopup(props: {
           SUIVI DE LA PRÉPARATION
         </p>
 
-        <ol className="mt-4 flex flex-col gap-[11px]" style={{ padding: "0 35px" }}>
+        <ol
+          className="mt-4 flex flex-col gap-[11px]"
+          style={{ padding: "0 35px" }}
+          data-display-step={props.step}
+        >
           {steps.map((item) => {
-            const done = complete || displayStep > item.n;
-            const current = !complete && displayStep === item.n;
-            const statusLabel = done
-              ? item.statusDone
-              : current
-                ? item.statusCurrent
-                : item.statusPending;
-            const statusColor = done ? "#6cdbba" : current ? "#7477ed" : "#7787a4";
+            const mark: PrepMark = marks[item.key];
+            const done = mark === "done";
+            const current = mark === "running";
+            const statusLabel =
+              mark === "done"
+                ? `${String(item.n).padStart(2, "0")}  TERMINÉ`
+                : mark === "running"
+                  ? `${String(item.n).padStart(2, "0")}  EN COURS`
+                  : mark === "failed"
+                    ? `${String(item.n).padStart(2, "0")}  REPRISE`
+                    : mark === "incomplete"
+                      ? `${String(item.n).padStart(2, "0")}  INCOMPLET`
+                      : `${String(item.n).padStart(2, "0")}  À VENIR`;
+            const statusColor =
+              mark === "done" ? "#6cdbba" : mark === "running" ? "#7477ed" : mark === "failed" ? "#e2a36b" : "#7787a4";
             const borderColor = current ? "#7477ed" : "#2b3850";
-            const minH = current ? 104 : item.n === 1 ? 79 : 86;
+            const minH = current ? 96 : 72;
 
             return (
               <li
@@ -219,6 +246,7 @@ export function SasCreateProgressPopup(props: {
                   padding: "15px 18px",
                 }}
                 data-testid={`sas-create-step-${item.n}`}
+                data-mark={mark}
                 data-current={current ? "1" : "0"}
               >
                 <div className="relative shrink-0" style={{ width: 35, height: 35, marginTop: 4 }} aria-hidden>

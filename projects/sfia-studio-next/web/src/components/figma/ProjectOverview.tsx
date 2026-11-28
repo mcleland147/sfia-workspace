@@ -7,6 +7,7 @@ import {
   CYCLE_OBJECTIVE_PENDING_LABEL,
   displayableCycleObjective,
 } from "@/domains/pilotage/cycle-objective-display";
+import type { ActivityFreshness } from "@/lib/project-projection-sync";
 
 type ActivityBundle = {
   openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
@@ -60,11 +61,14 @@ export function ProjectOverview(props: {
   pilotage: PilotageProjection | null;
   initialQualification: InitialQualificationProjection | null;
   activity: ActivityBundle | null;
+  activityFreshness?: ActivityFreshness;
   onOpenTravail: () => void;
   onOpenTrajectoire: () => void;
 }) {
   const cycle = props.pilotage?.cycle;
   const activity = props.activity;
+  const activityLoaded = (props.activityFreshness ?? "ready") === "ready" || activity !== null;
+  const activityUnconfirmed = props.activityFreshness === "stale";
   // Prefer a durable project description; never invent illustrative copy.
   // Proposed orientation is a trajectory artifact — only use as fallback when no description.
   const description = props.description?.trim() || null;
@@ -189,7 +193,13 @@ export function ProjectOverview(props: {
       <section data-testid="project-overview-activity" style={{ marginTop: 21 }}>
         <div className="flex flex-wrap items-end justify-between gap-2" style={{ minHeight: 32 }}>
           <h3 className="text-[22px] font-semibold leading-8 text-[#f3f5ff]">Activité du projet</h3>
-          <p className="text-xs text-[#7787a4]">Vue synthétique des espaces du projet</p>
+          <p className="text-xs text-[#7787a4]" data-testid="project-activity-freshness">
+            {activityUnconfirmed
+              ? "Dernière lecture conservée — fraîcheur non confirmée"
+              : activityLoaded
+                ? "Vue synthétique des espaces du projet"
+                : "Chargement des compteurs"}
+          </p>
         </div>
         <div
           className="grid"
@@ -205,6 +215,7 @@ export function ProjectOverview(props: {
             title="Sujets ouverts"
             source="Journal"
             count={activity?.openSubjects.count ?? 0}
+            loaded={activityLoaded}
             empty="Aucun sujet actif capitalisé."
             examples={activity?.openSubjects.examples.map((e) => e.title) ?? []}
             href={`/projects/${props.projectId}?surface=journal`}
@@ -214,6 +225,7 @@ export function ProjectOverview(props: {
             title="Décisions applicables"
             source="Gouvernance"
             count={activity?.applicableDecisions.count ?? 0}
+            loaded={activityLoaded}
             empty="Aucune décision applicable."
             examples={activity?.applicableDecisions.examples.map((e) => e.statement) ?? []}
             href={`/projects/${props.projectId}?surface=journal`}
@@ -223,6 +235,7 @@ export function ProjectOverview(props: {
             title="Documents du projet"
             source="Bibliothèque"
             count={activity?.documentsInProgress.count ?? 0}
+            loaded={activityLoaded}
             empty="Aucun document en cours de rédaction."
             examples={activity?.documentsInProgress.examples.map((e) => e.title) ?? []}
             href={`/projects/${props.projectId}?surface=document`}
@@ -238,11 +251,12 @@ function ActivityCard(props: {
   title: string;
   source: string;
   count: number;
+  loaded: boolean;
   empty: string;
   examples: string[];
   href: string;
 }) {
-  const shown = props.examples.slice(0, 2);
+  const shown = props.loaded ? props.examples.slice(0, 2) : [];
   const extra = Math.max(0, props.count - shown.length);
   return (
     <section
@@ -258,7 +272,9 @@ function ActivityCard(props: {
     >
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-[32px] font-semibold leading-none text-[#f3f5ff]">{props.count}</p>
+          <p className="text-[32px] font-semibold leading-none text-[#f3f5ff]">
+            {props.loaded ? props.count : "—"}
+          </p>
           <h4 className="mt-2 text-lg font-semibold text-[#f3f5ff]">{props.title}</h4>
         </div>
         <span className="text-xs font-medium uppercase tracking-wide text-[#a3b0c7]">
@@ -267,7 +283,9 @@ function ActivityCard(props: {
       </div>
       <div className="my-4 h-px shrink-0 bg-[#2b3850]" data-testid={`${props.testId}-sep-top`} />
       <div className="min-h-[72px] flex-1">
-        {props.count === 0 ? (
+        {!props.loaded ? (
+          <p className="text-sm leading-relaxed text-[#a3b0c7]">Compteur non chargé.</p>
+        ) : props.count === 0 ? (
           <p className="text-sm leading-relaxed text-[#a3b0c7]">{props.empty}</p>
         ) : (
           <ul className="space-y-1.5 text-sm text-[#f3f5ff]">

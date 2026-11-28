@@ -298,6 +298,9 @@ export function ProjectJournal(props: {
   onOpenMessage?: (messageId: string) => void;
   onOpenDocument?: (documentId: string, revisionId?: string | null) => void;
   onBackToThread?: () => void;
+  /** True while the project continuity read has not completed. Empty is not unloaded. */
+  continuityLoading?: boolean;
+  continuityUnavailable?: boolean;
   /** Sas-only mutation affordance — project Journal stays read-oriented. */
   onRenameSubject?: (id: string, title: string) => void;
   splitSlot?: React.ReactNode;
@@ -639,7 +642,13 @@ export function ProjectJournal(props: {
         {tab === "subjects" ? (
           emptySubjects ? (
             <div className="journal-hierarchy journal-empty" data-testid="journal-empty-structure">
-              <p className="journal-empty-copy">{COPY.emptySubjects}</p>
+              <p className="journal-empty-copy">
+                {props.continuityLoading
+                  ? "Chargement de la continuité du projet."
+                  : props.continuityUnavailable
+                    ? "Continuité non confirmée. Les dernières données de ce projet restent affichées lorsqu’elles existent."
+                    : COPY.emptySubjects}
+              </p>
             </div>
           ) : showSearchEmpty ? (
             <div className="journal-hierarchy" data-testid="journal-tree">

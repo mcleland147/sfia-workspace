@@ -46,6 +46,12 @@ import {
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
 import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+import {
+  activityAfterProjectRead,
+  journalMayReplaceProjectKnowledge,
+  type ActivityFreshness,
+  type ActivitySnapshot,
+} from "@/lib/project-projection-sync";
 import { projectActivityLabel } from "@/domains/conversation/activity-labels";
 import {
   conversationalClientCommandKey,
@@ -360,6 +366,11 @@ export default function ProjectPage() {
     documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
     openPointsCount: number;
   } | null>(null);
+  const [activityFreshness, setActivityFreshness] = useState<ActivityFreshness>("loading");
+  const [journalContinuity, setJournalContinuity] = useState<"loading" | "ready" | "unavailable">(
+    "loading",
+  );
+  const journalReqRef = useRef(0);
   const [inspect, setInspect] = useState<Doc | null>(null);
   const [docUi, setDocUi] = useState<DocUiState>("READING");
   const [reviseDraft, setReviseDraft] = useState("");
@@ -574,13 +585,15 @@ export default function ProjectPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh on surface entry
   }, [surface, params.projectId]);
 
-  useEffect(() => {
-    if (surface !== "journal") return;
-    let cancelled = false;
-    void (async () => {
-      const res = await fetch(`/api/projects/${params.projectId}/journal`);
-      if (!res.ok || cancelled) return;
-      const body = (await res.json()) as {
+  async function refreshJournalContinuity(projectId: string) {
+    const gen = ++journalReqRef.current;
+    const res = await fetch(`/api/projects/${projectId}/journal`);
+    if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
+    if (!res.ok) {
+      setJournalContinuity("unavailable");
+      return;
+    }
+    const body = (await res.json()) as {
         knowledge?: Knowledge;
         decisions?: Array<{
           id: string;
@@ -603,9 +616,11 @@ export default function ProjectPage() {
         sourceLinks?: JournalSourceLink[];
         contradictions?: JournalContradiction[];
       };
-      if (cancelled) return;
-      if (body.knowledge) setKnowledge(body.knowledge);
-      setJournalDecisions(
+    if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
+    if (journalMayReplaceProjectKnowledge() && body.knowledge) {
+      setKnowledge(body.knowledge);
+    }
+    setJournalDecisions(
         (body.decisions ?? []).map((d) => ({
           id: d.id,
           kind: d.kind,
@@ -630,17 +645,20 @@ export default function ProjectPage() {
           sourcedMotivationExcerpt: d.sourcedMotivationExcerpt ?? null,
         })),
       );
-      setJournalRestrictions(body.restrictions ?? []);
-      setJournalSources(body.sourceLinks ?? []);
-      setJournalContradictions(body.contradictions ?? []);
-    })();
-    return () => {
-      cancelled = true;
-    };
-    // Refresh when entering Journal surface / project — not on every knowledge identity change
-    // (that cancelled in-flight loads and dropped sourceLinks intermittently).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surface, params.projectId]);
+    setJournalRestrictions(body.restrictions ?? []);
+    setJournalSources(body.sourceLinks ?? []);
+    setJournalContradictions(body.contradictions ?? []);
+    setJournalContinuity("ready");
+  }
+
+  useEffect(() => {
+    setJournalDecisions([]);
+    setJournalRestrictions([]);
+    setJournalSources([]);
+    setJournalContradictions([]);
+    setJournalContinuity("loading");
+    void refreshJournalContinuity(params.projectId);
+  }, [params.projectId]);
 
   useEffect(() => {
     projectIdRef.current = params.projectId;
@@ -1811,6 +1829,9 @@ export default function ProjectPage() {
       const pj = (await projRes.json()) as {
         pilotage?: PilotageProjection | null;
         messages?: Msg[];
+        documents?: Doc[];
+        knowledge?: Knowledge | null;
+        activity?: ActivitySnapshot | null;
       };
       if (!stillApplicable()) return;
       if (pj.pilotage) {
@@ -1819,6 +1840,16 @@ export default function ProjectPage() {
       if (Array.isArray(pj.messages)) {
         setMessages(pj.messages);
       }
+      if (Array.isArray(pj.documents)) setDocuments(pj.documents);
+      if (pj.knowledge !== undefined) setKnowledge(pj.knowledge ?? null);
+      const hasActivity = Object.prototype.hasOwnProperty.call(pj, "activity");
+      const applied = activityAfterProjectRead({
+        previous: projectActivity,
+        incoming: hasActivity ? (pj.activity ?? null) : projectActivity,
+        httpOk: true,
+      });
+      setProjectActivity(applied.activity);
+      setActivityFreshness(applied.freshness);
       const cycle = pj.pilotage?.cycle;
       if (cycle?.status === "ACTIVE") {
         setPilotageStatus((prev) =>
@@ -1829,6 +1860,14 @@ export default function ProjectPage() {
       }
       return;
     }
+
+    setActivityFreshness(
+      activityAfterProjectRead({
+        previous: projectActivity,
+        incoming: undefined,
+        httpOk: false,
+      }).freshness,
+    );
 
     // Fallback: dedicated pilotage route (same applicability gate)
     const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
@@ -2094,6 +2133,8 @@ export default function ProjectPage() {
   useEffect(() => {
     let cancelled = false;
     setProjectLoadState("loading");
+    setProjectActivity(null);
+    setActivityFreshness("loading");
     setUnavailableKind(null);
     setProjectName(null);
     setStatusHint("Chargement…");
@@ -2129,6 +2170,7 @@ export default function ProjectPage() {
       }
       if (res.status === 404) {
         setUnavailableKind("not_found");
+        setActivityFreshness("unavailable");
         setStatusHint("");
         setProjectSpaceInfo({
           projectId: params.projectId,
@@ -2142,6 +2184,7 @@ export default function ProjectPage() {
       }
       if (!res.ok) {
         setUnavailableKind("temporary");
+        setActivityFreshness("unavailable");
         setStatusHint("");
         setProjectSpaceInfo({
           projectId: params.projectId,
@@ -2196,6 +2239,7 @@ export default function ProjectPage() {
       setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
       setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
       setProjectActivity(j.activity ?? null);
+      setActivityFreshness("ready");
       const nextPrepId = j.preparation?.id ?? null;
       setPreparationId(nextPrepId);
       preparationIdRef.current = nextPrepId;
@@ -3261,13 +3305,8 @@ export default function ProjectPage() {
             );
           }
         }
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-        }
         await refreshDurablePilotage();
+        await refreshJournalContinuity(params.projectId);
         setNoraActivity(
           j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
             ? "error"
@@ -3486,6 +3525,7 @@ export default function ProjectPage() {
           pilotage={pilotageProjection}
           initialQualification={initialQualification}
           activity={projectActivity}
+          activityFreshness={activityFreshness}
           onOpenTravail={() => selectSurface("travail")}
           onOpenTrajectoire={() => selectSurface("pilotage")}
         />
@@ -4145,6 +4185,8 @@ export default function ProjectPage() {
           }))}
           acquis={knowledge?.acquis ?? []}
           openPoints={knowledge?.openPoints ?? []}
+          continuityLoading={journalContinuity === "loading" || activityFreshness === "loading"}
+          continuityUnavailable={journalContinuity === "unavailable"}
           decisions={journalDecisions}
           restrictions={journalRestrictions}
           sourceLinks={journalSources}

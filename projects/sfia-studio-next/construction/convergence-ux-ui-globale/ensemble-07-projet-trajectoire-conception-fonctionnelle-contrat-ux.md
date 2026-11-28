@@ -365,3 +365,7 @@ Ce travail a un **blast radius D2/D3/D4/D5/D6** et dépasse une pure transpositi
 - **Gate C / ML5 / R6 / ADOPTED** : non acquis. Pas de PR, merge, migration ni modification runtime par ce document.
 
 **Statut : DOCUMENTED — treize écrans/variantes UX validés par Morris, contrat de fonctionnement cible documenté et réconciliation R2 à instruire.** Aucun texte de décision ou propriétaire métier n'est amendé par ce fichier. **CONCEPTION ≠ IMPLÉMENTATION ≠ PREUVE ≠ ADOPTION.**
+
+### 10.3. Écart autorisé — chargement du contexte, 28 novembre 2026
+
+Morris autorise, pour le lot 2, un quatrième repère dans l'écran de préparation existant : chargement du contexte et de la continuité projet. Cet écart ne remplace pas la maquette trois étapes et ne prétend pas à une fidélité géométrique F2 de la carte 702×726. Le repère est lié à la lecture réelle du projet déjà créé. Il ne retarde pas la qualification, ne bloque pas « Accéder au projet », et ne constitue pas une nouvelle connaissance. La réouverture d'un projet existant reste un chargement, pas une nouvelle création.

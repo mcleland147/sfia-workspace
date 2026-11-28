@@ -41,9 +41,10 @@ export function ProjectUnavailable(props: {
       >
         <div className="fig-panel max-w-xl space-y-3 p-6">
           <p className="fig-kicker">Espace projet</p>
-          <h1 className="fig-hero-title">Chargement du projet…</h1>
+          <h1 className="fig-hero-title">Chargement du contexte projet</h1>
           <p className="fig-hero-sub muted">
-            Récupération du contexte autorisé. Aucune donnée d’un autre projet n’est réutilisée.
+            Récupération des sujets, acquis, points ouverts, documents et informations de
+            pilotage déjà disponibles. Aucune donnée d’un autre projet n’est réutilisée.
           </p>
         </div>
       </div>

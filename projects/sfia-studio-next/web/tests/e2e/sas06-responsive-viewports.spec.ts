@@ -3,7 +3,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 /**
  * Ensemble 07 SAS06 — responsive contract:
- * - 1680×970: Figma padding-top 124px, card 702×726 (F2 ≤2px)
+ * - 1680×970: card 702×816 after the authorized fourth context step (F2 726 no longer claimed)
  * - 1280×720: CTA reachable via scroll; click navigates to project
  */
 async function openSas06Popup(page: Page, seed: string) {
@@ -43,7 +43,7 @@ test("SAS06 desktop 1680×970 matches Figma geometry (F2 ≤2px)", async ({ page
   const padTop = (cardBox!.y - (overlayBox!.y ?? 0));
   expect(Math.abs(padTop - 124)).toBeLessThanOrEqual(2);
   expect(Math.abs(cardBox!.width - 702)).toBeLessThanOrEqual(2);
-  expect(Math.abs(cardBox!.height - 726)).toBeLessThanOrEqual(2);
+  expect(Math.abs(cardBox!.height - 816)).toBeLessThanOrEqual(2);
 
   await expect(dismiss).toBeVisible();
   const dismissBox = await dismiss.boundingBox();
