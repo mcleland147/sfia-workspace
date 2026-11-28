@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-CORRECTIVE-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — complément de la suppression définitive, sans veto métier
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `081d39d0d221bf0a027b3351d41f672fdc9e7236`
+- **commit**: `fix(studio-next): simplify and secure permanent space deletion`
+- **schema_revision**: inchangé, `029`
+- **scope**: retrait des refus liés à l'activité ou à une restriction ; contrôles d'exclusivité après verrouillage ; conservation des références extérieures
+- **classe**: NO RELEASE · compatible évolutive · LIVE NOT RUN · CI NOT RUN · push produit non inclus
+- **reserves**: F2 non mesuré ; un appel externe déjà engagé n'est pas annulé ; les réserves des mandats 1 à 5 sont transportées
+
 ## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

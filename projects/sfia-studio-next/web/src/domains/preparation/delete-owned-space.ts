@@ -6,10 +6,16 @@ export type OwnedSpaceType = "project" | "preparation";
 const NONE = "__none__";
 
 let interruptBeforeCommit = false;
+let pauseAfterLocks: { entered: () => void; gate: Promise<void> } | null = null;
 
 /** One-shot test seam. The transaction has already deleted rows and must roll them back. */
 export function failNextSpaceDeletionBeforeCommitForTests() {
   interruptBeforeCommit = true;
+}
+
+/** One-shot test seam. Locks are held; the caller releases the gate. */
+export function pauseNextSpaceDeletionAfterLocksForTests(entered: () => void, gate: Promise<void>) {
+  pauseAfterLocks = { entered, gate };
 }
 
 function blocked(message: string): never {
@@ -28,6 +34,8 @@ export async function deleteOwnedSpace(
 ): Promise<{ deleted: true; spaceType: OwnedSpaceType; spaceId: string }> {
   const interrupt = interruptBeforeCommit;
   interruptBeforeCommit = false;
+  const pause = pauseAfterLocks;
+  pauseAfterLocks = null;
   return sql.begin(async (tx) => {
     const preps: string[] = [];
     let projectId = NONE;
@@ -67,12 +75,55 @@ export async function deleteOwnedSpace(
     }
 
     const scope = preps.length ? preps : [NONE];
-    await assertExclusive(tx as unknown as typeof sql, scope, projectId);
-    await assertIdle(tx as unknown as typeof sql, scope, projectId);
-
+    await tx`
+      LOCK TABLE document_revisions, cognitive_works, knowledge_subjects, knowledge_acquis, technical_contracts
+      IN SHARE ROW EXCLUSIVE MODE
+    `;
     await tx`SELECT id FROM conversations WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId} FOR UPDATE`;
     await tx`SELECT id FROM documents WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId} FOR UPDATE`;
     await tx`SELECT id FROM cognitive_works WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId} FOR UPDATE`;
+    await tx`
+      SELECT id FROM document_revisions
+      WHERE document_id IN (
+        SELECT id FROM documents WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
+      )
+      OR base_revision_id IN (
+        SELECT revision.id FROM document_revisions revision
+        JOIN documents document ON document.id = revision.document_id
+        WHERE document.preparation_id = ANY(${scope}) OR document.project_id = ${projectId}
+      )
+      FOR UPDATE
+    `;
+    await tx`
+      SELECT id FROM cognitive_works
+      WHERE parent_work_id IN (
+        SELECT id FROM cognitive_works
+        WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
+      )
+      FOR UPDATE
+    `;
+    await tx`
+      SELECT id FROM provider_usage_observations
+      WHERE project_id = ${projectId}
+         OR preparation_id = ANY(${scope})
+         OR cognitive_work_id IN (
+           SELECT id FROM cognitive_works WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
+         )
+         OR conversation_id IN (
+           SELECT id FROM conversations WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
+         )
+         OR turn_id IN (
+           SELECT turn.id FROM conversation_turn_commands turn
+           JOIN conversations conversation ON conversation.id = turn.conversation_id
+           WHERE conversation.preparation_id = ANY(${scope}) OR conversation.project_id = ${projectId}
+         )
+      FOR UPDATE
+    `;
+    await assertExclusive(tx as unknown as typeof sql, scope, projectId, ownerPilotId);
+    if (pause) {
+      pause.entered();
+      await pause.gate;
+    }
 
     await tx`
       UPDATE document_revisions SET base_revision_id = NULL
@@ -109,19 +160,9 @@ export async function deleteOwnedSpace(
     `;
     await tx`
       DELETE FROM provider_usage_observations
-      WHERE project_id = ${projectId}
-         OR preparation_id = ANY(${scope})
-         OR conversation_id IN (
-           SELECT id FROM conversations WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
-         )
-         OR cognitive_work_id IN (
-           SELECT id FROM cognitive_works WHERE preparation_id = ANY(${scope}) OR project_id = ${projectId}
-         )
-         OR turn_id IN (
-           SELECT turn.id FROM conversation_turn_commands turn
-           JOIN conversations conversation ON conversation.id = turn.conversation_id
-           WHERE conversation.preparation_id = ANY(${scope}) OR conversation.project_id = ${projectId}
-         )
+      WHERE (project_id = ${projectId} OR preparation_id = ANY(${scope}))
+        AND (project_id IS NULL OR project_id = ${projectId})
+        AND (preparation_id IS NULL OR preparation_id = ANY(${scope}))
     `;
     await tx`
       DELETE FROM cognitive_work_checkpoints
@@ -193,7 +234,7 @@ export async function deleteOwnedSpace(
   });
 }
 
-async function assertExclusive(tx: typeof sql, preps: string[], projectId: string) {
+async function assertExclusive(tx: typeof sql, preps: string[], projectId: string, ownerPilotId: string) {
   const tables = [
     "conversations",
     "documents",
@@ -226,28 +267,103 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
       }
     }
   }
-  const sharedObservation = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n FROM provider_usage_observations
-    WHERE project_id IS NOT NULL
-      AND project_id <> ${projectId}
+  const foreignObservation = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM provider_usage_observations obs
+    WHERE (
+      obs.project_id = ${projectId}
+      OR obs.preparation_id = ANY(${preps})
+      OR obs.cognitive_work_id IN (
+        SELECT id FROM cognitive_works
+        WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+      )
+      OR obs.conversation_id IN (
+        SELECT id FROM conversations
+        WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+      )
+      OR obs.turn_id IN (
+        SELECT turn.id FROM conversation_turn_commands turn
+        JOIN conversations conversation ON conversation.id = turn.conversation_id
+        WHERE conversation.preparation_id = ANY(${preps}) OR conversation.project_id = ${projectId}
+      )
+    )
+    AND NOT (
+      (obs.project_id = ${projectId} OR obs.preparation_id = ANY(${preps}))
+      AND (obs.project_id IS NULL OR obs.project_id = ${projectId})
+      AND (obs.preparation_id IS NULL OR obs.preparation_id = ANY(${preps}))
+    )
+  `;
+  if ((foreignObservation[0]?.n ?? 0) > 0) {
+    blocked("Une observation d'un autre espace référence encore cet espace.");
+  }
+  const outsideRevision = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM document_revisions other
+    WHERE other.base_revision_id IN (
+      SELECT revision.id FROM document_revisions revision
+      JOIN documents document ON document.id = revision.document_id
+      WHERE document.preparation_id = ANY(${preps}) OR document.project_id = ${projectId}
+    )
+    AND other.document_id NOT IN (
+      SELECT id FROM documents
+      WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+    )
+  `;
+  if ((outsideRevision[0]?.n ?? 0) > 0) {
+    blocked("Une révision d'un autre document référence encore cet espace.");
+  }
+  const outsideWork = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM cognitive_works other
+    WHERE other.parent_work_id IN (
+      SELECT id FROM cognitive_works
+      WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+    )
+    AND NOT (other.preparation_id = ANY(${preps}) OR other.project_id = ${projectId})
+  `;
+  if ((outsideWork[0]?.n ?? 0) > 0) {
+    blocked("Un travail d'un autre espace référence encore cet espace.");
+  }
+  const outsideContract = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM technical_contracts other
+    WHERE other.project_id <> ${projectId}
       AND (
-        cognitive_work_id IN (
+        other.cognitive_work_id IN (
           SELECT id FROM cognitive_works
           WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
         )
-        OR conversation_id IN (
-          SELECT id FROM conversations
-          WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+        OR other.supersedes_contract_id IN (
+          SELECT id FROM technical_contracts
+          WHERE project_id = ${projectId} OR preparation_id = ANY(${preps})
         )
-        OR turn_id IN (
+        OR other.source_turn_command_id IN (
           SELECT turn.id FROM conversation_turn_commands turn
           JOIN conversations conversation ON conversation.id = turn.conversation_id
           WHERE conversation.preparation_id = ANY(${preps}) OR conversation.project_id = ${projectId}
         )
       )
   `;
-  if ((sharedObservation[0]?.n ?? 0) > 0) {
+  if ((outsideContract[0]?.n ?? 0) > 0) {
     blocked("Une donnée de cet espace est aussi rattachée à un autre projet.");
+  }
+  const outsideAcquis = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM knowledge_acquis other
+    WHERE NOT (other.preparation_id = ANY(${preps}))
+      AND (other.project_id IS NULL OR other.project_id <> ${projectId})
+      AND other.supersedes_acquis_id IN (
+        SELECT id FROM knowledge_acquis
+        WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
+      )
+  `;
+  if ((outsideAcquis[0]?.n ?? 0) > 0) {
+    blocked("Une donnée de cet espace est aussi rattachée à un autre projet.");
+  }
+  for (const table of ["conversations", "documents", "cognitive_works", "knowledge_subjects", "knowledge_acquis", "knowledge_open_points"]) {
+    const foreignOwner = await tx<{ n: number }[]>`
+      SELECT count(*)::int AS n FROM ${tx(table)}
+      WHERE (preparation_id = ANY(${preps}) OR project_id = ${projectId})
+        AND owner_pilot_id <> ${ownerPilotId}
+    `;
+    if ((foreignOwner[0]?.n ?? 0) > 0) {
+      blocked("Une donnée de cet espace appartient à un autre Pilote.");
+    }
   }
   const foreignWork = await tx<{ n: number }[]>`
     SELECT count(*)::int AS n FROM cognitive_works
@@ -301,37 +417,4 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
   if ((foreignRestriction[0]?.n ?? 0) > 0) {
     blocked("Une décision d'un autre projet référence encore cet espace.");
   }
-}
-
-async function assertIdle(tx: typeof sql, preps: string[], projectId: string) {
-  const turns = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n
-    FROM conversation_turn_commands turn
-    JOIN conversations conversation ON conversation.id = turn.conversation_id
-    WHERE (conversation.preparation_id = ANY(${preps}) OR conversation.project_id = ${projectId})
-      AND turn.status IN ('RUNNING', 'ACCEPTED', 'UNKNOWN')
-  `;
-  if ((turns[0]?.n ?? 0) > 0) blocked("Un échange Nora est encore en cours.");
-  const effects = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n FROM effect_attempts
-    WHERE project_id = ${projectId} AND status IN ('AUTHORIZED', 'DISPATCHED', 'AMBIGUOUS')
-  `;
-  if ((effects[0]?.n ?? 0) > 0) blocked("Une opération externe n'est pas terminée.");
-  const qualification = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n FROM trajectory_qualification_operations
-    WHERE (project_id = ${projectId} OR preparation_id = ANY(${preps}))
-      AND status IN ('PENDING', 'RUNNING', 'UNKNOWN')
-  `;
-  if ((qualification[0]?.n ?? 0) > 0) blocked("Une qualification est encore en cours.");
-  const works = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n FROM cognitive_works
-    WHERE (preparation_id = ANY(${preps}) OR project_id = ${projectId})
-      AND status = 'RUNNING'
-  `;
-  if ((works[0]?.n ?? 0) > 0) blocked("Un travail Nora est encore en cours.");
-  const restrictions = await tx<{ n: number }[]>`
-    SELECT count(*)::int AS n FROM governance_restrictions
-    WHERE project_id = ${projectId} AND status = 'ACTIVE'
-  `;
-  if ((restrictions[0]?.n ?? 0) > 0) blocked("Une restriction active empêche cette suppression.");
 }

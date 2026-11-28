@@ -12,6 +12,7 @@ import { newId } from "@/lib/ids";
 import {
   deleteOwnedSpace,
   failNextSpaceDeletionBeforeCommitForTests,
+  pauseNextSpaceDeletionAfterLocksForTests,
 } from "@/domains/preparation/delete-owned-space";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
@@ -19,6 +20,16 @@ import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/se
 vi.mock("@/domains/identity/session", () => ({
   requireStudioSession: vi.fn(),
 }));
+
+vi.mock("@/domains/integrations/github-provider", async () => {
+  const actual = await vi.importActual<Record<string, unknown>>("@/domains/integrations/github-provider");
+  return {
+    ...actual,
+    resolveGitHubProvider: vi.fn(() => {
+      throw new Error("provider called");
+    }),
+  };
+});
 
 import { requireStudioSession } from "@/domains/identity/session";
 import { DELETE, GET as GET_SPACE } from "@/app/api/portfolio/spaces/[type]/[id]/route";
@@ -392,22 +403,14 @@ describe("permanent space deletion (PG)", () => {
   it("contains no external call", () => {
     const source = readFileSync(new URL("../../src/domains/preparation/delete-owned-space.ts", import.meta.url), "utf8");
     expect(source).not.toMatch(/from ["']@\/domains\/execution|from ["']@\/domains\/integrations|openai|fetch\(/);
+    expect(source).not.toMatch(/assertIdle/);
   });
 
-  it("refuses an attached preparation, another pilot, and an active operation", async () => {
+  it("refuses an attached preparation and another pilot", async () => {
     await expect(deleteOwnedSpace(pilotA, "preparation", prep)).rejects.toMatchObject({ code: "CONFLICT" });
     await expect(deleteOwnedSpace(pilotB, "project", project)).rejects.toMatchObject({ code: "NOT_FOUND" });
-    await sql`
-      INSERT INTO governance_restrictions (id, project_id, target_kind, origin_decision_id, status)
-      VALUES (${id("active")}, ${project}, 'PROJECT', ${id("decision")}, 'ACTIVE')
-    `;
-    await expect(deleteOwnedSpace(pilotA, "project", project)).rejects.toMatchObject({
-      code: "CONFLICT",
-      message: "Une restriction active empêche cette suppression.",
-    });
     const still = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM projects WHERE id = ${project}`;
     expect(still[0]?.n).toBe(1);
-    await sql`DELETE FROM governance_restrictions WHERE id = ${id("active")}`;
   });
 
   it("rolls the whole deletion back when commit is interrupted", async () => {
@@ -421,31 +424,35 @@ describe("permanent space deletion (PG)", () => {
     expect(decisionRows[0]?.n).toBe(1);
   });
 
-  it("blocks when a concurrent turn is admitted before commit", async () => {
+  it("deletes a turn admitted before the deletion lock is acquired", async () => {
+    const raceProject = id("race_project");
+    const racePrep = id("race_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${racePrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${raceProject}, ${pilotA}, ${`m6-space-race-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${racePrep}, ${raceProject})`;
+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("race_conv")}, ${racePrep}, ${raceProject}, ${pilotA})`;
     let locked!: () => void;
     const lockedGate = new Promise<void>((resolve) => { locked = resolve; });
     let release!: () => void;
     const releaseGate = new Promise<void>((resolve) => { release = resolve; });
     const holder = sql.begin(async (tx) => {
-      await tx`SELECT id FROM projects WHERE id = ${project} FOR UPDATE`;
+      await tx`SELECT id FROM projects WHERE id = ${raceProject} FOR UPDATE`;
       locked();
       await releaseGate;
       await tx`
         INSERT INTO conversation_turn_commands (
           id, conversation_id, owner_pilot_id, client_turn_key, request_fingerprint, operation_id, status
         ) VALUES (
-          ${id("race")}, ${id("conv")}, ${pilotA}, ${id("racekey")}, 'fp', ${id("raceop")}, 'RUNNING'
+          ${id("race")}, ${id("race_conv")}, ${pilotA}, ${id("racekey")}, 'fp', ${id("raceop")}, 'RUNNING'
         )
       `;
     });
     await lockedGate;
-    const pending = deleteOwnedSpace(pilotA, "project", project);
+    const pending = deleteOwnedSpace(pilotA, "project", raceProject);
     release();
     await holder;
-    await expect(pending).rejects.toMatchObject({ message: "Un échange Nora est encore en cours." });
-    const projectRows = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM projects WHERE id = ${project}`;
-    expect(projectRows[0]?.n).toBe(1);
-    await sql`DELETE FROM conversation_turn_commands WHERE id = ${id("race")}`;
+    await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: raceProject });
+    expect(await countOwned(raceProject, [racePrep])).toEqual([]);
   });
 
   it("deletes the project graph and keeps the other spaces and shared resources", async () => {
@@ -555,6 +562,187 @@ describe("permanent space deletion (PG)", () => {
     await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("ambiguous")}`;
     await sql`DELETE FROM preparation_project_links WHERE preparation_id = ${sharedPrep}`;
     await sql`DELETE FROM preparations WHERE id = ${sharedPrep}`;
+  });
+
+  it("deletes a project while business activity and an active restriction are present", async () => {
+    const busy = id("busy");
+    const busyPrep = id("busy_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${busyPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${busy}, ${pilotA}, ${`m6-space-busy-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${busyPrep}, ${busy})`;
+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("busy_conv")}, ${busyPrep}, ${busy}, ${pilotA})`;
+    await sql`
+      INSERT INTO conversation_turn_commands (
+        id, conversation_id, owner_pilot_id, client_turn_key, request_fingerprint, operation_id, status
+      ) VALUES
+        (${id("busy_run")}, ${id("busy_conv")}, ${pilotA}, ${id("busy_run_key")}, 'fp', ${id("busy_run_op")}, 'RUNNING'),
+        (${id("busy_unknown")}, ${id("busy_conv")}, ${pilotA}, ${id("busy_unknown_key")}, 'fp', ${id("busy_unknown_op")}, 'UNKNOWN')
+    `;
+    await sql`INSERT INTO documents (id, preparation_id, project_id, owner_pilot_id, title) VALUES (${id("busy_doc")}, ${busyPrep}, ${busy}, ${pilotA}, 'Note')`;
+    await sql`
+      INSERT INTO document_revisions (id, document_id, revision_number, content_markdown, status) VALUES
+        (${id("busy_saving")}, ${id("busy_doc")}, 1, 'en cours', 'SAVING'),
+        (${id("busy_unknown_rev")}, ${id("busy_doc")}, 2, 'inconnu', 'UNKNOWN')
+    `;
+    await sql`
+      INSERT INTO trajectory_qualification_operations (id, project_id, preparation_id, pilot_id, status, phase)
+      VALUES (${id("busy_qual")}, ${busy}, ${busyPrep}, ${pilotA}, 'PENDING', 'open')
+    `;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, conversation_id, status, objective)
+      VALUES (${id("busy_work")}, ${pilotA}, ${busyPrep}, ${busy}, ${id("busy_conv")}, 'RUNNING', 'actif')
+    `;
+    await sql`
+      INSERT INTO human_decisions (id, project_id, pilot_id, source_kind, source_ref, kind, statement, state)
+      VALUES (${id("busy_decision")}, ${busy}, ${pilotA}, 'pilot', 'm6', 'RETAIN', 'garder', 'APPLICABLE')
+    `;
+    await sql`
+      INSERT INTO governance_restrictions (id, project_id, target_kind, origin_decision_id, status)
+      VALUES (${id("busy_restriction")}, ${busy}, 'PROJECT', ${id("busy_decision")}, 'ACTIVE')
+    `;
+    for (const status of ["PREPARED", "AUTHORIZED", "DISPATCHED", "AMBIGUOUS", "REQUIRES_REQUALIFICATION"]) {
+      await sql`
+        INSERT INTO effect_attempts (id, pilot_id, project_id, kind, status, correlation_key, fingerprint)
+        VALUES (${id(`busy_${status}`)}, ${pilotA}, ${busy}, 'GIT_PUBLICATION', ${status}, ${id(`busy_corr_${status}`)}, 'fp')
+      `;
+    }
+    await expect(deleteOwnedSpace(pilotA, "project", busy)).resolves.toEqual({
+      deleted: true,
+      spaceType: "project",
+      spaceId: busy,
+    });
+    expect(await countOwned(busy, [busyPrep])).toEqual([]);
+    const siblingRows = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM projects WHERE id = ${sibling}`;
+    expect(siblingRows[0]?.n).toBe(1);
+  });
+
+  it("rejects a conversation inserted while the deletion locks are held", async () => {
+    const lockedProject = id("held");
+    const lockedPrep = id("held_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${lockedPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${lockedProject}, ${pilotA}, ${`m6-space-held-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${lockedPrep}, ${lockedProject})`;
+    let entered!: () => void;
+    const enteredGate = new Promise<void>((resolve) => { entered = resolve; });
+    let release!: () => void;
+    const releaseGate = new Promise<void>((resolve) => { release = resolve; });
+    pauseNextSpaceDeletionAfterLocksForTests(entered, releaseGate);
+    const pending = deleteOwnedSpace(pilotA, "project", lockedProject);
+    await enteredGate;
+    const insert = sql`
+      INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
+      VALUES (${id("held_conv")}, ${lockedPrep}, ${lockedProject}, ${pilotA})
+    `;
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    release();
+    await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: lockedProject });
+    await expect(insert).rejects.toThrow();
+    const leftover = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM conversations WHERE id = ${id("held_conv")}`;
+    expect(leftover[0]?.n).toBe(0);
+  });
+
+  it("does not admit a new external step after the project is gone", async () => {
+    const target = id("effect_project");
+    const targetPrep = id("effect_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-effect-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
+    await sql`
+      INSERT INTO effect_attempts (id, pilot_id, project_id, kind, status, correlation_key, fingerprint)
+      VALUES (${id("late_attempt")}, ${pilotA}, ${target}, 'GIT_PUBLICATION', 'AUTHORIZED', ${id("late_corr")}, 'fp')
+    `;
+    await deleteOwnedSpace(pilotA, "project", target);
+    const provider = await import("@/domains/integrations/github-provider");
+    const { dispatchPublication } = await import("@/domains/execution/effect-service");
+    await expect(dispatchPublication({
+      pilotId: pilotA,
+      projectId: target,
+      attemptId: id("late_attempt"),
+    })).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(provider.resolveGitHubProvider).not.toHaveBeenCalled();
+    const attempts = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM effect_attempts WHERE id = ${id("late_attempt")}`;
+    expect(attempts[0]?.n).toBe(0);
+  });
+
+  it("keeps an observation that points at the target from another preparation", async () => {
+    const target = id("obs_project");
+    const targetPrep = id("obs_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-obs-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("obs_conv")}, ${targetPrep}, ${target}, ${pilotA})`;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, conversation_id, status, objective)
+      VALUES (${id("obs_work")}, ${pilotA}, ${targetPrep}, ${target}, ${id("obs_conv")}, 'COMPLETE', 'cible')
+    `;
+    await sql`
+      INSERT INTO provider_usage_observations (
+        id, owner_pilot_id, preparation_id, cognitive_work_id, tariff_version, estimated_cost_usd,
+        cost_coverage, status, granularity, idempotency_key, input_tokens
+      ) VALUES (
+        ${crypto.randomUUID()}::uuid, ${pilotA}, ${prepSibling}, ${id("obs_work")},
+        'v-test', 2.5, 'ESTIMATED', 'COMPLETE', 'REQUEST', ${id("obs_foreign")}, 12
+      )
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      code: "CONFLICT",
+      message: "Une observation d'un autre espace référence encore cet espace.",
+    });
+    const kept = await sql<{ tokens: string; n: number }[]>`
+      SELECT input_tokens::text AS tokens, count(*)::int AS n
+      FROM provider_usage_observations WHERE idempotency_key = ${id("obs_foreign")} GROUP BY input_tokens
+    `;
+    expect(kept[0]).toEqual({ tokens: "12", n: 1 });
+    const targetRows = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM projects WHERE id = ${target}`;
+    expect(targetRows[0]?.n).toBe(1);
+    await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("obs_foreign")}`;
+    await deleteOwnedSpace(pilotA, "project", target);
+  });
+
+  it("refuses when another document or work still points at the target", async () => {
+    const target = id("ref_project");
+    const targetPrep = id("ref_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-ref-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
+    await sql`INSERT INTO documents (id, preparation_id, project_id, owner_pilot_id, title) VALUES (${id("ref_doc")}, ${targetPrep}, ${target}, ${pilotA}, 'Cible')`;
+    await sql`INSERT INTO document_revisions (id, document_id, revision_number, content_markdown, status) VALUES (${id("ref_rev")}, ${id("ref_doc")}, 1, 'cible', 'AVAILABLE')`;
+    await sql`INSERT INTO documents (id, preparation_id, project_id, owner_pilot_id, title) VALUES (${id("ref_other_doc")}, ${prepSibling}, ${sibling}, ${pilotA}, 'Frère')`;
+    await sql`INSERT INTO document_revisions (id, document_id, revision_number, content_markdown, status, base_revision_id) VALUES (${id("ref_other_rev")}, ${id("ref_other_doc")}, 1, 'frère', 'AVAILABLE', ${id("ref_rev")})`;
+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("ref_conv")}, ${targetPrep}, ${target}, ${pilotA})`;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, conversation_id, status, objective)
+      VALUES (${id("ref_work")}, ${pilotA}, ${targetPrep}, ${target}, ${id("ref_conv")}, 'COMPLETE', 'cible')
+    `;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, status, objective, parent_work_id)
+      VALUES (${id("ref_other_work")}, ${pilotA}, ${prepSibling}, ${sibling}, 'COMPLETE', 'frère', ${id("ref_work")})
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      message: "Une révision d'un autre document référence encore cet espace.",
+    });
+    const pointer = await sql<{ base_revision_id: string }[]>`SELECT base_revision_id FROM document_revisions WHERE id = ${id("ref_other_rev")}`;
+    expect(pointer[0]?.base_revision_id).toBe(id("ref_rev"));
+    await sql`UPDATE document_revisions SET base_revision_id = NULL WHERE id = ${id("ref_other_rev")}`;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      message: "Un travail d'un autre espace référence encore cet espace.",
+    });
+    const parent = await sql<{ parent_work_id: string }[]>`SELECT parent_work_id FROM cognitive_works WHERE id = ${id("ref_other_work")}`;
+    expect(parent[0]?.parent_work_id).toBe(id("ref_work"));
+    await sql`UPDATE cognitive_works SET parent_work_id = NULL WHERE id = ${id("ref_other_work")}`;
+    await sql`
+      INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
+      VALUES (${id("foreign_owner_conv")}, ${targetPrep}, ${target}, ${pilotB})
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      message: "Une donnée de cet espace appartient à un autre Pilote.",
+    });
+    await sql`DELETE FROM conversations WHERE id = ${id("foreign_owner_conv")}`;
+    await deleteOwnedSpace(pilotA, "project", target);
+    const siblingWork = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM cognitive_works WHERE id = ${id("ref_other_work")}`;
+    expect(siblingWork[0]?.n).toBe(1);
+    const siblingRevision = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM document_revisions WHERE id = ${id("ref_other_rev")}`;
+    expect(siblingRevision[0]?.n).toBe(1);
   });
 
   it("serves the deletion over HTTP and closes the old routes", async () => {
