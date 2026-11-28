@@ -1,1263 +1,1279 @@
-# Review Pack — SFIA Studio Next — Complément lot 4, intégrité de l'activité
+# Review Pack — SFIA Studio Next — Lot 5 FinOps ciblé
 
 Cycle: 08 — Delivery / implémentation
-Profil: Critical
-Typologie: EVOL — complément correctif borné
+Profil: Standard
+Typologie: EVOL — correctif compatible borné
 Jalon: R5 / ML5
-Review level: Full
+Review level: Light
 Mono-cycle: oui
 Stub: non
-Date: 2026-11-28T11:47+01:00
-
-Entrée: NOT READY — complément correctif ciblé, revue ChatGPT du candidat 7c2cd338.
+Date: 2026-11-28T12:05+01:00
 
 ## 1. Identité et mandat
 
-Corriger uniquement ACT-F1, ACT-F2 et ACT-F3. Ne pas reconstruire le lot 4. Conserver la séparation conversation/activité, le contrôle d'accès projet et le journal existant.
+Trois corrections utiles, sans refonte FinOps.
 
-Pas de nouvelle persistance, pas de LIVE, pas de promotion, pas de lot 5, pas de CI distante.
+A. Rattacher la consommation d'un probe réellement consommé au travail validé.
+B. Rendre les compteurs et le ratio honnêtes.
+C. Distinguer coût connu, partiel, inconnu, non attribué, et estimation Studio.
+
+Pas de migration, pas de backfill, pas de LIVE, pas de promotion, pas de lot 6.
 
 ## 2. Git Truth Check
 
 Worktree: /Users/morris/Projects/sfia-wt-next-ml5-20261123
 Branche: sfia/next-ml5-integrated-delivery-20261123
-HEAD de départ = origin: 7c2cd338ab9c6932c491fb8baf5c4e6390d757b8
-Tree de départ: cda1dcd95eebf54ed419dea60fc6a00b77829632
+HEAD de départ = origin: 9bc9f3462f1e0eb91122bb6060efc23a08b71a7a
+Tree de départ: 5e7e8822e3e34b1c7df2f060a305e140a824d748
 origin/main = merge-base: 997897fd7cf914771e7d08e8030dc7123fab7d25
-Suivi: 66b5360657e351f0577ff9bb3f98207105fd3761, blob 9b6ff5affb063babadc00ddddd221872e02069ab, v0.12 §17
-Handoff précédent: 4433f9e3a59135bbcf1f62e0f64bfd570d8fe6ea, blob aae58378290bcf2a36ae5c11f0d417f20ac60568
-Untracked préexistants conservés: .tmp-sfia-review/ et web/.tmp-sfia-review/
+Suivi: 37f23f7b099bb73c7108e6c2e7875ab982dffb97, blob 62da6845e39b7a98fbab014b05f8e45e908d9173, v0.14 §3 L5, §9.1, §19
+Diagnostic: 515561e7e5bf395907bf4ec0f4c9990a36dc4aa7 §6
+Handoff précédent: 5f8770a221cd5ec156de7aa3a9e4c93a05f01212
+Untracked conservés: .tmp-sfia-review/ et web/.tmp-sfia-review/
 Aucune divergence. main non synchronisé.
 
-## 3. Sources lues
+## 3. Cause
 
-Suivi v0.12 §17.1 à §17.3, et le rappel §9.1 / §16 déjà portés par ce suivi.
-Code du candidat 7c2cd338 aux lignes citées par la revue: activity-labels.ts (slice, fold, titres), preparations/page.tsx et projects/page.tsx (époque, curseur, finally), NoraConversation.tsx (loaded), service.ts (catch de la boucle).
-NoraLiveActivity.tsx, pagination existante de 40.
-As-built et delivery-history du lot 4.
-Frames produit déjà connues: 12.01 node 1210:233, 12.10 node 1212:895. Figma non modifié.
+Confirmée sur le chemin actuel, sans l'étendre aux 44 observations historiques.
 
-## 4. Matrice
+Le probe de qualification appelle generateNoraReply avant la résolution du travail, sans cognitiveWorkId. S'il est réutilisé comme premier segment, son coût est déjà parti en écriture asynchrone avec un travail vide. La clé d'idempotence contient ce travail. Une seconde insertion avec le travail résolu créerait une autre clé et un double comptage. Le tour n'était pas transmis à cet enregistrement.
 
-FINDING ACT-F1 — projection tronquée et annonce ouverte
-CAUSE: buildActivitySteps se terminait par slice(-8), et buildActivityGroups comptait et détaillait ce sous-ensemble. foldOperationStates ne gardait qu'un index ouvert: un second RUNNING écrasait l'index et laissait le premier courant. Une seule comparaison, la dernière, alimentait le résumé.
-CORRECTION: plus de troncature. Le compteur et le détail portent sur toutes les opérations. L'affichage pagine par 40. Une annonce répétée de la même identité établie se ferme avec le terminal. Sans identité d'opération, aucune corrélation n'est inventée à partir du seul sourceRef. Chaque comparaison attestée est un détail. Une limite reste une limite.
-PREUVE: ml5-activity-hierarchy.test.ts — 10 opérations, RUNNING répété puis terminal, deux comparaisons, opération partielle conservée. activity-labels et granularité des sources PASS.
-VERDICT: corrigé.
+Les 44 lignes Equipéo et la capture MaintiPlan restent des observations historiques. Elles ne sont pas réécrites. AWAIT_PILOT n'est pas forcé à COMPLETE.
 
-FINDING ACT-F2 — lecture terminale neutralisée ou partielle
-CAUSE: le sas invalide l'époque avant finally, donc la lecture finale retourne tout de suite. Le projet vide les événements puis relit avec afterSequence déjà avancé. Le garde d'époque s'arrêtait avant res.json(). L'attente de cette lecture bloquait setBusy sans borne.
-CORRECTION: arrêt de l'intervalle, instantané complet du tour si la lecture aboutit dans les 500 ms, contrôle d'époque, de périmètre et de tour après chaque await y compris le corps JSON, puis invalidation de l'époque. Les événements ne sont plus vidés avant cette lecture. Un GET tardif ne s'applique pas. setBusy(false) suit la borne, pas la disponibilité du réseau. Une erreur de lecture ne recrée pas d'intention pending.
-PREUVE: activityReadStillApplies couvre époque, projet et tour. Le câblage est dans les deux pages. Le parcours navigateur d'un tour réel reste reporté.
-VERDICT: corrigé dans le code, preuve navigateur reportée.
+## 4. Corrections
 
-FINDING ACT-F3 — historique non relisable, perte d'inscription, titre d'opération
-CAUSE: loaded.current restait vrai après un échec. Un corps sans tableau events devenait un historique vide. Un catch entourait toute la boucle d'append. projectMissionHeadline et resolveActivityDisplayHeadline privilégiaient la comparaison, une source ou le titre reçu du poller.
-CORRECTION: une erreur HTTP, réseau ou payload invalide reste une erreur et autorise Relire. Un tableau vide est le seul historique vide. Une réponse tardive dont l'URL a changé est ignorée. turnStatus est affiché tel quel. Chaque fait est inscrit séparément; ceux qui échouent reviennent dans la réponse, sans recréer l'effet. Le titre de niveau 1 est l'objectif structuré, sinon « Orientation du travail ». ownerRef n'est persisté que s'il existe; aucun effectId synthétique.
-PREUVE: interpretActivityHistoryPayload, resolveActivityDisplayHeadline, appendActivityFactsSafely (2 enregistrés, 1 manqué). Les restitutions de cycle, refus et Journal du lot 4 restent couvertes par les tests rejoués.
-VERDICT: corrigé.
+A. Quand le probe est réellement réutilisé, attributeConsumedProbeUsage met à jour les lignes déjà écrites de cette génération. La clé d'idempotence ne change pas. Les tokens et le coût non plus. Le companion HTTP de la même génération suit le même travail et reste hors des agrégats facturables. L'écriture en cours est attendue avant la mise à jour. Une écriture qui arrive après reçoit le même travail, toujours sans nouvelle clé. Un autre projet, un autre Pilote ou une ligne déjà rattachée ailleurs est refusé. Une qualification sans travail reste non rattachée. Le tour est maintenant transmis. Aucun travail n'est créé pour l'occasion.
 
-## 5. Fonctionnement final
+B. Le nombre de travaux aboutis est celui des travaux liés aux observations facturables du même filtre. S'il reste des observations non attribuées, le décompte est partiel et le dit : aboutis observés, en cours, non attribuées. Le ratio coût global / travail abouti n'est affiché que lorsque ce décompte est complet. Il reste un coût global divisé par les travaux aboutis observés, pas le coût moyen de ces seuls travaux. Les filtres de période, de projet et de modèle sont ceux de la lecture existante, partagés par le résumé et la liste.
 
-Niveau 1: objectif structuré, ou orientation générique. Pas le dernier fichier, pas la dernière comparaison.
-Niveau 2: groupes issus des phases réellement émises. L'état ne reste pas courant à cause d'une annonce déjà fermée, et ne devient pas réussi si une opération identifiée reste limitée ou inconnue.
-Niveau 3: toutes les opérations et toutes les comparaisons, paginées à l'affichage.
-Historique: lecture à la demande du tour, reprise après échec, pas de polling permanent.
-Conversation: le résultat métier, les refus et les UNKNOWN restent. Une confirmation qui n'a pas pu être inscrite dans l'activité est dite indisponible dans l'activité et reste lisible dans la réponse.
+C. Le catalogue tarifaire est inchangé. totalTokens prime, sinon entrée + sortie. Le cache et le raisonnement ne sont pas ajoutés une seconde fois. 100 % de couverture reste la part des requêtes recensées. Le sous-texte distingue les coûts partiels ou inconnus et rappelle que les émissions ne sont pas toutes établies. UNVERIFIED n'est pas affiché comme un modèle ou un effort appliqué. L'estimation Studio reste distincte d'une facture. Les libellés tiennent dans les cartes existantes. Figma n'est pas modifié.
 
-## 6. Git Review Index
+## 5. Candidat
 
-Base: 7c2cd338ab9c6932c491fb8baf5c4e6390d757b8
-HEAD: 9bc9f3462f1e0eb91122bb6060efc23a08b71a7a
-Tree: 5e7e8822e3e34b1c7df2f060a305e140a824d748
-URL: https://github.com/mcleland147/sfia-workspace/commit/9bc9f3462f1e0eb91122bb6060efc23a08b71a7a
-Fast-forward 7c2cd338..9bc9f346. Local = origin.
-14 fichiers, +510 / −173. Aucune création. CI non exécutée.
+HEAD: 9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b
+Tree: 85c1eb14e76ad5a654e7c5e8063b140eed68f832
+URL: https://github.com/mcleland147/sfia-workspace/commit/9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b
+Fast-forward 9bc9f346..9e2f9911. Local = origin.
+10 fichiers, +882 / −53. Une création : le test PG d'attribution. CI non exécutée.
 
-## 7. Tests
+## 6. Validations
 
-Réexécutés sur ce delta, 81 PASS / 10 fichiers, dont 29 rejoués après le correctif de typage du résumé de comparaison:
+46 PASS sur 5 fichiers, dont le nouveau test PostgreSQL isolé :
 
-- 10 opérations visibles et comptées
-- annonces répétées puis terminal: groupe terminé
-- deux comparaisons conservées, lecture partielle non devenue réussite
-- objectif stable malgré un titre de consultation
-- payload invalide distinct d'un historique vide
-- lecture refusée si l'époque ou le projet a changé
-- un append en échec n'empêche pas les autres
-- accès projet du lot 4 rejoué: bon projet, autre projet, autre Pilote, tour inconnu
-- connaissance, pilotage, publication, granularité des sources: PASS
+- probe enregistré puis rattaché : 2 lignes, mêmes tokens, même coût, rejeu sans insertion
+- écriture et rattachement concurrents : une seule observation, 34 tokens
+- autre projet, autre Pilote, ligne déjà attribuée : refus, aucune mutation
+- résumé et liste sur le même filtre : décompte partiel, ratio non affiché, travail ouvert conservé
+- projection : compteur partiel, ratio global, modèle demandé non confirmé
+- corrélation HTTP et idempotence existantes rejouées
+- attribution de projet du test e2 rejouée
 
-Preuve réutilisée sans nouveau parcours: le test PG d'isolation du lot 4, SHA de première exécution 7c2cd338, rejoué ici avec le cas d'append ajouté.
-Build isolé STUDIO_E2E=1: exit 0, .next-e2e BUILD 7Z10s14AWOUPYgc2tQqSG. .next DEV inchangé, BUILD 31044BhyAFqJ_OpeQJS_K. Lint ciblé sans erreur nouvelle. git diff --check propre.
-tsc global hors lot non retraité.
+Build isolé STUDIO_E2E=1 exit 0, .next-e2e 0w2QvFs8BbSfGwGfiNl5j.
+.next DEV inchangé, 31044BhyAFqJ_OpeQJS_K. Lint ciblé sans erreur nouvelle. git diff --check propre.
+DEV :3100 PID 55011 et RECETTE :3200 PID 58965 inchangés.
 
-## 8. Reports RECETTE
+## 7. Limites et reports
 
-ACT-01 à ACT-05 restent DEFERRED TO RECETTE. Ce ne sont pas des PASS.
+Les observations historiques sans génération identifiable ne sont pas rattachées. Un probe qui n'est pas réutilisé comme segment reste non attribué. Ce n'est pas un oubli de clôture : AWAIT_PILOT reste ouvert.
 
-ACT-01 Travail simple. Objectif structuré ou « Orientation du travail ». Pas de fichier comme titre. Conversation sur le résultat.
-ACT-02 Sources et comparaison. Sources distinctes, consultations, et chaque paire V1/V2 encore lisible dans le détail après la fin du tour.
-ACT-03 Effets multiples. Plus de huit confirmations accessibles. Le corps ne les répète pas, sauf celles qui n'ont pas pu être inscrites.
-ACT-04 Historique. Après un second tour et un rechargement, le premier tour se relit en entier. Une erreur de lecture propose Relire et n'affiche pas un vide.
-ACT-05 Limite. Une opération partielle ou UNKNOWN reste visible à côté d'une opération réussie. Pas de succès global.
+FIN-REC-01 — DEFERRED TO RECETTE. Scénario : un tour Nora réel dont le probe est réutilisé. Attendu : les observations de cette génération portent le travail, sans doublon de tokens. Preuve : extrait des observations et du travail, sans donnée sensible. Gate : requis avant acceptation Livraison 1, non bloquant pour cette sortie technique.
 
-Reproduction: candidat RECETTE figé sous GO, projet isolé, Nora selon le GO du moment. Preuve: captures du fil et de l'historique déplié, turnCommandId, extrait d'événements. Gate: requis avant acceptation Livraison 1, non bloquant pour cette sortie technique.
+FIN-REC-02 — DEFERRED TO RECETTE. Scénario : plusieurs travaux réels, filtres de période, projet et modèle, avec au moins une mesure partielle. Attendu : le ratio disparaît si des observations restent non attribuées ; la couverture n'est pas présentée comme une facture. Preuve : captures du résumé et de la liste sur les mêmes filtres. Même gate.
 
-DOC-REC-01 à 06, PROJ-REC-01/02/03 et COG-REC-01 restent ouverts.
+DOC-REC-01 à 06, PROJ-REC-01/02/03, COG-REC-01 et ACT-01 à ACT-05 restent ouverts. MP16 et MP14 restent OPEN.
 
-## 9. Risques et dette
+## 8. Fake/Real
 
-Le dépliage historique du sas reste hors de ce complément. Sa lecture terminale est corrigée. Dette déjà identifiée, sans second journal.
-La lecture terminale est abandonnée après 500 ms. Les événements déjà reçus restent; l'historique serveur reste la lecture complète. Ce n'est pas un historique partiel présenté comme complet.
-Pas de nouvelle table. Pas d'identifiant synthétique persisté comme corrélation FinOps.
+DET : fonctions de clé, de projection et de rattachement réellement appelées.
+PG : sfia_next_e2e, observations et travaux créés pour le test puis les observations et travaux de test sont supprimés. Aucun projet historique modifié. Aucune émission fournisseur.
+BROWSER : non joué. La page n'a pas changé de structure.
+LIVE : NOT RUN.
 
-## 10. Fake/Real
+## 9. Content coverage
 
-DET: fonctions de projection, de lecture et d'inscription réellement appelées.
-PG: sfia_next_e2e, données isolées, aucun effet métier créé.
-BROWSER: non rejoué. Le harness 12.01/12.10 du candidat précédent n'a pas de turnCommandId. LIVE NOT RUN.
-DEV :3100 PID 55011 et RECETTE :3200 PID 58965 inchangés. Policy RECETTE non touchée.
+Les 10 fichiers sont dans le diff intégral ci-dessous, y compris le test créé.
 
-## 11. Content coverage
-
-Les 14 fichiers modifiés sont dans le diff intégral. Aucune création. Aucune couverture N/A.
-
-## 12. Diff intégral 7c2cd338..9bc9f346
+## 10. Diff intégral 9bc9f346..9e2f9911
 
 ```
-diff --git a/projects/sfia-studio-next/construction/as-built-ml5-activite-live-hierarchisee-20261125.md b/projects/sfia-studio-next/construction/as-built-ml5-activite-live-hierarchisee-20261125.md
-index 2fdb6bfa..46d64bde 100644
---- a/projects/sfia-studio-next/construction/as-built-ml5-activite-live-hierarchisee-20261125.md
-+++ b/projects/sfia-studio-next/construction/as-built-ml5-activite-live-hierarchisee-20261125.md
-@@ -28,3 +28,12 @@ Les preuves du 25 novembre ci-dessus restent inchangées. Ajout factuel :
- - Les confirmations d'enregistrement au Journal et « L'état du projet a été mis à jour » quittent le corps conversationnel et sont appendues dans `nora_activity_events` (`nora.effect.knowledge`, `nora.effect.pilotage`). Les refus, conflits, résultats partiels et UNKNOWN restent dans la réponse.
- - L'historique d'une réponse charge `GET /api/projects/{projectId}/turns/{turnCommandId}/activity` à l'ouverture. La route vérifie Pilote → projet → conversation → tour avant la lecture.
- - Le polling d'activité fait une lecture terminale après l'arrêt de l'intervalle.
-+
-+## Complément 2026-11-28 — intégrité de la projection
-+
-+- Le détail d'activité n'est plus limité aux huit dernières opérations. Le compteur porte sur l'ensemble. L'affichage pagine par 40, comme la carte déjà en place.
-+- Chaque comparaison documentaire attestée reste dans le détail. Le résumé compte les comparaisons lorsqu'il y en a plusieurs.
-+- Une annonce répétée de la même opération se ferme avec son événement terminal. Deux opérations identifiées sur une même source restent distinctes. Une limite antérieure n'est pas convertie en réussite.
-+- Le titre de premier niveau est l'objectif structuré, ou « Orientation du travail ». Une consultation, un fichier ou la dernière ligne reçue par le poller ne prend pas cette place.
-+- La lecture terminale du sas et du projet est un instantané du tour, borné à 500 ms, contrôlé après la lecture du corps, puis l'époque est invalidée. Elle ne vide plus les événements avant de relire seulement la fin du tour.
-+- Un échec de lecture de l'historique n'est pas un historique vide et peut être relancé. Un échec d'inscription d'une confirmation n'empêche pas les suivantes ; les lignes non inscrites restent dans la réponse.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 87ccd4fd..cae1a7bb 100644
+index cae1a7bb..ae7e3680 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -1,3 +1,14 @@
-+## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-INTEGRITY-DEV
++## delivery_id: DELIV-2026-11-28-ML5-FINOPS-ATTRIBUTION-DEV
 +
 +- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — complément lot 4, intégrité de l'activité
++- **lane**: DEV only — lot 5, fiabilisation ciblée du FinOps
 +- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `7c2cd338ab9c6932c491fb8baf5c4e6390d757b8`
-+- **commit**: `fix(next): preserve complete Nora activity history`
++- **HEAD_base**: `9bc9f3462f1e0eb91122bb6060efc23a08b71a7a`
++- **commit**: `fix(next): improve FinOps work attribution`
 +- **schema_revision**: unchanged
-+- **scope**: détail complet et compteurs sur l'ensemble, corrélation des annonces répétées, lecture terminale bornée, historique relisable, confirmations non perdues en silence, objectif distinct des opérations
-+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN
++- **scope**: rattachement du probe consommé par mise à jour de l'observation existante ; compteurs et ratio honnêtes lorsqu'une observation n'est pas attribuée ; libellés de coût, de couverture et de modèle demandé
++- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · pas de backfill historique
 +
- ## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-DEV
+ ## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-INTEGRITY-DEV
 
  - **date_local**: 2026-11-28 (Europe/Paris)
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index cf3ab260..48525afa 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -23,7 +23,7 @@ import {
-   resolveSasPresentationStage,
-   sasPresentationCopy,
- } from "@/components/figma/sas-presentation";
--import { projectActivityLabel } from "@/domains/conversation/activity-labels";
-+import { activityReadStillApplies } from "@/domains/conversation/activity-labels";
- import {
-   clearPrepComposerDraft,
-   readPrepComposerDraft,
-@@ -487,26 +487,39 @@ export default function PreparationPage() {
-     let lastActivitySeq = 0;
-     let knownTurnCommandId: string | null = null;
-     const pollEpoch = ++activityPollEpochRef.current;
--    const pollLiveActivity = async () => {
-+    const pollLiveActivity = async (opts?: { terminal?: boolean }) => {
-+      const scopeId = preparationId;
-+      const still = (turnReceived: string | null) =>
-+        activityReadStillApplies({
-+          epochAtStart: pollEpoch,
-+          epochNow: activityPollEpochRef.current,
-+          scopeAtStart: scopeId,
-+          scopeNow: preparationId,
-+          turnExpected: knownTurnCommandId,
-+          turnReceived,
-+        });
-       try {
--        if (pollEpoch !== activityPollEpochRef.current) return;
-+        if (!still(null)) return;
-         if (!knownTurnCommandId) {
-           const look = await fetch(
-             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
-           );
-+          if (!still(null)) return;
-           if (look.ok) {
-             const lj = (await look.json()) as { turnCommandId?: string | null };
-+            if (!still(null)) return;
-             if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
-           }
-         }
-         if (!knownTurnCommandId) return;
--        if (pollEpoch !== activityPollEpochRef.current) return;
--        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
-+        if (!still(null)) return;
-+        const q =
-+          opts?.terminal || lastActivitySeq <= 0 ? "" : `?afterSequence=${lastActivitySeq}`;
-         const act = await fetch(
-           `/api/preparations/${preparationId}/turns/${knownTurnCommandId}/activity${q}`,
-         );
-+        if (!still(null)) return;
-         if (!act.ok) return;
--        if (pollEpoch !== activityPollEpochRef.current) return;
-         const aj = (await act.json()) as {
-           events?: Array<{
-             sequence: number;
-@@ -519,10 +532,13 @@ export default function PreparationPage() {
-           }>;
-           turnCommandId?: string;
-         };
--        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
-+        if (!still(aj.turnCommandId ?? null)) return;
-+        if (!Array.isArray(aj.events)) return;
-+        if (opts?.terminal) {
-+          setLiveActivityEvents(aj.events);
-           return;
-         }
--        const batch = aj.events ?? [];
-+        const batch = aj.events;
-         if (batch.length === 0) return;
-         setLiveActivityEvents((prev) => {
-           const seen = new Set(prev.map((e) => e.sequence));
-@@ -534,9 +550,8 @@ export default function PreparationPage() {
-         });
-         const last = batch[batch.length - 1]!;
-         lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
--        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
-       } catch {
--        /* observational poll */
-+        /* observational poll — does not change the turn result */
-       }
-     };
-     const activityPollTimer = window.setInterval(() => {
-@@ -559,13 +574,10 @@ export default function PreparationPage() {
-       } catch {
-         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
-       }
--      // RB-01/02 — fence late polls before terminal clear (do not re-hydrate idle card).
--      activityPollEpochRef.current += 1;
-       if (res.ok) {
-         messageTurnKeyRef.current = null;
-         setMessages((j.messages as typeof messages) ?? []);
-         setNoraActivity("idle");
--        setLiveActivityEvents([]);
-         setLiveActivityHeadline("");
-         const mp = j.missionProjection as
-           | { clientIntentKey?: string; status?: string }
-@@ -620,7 +632,13 @@ export default function PreparationPage() {
-       setStatus("échec réseau — intention de tour conservée");
-     } finally {
-       window.clearInterval(activityPollTimer);
--      await pollLiveActivity();
-+      await Promise.race([
-+        pollLiveActivity({ terminal: true }),
-+        new Promise((resolve) => window.setTimeout(resolve, 500)),
-+      ]);
-+      if (activityPollEpochRef.current === pollEpoch) {
-+        activityPollEpochRef.current += 1;
-+      }
-       setBusy(false);
-     }
+diff --git a/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx b/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
+index 77d79b50..39313626 100644
+--- a/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
+@@ -45,6 +45,7 @@ type SummaryResponse = {
+
+ function kpiSubCost(metric: FinOpsSummaryDto["kpis"]["estimatedCostUsd"]): string {
+   if (metric.kind === "unknown") return "Estimation Studio indisponible";
++  if (metric.kind === "partial") return metric.note ?? "Estimation Studio partielle";
+   return "USD · estimation Studio";
+ }
+
+@@ -54,9 +55,15 @@ function kpiSubTokens(metric: FinOpsSummaryDto["kpis"]["totalTokens"]): string {
+ }
+
+ function kpiSubCompleted(
++  completed: FinOpsSummaryDto["kpis"]["completedWorks"],
+   costPer: FinOpsSummaryDto["kpis"]["costPerCompletedWorkUsd"],
+ ): string {
+-  if (costPer.kind === "known" || costPer.kind === "partial") {
++  if (completed.kind === "partial") return completed.note ?? "Décompte partiel";
++  if (completed.kind === "unknown") return completed.reason ?? "Travaux non établis";
++  if (costPer.kind === "partial") {
++    return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)} · estimation partielle`;
++  }
++  if (costPer.kind === "known") {
+     return `Coût global / travail abouti : ${formatMeasuredUsd(costPer)}`;
    }
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index baad7193..5b5d60fb 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -56,7 +56,7 @@ import {
-   type ActivityFreshness,
-   type ActivitySnapshot,
- } from "@/lib/project-projection-sync";
--import { projectActivityLabel } from "@/domains/conversation/activity-labels";
-+import { activityReadStillApplies } from "@/domains/conversation/activity-labels";
- import {
-   conversationalClientCommandKey,
-   mayClearComposerDraftOnReconcile,
-@@ -2991,26 +2991,39 @@ export default function ProjectPage() {
-     let knownTurnCommandId: string | null = null;
-     // L1.5 — fence late polls from a previous turn after this send ends.
-     const pollEpoch = ++activityPollEpochRef.current;
--    const pollLiveActivity = async () => {
-+    const pollLiveActivity = async (opts?: { terminal?: boolean }) => {
-+      const scopeId = params.projectId;
-+      const still = (turnReceived: string | null) =>
-+        activityReadStillApplies({
-+          epochAtStart: pollEpoch,
-+          epochNow: activityPollEpochRef.current,
-+          scopeAtStart: scopeId,
-+          scopeNow: params.projectId,
-+          turnExpected: knownTurnCommandId,
-+          turnReceived,
-+        });
-       try {
--        if (pollEpoch !== activityPollEpochRef.current) return;
-+        if (!still(null)) return;
-         if (!knownTurnCommandId) {
-           const look = await fetch(
-             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
-           );
-+          if (!still(null)) return;
-           if (look.ok) {
-             const lj = (await look.json()) as { turnCommandId?: string | null };
-+            if (!still(null)) return;
-             if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
-           }
-         }
-         if (!knownTurnCommandId) return;
--        if (pollEpoch !== activityPollEpochRef.current) return;
--        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
-+        if (!still(null)) return;
-+        const q =
-+          opts?.terminal || lastActivitySeq <= 0 ? "" : `?afterSequence=${lastActivitySeq}`;
-         const act = await fetch(
-           `/api/projects/${params.projectId}/turns/${knownTurnCommandId}/activity${q}`,
-         );
-+        if (!still(null)) return;
-         if (!act.ok) return;
--        if (pollEpoch !== activityPollEpochRef.current) return;
-         const aj = (await act.json()) as {
-           events?: Array<{
-             sequence: number;
-@@ -3023,10 +3036,13 @@ export default function ProjectPage() {
-           }>;
-           turnCommandId?: string;
-         };
--        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
-+        if (!still(aj.turnCommandId ?? null)) return;
-+        if (!Array.isArray(aj.events)) return;
-+        if (opts?.terminal) {
-+          setLiveActivityEvents(aj.events);
-           return;
-         }
--        const batch = aj.events ?? [];
-+        const batch = aj.events;
-         if (batch.length === 0) return;
-         setLiveActivityEvents((prev) => {
-           const seen = new Set(prev.map((e) => e.sequence));
-@@ -3038,9 +3054,8 @@ export default function ProjectPage() {
-         });
-         const last = batch[batch.length - 1]!;
-         lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
--        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
-       } catch {
--        /* observational poll */
-+        /* observational poll — does not change the turn result */
-       }
-     };
-     const activityPollTimer = window.setInterval(() => {
-@@ -3117,7 +3132,6 @@ export default function ProjectPage() {
-         if (prepared?.contractId) {
-           void openContractViewer(prepared.contractId);
-         }
--        void pollLiveActivity();
-         const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
-         const independent = serverKind === "DIALOGUE_INDEPENDANT";
-         const effectBlocked = Boolean(j.pendingEffectBlocked);
-@@ -3132,7 +3146,6 @@ export default function ProjectPage() {
-         const preserveMetierPending =
-           (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
-         setMessages((j.messages as Msg[]) ?? []);
--        setLiveActivityEvents([]);
-         setLiveActivityHeadline("");
-         {
-           const mode = String(j.noraMode ?? "").trim();
-@@ -3488,8 +3501,13 @@ export default function ProjectPage() {
-       }
-     } finally {
-       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
--      await pollLiveActivity();
--      activityPollEpochRef.current += 1;
-+      await Promise.race([
-+        pollLiveActivity({ terminal: true }),
-+        new Promise((resolve) => window.setTimeout(resolve, 500)),
-+      ]);
-+      if (activityPollEpochRef.current === pollEpoch) {
-+        activityPollEpochRef.current += 1;
-+      }
-       setBusy(false);
-     }
-   }
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index d316bc2c..8af3d7d3 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -15,7 +15,10 @@ import {
-   compositionAnchorsReferences,
- } from "@/domains/conversation/visual-composition";
- import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
--import { buildActivityGroups } from "@/domains/conversation/activity-labels";
-+import {
-+  buildActivityGroups,
-+  interpretActivityHistoryPayload,
-+} from "@/domains/conversation/activity-labels";
- import { NoraSharedComposer } from "@/components/figma/NoraSharedComposer";
+   if (costPer.kind === "unknown") return costPer.reason ?? "Ratio indisponible";
+@@ -136,9 +143,11 @@ export function FinOpsConsumptionPanel() {
+   const maxModel =
+     summary?.modelBreakdown.reduce((m, d) => Math.max(m, d.costUsd ?? 0), 0) ?? 1;
 
- export type NoraMsg = {
-@@ -460,45 +463,78 @@ const ACTIVITY_STATE_LABEL: Record<string, string> = {
-   failed: "Non abouti",
- };
-
-+type HistoryEvent = {
-+  sequence: number;
-+  nature: string;
-+  status: string;
-+  summary: string;
-+  phase: string;
-+  sourceRef?: string | null;
-+  detail?: Record<string, unknown> | null;
-+};
-+
- function NoraTurnActivityHistory(props: { href: string; fallback?: string | null }) {
--  const [events, setEvents] = useState<
--    Array<{
--      sequence: number;
--      nature: string;
--      status: string;
--      summary: string;
--      phase: string;
--      sourceRef?: string | null;
--      detail?: Record<string, unknown> | null;
--    }> | null
--  >(null);
-+  const [events, setEvents] = useState<HistoryEvent[] | null>(null);
-+  const [turnStatus, setTurnStatus] = useState<string | null>(null);
-   const [error, setError] = useState<string | null>(null);
--  const loaded = useRef(false);
-+  const [phase, setPhase] = useState<"idle" | "loading" | "ready" | "empty" | "error">("idle");
-+  const [visible, setVisible] = useState(40);
-+  const hrefRef = useRef(props.href);
-+  hrefRef.current = props.href;
-+
-+  useEffect(() => {
-+    setEvents(null);
-+    setTurnStatus(null);
-+    setError(null);
-+    setPhase("idle");
-+    setVisible(40);
-+  }, [props.href]);
-
-   async function load() {
--    if (loaded.current) return;
--    loaded.current = true;
-+    if (phase === "loading" || phase === "ready" || phase === "empty") return;
-+    const requested = props.href;
-+    setPhase("loading");
-+    setError(null);
-     try {
--      const res = await fetch(props.href);
-+      const res = await fetch(requested);
-+      if (hrefRef.current !== requested) return;
-       if (!res.ok) {
-+        setPhase("error");
-         setError("Lecture de l'activité indisponible pour ce tour.");
-         return;
-       }
--      const body = (await res.json()) as { events?: typeof events };
--      setEvents(body.events ?? []);
-+      const body = (await res.json()) as unknown;
-+      if (hrefRef.current !== requested) return;
-+      const read = interpretActivityHistoryPayload(body);
-+      if (read.kind === "invalid") {
-+        setPhase("error");
-+        setError("Lecture de l'activité indisponible — réponse inexploitable.");
-+        return;
-+      }
-+      setTurnStatus(read.turnStatus);
-+      if (read.kind === "empty") {
-+        setEvents([]);
-+        setPhase("empty");
-+        return;
-+      }
-+      setEvents(read.events as HistoryEvent[]);
-+      setPhase("ready");
-     } catch {
-+      if (hrefRef.current !== requested) return;
-+      setPhase("error");
-       setError("Lecture de l'activité indisponible pour ce tour.");
-     }
-   }
-
--  const groups = events
--    ? buildActivityGroups(
--        events.map((ev) => ({
--          ...ev,
--          detail: ev.detail ?? undefined,
--        })),
--      )
--    : [];
-+  const groups =
-+    phase === "ready" && events
-+      ? buildActivityGroups(
-+          events.map((ev) => ({
-+            ...ev,
-+            detail: ev.detail ?? undefined,
-+          })),
-+        )
-+      : [];
++  const completedMetric = summary?.kpis.completedWorks;
+   const completedDisplay =
+-    summary?.kpis.completedWorks.kind === "known"
+-      ? formatIntegerFr(summary.kpis.completedWorks.value)
++    completedMetric &&
++    (completedMetric.kind === "known" || completedMetric.kind === "partial")
++      ? formatIntegerFr(completedMetric.value)
+       : "—";
 
    return (
-     <details
-@@ -509,11 +545,17 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
-       }}
-     >
-       <summary>Activité de cette réponse</summary>
--      {error ? <p>{error}</p> : null}
--      {!events && props.fallback ? <p>{props.fallback}</p> : null}
--      {events && groups.length === 0 ? (
--        <p>Aucun événement durable pour ce tour.</p>
-+      {turnStatus ? <p>Issue du tour : {turnStatus}</p> : null}
-+      {error ? (
-+        <p>
-+          {error}{" "}
-+          <button type="button" onClick={() => void load()}>
-+            Relire
-+          </button>
-+        </p>
-       ) : null}
-+      {phase === "idle" && props.fallback ? <p>{props.fallback}</p> : null}
-+      {phase === "empty" ? <p>Aucun événement durable pour ce tour.</p> : null}
-       {groups.map((group) => (
-         <div key={group.key} data-testid={`nora-activity-group-${group.key}`}>
-           <p>
-@@ -522,7 +564,7 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
-           {group.resultSummary ? <p>{group.resultSummary}</p> : null}
-           {group.details.length > 0 ? (
-             <ul>
--              {group.details.map((detail) => (
-+              {group.details.slice(0, visible).map((detail) => (
-                 <li key={detail.key}>
-                   {detail.title} · {detail.coverage}
-                 </li>
-@@ -531,6 +573,11 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
-           ) : null}
-         </div>
-       ))}
-+      {groups.some((group) => group.details.length > visible) ? (
-+        <button type="button" onClick={() => setVisible((count) => count + 40)}>
-+          Afficher la suite
-+        </button>
-+      ) : null}
-     </details>
-   );
- }
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-index b36c2c44..54d72739 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-@@ -209,6 +209,8 @@ export function NoraLiveActivity(props: {
-                         <span className="fig-nora-live-activity-source-cov">
-                           {d.coverage === "DISCOVERED"
-                             ? "Identifiée"
-+                            : d.coverage === "COMPARE"
-+                              ? "Comparaison"
-                             : d.coverage === "CONSULTED" ||
-                                 d.coverage === "VERIFIED" ||
-                                 d.coverage === "COMPLETE" ||
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/activity-labels.ts b/projects/sfia-studio-next/web/src/domains/conversation/activity-labels.ts
-index aa8e5842..a19247a3 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/activity-labels.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/activity-labels.ts
-@@ -319,10 +319,10 @@ function correlationRef(
-     detailString(ev.detail, "operationId") ||
-     detailString(ev.detail, "effectId") ||
-     detailString(ev.detail, "ownerRef") ||
-+    detailString(ev.detail, "operation") ||
-     "";
-   if (op) return `op:${op}`;
--  const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
--  if (ref) return `ref:${ref}`;
-+  // One orientation stream per phase. A source reference alone is not an operation identity.
-   if (/objective|investigation\.engaged/i.test(ev.phase || "")) return `phase:${ev.phase}`;
-   return null;
- }
-@@ -336,11 +336,16 @@ function foldOperationStates(
-   for (const ev of sorted) {
-     const st = authoritativeState(ev);
-     const ref = correlationRef(ev);
--    if (ref && open.has(ref) && (st === "done" || st === "failed" || st === "limited")) {
-+    const terminal = st === "done" || st === "failed" || st === "limited";
-+    if (ref && terminal && open.has(ref)) {
-       states[open.get(ref)!] = st;
-       open.delete(ref);
-       continue;
-     }
-+    if (ref && st === "current" && open.has(ref)) {
-+      // Repeated announcement of the same operation — do not leave an extra current.
-+      continue;
-+    }
-     states.push(st);
-     if (ref && st === "current") open.set(ref, states.length - 1);
-   }
-@@ -489,7 +494,7 @@ export function buildActivitySteps(
-       byId.get(id)!.sequence = prev.sequence;
-     }
-   }
--  return [...byId.values()].sort((a, b) => a.sequence - b.sequence).slice(-8);
-+  return [...byId.values()].sort((a, b) => a.sequence - b.sequence);
- }
+@@ -246,7 +255,10 @@ export function FinOpsConsumptionPanel() {
+                 <p className="finops-1306-kpi-label">Travaux aboutis</p>
+                 <p className="finops-1306-kpi-value">{completedDisplay}</p>
+                 <p className="finops-1306-kpi-sub">
+-                  {kpiSubCompleted(summary.kpis.costPerCompletedWorkUsd)}
++                  {kpiSubCompleted(
++                    summary.kpis.completedWorks,
++                    summary.kpis.costPerCompletedWorkUsd,
++                  )}
+                 </p>
+               </article>
+               <article className="finops-1306-kpi">
+diff --git a/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx b/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
+index 071d3ef8..35251bf1 100644
+--- a/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/finops/FinOpsWorkDetailPanel.tsx
+@@ -4,7 +4,7 @@ import Link from "next/link";
+ import { useCallback, useEffect, useState } from "react";
+ import type { FinOpsWorkDetailDto } from "@/domains/finops/usage-read-service";
+ import {
+-  displayModelShort,
++  finOpsShortModelLabel,
+   formatIntegerFr,
+   formatMeasuredTokens,
+   formatMeasuredUsd,
+@@ -113,7 +113,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
+                 <p className="finops-1306-kpi-value">
+                   {formatMeasuredTokens(detail.kpis.totalTokens)}
+                 </p>
+-                <p className="finops-1306-kpi-sub">Entrée + sortie</p>
++                <p className="finops-1306-kpi-sub">Entrée + sortie · cache inclus dans l&apos;entrée</p>
+               </article>
+               <article className="finops-1306-kpi">
+                 <p className="finops-1306-kpi-label">Requêtes</p>
+@@ -142,7 +142,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
+                       <span>{String(s.segmentIndex + 1).padStart(2, "0")}</span>
+                       <span>{s.label}</span>
+                       <span>
+-                        {displayModelShort(s.model) ?? "—"}
++                        {finOpsShortModelLabel(s.model) ?? "—"}
+                         {s.effort ? ` · ${s.effort}` : ""}
+                       </span>
+                       <span>{formatMeasuredTokens(s.tokens)}</span>
+@@ -174,7 +174,7 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
+                       <span className="finops-1306-timeline-op">
+                         {ev.operation?.trim() || "Observation fournisseur"}
+                       </span>
+-                      <span>{displayModelShort(ev.model) ?? "—"}</span>
++                      <span>{finOpsShortModelLabel(ev.model) ?? "—"}</span>
+                       <span className="finops-1306-timeline-coverage">
+                         {mapCostCoverageLabel(ev.costCoverage)}
+                       </span>
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 99ee7f03..9d74b517 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -97,6 +97,17 @@ export type NoraGenerateInput = {
+   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
+   cognitiveWorkId?: string | null;
+   segmentIndex?: number | null;
++  /**
++   * Identities already known for the usage row.
++   * Does not enable tools and does not decide the cognitive work.
++   */
++  usageIdentity?: {
++    ownerPilotId?: string | null;
++    projectId?: string | null;
++    preparationId?: string | null;
++    conversationId?: string | null;
++    turnId?: string | null;
++  };
+   /**
+    * D3 continuity snapshot owned by the cognitive conductor.
+    * Bound into the provider frontier ALS; native chain stays OFF by default.
+@@ -1313,6 +1324,7 @@ async function runLiveWithToolsInner(
 
- /** Compact API used by pollers — replaces technical `NATURE: summary` headlines. */
-@@ -648,33 +653,40 @@ export function buildActivityGroups(
-       if (discovered && !consulted && consultations === 0) {
-         bits.push(`${discovered} identifiée${discovered > 1 ? "s" : ""}`);
-       }
--      const compareLabel = [...list]
--        .reverse()
--        .map((e) => (e.summary || "").trim())
--        .find((s) => /^Comparaison documentaire\b/i.test(s) && !looksTechnical(s));
-+      const comparisons = list
-+        .filter((e) => /^Comparaison documentaire\b/i.test((e.summary || "").trim()) && !looksTechnical(e.summary || ""))
-+        .sort((a, b) => a.sequence - b.sequence);
-       const bitsLine = bits.join(" · ");
--      resultSummary = compareLabel
--        ? [compareLabel.slice(0, 110), bitsLine].filter(Boolean).join(" · ")
--        : bitsLine || null;
-+      const compareLine =
-+        comparisons.length > 1
-+          ? `${comparisons.length} comparaisons`
-+          : (comparisons[0]?.summary ?? "").trim().slice(0, 110);
-+      resultSummary = [compareLine, bitsLine].filter(Boolean).join(" · ") || null;
-       details = sources.map((s) => ({
-         key: s.key,
-         title: s.title,
-         coverage: s.coverage,
-         kind: s.kind,
-       }));
--      // Keep each consultation operation visible when multiple reads of one source.
-       if (consultations > sources.length) {
-         const steps = buildActivitySteps(list).filter(
-           (s) => !isGenericOrientationSummary(s.label),
-         );
--        if (steps.length > details.length) {
--          details = steps.map((s) => ({
--            key: s.key,
--            title: s.label,
--            coverage: s.state.toUpperCase(),
--            kind: "STEP",
--          }));
--        }
-+        details = steps.map((step) => ({
-+          key: step.key,
-+          title: step.label,
-+          coverage: step.state.toUpperCase(),
-+          kind: "STEP",
-+        }));
-+      }
-+      for (const comparison of comparisons) {
-+        const title = (comparison.summary || "").trim();
-+        details.push({
-+          key: `compare:${comparison.sequence}`,
-+          title,
-+          coverage: "COMPARE",
-+          kind: "COMPARE",
-+        });
-       }
-     } else if (key === "understand") {
-       // IT-01 — keep a single group title; do not echo ANNOUNCED/COMPLETED orientation blurbs.
-@@ -683,7 +695,7 @@ export function buildActivityGroups(
-     } else {
-       const steps = buildActivitySteps(list).filter((s) => !isGenericOrientationSummary(s.label));
-       resultSummary =
--        steps.length > 1 ? `${steps.length} opérations observées` : steps[0]?.label || null;
-+        steps.length > 1 ? `${steps.length} opérations` : steps[0]?.label || null;
-       details = steps.map((s) => ({
-         key: s.key,
-         title: s.label,
-@@ -720,86 +732,97 @@ export function buildActivityGroups(
-   return groups;
- }
+       providerUsage = extractProviderUsageFromRunResult(result);
+       // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
++      const usageIdentity = input.usageIdentity;
+       void recordNoraProviderUsageWithHttpCorrelation({
+         runResult: result,
+         status: "succeeded",
+@@ -1321,10 +1333,19 @@ async function runLiveWithToolsInner(
+         generationId,
+         cognitiveWorkId: input.cognitiveWorkId ?? null,
+         segmentIndex: input.segmentIndex ?? null,
+-        conversationId: input.toolScope?.activityContext?.conversationId ?? null,
+-        projectId: input.toolScope?.projectId ?? null,
+-        preparationId: input.toolScope?.preparationId ?? null,
++        conversationId:
++          usageIdentity?.conversationId ??
++          input.toolScope?.activityContext?.conversationId ??
++          null,
++        turnId:
++          usageIdentity?.turnId ??
++          input.toolScope?.activityContext?.turnCommandId ??
++          null,
++        projectId: usageIdentity?.projectId ?? input.toolScope?.projectId ?? null,
++        preparationId:
++          usageIdentity?.preparationId ?? input.toolScope?.preparationId ?? null,
+         ownerPilotId:
++          usageIdentity?.ownerPilotId ??
+           input.toolScope?.pilotId ??
+           input.toolScope?.activityContext?.ownerPilotId ??
+           null,
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+index b6c45c86..562f533c 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+@@ -33,6 +33,7 @@ import {
+   type NoraGenerateInput,
+   type NoraGenerateResult,
+ } from "./nora-adapter";
++import { attributeConsumedProbeUsage } from "./usage-accounting";
+ import { buildStudioContinuityFromWork } from "./provider-response-continuity";
+ import { resolvePublicWebRegistry } from "./public-web-registry";
+ import {
+@@ -1025,6 +1026,13 @@ export async function runNoraCognitiveTurn(
+       onProvisionalChunk: input.onProvisionalChunk,
+       toolScope: input.toolScope,
+       policyOverride: probePolicy,
++      usageIdentity: {
++        ownerPilotId: input.pilotId,
++        preparationId: input.preparationId,
++        projectId: input.projectId ?? null,
++        conversationId: input.conversationId ?? null,
++        turnId: input.turnCommandId ?? null,
++      },
+     });
+     segmentBox.reply = probeReply;
+     attachment = await resolveCognitiveWorkAttachment({
+@@ -1525,6 +1533,19 @@ export async function runNoraCognitiveTurn(
+       if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
+         probeConsumed = true;
+         reply = probeReply;
++        try {
++          await attributeConsumedProbeUsage({
++            generationId: probeReply.generationId,
++            ownerPilotId: input.pilotId,
++            preparationId: input.preparationId,
++            projectId: input.projectId ?? null,
++            conversationId: input.conversationId ?? null,
++            turnId: input.turnCommandId ?? null,
++            cognitiveWorkId: work.id,
++          });
++        } catch {
++          /* a missed attribution must not cancel the consumed reply */
++        }
+       } else {
+         // FinOps / reallocation trace: use work-level ordinal (segmentCalls), not the
+         // per-invocation local segmentIndex which resets to 0 on each product turn.
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
+index 5efdbe21..a5019be5 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
+@@ -1,6 +1,7 @@
+ import { createHash, randomUUID } from "node:crypto";
++import { and, eq, isNull, sql } from "drizzle-orm";
+ import { db } from "@/db/client";
+-import { providerUsageObservations } from "@/db/schema";
++import { cognitiveWorks, providerUsageObservations } from "@/db/schema";
+ import type { CognitiveModelId } from "./cognitive-resources/resource-catalog";
+ import {
+   LONG_CONTEXT_INPUT_THRESHOLD_TOKENS,
+@@ -284,6 +285,167 @@ export type RecordProviderUsageObservationResult = {
+   id: string;
+ };
 
-+function isOperationHeadline(text: string): boolean {
-+  return /^(Consultation Git|Comparaison documentaire|Document consulté|Source web)\b/i.test(
-+    text.trim(),
-+  );
++export type ProbeUsageClaim = {
++  generationId: string;
++  ownerPilotId: string;
++  preparationId: string;
++  projectId?: string | null;
++  conversationId?: string | null;
++  turnId?: string | null;
++  cognitiveWorkId: string;
++};
++
++const probeClaims = new Map<string, ProbeUsageClaim>();
++const usageWriteInflight = new Map<string, Promise<void>>();
++
++function textOrEmpty(value: string | null | undefined): string {
++  return value?.trim() ?? "";
 +}
 +
- /**
-- * Mission-level headline: prefer objective events; never last filename alone.
-- * When richer source/compare activity exists, prefer it over generic orientation
-- * so the LIVE card does not only repeat « Orientation du travail ».
-+ * Level-1 title: the structured objective, or an honest generic orientation.
-+ * A consultation, a file, a comparison or the last polled event is not the objective.
-  */
- export function projectMissionHeadline(
-   events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
- ): string {
--  const compareOrSource = [...events]
--    .reverse()
--    .find((e) => {
--      const s = (e.summary || "").trim();
--      if (/^Comparaison documentaire\b/i.test(s)) return true;
--      // Never promote a single Git file consultation into the mission title.
--      if (/^Consultation Git\b/i.test(s)) return false;
--      if (
--        /source\./i.test(e.phase || "") &&
--        s &&
--        !looksTechnical(s) &&
--        !isGenericOrientationSummary(s)
--      ) {
--        return e.nature === "OBSERVED" || e.nature === "COMPLETED";
--      }
--      return false;
--    });
--  if (compareOrSource?.summary && !looksTechnical(compareOrSource.summary)) {
--    return compareOrSource.summary.slice(0, 160);
--  }
--  const objective = [...events]
--    .reverse()
--    .find(
--      (e) =>
--        /objective|investigation\.engaged/i.test(e.phase || "") ||
--        detailString(e.detail, "objective"),
-+  const objective = [...events].reverse().find((e) => {
-+    const titled = detailString(e.detail, "metierTitle") || detailString(e.detail, "objective");
-+    return (
-+      Boolean(titled) || /objective|investigation\.engaged/i.test(e.phase || "")
-     );
-+  });
-   if (objective) {
--    const o = detailString(objective.detail, "objective") || objective.summary;
--    if (o && !looksTechnical(o) && !/^Prise en charge/i.test(o)) {
--      // Collapse generic orientation blurbs to the stable group title (IT-01).
--      if (isGenericOrientationSummary(o)) return "Orientation du travail";
-+    const o =
-+      detailString(objective.detail, "metierTitle") ||
-+      detailString(objective.detail, "objective") ||
-+      "";
-+    if (
-+      o &&
-+      !looksTechnical(o) &&
-+      !isGenericOrientationSummary(o) &&
-+      !isOperationHeadline(o) &&
-+      !/^Prise en charge/i.test(o)
-+    ) {
-       return o.slice(0, 160);
-     }
-   }
--  const last = events[events.length - 1];
--  if (last) {
--    const headline = projectActivityLabel(last).slice(0, 160);
--    if (headline && !/Consultation Git —/i.test(headline)) {
--      if (isGenericOrientationSummary(headline)) return "Orientation du travail";
--      return headline;
--    }
--  }
--  return "Activité Nora";
-+  return "Orientation du travail";
- }
-
--/** Idle card: drop headline when it only repeats a group title or orientation blurb. */
-+/** Level-1 title. A polled operation must not replace the objective. */
- export function resolveActivityDisplayHeadline(input: {
-   active: boolean;
-   propsHeadline?: string | null;
-   events: Array<ActivityLabelInput & { sequence: number; nature: string }>;
-   groupTitles: string[];
- }): string | null {
-+  void input.groupTitles;
-+  const mission = input.events.length ? projectMissionHeadline(input.events) : "";
-+  if (mission && mission !== "Orientation du travail") return mission.slice(0, 160);
-   const fromProps = (input.propsHeadline || "").trim();
--  const fromMission = input.events.length
--    ? projectMissionHeadline(input.events)
--    : input.active
--      ? "Activité en cours"
--      : "Activité";
--  let headline = fromProps || fromMission;
--  if (fromProps && isGenericOrientationSummary(fromProps)) {
--    headline = fromMission;
-+  if (
-+    input.events.length === 0 &&
-+    fromProps &&
-+    !isOperationHeadline(fromProps) &&
-+    !isGenericOrientationSummary(fromProps)
-+  ) {
-+    return fromProps.slice(0, 160);
-   }
--  if (!input.active) {
--    if (isGenericOrientationSummary(headline) || headline === "Orientation du travail") {
--      const richer = input.groupTitles.find(
--        (t) => t && t !== "Orientation du travail" && !isGenericOrientationSummary(t),
--      );
--      if (richer) return richer.slice(0, 160);
--      return null;
--    }
--    if (input.groupTitles.some((t) => t === headline)) return null;
-+  if (input.active) return "Orientation du travail";
-+  return null;
-+}
-+
-+export function activityReadStillApplies(input: {
-+  epochAtStart: number;
-+  epochNow: number;
-+  scopeAtStart: string;
-+  scopeNow: string;
-+  turnExpected: string | null;
-+  turnReceived: string | null;
-+}): boolean {
-+  if (input.epochAtStart !== input.epochNow) return false;
-+  if (input.scopeAtStart !== input.scopeNow) return false;
-+  if (
-+    input.turnExpected &&
-+    input.turnReceived &&
-+    input.turnExpected !== input.turnReceived
-+  ) {
++function claimMatchesObservation(
++  claim: ProbeUsageClaim,
++  input: Pick<
++    ProviderUsageObservationInput,
++    "ownerPilotId" | "preparationId" | "projectId" | "conversationId" | "turnId"
++  >,
++): boolean {
++  if (textOrEmpty(input.ownerPilotId) !== claim.ownerPilotId) return false;
++  if (textOrEmpty(input.preparationId) !== claim.preparationId) return false;
++  const obsProject = textOrEmpty(input.projectId);
++  const claimProject = textOrEmpty(claim.projectId);
++  if (obsProject && claimProject && obsProject !== claimProject) return false;
++  const obsTurn = textOrEmpty(input.turnId);
++  const claimTurn = textOrEmpty(claim.turnId);
++  if (obsTurn && claimTurn && obsTurn !== claimTurn) return false;
++  const obsConversation = textOrEmpty(input.conversationId);
++  const claimConversation = textOrEmpty(claim.conversationId);
++  if (obsConversation && claimConversation && obsConversation !== claimConversation) {
 +    return false;
-   }
--  return headline || null;
++  }
 +  return true;
 +}
 +
-+export type ActivityHistoryRead =
-+  | { kind: "ready"; events: unknown[]; turnStatus: string | null }
-+  | { kind: "empty"; turnStatus: string | null }
-+  | { kind: "invalid" };
-+
-+/** Distinguish a real empty history from an unusable payload. */
-+export function interpretActivityHistoryPayload(body: unknown): ActivityHistoryRead {
-+  if (!body || typeof body !== "object" || Array.isArray(body)) return { kind: "invalid" };
-+  const record = body as { events?: unknown; turnStatus?: unknown };
-+  if (!Array.isArray(record.events)) return { kind: "invalid" };
-+  const turnStatus = typeof record.turnStatus === "string" ? record.turnStatus : null;
-+  if (record.events.length === 0) return { kind: "empty", turnStatus };
-+  return { kind: "ready", events: record.events, turnStatus };
- }
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts b/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts
-index 87f79beb..0348b6e9 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts
-@@ -27,6 +27,27 @@ export type ActivityEventInput = {
-  * GET-side consumers must treat ANNOUNCED ≠ OBSERVED.
-  * Sequence is allocated under turn lock to survive concurrent writers (unique turn+seq).
-  */
-+/**
-+ * Record each activity fact on its own. One failure must not drop the facts that follow.
-+ * Missed lines stay available to the caller; this function does not invent a confirmation.
-+ */
-+export async function appendActivityFactsSafely<T>(
-+  facts: T[],
-+  append: (fact: T) => Promise<void>,
-+): Promise<{ recorded: number; missed: T[] }> {
-+  const missed: T[] = [];
-+  let recorded = 0;
-+  for (const fact of facts) {
-+    try {
-+      await append(fact);
-+      recorded += 1;
-+    } catch {
-+      missed.push(fact);
-+    }
-+  }
-+  return { recorded, missed };
++/** Apply a validated claim onto a row that is still unattributed. The idempotency key stays unchanged. */
++function claimedWorkId(input: ProviderUsageObservationInput): string | null {
++  if (textOrEmpty(input.cognitiveWorkId)) return null;
++  const generationId = textOrEmpty(input.generationId);
++  if (!generationId) return null;
++  const claim = probeClaims.get(generationId);
++  if (!claim || !claimMatchesObservation(claim, input)) return null;
++  return claim.cognitiveWorkId;
 +}
 +
- export async function appendActivityEvent(input: ActivityEventInput) {
-   return db.transaction(async (tx) => {
-     await tx.execute(
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/knowledge-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/knowledge-effect-restitution.ts
-index 167295e5..9de91dfd 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/knowledge-effect-restitution.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/knowledge-effect-restitution.ts
-@@ -118,14 +118,14 @@ export function knowledgeEffectConversationLines(effects: TurnKnowledgeEffect[])
- export type KnowledgeActivityFact = {
-   summary: string;
-   status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
--  effectId: string;
-+  /** Present only when the owner returned a reference. */
-   ownerRef: string | null;
- };
-
- export function knowledgeEffectActivityFacts(
-   effects: TurnKnowledgeEffect[],
- ): KnowledgeActivityFact[] {
--  return effects.flatMap((effect, index) => {
-+  return effects.flatMap((effect) => {
-     const lines = knowledgeEffectFactLines([effect]);
-     if (lines.length === 0) return [];
-     const st = (effect.status ?? "UNKNOWN").toUpperCase();
-@@ -136,14 +136,10 @@ export function knowledgeEffectActivityFacts(
-         : st === "PARTIAL" || st === "NOT_EXECUTED" || st === "SKIPPED"
-           ? "LIMITED"
-           : "UNKNOWN";
--    const effectId =
--      effect.ownerRef?.trim() ||
--      `${effect.proposalKind ?? "knowledge"}:${effect.semanticIntentId ?? index}:${st}`;
-     return lines.map((summary) => ({
-       summary,
-       status,
--      effectId,
--      ownerRef: effect.ownerRef ?? null,
-+      ownerRef: effect.ownerRef?.trim() || null,
-     }));
-   });
- }
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-index c9c3452e..ca5b30aa 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-@@ -151,14 +151,15 @@ function effectSplit(effect: NonNullable<PilotageEffectView>): {
- export type PilotageActivityFact = {
-   summary: string;
-   status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
--  effectId: string;
-+  /** Present only when Studio returned a decision id. Not a FinOps correlation. */
-+  ownerRef: string | null;
- };
-
- export function pilotageEffectActivityFacts(
-   effects: Array<PilotageEffectView | null | undefined>,
- ): PilotageActivityFact[] {
-   const out: PilotageActivityFact[] = [];
--  effects.forEach((effect, index) => {
-+  effects.forEach((effect) => {
-     if (!effect?.attempted) return;
-     const split = effectSplit(effect);
-     const st = (effect.status ?? "UNKNOWN").toUpperCase();
-@@ -170,9 +171,9 @@ export function pilotageEffectActivityFacts(
-           : st === "CONFLICT" || st === "ALREADY_APPLIED"
-             ? "LIMITED"
-             : "UNKNOWN";
--    const effectId = `${effect.operation ?? "pilotage"}:${effect.decisionId ?? index}:${st}`;
-+    const ownerRef = effect.decisionId?.trim() || null;
-     for (const summary of split.activity) {
--      out.push({ summary, status, effectId });
-+      out.push({ summary, status, ownerRef });
-     }
-   });
-   return out;
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 1fc89b1c..cf3524b6 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -5027,22 +5027,26 @@ export async function postUserMessageAndNora(
-   // Operational confirmations stay in the durable activity, not the conversational body.
-   // A failed append must not cancel an owner result already confirmed.
-   if (!ownershipLostBeforeD4) {
-+    const facts = [
-+      ...knowledgeEffectActivityFacts(knowledgeEffectRecords).map((fact) => ({
-+        ...fact,
-+        phase: "nora.effect.knowledge",
-+        kind: "KNOWLEDGE_EFFECT",
-+        ownerRef: fact.ownerRef,
-+      })),
-+      ...pilotageEffectActivityFacts(pilotageEffectRecords).map((fact) => ({
-+        ...fact,
-+        phase: "nora.effect.pilotage",
-+        kind: "PILOTAGE_EFFECT",
-+      })),
-+    ];
-+    let missed = facts;
-     try {
--      const { appendActivityEvent } = await import("./activity-projection");
--      const facts = [
--        ...knowledgeEffectActivityFacts(knowledgeEffectRecords).map((fact) => ({
--          ...fact,
--          phase: "nora.effect.knowledge",
--          kind: "KNOWLEDGE_EFFECT",
--        })),
--        ...pilotageEffectActivityFacts(pilotageEffectRecords).map((fact) => ({
--          ...fact,
--          phase: "nora.effect.pilotage",
--          kind: "PILOTAGE_EFFECT",
--          ownerRef: null as string | null,
--        })),
--      ];
--      for (const fact of facts) {
-+      const { appendActivityEvent, appendActivityFactsSafely } = await import(
-+        "./activity-projection"
-+      );
-+      const result = await appendActivityFactsSafely(facts, async (fact) => {
-+        const ownerRef = fact.ownerRef?.trim() || "";
-         await appendActivityEvent({
-           conversationId: reserved.conversationId,
-           turnCommandId: reserved.commandId,
-@@ -5058,15 +5062,24 @@ export async function postUserMessageAndNora(
-           status: fact.status,
-           summary: fact.summary.slice(0, 240),
-           detail: {
--            effectId: fact.effectId,
--            ownerRef: fact.ownerRef,
-             kind: fact.kind,
-+            ...(ownerRef ? { ownerRef } : {}),
-           },
-           ownerToken: reserved.ownerToken,
-         });
--      }
-+      });
-+      missed = result.missed;
-     } catch {
--      /* activity is observational */
-+      missed = facts;
++/**
++ * Attach an already recorded probe to the work that actually consumed it.
++ * Updates the existing rows. Does not insert a second observation.
++ */
++export async function attributeConsumedProbeUsage(
++  claim: ProbeUsageClaim,
++): Promise<{ updated: number; refused: boolean }> {
++  const generationId = textOrEmpty(claim.generationId);
++  const cognitiveWorkId = textOrEmpty(claim.cognitiveWorkId);
++  const ownerPilotId = textOrEmpty(claim.ownerPilotId);
++  const preparationId = textOrEmpty(claim.preparationId);
++  if (!generationId || !cognitiveWorkId || !ownerPilotId || !preparationId) {
++    return { updated: 0, refused: true };
++  }
++  const normalized: ProbeUsageClaim = {
++    generationId,
++    cognitiveWorkId,
++    ownerPilotId,
++    preparationId,
++    projectId: textOrEmpty(claim.projectId) || null,
++    conversationId: textOrEmpty(claim.conversationId) || null,
++    turnId: textOrEmpty(claim.turnId) || null,
++  };
++  const work = (
++    await db
++      .select({
++        id: cognitiveWorks.id,
++        ownerPilotId: cognitiveWorks.ownerPilotId,
++        preparationId: cognitiveWorks.preparationId,
++        projectId: cognitiveWorks.projectId,
++      })
++      .from(cognitiveWorks)
++      .where(eq(cognitiveWorks.id, cognitiveWorkId))
++      .limit(1)
++  )[0];
++  if (
++    !work ||
++    work.ownerPilotId !== ownerPilotId ||
++    work.preparationId !== preparationId ||
++    (normalized.projectId && work.projectId && normalized.projectId !== work.projectId)
++  ) {
++    return { updated: 0, refused: true };
++  }
++  probeClaims.set(generationId, normalized);
++  const inflight = usageWriteInflight.get(generationId);
++  if (inflight) await inflight;
++
++  const lane = process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
++  const found = await db
++    .select({
++      id: providerUsageObservations.id,
++      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
++      projectId: providerUsageObservations.projectId,
++      conversationId: providerUsageObservations.conversationId,
++      turnId: providerUsageObservations.turnId,
++    })
++    .from(providerUsageObservations)
++    .where(
++      and(
++        eq(providerUsageObservations.generationId, generationId),
++        eq(providerUsageObservations.ownerPilotId, ownerPilotId),
++        eq(providerUsageObservations.preparationId, preparationId),
++        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
++      ),
++    );
++  if (found.length === 0) return { updated: 0, refused: false };
++
++  const conflicts = found.some((row) => {
++    if (row.cognitiveWorkId && row.cognitiveWorkId !== cognitiveWorkId) return true;
++    if (row.projectId && work.projectId && row.projectId !== work.projectId) return true;
++    if (
++      normalized.projectId &&
++      row.projectId &&
++      row.projectId !== normalized.projectId
++    ) {
++      return true;
 +    }
-+    if (missed.length > 0) {
-+      const note = [
-+        "Certaines confirmations opérationnelles n'ont pas pu être inscrites dans l'activité.",
-+        ...missed.map((fact) => fact.summary),
-+      ].join("\n");
-+      assistantBody = assistantBody.trim()
-+        ? `${assistantBody.trimEnd()}\n\n${note}`
-+        : note;
-     }
++    if (normalized.turnId && row.turnId && row.turnId !== normalized.turnId) return true;
++    if (
++      normalized.conversationId &&
++      row.conversationId &&
++      row.conversationId !== normalized.conversationId
++    ) {
++      return true;
++    }
++    return false;
++  });
++  if (conflicts) {
++    probeClaims.delete(generationId);
++    return { updated: 0, refused: true };
++  }
++
++  let updated = 0;
++  for (const row of found) {
++    if (row.cognitiveWorkId) continue;
++    const written = await db
++      .update(providerUsageObservations)
++      .set({ cognitiveWorkId })
++      .where(
++        and(
++          eq(providerUsageObservations.id, row.id),
++          isNull(providerUsageObservations.cognitiveWorkId),
++        ),
++      )
++      .returning({ id: providerUsageObservations.id });
++    updated += written.length;
++  }
++  probeClaims.delete(generationId);
++  return { updated, refused: false };
++}
++
+ /** Insert one durable observation; duplicate idempotency_key is a no-op. */
+ export async function recordProviderUsageObservation(
+   input: ProviderUsageObservationInput,
+@@ -317,6 +479,7 @@ export async function recordProviderUsageObservation(
+
+   const mergedLimits = [...new Set([...(input.limits ?? []), ...cost.limits])];
+   const id = randomUUID();
++  const cognitiveWorkId = claimedWorkId(input) ?? input.cognitiveWorkId ?? null;
+
+   const inserted = await db
+     .insert(providerUsageObservations)
+@@ -331,7 +494,7 @@ export async function recordProviderUsageObservation(
+       preparationId: input.preparationId ?? null,
+       conversationId: input.conversationId ?? null,
+       turnId: input.turnId ?? null,
+-      cognitiveWorkId: input.cognitiveWorkId ?? null,
++      cognitiveWorkId,
+       segmentIndex: input.segmentIndex ?? null,
+       generationId: input.generationId ?? null,
+       operation: input.operation ?? null,
+@@ -563,6 +726,25 @@ export async function recordNoraProviderUsageFromRunResult(
+  */
+ export async function recordNoraProviderUsageWithHttpCorrelation(
+   input: NoraProviderUsageHookInput,
++): Promise<RecordProviderUsageObservationResult> {
++  const generationId = input.generationId?.trim() ?? "";
++  let release: () => void = () => {};
++  const gate = new Promise<void>((resolve) => {
++    release = resolve;
++  });
++  if (generationId) usageWriteInflight.set(generationId, gate);
++  try {
++    return await recordNoraProviderUsageWithHttpCorrelationBody(input);
++  } finally {
++    release();
++    if (generationId && usageWriteInflight.get(generationId) === gate) {
++      usageWriteInflight.delete(generationId);
++    }
++  }
++}
++
++async function recordNoraProviderUsageWithHttpCorrelationBody(
++  input: NoraProviderUsageHookInput,
+ ): Promise<RecordProviderUsageObservationResult> {
+   const httpAttempts = getHttpAttemptsSnapshot();
+   const sdkAttemptId = input.attemptId?.trim() ?? "";
+diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
+index b05402d6..2d18be8e 100644
+--- a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
++++ b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
+@@ -142,17 +142,118 @@ export function finOpsMeasureCoverageSubtext(kpis: {
+   totalRequests: number;
+   measuredRequests: number;
+   estimationCompletenessPercent: MeasuredValue<number>;
++  measureCoveragePercent?: MeasuredValue<number>;
+ }): string {
+   if (kpis.totalRequests <= 0) return "Requêtes non recensées";
+   const observed = `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
++  const census =
++    kpis.measureCoveragePercent?.kind === "partial"
++      ? " · observations recensées, pas toutes les émissions"
++      : "";
+   const est = kpis.estimationCompletenessPercent;
+   if (est.kind === "partial" && est.value === 0) {
+-    return `${observed} · coûts entièrement PARTIAL ou inconnus`;
++    return `${observed} · coûts entièrement PARTIAL ou inconnus${census}`;
    }
+   if (est.kind === "known" || est.kind === "partial") {
+-    return `${observed} · estimation connue ${est.value} %`;
++    return `${observed} · estimation connue ${est.value} %${census}`;
+   }
+-  return observed;
++  return `${observed}${census}`;
++}
++
++const OPEN_WORK_STATUSES = new Set(["OPEN", "RUNNING", "SUSPENDED"]);
++
++/**
++ * Completed-work count from observations actually linked in the same filter.
++ * Unattributed billable rows make the count partial. They do not invent a work.
++ */
++export function classifyObservedWorkCounts(input: {
++  statuses: string[];
++  unattributedBillable: number;
++  hasAnyObservation: boolean;
++}): { completed: MeasuredValue<number>; openCount: number } {
++  const openCount = input.statuses.filter((status) =>
++    OPEN_WORK_STATUSES.has(status.toUpperCase()),
++  ).length;
++  const complete = input.statuses.filter((status) => status.toUpperCase() === "COMPLETE").length;
++  if (input.unattributedBillable > 0 && input.statuses.length === 0) {
++    return {
++      completed: { kind: "unknown", reason: "Observations non attribuées" },
++      openCount,
++    };
++  }
++  if (input.unattributedBillable > 0) {
++    return {
++      completed: {
++        kind: "partial",
++        value: complete,
++        note: `Travaux aboutis observés : ${complete}. En cours : ${openCount}. Observations non attribuées : ${input.unattributedBillable}.`,
++      },
++      openCount,
++    };
++  }
++  if (input.statuses.length === 0) {
++    return {
++      completed: input.hasAnyObservation
++        ? { kind: "unknown", reason: "Travaux non liés" }
++        : { kind: "empty" },
++      openCount,
++    };
++  }
++  return { completed: { kind: "known", value: complete }, openCount };
++}
++
++/**
++ * Global estimated cost divided by observed completed works.
++ * This is not the average cost of those works alone.
++ * Hidden when the completed-work count is partial or unknown.
++ */
++export function costPerObservedCompletedWork(input: {
++  cost: MeasuredValue<number>;
++  completed: MeasuredValue<number>;
++}): MeasuredValue<number> {
++  if (input.completed.kind === "partial" || input.completed.kind === "unknown") {
++    return {
++      kind: "unknown",
++      reason: "Ratio non affiché : décompte des travaux incomplet",
++    };
++  }
++  if (input.completed.kind !== "known" || input.completed.value <= 0) {
++    if (input.completed.kind === "known") {
++      return { kind: "unknown", reason: "Aucun travail abouti observé" };
++    }
++    return { kind: "empty" };
++  }
++  if (input.cost.kind !== "known" && input.cost.kind !== "partial") {
++    return { kind: "empty" };
++  }
++  return {
++    kind: input.cost.kind === "partial" ? "partial" : "known",
++    value: input.cost.value / input.completed.value,
++    note: "Coût estimé global / travaux aboutis observés",
++  };
++}
++
++export function finOpsConfirmedValueLabel(input: {
++  applied?: string | null;
++  requested?: string | null;
++}): string | null {
++  const applied = input.applied?.trim() || "";
++  const requested = input.requested?.trim() || "";
++  if (applied && applied.toUpperCase() !== "UNVERIFIED") return applied;
++  if (requested) return `${requested} (demandé)`;
++  if (applied.toUpperCase() === "UNVERIFIED") return "non vérifié";
++  return null;
++}
++
++export function finOpsShortModelLabel(label: string | null | undefined): string | null {
++  if (!label) return null;
++  if (label === "non vérifié") return label;
++  const suffix = " (demandé)";
++  if (label.endsWith(suffix)) {
++    const short = displayModelShort(label.slice(0, -suffix.length)) ?? label;
++    return `${short}${suffix}`;
++  }
++  return displayModelShort(label);
+ }
 
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-activity-project-access.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-activity-project-access.pg.test.ts
-index 57060bbc..446aa922 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml5-activity-project-access.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml5-activity-project-access.pg.test.ts
-@@ -15,6 +15,7 @@ import {
- } from "@/db/schema";
+ export function sumBillableProviderRequests(
+diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
+index c0cb101a..6e104383 100644
+--- a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
++++ b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
+@@ -9,11 +9,14 @@ import { StudioError } from "@/lib/http-errors";
  import {
-   appendActivityEvent,
-+  appendActivityFactsSafely,
-   assertProjectTurnActivityAccess,
-   listActivityEvents,
- } from "@/domains/conversation/activity-projection";
-@@ -135,4 +136,15 @@ describe("project activity access", () => {
-       }),
-     ).rejects.toMatchObject({ code: "NOT_FOUND" });
-   });
-+
-+  it("keeps recording later facts when one append fails", async () => {
-+    const result = await appendActivityFactsSafely(
-+      ["première confirmation", "deuxième confirmation", "troisième confirmation"],
-+      async (fact) => {
-+        if (fact.startsWith("deuxième")) throw new Error("append failed");
-+      },
-+    );
-+    expect(result.recorded).toBe(2);
-+    expect(result.missed).toEqual(["deuxième confirmation"]);
-+  });
- });
-diff --git a/projects/sfia-studio-next/web/tests/unit/activity-labels.test.ts b/projects/sfia-studio-next/web/tests/unit/activity-labels.test.ts
-index 03d88674..79d3473c 100644
---- a/projects/sfia-studio-next/web/tests/unit/activity-labels.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/activity-labels.test.ts
-@@ -5,6 +5,8 @@ import {
-   compactActivitySummary,
-   formatSourceActivitySummary,
-   projectActivityLabel,
-+  activityReadStillApplies,
-+  interpretActivityHistoryPayload,
-   projectMissionHeadline,
-   resolveActivityDisplayHeadline,
- } from "@/domains/conversation/activity-labels";
-@@ -145,8 +147,15 @@ describe("activity-labels functional completion", () => {
-     expect(understand?.resultSummary).toBeNull();
-     const sources = groups.find((g) => g.key === "sources");
-     expect(sources?.resultSummary).toMatch(/consultée/i);
--    // Prefer significant source activity over repeating orientation.
--    expect(projectMissionHeadline(events)).toMatch(/Document consulté|StockTrack/i);
-+    expect(projectMissionHeadline(events)).toBe("Orientation du travail");
-+    expect(
-+      resolveActivityDisplayHeadline({
-+        active: true,
-+        propsHeadline: "Document consulté — StockTrack",
-+        events,
-+        groupTitles: groups.map((g) => g.title),
-+      }),
-+    ).toBe("Orientation du travail");
-   });
+   aggregateEstimatedCost,
+   aggregateTokenTotal,
++  classifyObservedWorkCounts,
+   computeEstimationCompletenessPercent,
+   computeMeasureCoveragePercent,
++  costPerObservedCompletedWork,
+   effectiveFinOpsProjectId,
+   effectiveFinOpsProjectIdForWork,
+   filterBillableFinOpsRows,
++  finOpsConfirmedValueLabel,
+   finOpsModelDisplayLabel,
+   isFinOpsWorkAttributionConflict,
+   sumBillableProviderRequests,
+@@ -368,43 +371,35 @@ export async function loadFinOpsSummary(
+   const estimationCompletenessPercent =
+     computeEstimationCompletenessPercent(rows);
 
-   it("projects compare_document_proposal with +/− line counters", () => {
-@@ -232,4 +241,76 @@ describe("activity-labels functional completion", () => {
-       }),
-     ).toBeNull();
-   });
++  const billable = filterBillableFinOpsRows(rows);
++  const unattributedBillable = billable.filter((r) => !r.cognitiveWorkId).length;
+   const workIds = [
+-    ...new Set(rows.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id))),
++    ...new Set(
++      billable.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id)),
++    ),
+   ];
+-  let completedWorks: MeasuredValue<number> = { kind: "empty" };
+-  if (workIds.length > 0) {
+-    const works = await db
+-      .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
+-      .from(cognitiveWorks)
+-      .where(
+-        and(
+-          inArray(cognitiveWorks.id, workIds),
+-          eq(cognitiveWorks.ownerPilotId, pilotId),
+-        ),
+-      );
+-    const completeCount = works.filter((w) => w.status === "COMPLETE").length;
+-    completedWorks =
+-      completeCount > 0
+-        ? { kind: "known", value: completeCount }
+-        : { kind: "known", value: 0 };
+-  } else if (rows.length > 0) {
+-    completedWorks = { kind: "unknown", reason: "Travaux non liés" };
+-  }
+-
+-  let costPerCompletedWorkUsd: MeasuredValue<number> = { kind: "empty" };
+-  if (
+-    completedWorks.kind === "known" &&
+-    completedWorks.value > 0 &&
+-    (estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial")
+-  ) {
+-    costPerCompletedWorkUsd = {
+-      kind: estimatedCostUsd.kind === "partial" ? "partial" : "known",
+-      value: estimatedCostUsd.value / completedWorks.value,
+-      note: estimatedCostUsd.kind === "partial" ? estimatedCostUsd.note : undefined,
+-    };
+-  } else if (rows.length > 0 && completedWorks.kind === "known" && completedWorks.value === 0) {
+-    costPerCompletedWorkUsd = { kind: "unknown", reason: "Aucun travail abouti" };
+-  }
++  const linkedWorks =
++    workIds.length === 0
++      ? []
++      : await db
++          .select({ id: cognitiveWorks.id, status: cognitiveWorks.status })
++          .from(cognitiveWorks)
++          .where(
++            and(
++              inArray(cognitiveWorks.id, workIds),
++              eq(cognitiveWorks.ownerPilotId, pilotId),
++            ),
++          );
++  const observedWorks = classifyObservedWorkCounts({
++    statuses: linkedWorks.map((work) => work.status),
++    unattributedBillable,
++    hasAnyObservation: rows.length > 0,
++  });
++  const completedWorks = observedWorks.completed;
++  const costPerCompletedWorkUsd = costPerObservedCompletedWork({
++    cost: estimatedCostUsd,
++    completed: completedWorks,
++  });
+
+   const totalRequests = sumBillableProviderRequests(rows);
+   const measuredRequests = sumBillableProviderRequests(rows, {
+@@ -901,8 +896,14 @@ export async function loadFinOpsWorkDetail(
+       return {
+         segmentIndex,
+         label: head?.operation?.trim() || `Segment ${String(segmentIndex + 1).padStart(2, "0")}`,
+-        model: head?.modelApplied ?? head?.modelRequested ?? null,
+-        effort: head?.effortApplied ?? head?.effortRequested ?? null,
++        model: finOpsModelDisplayLabel({
++          modelApplied: head?.modelApplied,
++          modelRequested: head?.modelRequested,
++        }),
++        effort: finOpsConfirmedValueLabel({
++          applied: head?.effortApplied,
++          requested: head?.effortRequested,
++        }),
+         tokens,
+         estimatedCostUsd: aggregateEstimatedCost(slice),
+       };
+diff --git a/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts
+new file mode 100644
+index 00000000..ae9be152
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/integration/finops-probe-attribution.pg.test.ts
+@@ -0,0 +1,423 @@
++/**
++ * Probe consumption is attached to the work that consumed it.
++ * The existing observation is updated. It is not inserted again.
++ */
++import { afterAll, beforeAll, describe, expect, it } from "vitest";
++import { config } from "dotenv";
++config({ path: ".env.local" });
 +
-+  it("keeps a structured objective when the poller headline is an operation", () => {
-+    const events = [
++import { eq } from "drizzle-orm";
++import { db, sql as pgSql } from "@/db/client";
++import {
++  cognitiveWorks,
++  pilots,
++  preparations,
++  projects,
++  providerUsageObservations,
++} from "@/db/schema";
++import { newId } from "@/lib/ids";
++import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
++import { createProjectCommand } from "@/domains/preparation/create-project";
++import {
++  attributeConsumedProbeUsage,
++  buildIdempotencyKey,
++  recordNoraProviderUsageWithHttpCorrelation,
++  recordProviderUsageObservation,
++} from "@/domains/conversation/usage-accounting";
++import { loadFinOpsSummary, loadFinOpsWorks } from "@/domains/finops/usage-read-service";
++
++async function seedPilot() {
++  const pilotId = newId("pilot");
++  await db.insert(pilots).values({
++    id: pilotId,
++    displayName: "finops-probe",
++    githubUserId: `gh-${pilotId}`,
++  });
++  const prep = await openOrCreatePreparation(pilotId);
++  return { pilotId, preparationId: prep.id };
++}
++
++describe("FinOps probe attribution (PG)", () => {
++  let pilotId = "";
++  let preparationId = "";
++  let projectA = "";
++  let projectB = "";
++  let workComplete = "";
++  let workOpen = "";
++  let workOther = "";
++  const observationIds: string[] = [];
++
++  beforeAll(async () => {
++    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
++    process.env.STUDIO_LANE = "DEV";
++    const seeded = await seedPilot();
++    pilotId = seeded.pilotId;
++    preparationId = seeded.preparationId;
++    const projectName = `finops-${newId("p").slice(-6)}`;
++    await updatePreview(pilotId, preparationId, projectName, "probe");
++    const refreshed = (
++      await db.select().from(preparations).where(eq(preparations.id, preparationId))
++    )[0]!;
++    const created = await createProjectCommand({
++      pilotId,
++      preparationId,
++      expectedCreationRevision: refreshed.creationRevision,
++      projectName,
++      previewSummary: "probe",
++      idempotencyKey: newId("idem"),
++    });
++    if (created.status !== "CREATED" || !created.projectId) {
++      throw new Error(`project seed failed: ${created.status}`);
++    }
++    projectA = created.projectId;
++    projectB = newId("proj");
++    await db.insert(projects).values({
++      id: projectB,
++      ownerPilotId: pilotId,
++      name: `finops-b-${projectB.slice(-6)}`,
++    });
++    workComplete = newId("cgw");
++    workOpen = newId("cgw");
++    workOther = newId("cgw");
++    await db.insert(cognitiveWorks).values([
 +      {
-+        sequence: 1,
-+        nature: "COMPLETED" as const,
-+        status: "COMPLETED",
-+        phase: "nora.objective",
-+        summary: "Orientation du travail terminée",
-+        detail: { objective: "Analyse des règles d'habilitation" },
++        id: workComplete,
++        ownerPilotId: pilotId,
++        preparationId,
++        projectId: projectA,
++        status: "COMPLETE",
++        objective: "travail abouti",
++        revision: 1,
 +      },
 +      {
-+        sequence: 2,
-+        nature: "OBSERVED" as const,
-+        status: "COMPLETED",
-+        phase: "nora.source.git",
-+        summary: "Consultation Git — rules.ts",
-+        sourceRef: "git:rules",
-+        detail: { kind: "GIT", coverage: "CONSULTED", title: "rules.ts" },
++        id: workOpen,
++        ownerPilotId: pilotId,
++        preparationId,
++        projectId: projectA,
++        status: "OPEN",
++        interruptCause: "AWAIT_PILOT",
++        objective: "attente du pilote",
++        revision: 1,
 +      },
-+    ];
-+    expect(
-+      resolveActivityDisplayHeadline({
-+        active: false,
-+        propsHeadline: "Consultation Git — rules.ts",
-+        events,
-+        groupTitles: ["Analyse des règles d'habilitation"],
-+      }),
-+    ).toBe("Analyse des règles d'habilitation");
++      {
++        id: workOther,
++        ownerPilotId: pilotId,
++        preparationId,
++        projectId: projectB,
++        status: "COMPLETE",
++        objective: "autre projet",
++        revision: 1,
++      },
++    ]);
 +  });
 +
-+  it("does not treat an invalid history payload as an empty history", () => {
-+    expect(interpretActivityHistoryPayload(null).kind).toBe("invalid");
-+    expect(interpretActivityHistoryPayload({ turnStatus: "COMPLETE" }).kind).toBe("invalid");
-+    expect(interpretActivityHistoryPayload({ events: [], turnStatus: "COMPLETE" }).kind).toBe(
-+      "empty",
-+    );
-+    expect(interpretActivityHistoryPayload({ events: [{ sequence: 1 }] }).kind).toBe("ready");
++  afterAll(async () => {
++    if (observationIds.length) {
++      await pgSql`DELETE FROM provider_usage_observations WHERE id = ANY(${observationIds})`;
++    }
++    await pgSql`DELETE FROM cognitive_works WHERE id = ANY(${[workComplete, workOpen, workOther]})`;
++    if (projectB) await pgSql`DELETE FROM projects WHERE id = ${projectB}`;
 +  });
 +
-+  it("drops a late activity read when the turn or scope changed", () => {
-+    expect(
-+      activityReadStillApplies({
-+        epochAtStart: 2,
-+        epochNow: 2,
-+        scopeAtStart: "proj_a",
-+        scopeNow: "proj_a",
-+        turnExpected: "turn_a",
-+        turnReceived: "turn_a",
-+      }),
-+    ).toBe(true);
-+    expect(
-+      activityReadStillApplies({
-+        epochAtStart: 2,
-+        epochNow: 3,
-+        scopeAtStart: "proj_a",
-+        scopeNow: "proj_a",
-+        turnExpected: "turn_a",
-+        turnReceived: "turn_a",
-+      }),
-+    ).toBe(false);
-+    expect(
-+      activityReadStillApplies({
-+        epochAtStart: 2,
-+        epochNow: 2,
-+        scopeAtStart: "proj_a",
-+        scopeNow: "proj_b",
-+        turnExpected: "turn_a",
-+        turnReceived: "turn_a",
-+      }),
-+    ).toBe(false);
++  async function remember(generationId: string) {
++    const rows = await db
++      .select({ id: providerUsageObservations.id })
++      .from(providerUsageObservations)
++      .where(eq(providerUsageObservations.generationId, generationId));
++    for (const row of rows) observationIds.push(row.id);
++    return rows.length;
++  }
++
++  it("attaches a recorded probe without duplicating tokens or cost", async () => {
++    const generationId = newId("gen");
++    const key = buildIdempotencyKey({
++      granularity: "REQUEST",
++      projectId: projectA,
++      preparationId,
++      cognitiveWorkId: null,
++      operation: "nora.generate_reply",
++      generationId,
++      attemptId: "attempt-probe",
++      callOrdinal: 0,
++    });
++    const first = await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId,
++      operation: "nora.generate_reply",
++      attemptId: "attempt-probe",
++      cognitiveWorkId: null,
++      modelRequested: "gpt-test",
++      modelApplied: "UNVERIFIED",
++      effortRequested: "medium",
++      effortApplied: "UNVERIFIED",
++      inputTokens: 100,
++      outputTokens: 20,
++      cachedInputTokens: 5,
++      reasoningTokens: 7,
++      totalTokens: 120,
++      providerRequests: 1,
++      estimatedCostUsd: 0.42,
++      costCoverage: "PARTIAL",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: key,
++      lane: "DEV",
++    });
++    expect(first.inserted).toBe(true);
++    const companion = await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId,
++      operation: "nora.generate_reply",
++      attemptId: "http-1",
++      cognitiveWorkId: null,
++      inputTokens: null,
++      outputTokens: null,
++      totalTokens: null,
++      providerRequests: null,
++      estimatedCostUsd: null,
++      costCoverage: "PARTIAL",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: `${key}:http`,
++      limits: ["HTTP_ATTEMPT_CORRELATION_ONLY"],
++      lane: "DEV",
++    });
++    expect(companion.inserted).toBe(true);
++    const before = await remember(generationId);
++    expect(before).toBe(2);
++
++    const attached = await attributeConsumedProbeUsage({
++      generationId,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workComplete,
++    });
++    expect(attached.refused).toBe(false);
++    expect(attached.updated).toBe(2);
++
++    const again = await attributeConsumedProbeUsage({
++      generationId,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workComplete,
++    });
++    expect(again).toEqual({ updated: 0, refused: false });
++
++    const replay = await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId,
++      operation: "nora.generate_reply",
++      attemptId: "attempt-probe",
++      cognitiveWorkId: workComplete,
++      totalTokens: 999,
++      estimatedCostUsd: 9,
++      costCoverage: "KNOWN",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: key,
++      lane: "DEV",
++    });
++    expect(replay.inserted).toBe(false);
++
++    const rows = await db
++      .select()
++      .from(providerUsageObservations)
++      .where(eq(providerUsageObservations.generationId, generationId));
++    expect(rows).toHaveLength(2);
++    expect(rows.every((row) => row.cognitiveWorkId === workComplete)).toBe(true);
++    const billable = rows.find((row) => row.attemptId === "attempt-probe")!;
++    expect(billable.totalTokens).toBe(120);
++    expect(Number(billable.estimatedCostUsd)).toBeCloseTo(0.42);
++    expect(billable.cachedInputTokens).toBe(5);
++    expect(billable.idempotencyKey).toBe(key);
++    const http = rows.find((row) => row.attemptId === "http-1")!;
++    expect(http.providerRequests).toBeNull();
++    expect(http.totalTokens).toBeNull();
 +  });
- });
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-activity-hierarchy.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-activity-hierarchy.test.ts
-index f3d29f5f..ea5167dd 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-activity-hierarchy.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-activity-hierarchy.test.ts
-@@ -1,6 +1,7 @@
++
++  it("keeps an in-flight write and its later attachment as one observation", async () => {
++    const generationId = newId("gen");
++    const writing = recordNoraProviderUsageWithHttpCorrelation({
++      runResult: {
++        state: {
++          usage: { inputTokens: 30, outputTokens: 4, totalTokens: 34, requests: 1 },
++        },
++      },
++      status: "succeeded",
++      operation: "nora.generate_reply",
++      attemptId: "attempt-race",
++      generationId,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: null,
++      modelRequested: "gpt-test",
++      modelApplied: "UNVERIFIED",
++      effortRequested: "medium",
++      effortApplied: "UNVERIFIED",
++    });
++    const attaching = attributeConsumedProbeUsage({
++      generationId,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workComplete,
++    });
++    const [, attached] = await Promise.all([writing, attaching]);
++    expect(attached.refused).toBe(false);
++    const count = await remember(generationId);
++    expect(count).toBe(1);
++    const row = (
++      await db
++        .select()
++        .from(providerUsageObservations)
++        .where(eq(providerUsageObservations.generationId, generationId))
++    )[0]!;
++    expect(row.cognitiveWorkId).toBe(workComplete);
++    expect(row.totalTokens).toBe(34);
++  });
++
++  it("refuses a cross-project or already attributed observation", async () => {
++    const foreignGeneration = newId("gen");
++    await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId: foreignGeneration,
++      operation: "nora.generate_reply",
++      cognitiveWorkId: null,
++      totalTokens: 8,
++      estimatedCostUsd: 0.01,
++      costCoverage: "KNOWN",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: `foreign-${foreignGeneration}`,
++      lane: "DEV",
++    });
++    await remember(foreignGeneration);
++    const foreign = await attributeConsumedProbeUsage({
++      generationId: foreignGeneration,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workOther,
++    });
++    expect(foreign).toEqual({ updated: 0, refused: true });
++
++    const takenGeneration = newId("gen");
++    await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId: takenGeneration,
++      operation: "nora.generate_reply",
++      cognitiveWorkId: workOpen,
++      modelRequested: "gpt-test",
++      modelApplied: "UNVERIFIED",
++      totalTokens: 9,
++      estimatedCostUsd: 0.02,
++      costCoverage: "KNOWN",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: `taken-${takenGeneration}`,
++      lane: "DEV",
++    });
++    await remember(takenGeneration);
++    const taken = await attributeConsumedProbeUsage({
++      generationId: takenGeneration,
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workComplete,
++    });
++    expect(taken).toEqual({ updated: 0, refused: true });
++    const still = (
++      await db
++        .select({ workId: providerUsageObservations.cognitiveWorkId })
++        .from(providerUsageObservations)
++        .where(eq(providerUsageObservations.generationId, takenGeneration))
++    )[0]!;
++    expect(still.workId).toBe(workOpen);
++
++    const otherPilot = newId("pilot");
++    await db.insert(pilots).values({
++      id: otherPilot,
++      displayName: "other-probe",
++      githubUserId: `gh-${otherPilot}`,
++    });
++    const denied = await attributeConsumedProbeUsage({
++      generationId: takenGeneration,
++      ownerPilotId: otherPilot,
++      preparationId,
++      projectId: projectA,
++      cognitiveWorkId: workComplete,
++    });
++    expect(denied.refused).toBe(true);
++    expect(denied.updated).toBe(0);
++  });
++
++  it("reports linked, open and unattributed observations without a false ratio", async () => {
++    const loose = newId("gen");
++    await recordProviderUsageObservation({
++      ownerPilotId: pilotId,
++      preparationId,
++      projectId: projectA,
++      generationId: loose,
++      operation: "nora.generate_reply",
++      cognitiveWorkId: null,
++      modelRequested: "gpt-test",
++      modelApplied: "UNVERIFIED",
++      totalTokens: 11,
++      providerRequests: 1,
++      estimatedCostUsd: 0.03,
++      costCoverage: "KNOWN",
++      status: "succeeded",
++      granularity: "REQUEST",
++      idempotencyKey: `loose-${loose}`,
++      lane: "DEV",
++    });
++    await remember(loose);
++
++    const summary = await loadFinOpsSummary(pilotId, {
++      period: "30",
++      projectId: projectA,
++      model: "gpt-test",
++    });
++    const works = await loadFinOpsWorks(pilotId, {
++      period: "30",
++      projectId: projectA,
++      model: "gpt-test",
++    });
++    expect(summary.kpis.completedWorks.kind).toBe("partial");
++    if (summary.kpis.completedWorks.kind === "partial") {
++      expect(summary.kpis.completedWorks.value).toBeGreaterThanOrEqual(1);
++      expect(summary.kpis.completedWorks.note).toContain("non attribuées");
++      expect(summary.kpis.completedWorks.note).toContain("En cours");
++    }
++    expect(summary.kpis.costPerCompletedWorkUsd.kind).toBe("unknown");
++    expect(works.items.some((item) => item.cognitiveWorkId === workComplete)).toBe(true);
++    expect(works.items.some((item) => item.cognitiveWorkId === workOpen)).toBe(true);
++    expect(works.items.some((item) => item.cognitiveWorkId === workOther)).toBe(false);
++
++    const otherModel = await loadFinOpsSummary(pilotId, {
++      period: "30",
++      projectId: projectA,
++      model: "model-absent-from-this-fixture",
++    });
++    const otherWorks = await loadFinOpsWorks(pilotId, {
++      period: "30",
++      projectId: projectA,
++      model: "model-absent-from-this-fixture",
++    });
++    expect(otherModel.hasObservations).toBe(false);
++    expect(otherWorks.items).toHaveLength(0);
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
+index 9926704a..2a87488a 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
+@@ -1,6 +1,10 @@
  import { describe, expect, it } from "vitest";
  import {
-   buildActivityGroups,
-+  buildActivitySteps,
-   projectMissionHeadline,
- } from "@/domains/conversation/activity-labels";
-
-@@ -129,5 +130,89 @@ describe("ML5 LIVE activity hierarchy", () => {
-     ]);
-     expect(groups.find((g) => g.key === "sources")?.state).not.toBe("done");
+   aggregateEstimatedCost,
++  classifyObservedWorkCounts,
++  costPerObservedCompletedWork,
++  finOpsConfirmedValueLabel,
++  finOpsShortModelLabel,
+   aggregateTokenTotal,
+   computeEstimationCompletenessPercent,
+   computeMeasureCoveragePercent,
+@@ -57,6 +61,59 @@ describe("ML5 E06 — FinOps usage projection", () => {
+     expect(tokenTotalForRow({ totalTokens: 5, inputTokens: 1, outputTokens: 1 })).toBe(5);
+     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: 4 })).toBe(7);
+     expect(tokenTotalForRow({ totalTokens: null, inputTokens: 3, outputTokens: null })).toBeNull();
++    expect(
++      tokenTotalForRow({
++        totalTokens: 12,
++        inputTokens: 10,
++        outputTokens: 4,
++      }),
++    ).toBe(12);
++  });
++
++  it("keeps an unattributed observation from turning the completed count into a known zero", () => {
++    const mixed = classifyObservedWorkCounts({
++      statuses: ["COMPLETE", "OPEN"],
++      unattributedBillable: 3,
++      hasAnyObservation: true,
++    });
++    expect(mixed.completed.kind).toBe("partial");
++    if (mixed.completed.kind === "partial") {
++      expect(mixed.completed.value).toBe(1);
++      expect(mixed.completed.note).toContain("Observations non attribuées : 3");
++      expect(mixed.completed.note).toContain("En cours : 1");
++    }
++    expect(
++      costPerObservedCompletedWork({
++        cost: { kind: "known", value: 1.2 },
++        completed: mixed.completed,
++      }).kind,
++    ).toBe("unknown");
++  });
++
++  it("keeps the global ratio only when every billable observation is linked", () => {
++    const completed = classifyObservedWorkCounts({
++      statuses: ["COMPLETE", "COMPLETE"],
++      unattributedBillable: 0,
++      hasAnyObservation: true,
++    }).completed;
++    const ratio = costPerObservedCompletedWork({
++      cost: { kind: "partial", value: 2 },
++      completed,
++    });
++    expect(completed).toEqual({ kind: "known", value: 2 });
++    expect(ratio.kind).toBe("partial");
++    if (ratio.kind === "partial") {
++      expect(ratio.value).toBe(1);
++      expect(ratio.note).toContain("global");
++    }
++  });
++
++  it("does not present a requested model or effort as confirmed", () => {
++    expect(
++      finOpsConfirmedValueLabel({ applied: "UNVERIFIED", requested: "medium" }),
++    ).toBe("medium (demandé)");
++    expect(finOpsShortModelLabel("gpt-6.1-terra (demandé)")).toBe("Terra (demandé)");
++    expect(finOpsShortModelLabel("non vérifié")).toBe("non vérifié");
    });
-+
-+  it("keeps every effect in the detail and the counter", () => {
-+    const events = Array.from({ length: 10 }, (_, i) => ({
-+      sequence: i + 1,
-+      phase: "nora.effect.knowledge",
-+      nature: "COMPLETED" as const,
-+      status: "COMPLETED",
-+      summary: `Connaissance ${i + 1} enregistrée`,
-+      detail: { ownerRef: `acq_${i + 1}` },
-+    }));
-+    const group = buildActivityGroups(events).find((g) => g.key === "produce");
-+    expect(group?.details).toHaveLength(10);
-+    expect(group?.resultSummary).toBe("10 opérations");
-+    expect(buildActivitySteps(events)).toHaveLength(10);
-+  });
-+
-+  it("closes repeated announcements of the same operation", () => {
-+    const groups = buildActivityGroups([
-+      {
-+        sequence: 1,
-+        phase: "nora.objective",
-+        nature: "ANNOUNCED",
-+        status: "RUNNING",
-+        summary: "Orientation du travail à partir de la demande du Pilote",
-+        detail: { objective: "Orientation du travail à partir de la demande du Pilote" },
-+      },
-+      {
-+        sequence: 2,
-+        phase: "nora.objective",
-+        nature: "ANNOUNCED",
-+        status: "RUNNING",
-+        summary: "Orientation du travail à partir de la demande du Pilote",
-+        detail: { objective: "Orientation du travail à partir de la demande du Pilote" },
-+      },
-+      {
-+        sequence: 3,
-+        phase: "nora.objective",
-+        nature: "COMPLETED",
-+        status: "COMPLETED",
-+        summary: "Orientation du travail terminée",
-+        detail: { objective: "Analyse des règles d'habilitation" },
-+      },
-+    ]);
-+    expect(groups.find((g) => g.key === "understand")?.state).toBe("done");
-+  });
-+
-+  it("keeps two operations on the same source and every comparison", () => {
-+    const groups = buildActivityGroups([
-+      {
-+        sequence: 1,
-+        phase: "nora.source.d4",
-+        nature: "OBSERVED",
-+        status: "LIMITED",
-+        summary: "Lecture partielle — Cadrage",
-+        sourceRef: "document:doc_x/revision:v1",
-+        detail: { kind: "D4", coverage: "PARTIAL", title: "Cadrage", operation: "read-v1" },
-+      },
-+      {
-+        sequence: 2,
-+        phase: "nora.source.d4",
-+        nature: "COMPLETED",
-+        status: "COMPLETED",
-+        summary: "Comparaison documentaire — V1 → V2 — +3 lignes / −1 ligne",
-+        sourceRef: "document:doc_x/revision:v1",
-+        detail: { kind: "D4", coverage: "COMPLETE", title: "Cadrage", operation: "compare-v1-v2" },
-+      },
-+      {
-+        sequence: 3,
-+        phase: "nora.source.d4",
-+        nature: "COMPLETED",
-+        status: "COMPLETED",
-+        summary: "Comparaison documentaire — V2 → V3 — +1 ligne / −4 lignes",
-+        sourceRef: "document:doc_x/revision:v2",
-+        detail: { kind: "D4", coverage: "COMPLETE", title: "Cadrage", operation: "compare-v2-v3" },
-+      },
-+    ]);
-+    const sources = groups.find((g) => g.key === "sources");
-+    expect(sources?.state).not.toBe("done");
-+    expect(sources?.resultSummary).toMatch(/2 comparaisons/);
-+    const titles = sources?.details.map((d) => d.title) ?? [];
-+    expect(titles.some((t) => t.includes("V1 → V2"))).toBe(true);
-+    expect(titles.some((t) => t.includes("V2 → V3"))).toBe(true);
-+    expect(projectMissionHeadline(groups.flatMap(() => []))).toBe("Orientation du travail");
-+  });
- });
 
+   it("computeMeasureCoveragePercent handles empty", () => {
 ```
 
-## 13. Verdict
+## 11. Verdict
 
 READY WITH RESERVES
 
-Les trois findings sont corrigés et couverts par des tests ciblés. Les parcours navigateur ACT-01 à ACT-05 restent reportés. Aucune acceptation produit, aucune promotion, aucune CI.
+Les trois corrections sont en place et couvertes par des tests ciblés. Les parcours naturels restent reportés. Aucune acceptation produit, aucune promotion, aucune CI.
