@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   composeKnowledgeEffectRestitution,
+  knowledgeEffectActivityLines,
   knowledgeEffectFactLines,
 } from "@/domains/conversation/knowledge-effect-restitution";
 import type { TurnKnowledgeEffect } from "@/domains/conversation/pilotage-effect-aggregate";
@@ -47,8 +48,13 @@ describe("knowledge-effect-restitution (E3 D.3)", () => {
       ],
     });
     expect(out).toContain("Voici ce que je retiens.");
-    expect(out).toContain("Journal");
+    expect(out).not.toContain("Journal");
+    expect(out).toMatch(/reste à confirmer/i);
     expect(out).not.toMatch(/Résultat Studio/i);
     expect(out).not.toMatch(/Je transmets/i);
+    const activity = knowledgeEffectActivityLines([
+      ke({ status: "AVAILABLE", ownerRef: "acq_1", proposalKind: "ACQUIS" }),
+    ]);
+    expect(activity.join(" ")).toContain("Journal");
   });
 });

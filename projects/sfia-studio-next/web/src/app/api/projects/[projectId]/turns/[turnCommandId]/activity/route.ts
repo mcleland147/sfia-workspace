@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { listActivityEvents } from "@/domains/conversation/activity-projection";
+import {
+  assertProjectTurnActivityAccess,
+  listActivityEvents,
+} from "@/domains/conversation/activity-projection";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
 
@@ -10,7 +13,12 @@ export async function GET(
 ) {
   try {
     const session = await requireStudioSession();
-    const { turnCommandId } = await ctx.params;
+    const { projectId, turnCommandId } = await ctx.params;
+    await assertProjectTurnActivityAccess({
+      ownerPilotId: session.pilotId,
+      projectId,
+      turnCommandId,
+    });
     const url = new URL(req.url);
     const afterRaw = url.searchParams.get("afterSequence");
     const afterSequence = afterRaw != null ? Number(afterRaw) : undefined;

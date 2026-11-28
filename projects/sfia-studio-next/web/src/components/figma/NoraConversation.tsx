@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { NoraComposition } from "@/components/figma/NoraComposition";
 import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
@@ -15,6 +15,7 @@ import {
   compositionAnchorsReferences,
 } from "@/domains/conversation/visual-composition";
 import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
+import { buildActivityGroups } from "@/domains/conversation/activity-labels";
 import { NoraSharedComposer } from "@/components/figma/NoraSharedComposer";
 
 export type NoraMsg = {
@@ -75,6 +76,8 @@ export function NoraConversation(props: {
   onRemoveDossierAttachment?: () => void;
   /** ML3 — project id for dictation session admission. */
   projectId?: string;
+  /** Base for on-demand history, e.g. `/api/projects/{id}/turns`. */
+  activityHistoryBase?: string;
   /** ML3 — SFIA_COMPOSER_DICTATION mirrored from server (optional). */
   dictationEnabled?: boolean;
 }) {
@@ -269,7 +272,14 @@ export function NoraConversation(props: {
                 ) : (
                   <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
                 )}
-                {proj?.activity && proj.activity.kind !== "wait" ? (
+                {proj?.turnCommandId && props.activityHistoryBase ? (
+                  <NoraTurnActivityHistory
+                    href={`${props.activityHistoryBase}/${encodeURIComponent(proj.turnCommandId)}/activity`}
+                    fallback={
+                      proj.activity && proj.activity.kind !== "wait" ? proj.activity.label : null
+                    }
+                  />
+                ) : proj?.activity && proj.activity.kind !== "wait" ? (
                   <details className="fig-nora-activity-history" data-testid="nora-activity-history">
                     <summary>Activité de cette réponse</summary>
                     <p>
@@ -341,8 +351,7 @@ export function NoraConversation(props: {
                 Nora prépare sa réponse
               </p>
               <div className="space-y-2 text-sm text-[#a3b0c7]">
-                <p>✓ Sources et intention du projet consultées</p>
-                <p>○ Préparation de la première orientation de trajectoire…</p>
+                <p>Qualification initiale en cours. Aucune consultation n&apos;est encore attestée.</p>
               </div>
               {props.onOpenTrajectoire ? (
                 <button
@@ -440,5 +449,88 @@ export function NoraConversation(props: {
         </aside>
       ) : null}
     </div>
+  );
+}
+
+const ACTIVITY_STATE_LABEL: Record<string, string> = {
+  done: "Terminé",
+  current: "En cours",
+  pending: "En attente",
+  limited: "Limité",
+  failed: "Non abouti",
+};
+
+function NoraTurnActivityHistory(props: { href: string; fallback?: string | null }) {
+  const [events, setEvents] = useState<
+    Array<{
+      sequence: number;
+      nature: string;
+      status: string;
+      summary: string;
+      phase: string;
+      sourceRef?: string | null;
+      detail?: Record<string, unknown> | null;
+    }> | null
+  >(null);
+  const [error, setError] = useState<string | null>(null);
+  const loaded = useRef(false);
+
+  async function load() {
+    if (loaded.current) return;
+    loaded.current = true;
+    try {
+      const res = await fetch(props.href);
+      if (!res.ok) {
+        setError("Lecture de l'activité indisponible pour ce tour.");
+        return;
+      }
+      const body = (await res.json()) as { events?: typeof events };
+      setEvents(body.events ?? []);
+    } catch {
+      setError("Lecture de l'activité indisponible pour ce tour.");
+    }
+  }
+
+  const groups = events
+    ? buildActivityGroups(
+        events.map((ev) => ({
+          ...ev,
+          detail: ev.detail ?? undefined,
+        })),
+      )
+    : [];
+
+  return (
+    <details
+      className="fig-nora-activity-history"
+      data-testid="nora-activity-history"
+      onToggle={(event) => {
+        if ((event.currentTarget as HTMLDetailsElement).open) void load();
+      }}
+    >
+      <summary>Activité de cette réponse</summary>
+      {error ? <p>{error}</p> : null}
+      {!events && props.fallback ? <p>{props.fallback}</p> : null}
+      {events && groups.length === 0 ? (
+        <p>Aucun événement durable pour ce tour.</p>
+      ) : null}
+      {groups.map((group) => (
+        <div key={group.key} data-testid={`nora-activity-group-${group.key}`}>
+          <p>
+            {group.title} — {ACTIVITY_STATE_LABEL[group.state] ?? group.state}
+          </p>
+          {group.resultSummary ? <p>{group.resultSummary}</p> : null}
+          {group.details.length > 0 ? (
+            <ul>
+              {group.details.map((detail) => (
+                <li key={detail.key}>
+                  {detail.title} · {detail.coverage}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ))}
+    </details>
   );
 }

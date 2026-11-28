@@ -78,5 +78,56 @@ describe("ML5 LIVE activity hierarchy", () => {
     expect(sources.details.length).toBe(45);
     expect(projectMissionHeadline(events)).toBe("Investigation ciblée");
   });
+
+  it("retires a RUNNING objective once the same operation is completed", () => {
+    const groups = buildActivityGroups([
+      {
+        sequence: 1,
+        phase: "nora.objective",
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        summary: "Orientation du travail à partir de la demande du Pilote",
+        detail: {
+          objective: "Orientation du travail à partir de la demande du Pilote",
+          kind: "OBJECTIVE",
+        },
+      },
+      {
+        sequence: 2,
+        phase: "nora.objective",
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        summary: "Orientation du travail terminée",
+        detail: { objective: "Analyse des règles d'habilitation", metierTitle: "Analyse des règles d'habilitation" },
+      },
+    ]);
+    const understand = groups.find((g) => g.key === "understand");
+    expect(understand?.state).toBe("done");
+    expect(understand?.title).toBe("Analyse des règles d'habilitation");
+  });
+
+  it("does not mark a group done while another operation stays unknown", () => {
+    const groups = buildActivityGroups([
+      {
+        sequence: 1,
+        phase: "nora.source.git",
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        summary: "Consultation Git — a.ts",
+        sourceRef: "git:a",
+        detail: { kind: "GIT", coverage: "CONSULTED", title: "a.ts" },
+      },
+      {
+        sequence: 2,
+        phase: "nora.source.git",
+        nature: "UNCERTAIN",
+        status: "UNKNOWN",
+        summary: "Consultation Git — b.ts",
+        sourceRef: "git:b",
+        detail: { kind: "GIT", coverage: "UNKNOWN", title: "b.ts" },
+      },
+    ]);
+    expect(groups.find((g) => g.key === "sources")?.state).not.toBe("done");
+  });
 });
 

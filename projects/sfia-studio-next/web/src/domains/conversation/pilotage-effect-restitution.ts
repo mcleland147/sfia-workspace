@@ -50,7 +50,10 @@ function stripPreEffectHedges(text: string): string {
  * Natural métier restitution (MP-11 / Morris 2026-11-27).
  * Confirm only after Studio owner outcome; avoid technical « Résultat Studio » blocks.
  */
-function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
+function effectSplit(effect: NonNullable<PilotageEffectView>): {
+  conversation: string[];
+  activity: string[];
+} {
   const op = operationLabel(effect.operation);
   const status = (effect.status ?? "").toUpperCase();
   const reason = (effect.reason ?? effect.clarification ?? "").trim();
@@ -58,41 +61,50 @@ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
   switch (status) {
     case "APPLIED":
       if (effect.operation === "OPEN_CYCLE") {
-        return [
+        const lines = [
           `Le cycle demandé est maintenant ouvert (${op}).`,
           "La guidance spécialisée associée est disponible sur Trajectoire / CKI. On peut enchaîner sur le fond du travail.",
         ];
+        return { conversation: lines, activity: [lines[0]!] };
       }
       if (effect.operation === "CLOSE_CYCLE") {
-        return [
+        const lines = [
           `Le cycle est maintenant clos.`,
           "L'historique et la trajectoire conservent cet état. Dis-moi si tu veux ouvrir un cycle suivant.",
         ];
+        return { conversation: lines, activity: [lines[0]!] };
       }
       if (effect.operation === "RETAIN_TRAJECTORY") {
-        return [
+        const lines = [
           "L'orientation de trajectoire est retenue.",
           "L'ouverture d'un cycle reste une décision distincte lorsque tu seras prêt.",
         ];
+        return { conversation: lines, activity: [lines[0]!] };
       }
       if (effect.operation === "RECORD_DECISION" || effect.operation === "REVISE_DECISION") {
-        return [
-          `La décision a bien été enregistrée.`,
-          effect.decisionId
-            ? "Elle figure désormais dans le Journal (Décisions) avec sa portée et sa provenance."
-            : "Elle figure désormais dans le Journal avec sa portée et sa provenance.",
-        ];
+        const journal = effect.decisionId
+          ? "Elle figure désormais dans le Journal (Décisions) avec sa portée et sa provenance."
+          : "Elle figure désormais dans le Journal avec sa portée et sa provenance.";
+        return {
+          conversation: ["La décision a bien été enregistrée."],
+          activity: ["La décision a bien été enregistrée.", journal],
+        };
       }
-      return [
-        `C'est fait : la ${op} a bien été prise en compte.`,
-        "L'état du projet a été mis à jour en conséquence.",
-      ];
-    case "ALREADY_APPLIED":
-      return [
+      return {
+        conversation: [`C'est fait : la ${op} a bien été prise en compte.`],
+        activity: [
+          `C'est fait : la ${op} a bien été prise en compte.`,
+          "L'état du projet a été mis à jour en conséquence.",
+        ],
+      };
+    case "ALREADY_APPLIED": {
+      const lines = [
         `Cette ${op} était déjà en place — aucun nouvel effet n'a été créé.`,
       ];
-    case "REJECTED":
-      return [
+      return { conversation: lines, activity: lines };
+    }
+    case "REJECTED": {
+      const lines = [
         `Je n'ai pas pu appliquer la ${op}.`,
         reason
           ? `Motif : ${reason}.`
@@ -100,31 +112,70 @@ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
         // Per-effect wording only — never deny sibling outcomes on the same turn (MP-09).
         `Cet effet (${op}) n'a pas créé de cycle ni de décision. Tu peux reformuler ou préciser le type de cycle reconnu.`,
       ];
-    case "CONFLICT":
-      return [
+      return { conversation: lines, activity: lines };
+    }
+    case "CONFLICT": {
+      const lines = [
         `Il y a un conflit d'état sur la ${op}.`,
         reason ? `Détail : ${reason}.` : "Recharge l'état du projet puis réessaie si pertinent.",
       ];
-    case "UNKNOWN":
-      return [
+      return { conversation: lines, activity: lines };
+    }
+    case "UNKNOWN": {
+      const lines = [
         `L'issue de la ${op} est encore en vérification.`,
         "Je ne confirme ni le succès ni le refus tant que Studio n'a pas consolidé l'état.",
       ];
-    default:
+      return { conversation: lines, activity: lines };
+    }
+    default: {
       if (effect.intentClarity === "AMBIGUOUS") {
-        return [
+        const lines = [
           "Aucune commande n'a été exécutée — intention ambiguë.",
           reason ? `Précision utile : ${reason}.` : "Peux-tu préciser le cycle et l'acte souhaités ?",
         ];
+        return { conversation: lines, activity: lines };
       }
       if (effect.attempted === false) {
-        return [];
+        return { conversation: [], activity: [] };
       }
-      return [
+      const lines = [
         `Statut « ${status || "indéterminé"} » pour la ${op}.`,
         reason ? `Information : ${reason}.` : "",
       ].filter(Boolean);
+      return { conversation: lines, activity: lines };
+    }
   }
+}
+
+export type PilotageActivityFact = {
+  summary: string;
+  status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
+  effectId: string;
+};
+
+export function pilotageEffectActivityFacts(
+  effects: Array<PilotageEffectView | null | undefined>,
+): PilotageActivityFact[] {
+  const out: PilotageActivityFact[] = [];
+  effects.forEach((effect, index) => {
+    if (!effect?.attempted) return;
+    const split = effectSplit(effect);
+    const st = (effect.status ?? "UNKNOWN").toUpperCase();
+    const status: PilotageActivityFact["status"] =
+      st === "APPLIED"
+        ? "COMPLETED"
+        : st === "REJECTED"
+          ? "FAILED"
+          : st === "CONFLICT" || st === "ALREADY_APPLIED"
+            ? "LIMITED"
+            : "UNKNOWN";
+    const effectId = `${effect.operation ?? "pilotage"}:${effect.decisionId ?? index}:${st}`;
+    for (const summary of split.activity) {
+      out.push({ summary, status, effectId });
+    }
+  });
+  return out;
 }
 
 /**
@@ -146,7 +197,7 @@ export function composePilotageEffectRestitution(input: {
   }
   const sections: string[] = [];
   for (const effect of ordered) {
-    const facts = effectFactLines(effect);
+    const facts = effectSplit(effect).conversation;
     if (facts.length > 0) {
       sections.push(facts.join("\n\n"));
     }

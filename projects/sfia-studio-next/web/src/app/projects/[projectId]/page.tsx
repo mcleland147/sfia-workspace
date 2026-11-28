@@ -3488,6 +3488,7 @@ export default function ProjectPage() {
       }
     } finally {
       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
+      await pollLiveActivity();
       activityPollEpochRef.current += 1;
       setBusy(false);
     }
@@ -3699,6 +3700,7 @@ export default function ProjectPage() {
             persistDraft(v);
           }}
           projectId={params.projectId}
+          activityHistoryBase={`/api/projects/${params.projectId}/turns`}
           dictationEnabled={dictationEnabled}
           dossierAttachment={dossierAttachment}
           onRemoveDossierAttachment={() => setDossierAttachment(null)}

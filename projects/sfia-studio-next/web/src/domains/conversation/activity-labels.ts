@@ -307,6 +307,57 @@ function authoritativeState(
   return "current";
 }
 
+/**
+ * Identity of one operation across its announced and terminal events.
+ * A later terminal event retires the earlier RUNNING of the same operation.
+ * Distinct sources and distinct effect ids stay distinct.
+ */
+function correlationRef(
+  ev: ActivityLabelInput & { sequence: number; nature: string },
+): string | null {
+  const op =
+    detailString(ev.detail, "operationId") ||
+    detailString(ev.detail, "effectId") ||
+    detailString(ev.detail, "ownerRef") ||
+    "";
+  if (op) return `op:${op}`;
+  const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
+  if (ref) return `ref:${ref}`;
+  if (/objective|investigation\.engaged/i.test(ev.phase || "")) return `phase:${ev.phase}`;
+  return null;
+}
+
+function foldOperationStates(
+  list: Array<ActivityLabelInput & { sequence: number; nature: string }>,
+): ActivityStepState[] {
+  const sorted = [...list].sort((a, b) => a.sequence - b.sequence);
+  const open = new Map<string, number>();
+  const states: ActivityStepState[] = [];
+  for (const ev of sorted) {
+    const st = authoritativeState(ev);
+    const ref = correlationRef(ev);
+    if (ref && open.has(ref) && (st === "done" || st === "failed" || st === "limited")) {
+      states[open.get(ref)!] = st;
+      open.delete(ref);
+      continue;
+    }
+    states.push(st);
+    if (ref && st === "current") open.set(ref, states.length - 1);
+  }
+  return states;
+}
+
+function worstFoldedState(states: ActivityStepState[]): ActivityStepState {
+  let worst: ActivityStepState = states.length === 0 ? "pending" : "done";
+  for (const st of states) {
+    if (st === "failed") worst = "failed";
+    else if (st === "limited" && worst !== "failed") worst = "limited";
+    else if (st === "current" && (worst === "done" || worst === "pending")) worst = "current";
+    else if (st === "pending" && worst === "done") worst = "pending";
+  }
+  return worst;
+}
+
 function identityKey(ev: ActivityLabelInput & { sequence: number; nature: string }): string {
   const kind = kindFromDetail(ev.detail) || ev.phase || "step";
   const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
@@ -478,7 +529,9 @@ export type ActivityGroupView = {
 function groupKeyForPhase(phase: string): string {
   if (/objective|investigation\.engaged/i.test(phase)) return "understand";
   if (/source\.(git|d4|web|history)/i.test(phase)) return "sources";
-  if (/contract\.prepare|document|d4\.|pending|conserv/i.test(phase)) return "produce";
+  if (/effect\.(knowledge|pilotage|publication)|contract\.prepare|document|d4\.|pending|conserv/i.test(phase)) {
+    return "produce";
+  }
   if (/generate|restitution|complete/i.test(phase)) return "restitute";
   return "work";
 }
@@ -569,14 +622,7 @@ export function buildActivityGroups(
     const list = byGroup.get(key);
     if (!list?.length) continue;
     const meta = GROUP_META[key] || GROUP_META.work!;
-    let worst: ActivityStepState = "done";
-    for (const ev of list) {
-      const st = authoritativeState(ev);
-      if (st === "failed") worst = "failed";
-      else if (st === "limited" && worst !== "failed") worst = "limited";
-      else if (st === "current" && worst === "done") worst = "current";
-      else if (st === "pending" && worst === "done") worst = "pending";
-    }
+    const worst = worstFoldedState(foldOperationStates(list));
     let resultSummary: string | null = null;
     let details: ActivityGroupView["details"] = [];
     if (key === "sources") {
@@ -645,9 +691,20 @@ export function buildActivityGroups(
         kind: "STEP",
       }));
     }
+    const metierObjective = [...list]
+      .reverse()
+      .map(
+        (e) =>
+          detailString(e.detail, "metierTitle") ||
+          detailString(e.detail, "objective") ||
+          "",
+      )
+      .find((s) => s && !isGenericOrientationSummary(s) && !looksTechnical(s));
     const title =
       key === "understand"
-        ? meta.title
+        ? metierObjective
+          ? metierObjective.slice(0, 120)
+          : meta.title
         : key === "sources" && resultSummary && /^Comparaison documentaire\b/i.test(resultSummary)
           ? meta.title
           : contextualGroupTitle(key, list, meta.title);

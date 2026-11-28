@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   composePilotageEffectRestitution,
   isTechnicalMissionAssistantContent,
+  pilotageEffectActivityFacts,
   projectMetierMissionMessage,
 } from "@/domains/conversation/pilotage-effect-restitution";
 
@@ -70,6 +71,24 @@ describe("E07 post-effect métier restitution", () => {
         effect: { attempted: false },
       }),
     ).toBe(prior);
+  });
+
+  it("keeps the decision result and moves the Journal line to activity", () => {
+    const effect = {
+      attempted: true,
+      operation: "RECORD_DECISION",
+      status: "APPLIED",
+      decisionId: "dec_1",
+    };
+    const out = composePilotageEffectRestitution({
+      priorContent: "Je retiens cette décision.",
+      effect,
+    });
+    expect(out).toMatch(/décision a bien été enregistrée/i);
+    expect(out).not.toMatch(/Journal/);
+    const activity = pilotageEffectActivityFacts([effect]);
+    expect(activity.map((f) => f.summary).join(" ")).toMatch(/Journal \(Décisions\)/);
+    expect(out).not.toMatch(/état du projet a été mis à jour/i);
   });
 
   it("backward-compatible single effect via effect prop", () => {

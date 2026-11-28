@@ -1,6 +1,6 @@
 import { and, asc, eq, gt, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, noraActivityEvents } from "@/db/schema";
+import { conversationTurnCommands, conversations, noraActivityEvents, projects } from "@/db/schema";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
 
@@ -82,6 +82,43 @@ export async function appendActivityEvent(input: ActivityEventInput) {
     });
     return { id, sequence };
   });
+}
+
+/**
+ * Pilot → project → conversation → turn.
+ * ownerPilotId alone is not enough: the same Pilote must not read another project's turn.
+ */
+export async function assertProjectTurnActivityAccess(input: {
+  ownerPilotId: string;
+  projectId: string;
+  turnCommandId: string;
+}): Promise<void> {
+  const project = (
+    await db.select().from(projects).where(eq(projects.id, input.projectId)).limit(1)
+  )[0];
+  if (!project) throw new StudioError("NOT_FOUND", "Projet introuvable");
+  if (project.ownerPilotId !== input.ownerPilotId) {
+    throw new StudioError("ACCESS_DENIED", "Projet d'un autre Pilote");
+  }
+
+  const turn = (
+    await db
+      .select()
+      .from(conversationTurnCommands)
+      .where(eq(conversationTurnCommands.id, input.turnCommandId))
+      .limit(1)
+  )[0];
+  if (!turn) throw new StudioError("NOT_FOUND", "Tour introuvable");
+  if (turn.ownerPilotId !== input.ownerPilotId) {
+    throw new StudioError("ACCESS_DENIED", "Tour d'un autre Pilote");
+  }
+
+  const conv = (
+    await db.select().from(conversations).where(eq(conversations.id, turn.conversationId)).limit(1)
+  )[0];
+  if (!conv || conv.projectId !== input.projectId) {
+    throw new StudioError("ACCESS_DENIED", "Tour hors projet");
+  }
 }
 
 export async function listActivityEvents(input: {

@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — lot 4 activité et restitution Nora
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `017487581c317f957ef7a96ff2f3d95450fcf9ab`
+- **commit**: `fix(next): contextualize Nora activity and restitution`
+- **schema_revision**: unchanged (no migration, no new activity store)
+- **scope**: objectif métier quand une qualification structurée existe ; état de groupe corrélé par opération ; confirmations Journal hors du corps conversationnel ; historique du tour exact ; lecture d'activité bornée au projet
+- **classe**: NO RELEASE · compatible corrective · LIVRAISON 1 NOT ACCEPTED · LIVE NOT RUN · CI NOT RUN
+
 ## delivery_id: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV
 
 ### E5 — Finalisation + publication candidat + mise à disposition RECETTE (2026-11-27 Cycle 11)

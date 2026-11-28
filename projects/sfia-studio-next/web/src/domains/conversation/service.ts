@@ -77,9 +77,13 @@ import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/ini
 import {
   composePilotageEffectRestitution,
   isTechnicalMissionAssistantContent,
+  pilotageEffectActivityFacts,
   projectMetierMissionMessage,
 } from "@/domains/conversation/pilotage-effect-restitution";
-import { composeKnowledgeEffectRestitution } from "@/domains/conversation/knowledge-effect-restitution";
+import {
+  composeKnowledgeEffectRestitution,
+  knowledgeEffectActivityFacts,
+} from "@/domains/conversation/knowledge-effect-restitution";
 import {
   ambiguousPilotageEffectRecord,
   crossCapOutcomeFromCapitalisations,
@@ -5018,6 +5022,52 @@ export async function postUserMessageAndNora(
       priorContent: assistantBody,
       effects: knowledgeEffectRecords,
     });
+  }
+
+  // Operational confirmations stay in the durable activity, not the conversational body.
+  // A failed append must not cancel an owner result already confirmed.
+  if (!ownershipLostBeforeD4) {
+    try {
+      const { appendActivityEvent } = await import("./activity-projection");
+      const facts = [
+        ...knowledgeEffectActivityFacts(knowledgeEffectRecords).map((fact) => ({
+          ...fact,
+          phase: "nora.effect.knowledge",
+          kind: "KNOWLEDGE_EFFECT",
+        })),
+        ...pilotageEffectActivityFacts(pilotageEffectRecords).map((fact) => ({
+          ...fact,
+          phase: "nora.effect.pilotage",
+          kind: "PILOTAGE_EFFECT",
+          ownerRef: null as string | null,
+        })),
+      ];
+      for (const fact of facts) {
+        await appendActivityEvent({
+          conversationId: reserved.conversationId,
+          turnCommandId: reserved.commandId,
+          ownerPilotId: pilotId,
+          generationId: reply.generationId ?? null,
+          phase: fact.phase,
+          nature:
+            fact.status === "UNKNOWN"
+              ? "UNCERTAIN"
+              : fact.status === "COMPLETED"
+                ? "COMPLETED"
+                : "OBSERVED",
+          status: fact.status,
+          summary: fact.summary.slice(0, 240),
+          detail: {
+            effectId: fact.effectId,
+            ownerRef: fact.ownerRef,
+            kind: fact.kind,
+          },
+          ownerToken: reserved.ownerToken,
+        });
+      }
+    } catch {
+      /* activity is observational */
+    }
   }
 
   // E08 POST-UAT — publication outcome after Studio owners; strip pre-effect hedges.

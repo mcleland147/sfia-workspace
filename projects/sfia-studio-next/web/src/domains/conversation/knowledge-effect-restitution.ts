@@ -21,10 +21,17 @@ function proposalLabel(kind: string | null | undefined): string {
   }
 }
 
+const OPERATIONAL_SUCCESS = new Set(["AVAILABLE", "APPLIED", "CREATED", "UPDATED"]);
+
+function isOperationalKnowledgeSuccess(effect: TurnKnowledgeEffect): boolean {
+  const st = (effect.status ?? "UNKNOWN").toUpperCase();
+  return Boolean(effect.attempted) && OPERATIONAL_SUCCESS.has(st);
+}
+
 /**
- * Natural lines for non-success or partial knowledge outcomes.
- * Successful AVAILABLE outcomes are usually already covered by Nora prose + Journal;
- * we still confirm APPLIED/AVAILABLE briefly when ownerRef is present.
+ * Natural lines for knowledge outcomes.
+ * Success lines are operational confirmations (Journal). They stay available
+ * for the activity history and are omitted from the conversational body.
  */
 export function knowledgeEffectFactLines(
   effects: TurnKnowledgeEffect[],
@@ -98,11 +105,54 @@ export function knowledgeEffectFactLines(
   return lines;
 }
 
+/** Operational confirmations — activity and history, not the conversational body. */
+export function knowledgeEffectActivityLines(effects: TurnKnowledgeEffect[]): string[] {
+  return knowledgeEffectFactLines(effects.filter(isOperationalKnowledgeSuccess));
+}
+
+/** Failures, refusals, partials and UNKNOWN stay in the conversation. */
+export function knowledgeEffectConversationLines(effects: TurnKnowledgeEffect[]): string[] {
+  return knowledgeEffectFactLines(effects.filter((k) => !isOperationalKnowledgeSuccess(k)));
+}
+
+export type KnowledgeActivityFact = {
+  summary: string;
+  status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
+  effectId: string;
+  ownerRef: string | null;
+};
+
+export function knowledgeEffectActivityFacts(
+  effects: TurnKnowledgeEffect[],
+): KnowledgeActivityFact[] {
+  return effects.flatMap((effect, index) => {
+    const lines = knowledgeEffectFactLines([effect]);
+    if (lines.length === 0) return [];
+    const st = (effect.status ?? "UNKNOWN").toUpperCase();
+    const status: KnowledgeActivityFact["status"] = OPERATIONAL_SUCCESS.has(st)
+      ? "COMPLETED"
+      : st === "FAILED" || st === "REJECTED" || st === "FORBIDDEN"
+        ? "FAILED"
+        : st === "PARTIAL" || st === "NOT_EXECUTED" || st === "SKIPPED"
+          ? "LIMITED"
+          : "UNKNOWN";
+    const effectId =
+      effect.ownerRef?.trim() ||
+      `${effect.proposalKind ?? "knowledge"}:${effect.semanticIntentId ?? index}:${st}`;
+    return lines.map((summary) => ({
+      summary,
+      status,
+      effectId,
+      ownerRef: effect.ownerRef ?? null,
+    }));
+  });
+}
+
 export function composeKnowledgeEffectRestitution(input: {
   priorContent: string;
   effects: TurnKnowledgeEffect[];
 }): string {
-  const lines = knowledgeEffectFactLines(input.effects);
+  const lines = knowledgeEffectConversationLines(input.effects);
   if (lines.length === 0) return input.priorContent;
   const base = input.priorContent.trimEnd();
   return base ? `${base}\n\n${lines.join("\n")}` : lines.join("\n");

@@ -620,6 +620,7 @@ export default function PreparationPage() {
       setStatus("échec réseau — intention de tour conservée");
     } finally {
       window.clearInterval(activityPollTimer);
+      await pollLiveActivity();
       setBusy(false);
     }
   }
