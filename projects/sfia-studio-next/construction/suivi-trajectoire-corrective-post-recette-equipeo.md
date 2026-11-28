@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.3, revue de finalisation L1 |
+| Date / version | 28 novembre 2026 — v0.4, sortie technique L1 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -11,8 +11,8 @@
 | Campagne | Equipéo STOPPED BY MORRIS après T09 bis ; T08 DEFERRED, T10–T13 NOT RUN ; 8/13 tours exercés + répétition T09, R00 partiel. MaintiPlan suspendu. |
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
-| Candidat DEV courant | `30d598515766781d987f8dba3348f6fa9e659a80`, tree `29f61e767b37a44c54c3e75818b96496fd1b6624` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
-| Gate courant | L1 nominal démontré, candidat DEV publié ; Cursor READY WITH RESERVES, ChatGPT NOT READY pour sortie sur défaut résiduel ciblé (§8). L2 non engagé. Commit/push DEV autorisé dans les mandats techniques bornés ; aucun GO config, LIVE, promotion, PR ou merge. |
+| Candidat DEV courant | `96c0129f6dce61cd1f545d1b07821ea6d6e67e9b`, tree `8b320ccaa383fa14cf296e7e3b0255eb9254397b` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
+| Gate courant | L1 : Cursor et ChatGPT READY WITH RESERVES — sortie technique favorable (§9), acceptation Morris et qualification RECETTE distinctes. L2 prêt à être cadré sous GO Morris, non engagé. Commit/push DEV autorisé dans les mandats techniques bornés ; aucun GO config, LIVE, promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -27,11 +27,11 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la revue v0.3 : 1/7 lot construit et publié en DEV, nominal BROWSER substitué démontré, 0/7 lots acceptés ; 6 non engagés.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la revue v0.4 : 1/7 lot avec revue de sortie technique favorable et réserves de recette explicites ; 0/7 lots acceptés par Morris à ce stade ; 6 non engagés.
 
 | Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
-| 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | PUBLISHED DEV — NOT READY POUR SORTIE | 30d59851 / c186d999 ; nominal et intégrité PASS rapportés ; réserve de restauration asynchrone §8 |
+| 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | REVIEWED — READY WITH RESERVES (SORTIE TECHNIQUE FAVORABLE) | 96c0129f / be036274 ; trois gardes revues, DET PASS ; BROWSER/RECETTE différés §9 |
 | 2 | Fraîcheur des projections projet | Compteurs et surfaces actualisés après effets sans reload. MP13. | NOT STARTED | Diagnostic §9 ; attendre revue L1 |
 | 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | NOT STARTED — GO CONFIG DISTINCT | Diagnostic §4 ; variables absentes en RECETTE |
 | 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | NOT STARTED | Diagnostic §5 ; arbitrer confirmations et états |
@@ -123,7 +123,10 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 | 28/11/2026 | Arbitrage Morris : publication DEV avant revue | Commit/push source autorisé par mandat, CI distante non lancée, handoff maintenu | Appliqué à la finalisation L1 |
 | 28/11/2026 09:52 +01 | L1 — finalisation publiée | 30d59851 / c186d999 ; Cursor READY WITH RESERVES, ChatGPT NOT READY pour sortie (§8) | Correctif résiduel ciblé à arbitrer, pas de L2 |
 
-**Prochaine action :** arbitrer un complément strictement borné aux retours asynchrones et métadonnées de focus du L1, avec tests discriminants. Pas de nouveau diagnostic global, pas de mutation RECETTE, PR/merge, clôture de MP ou adoption.
+| 28/11/2026 | Arbitrage Morris : qualification proportionnée DEV/RECETTE | DEFERRED TO RECETTE pour contrôles difficiles en DEV, sans faux PASS ni report d'un défaut avéré | Applicable aux sept lots, §9.1 |
+| 28/11/2026 10:05 +01 | L1 — ajustement final et revue | 96c0129f / be036274 ; Cursor et ChatGPT READY WITH RESERVES, sortie technique favorable | GO Morris pour L2 attendu ; recette différée |
+
+**Prochaine action :** arbitrage Morris de sortie technique L1 et GO borné du L2 — Fraîcheur des projections projet. Pas de reprise générale L1, mutation RECETTE, PR/merge, clôture de MP ou adoption.
 
 ## 7. Revue indépendante L1 — 28 novembre 2026
 
@@ -192,3 +195,45 @@ Morris décide, après la revue v0.2, que chaque mandat technique autorisé de c
 **Verdict ChatGPT : NOT READY pour sortie L1, nominal BROWSER substitué et intégrité API/PG positifs, publication DEV vérifiée.** Le risque concret de retour d'erreur obsolète concerne directement le contrat du complément et justifie un dernier ajustement ciblé plutôt qu'une troisième reprise générale. Proposer à Morris ce mandat borné, puis revue au nouveau SHA ; L2 reste non engagé. Aucun verdict de clôture MP ou acceptation Livraison 1. Le registre conserve les réserves v0.2 comme historique, sans les confondre avec l'état actuel.
 
 Actualisation D1 du fichier unique à partir de `18997b8d452115d7296a8e76f0baa571c89a6576`, branche `docs/next-openai-studio-convergence-20261126`, sous mandat de suivi Morris. Aucun changement de code, main, handoff, configuration ou norme.
+
+## 9. Revue indépendante de sortie technique L1 — 28 novembre 2026
+
+### 9.1 Arbitrage Morris — qualification proportionnée DEV/RECETTE
+
+GO du 28/11 : pour ce complément et les lots suivants, privilégier les preuves déterministes, PG et BROWSER raisonnablement obtenables en DEV. Ne pas imposer de harness ou simulation disproportionnés pour les comportements naturellement vérifiables en RECETTE. Un contrôle différé doit porter le statut DEFERRED TO RECETTE, une raison, un protocole, un résultat attendu, les preuves à recueillir et son caractère bloquant ou non pour l'acceptation finale. Un report n'est pas un PASS. Les défauts avérés restent à traiter ; les invariants d'intégrité, sécurité, autorité et persistance doivent être sécurisés. Pas d'acceptation produit par simple sortie technique. Cet arbitrage opérationnel ne modifie pas SEF ni ENV-01 ; aucun GO de promotion ou LIVE implicite.
+
+### 9.2 Candidat et revue
+
+- [Commit DEV](https://github.com/mcleland147/sfia-workspace/commit/96c0129f6dce61cd1f545d1b07821ea6d6e67e9b), parent `30d598515766781d987f8dba3348f6fa9e659a80`, tree `8b320ccaa383fa14cf296e7e3b0255eb9254397b` vérifiés directement ; avance 1/retard 0, 5 fichiers (+175/-10), tous dans l'allowlist. Main `997897fd7cf914771e7d08e8030dc7123fab7d25` inchangé. API Actions : 0 run pour ce SHA.
+- [Handoff](https://github.com/mcleland147/sfia-workspace/blob/be0362745860f38760b3934e4b09d7966b2fe4d1/sfia-review-handoff/latest-chatgpt-review.md), blob `2c4bcab75179d6f1035860938ec3ee2e75150128`, 477 lignes, mono-fichier vérifié, pack 10:05+01 ; diff complet, aucune création, SHA produit présent. Cycle 08 / Critical / Full. Cursor READY WITH RESERVES.
+- Revue ChatGPT directe du code final et du diff : page.tsx, DocumentSurfaces, tests unitaires associés et garde de génération utilisée lors de fermeture/changement de sélection ; as-built et delivery history mis à jour. SEF, Roadmaps main/candidate, P2, SEM, R4 et ENV-01 revérifiés. Aucun changement de D4, schéma, workflow, configuration ou architecture. État local, captures et exécutions non observés indépendamment. Cursor indique une lecture ciblée, sans relecture intégrale de certaines sources demandées ; écart de processus non bloquant pour ce complément borné, sources applicables à reconsulter au prochain mandat.
+
+| Correction | Vérification |
+| --- | --- |
+| Restauration en erreur | page.tsx L2238–2279 et L2329–2348 : garde pendingCandidateRestoreOwnsContext avant effets HTTP/non PENDING/corps manquant et catch ; contrôle projet/document/candidat/génération ; effacement conditionnel de la proposition correspondante. Succès réutilise la même garde et vérifie document/corps. |
+| Numéro inconnu | DocumentSurfaces.tsx L94–121 : nouvel ID conservé, numéros source/head undefined si D4 ne fournit pas de numéro ; aucun héritage de l'ancien numéro. |
+| Résolution de sélection | page.tsx L1622–1655 : génération réservée avant await, contrôle de projet/génération/fermeture au retour, avant focus, viewer et demande historique. Fermeture et changement de projet invalident la génération. |
+| Preuve actuelle | 25 PASS unitaires documentaires rapportés ; assertions lues (gardes positives/négatives, numéro absent). Lint ciblé exit 0, build de production isolé et types du build PASS, diff --check propre. DET et intégration statique vérifiées, pas de nouvelle preuve navigateur. |
+| Preuves héritées | 10 PG et 2 Playwright PASS sur 30d59851 seulement ; D4 inchangé. V1→V2→V3, identité unique, contenu/empreintes et historique prouvés sur ce candidat antérieur avec Nora substituée. Ne pas les présenter comme rejoués sur 96c0129f. |
+| Environnements | RECETTE processus 77113 sur :3200 inchangé selon Cursor ; DEV :3100 processus 55011 ; aucun redémarrage, aucune émission OpenAI, aucune migration rapportés. Local NON OBSERVÉ. |
+
+### 9.3 Contrôles de recette à reprendre
+
+Tous les contrôles ci-dessous restent ouverts ; aucun PASS déduit. Exécuter sur un futur SHA/build RECETTE figé sous GO Morris distinct, projet de qualification isolé des campagnes historiques ; tracer le SHA, les résultats et les preuves. Les reproductions de course doivent être discriminantes (ordre des réponses observé), pas seulement un clic nominal.
+
+| Contrôle | Conditions / résultat attendu | Preuve et gate |
+| --- | --- | --- |
+| DOC-REC-01 — restauration en erreur obsolète | Proposition en attente, reload, ralentir/interrompre la requête candidat puis changer de document/candidat. L'ancienne erreur ne modifie pas proposition, focus, visionneuse ou statut du nouveau contexte. Erreur encore courante : traitement honnête du candidat concerné. | Manuel instrumenté : capture UI et chronologie réseau expurgée ; requis avant acceptation Livraison 1. |
+| DOC-REC-02 — résolution de tête dépassée | Depuis historique, demande de révision A puis B (ou autre révision du même document) pendant lecture retardée ; variante fermeture. Seule dernière sélection applicable ; pas de confirmation historique pour A abandonnée ; viewer fermé reste fermé. | Manuel instrumenté : capture fil et chronologie réseau ; requis avant acceptation Livraison 1. |
+| DOC-REC-03 — parcours nominal | V1→proposition V2 inspectée→conservation→proposition V3 depuis V2→conservation, sans reload intermédiaire ; une identité, trois révisions, V1/V2 intactes et vraie base historique protégée. | Rejeu fonctionnel sur futur candidat, Nora LIVE seulement sous GO ; requis avant acceptation. |
+| DOC-REC-04 — ACK perdu | Interruption après effet de conservation, reprise par identité/corrélation ; aucune duplication, aucun rebase sur une head non attribuable ; état inconnu honnête si non résolu. | Manuel instrumenté, données de test ; preuve propriétaire + UI ; contrôle d'intégrité requis avant acceptation. |
+| DOC-REC-05 — références exactes | Ouvrir depuis anciennes réponses Nora les liens V1/V2 après V3 ; contenu exact préservé, statut courant/historique exact, aucune mutation. | Manuel : captures et révisions identifiées ; requis avant acceptation. |
+| DOC-REC-06 — autres courses A→B | Lecture D4 tardive pendant proposition, sélection d'un autre document pendant conservation, retour tardif et restauration devenue obsolète. Résultat A conservé sans contaminer B ; pas de perte des autres effets du tour. | Manuel instrumenté, réconciliation des effets ; requis avant acceptation. |
+
+DOC-D/E restent au L7. Fidélité Figma et UX résiduelle au L7. Webpack `@cursor/sdk` et TypeScript global hors lot restent réserves d'outillage à réconcilier avant intégration/CI, pas nouveaux chantiers L1. Aucun résultat LIVE ni F2 fort. Les contrôles RECETTE ne peuvent pas être exercés sur le build actuellement figé en 0ae9e1f7 comme preuve de ce correctif.
+
+### 9.4 Verdict et gate
+
+**ChatGPT : READY WITH RESERVES — sortie technique L1 favorable.** Les trois gardes identifiées sont corrigées dans le candidat publié, les fonctions déterministes testées sont effectivement branchées. Les preuves existantes, le build et les réserves explicites suffisent pour recommander le passage au L2 sans nouveau cycle L1. Ce verdict ne vaut ni acceptation Morris, ni qualification RECETTE, ni clôture DOC/MP, ni promotion. L2 non engagé : prochain GO Morris, périmètre MP13. Les statuts programme restent inchangés.
+
+Actualisation D1 du fichier unique à partir de `1e49602a4ad8eba5079ad9240b3b2fba5e7af348`, branche `docs/next-openai-studio-convergence-20261126`, sous mandat de suivi Morris. Aucun changement produit, main, handoff, configuration ou norme.
