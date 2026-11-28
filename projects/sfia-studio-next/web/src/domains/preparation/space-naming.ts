@@ -1,17 +1,30 @@
 import { sql } from "@/db/client";
+import { validateNoraTurnQualification } from "@/domains/conversation/semantic-qualification";
+import { normalizePreparationTitle } from "@/domains/identity/portfolio-labels";
 import { namesConflictForSamePilot, normalizeProjectNameKey } from "@/domains/preparation/projection";
 import { StudioError } from "@/lib/http-errors";
 
 export type PreparationTitleSource = "NONE" | "NORA" | "PILOT";
 
-const TITLE_MAX_CODE_POINTS = 80;
+export { normalizePreparationTitle };
 
-export function normalizePreparationTitle(value: string): string | null {
-  const single = value.normalize("NFC").replace(/[\t\f\v]+/g, " ").replace(/ {2,}/g, " ").trim();
-  if (!single || /[\r\n]/.test(single)) return null;
-  if ([...single].length > TITLE_MAX_CODE_POINTS) return null;
-  if (/[<>]/.test(single)) return null;
-  return single;
+/** The title persisted by D2 must be the suggestion attested on this durable turn. */
+function attestedSuggestedTitle(resultJson: string | null): string | null {
+  if (!resultJson) return null;
+  let raw: unknown;
+  try {
+    raw = JSON.parse(resultJson);
+  } catch {
+    return null;
+  }
+  if (!raw || typeof raw !== "object") return null;
+  const validated = validateNoraTurnQualification(
+    (raw as { semanticQualification?: unknown }).semanticQualification,
+  );
+  if (!validated.ok) return null;
+  const suggested = validated.value.suggestedPreparationTitle;
+  if (typeof suggested !== "string") return null;
+  return normalizePreparationTitle(suggested);
 }
 
 function displayProjectName(value: string): string {
@@ -59,6 +72,29 @@ export async function applyFirstPreparationTitle(input: {
       SELECT preparation_id FROM preparation_project_links WHERE preparation_id = ${input.preparationId} LIMIT 1
     `;
     if (linked[0]) return { applied: false };
+    const turns = await tx<{
+      status: string;
+      owner_pilot_id: string;
+      result_json: string | null;
+      preparation_id: string;
+      project_id: string | null;
+    }[]>`
+      SELECT c.status, c.owner_pilot_id, c.result_json, conv.preparation_id, conv.project_id
+      FROM conversation_turn_commands c
+      JOIN conversations conv ON conv.id = c.conversation_id
+      WHERE c.id = ${input.turnCommandId}
+    `;
+    const turn = turns[0];
+    if (
+      !turn
+      || turn.status !== "COMPLETE"
+      || turn.owner_pilot_id !== input.pilotId
+      || turn.preparation_id !== input.preparationId
+      || turn.project_id
+      || attestedSuggestedTitle(turn.result_json) !== title
+    ) {
+      return { applied: false };
+    }
     const updated = await tx`
       UPDATE preparations
       SET title = ${title},
@@ -93,11 +129,12 @@ export async function renamePreparation(input: {
   return sql.begin(async (tx) => {
     const rows = await tx<{
       title: string | null;
+      title_source: string;
       title_revision: number;
       title_intention_key: string | null;
       status: string;
     }[]>`
-      SELECT title, title_revision, title_intention_key, status
+      SELECT title, title_source, title_revision, title_intention_key, status
       FROM preparations
       WHERE id = ${input.preparationId} AND owner_pilot_id = ${input.pilotId}
       FOR UPDATE
@@ -124,12 +161,24 @@ export async function renamePreparation(input: {
       throw new StudioError("CONFLICT", "Le titre a changé. Relisez-le avant de confirmer.");
     }
     if (row.title === title) {
+      if (row.title_source === "PILOT") {
+        await tx`
+          UPDATE preparations
+          SET title_intention_key = ${intentionKey}, updated_at = now()
+          WHERE id = ${input.preparationId}
+        `;
+        return { label: title, revision, intentionKey, changed: false };
+      }
+      const adopted = revision + 1;
       await tx`
         UPDATE preparations
-        SET title_intention_key = ${intentionKey}, updated_at = now()
-        WHERE id = ${input.preparationId}
+        SET title_source = 'PILOT',
+            title_revision = ${adopted},
+            title_intention_key = ${intentionKey},
+            updated_at = now()
+        WHERE id = ${input.preparationId} AND title_revision = ${revision}
       `;
-      return { label: title, revision, intentionKey, changed: false };
+      return { label: title, revision: adopted, intentionKey, changed: true };
     }
     const next = revision + 1;
     await tx`

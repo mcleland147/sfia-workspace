@@ -5437,7 +5437,17 @@ export async function postUserMessageAndNora(
         suggested: qualification.suggestedPreparationTitle ?? "",
       });
     } catch {
-      // The confirmed turn stays confirmed. A title is never worth another provider call.
+      emitObs({
+        event_name: "d2.preparation_title.apply_failed",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: "FAILED",
+        error_category: "PREPARATION_TITLE_APPLY_FAILED",
+        resource_ref: preparationId,
+        meta: { kind: "first_title", status: "FAILED" },
+      });
     }
   }
 

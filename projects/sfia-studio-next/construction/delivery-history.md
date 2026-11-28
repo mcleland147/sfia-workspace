@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-NAMING-INTEGRITY-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — complément de provenance, de réconciliation et de concurrence du nommage
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `7bd37c0e85ccd940ac54d44202f47526c8c94879`
+- **commit**: `fix(next): prove the preparation title and the rename`
+- **schema_revision**: inchangé, `029_preparation_title_and_project_name`
+- **scope**: preuve durable du titre, suggestion non bloquante, réconciliation du renommage, courses de noms, qualification SAS06 sans modification
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+- **reserves**: réserves du mandat 1 transportées ; F2 non mesuré ; déduplication limitée à la dernière intention
+
 ## delivery_id: DELIV-2026-11-28-ML5-PREPARATION-NAMING-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -7,11 +7,13 @@ import {
   decodePreparationsCursor,
   encodePreparationsCursor,
 } from "./portfolio-cursor";
+import { preparationDisplayLabel } from "./portfolio-labels";
 
 export type PreparationSummary = {
   id: string;
   previewName: string;
   previewSummary: string;
+  title: string;
   createdAt: string;
   status: "OPEN";
 };
@@ -74,6 +76,7 @@ async function loadPreparationsPage(
   const rows = await db
     .select({
       id: preparations.id,
+      title: preparations.title,
       previewName: preparations.previewName,
       previewSummary: preparations.previewSummary,
       createdAt: preparations.createdAt,
@@ -103,6 +106,12 @@ async function loadPreparationsPage(
       id: r.id,
       previewName: r.previewName,
       previewSummary: r.previewSummary,
+      title: preparationDisplayLabel({
+        id: r.id,
+        title: r.title,
+        previewName: r.previewName,
+        previewSummary: r.previewSummary,
+      }),
       createdAt: r.createdAt.toISOString(),
       status: "OPEN" as const,
     })),

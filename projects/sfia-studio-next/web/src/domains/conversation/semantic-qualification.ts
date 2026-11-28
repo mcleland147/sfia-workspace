@@ -277,7 +277,11 @@ export const NoraTurnQualificationSchema = z.object({
    * It is not the future official project name. An unusable value is ignored
    * by the owner and must not invalidate the rest of the qualification.
    */
-  suggestedPreparationTitle: z.string().max(2000).optional(),
+  /**
+   * Secondary enrichment. A plain string so the Agents SDK schema stays a ZodObject.
+   * A non-string is detached before parse; length is judged by the title owner, not here.
+   */
+  suggestedPreparationTitle: z.string().optional(),
   intents: z.array(QualifiedIntentItemSchema).max(12).default([]),
   /**
    * Questions encore ouvertes APRÈS ce tour.
@@ -472,8 +476,18 @@ const PILOTAGE_CAPS = new Set<StudioCapabilityId>([
   "d6.human_decision",
 ]);
 
+/** A bad title suggestion must not fail an otherwise valid qualification. */
+export function detachUnusablePreparationTitle(raw: unknown): unknown {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return raw;
+  const record = { ...(raw as Record<string, unknown>) };
+  if (record.suggestedPreparationTitle !== undefined && typeof record.suggestedPreparationTitle !== "string") {
+    delete record.suggestedPreparationTitle;
+  }
+  return record;
+}
+
 export function validateNoraTurnQualification(raw: unknown): QualificationValidation {
-  const parsed = NoraTurnQualificationSchema.safeParse(raw);
+  const parsed = NoraTurnQualificationSchema.safeParse(detachUnusablePreparationTitle(raw));
   if (!parsed.success) {
     return { ok: false, reason: `SCHEMA_INVALID:${parsed.error.issues[0]?.message ?? "unknown"}` };
   }

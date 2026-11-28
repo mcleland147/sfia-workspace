@@ -149,16 +149,26 @@ describe("portfolio organization rules", () => {
       board: { ...board, preferences: { ...board.preferences, view: "grouped", version: 9 } },
     })).toBe("current");
     const renamed = { ...record, displayLabel: "Nouveau nom", nameRevision: 1 };
-    const rename: PortfolioIntention = { kind: "rename", spaceType: "project", spaceId: "prj_1", knownVersion: 0, intentionKey: "intent-01" };
-    expect(classifyPortfolioResponse(200, { label: "Nouveau nom", revision: 1, intentionKey: "intent-01", changed: true }, "rename")).toBe("confirmed");
+    const rename: PortfolioIntention = {
+      kind: "rename", spaceType: "project", spaceId: "prj_1", knownVersion: 0, intentionKey: "intent-01", requestedLabel: "Nouveau nom",
+    };
+    const ack = { label: "Nouveau nom", revision: 1, intentionKey: "intent-01", changed: true, spaceType: "project", spaceId: "prj_1" };
+    expect(classifyPortfolioResponse(200, ack, "rename")).toBe("confirmed");
     expect(classifyPortfolioResponse(200, { ok: true }, "rename")).toBe("unknown");
     expect(reconcileOwnerEffect({
       intention: rename,
       outcome: "confirmed",
-      acknowledgement: { label: "Nouveau nom", revision: 1, intentionKey: "intent-01", changed: true },
+      acknowledgement: ack,
       records: [renamed],
       board: { ...board, items: [{ ...board.items[0], label: "Nouveau nom" }] },
     })).toBe("confirmed");
+    expect(reconcileOwnerEffect({
+      intention: rename,
+      outcome: "confirmed",
+      acknowledgement: { ...ack, label: "Ancien nom" },
+      records: [{ ...renamed, displayLabel: "Ancien nom" }],
+      board: { ...board, items: [{ ...board.items[0], label: "Ancien nom" }] },
+    })).toBe("current");
     expect(reconcileOwnerEffect({
       intention: rename,
       outcome: "confirmed",

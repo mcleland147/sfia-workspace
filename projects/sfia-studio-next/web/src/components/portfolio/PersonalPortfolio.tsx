@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { runOpenPreparation, subscribeOpenPreparationBusy } from "@/lib/open-preparation";
+import { normalizePreparationTitle } from "@/domains/identity/portfolio-labels";
 import type { PersonalBoard, PersonalSpace, PortfolioFilter, PortfolioSort, PortfolioView } from "@/domains/identity/portfolio-organization";
+import { normalizeProjectNameKey } from "@/domains/preparation/projection";
 import { notePersonalSpaceEntry } from "./PersonalSpaceOpenSignal";
 import { notifyPortfolioChanged } from "./PersonalRailFavorites";
 import "./personal-portfolio.css";
@@ -29,6 +31,8 @@ export type PortfolioIntention = {
   sort?: string;
   knownVersion: number;
   knownPosition?: number | null;
+  /** Raw value submitted with this rename. Compared with the acknowledgement and the reread. */
+  requestedLabel?: string;
 };
 
 export type OwnerSpaceRecord = {
@@ -113,6 +117,22 @@ export function ownerSpaceRecord(
   };
 }
 
+/** The returned label must be the requested one, or the unchanged stored spelling of the same name. */
+export function acknowledgedNameMatches(
+  intention: PortfolioIntention,
+  label: string,
+  changed: boolean,
+): boolean {
+  const requested = intention.requestedLabel ?? "";
+  if (intention.spaceType === "project") {
+    if (normalizeProjectNameKey(label) !== normalizeProjectNameKey(requested)) return false;
+    if (!changed) return true;
+    return label === requested.normalize("NFC").replace(/\s+/g, " ").trim();
+  }
+  const normalized = normalizePreparationTitle(requested);
+  return normalized !== null && label === normalized;
+}
+
 /** The acknowledgement must answer this intention, not merely carry a newer version. */
 export function correlatedAcknowledgement(
   intention: PortfolioIntention,
@@ -133,9 +153,13 @@ export function correlatedAcknowledgement(
   }
   if (intention.kind === "rename") {
     return body.intentionKey === intention.intentionKey
+      && body.spaceType === intention.spaceType
+      && body.spaceId === intention.spaceId
       && typeof body.revision === "number"
       && typeof body.label === "string"
-      && (body.revision === intention.knownVersion || body.revision === intention.knownVersion + 1);
+      && typeof body.changed === "boolean"
+      && (body.revision === intention.knownVersion || body.revision === intention.knownVersion + 1)
+      && acknowledgedNameMatches(intention, body.label, body.changed === true);
   }
   return false;
 }
@@ -191,10 +215,14 @@ export function reconcileOwnerEffect(input: {
     if (typeof primary.displayLabel !== "string" || typeof primary.nameRevision !== "number") return "unproven";
     const named = board.items.find((entry) => entry.spaceType === primary.spaceType && entry.id === primary.id) as { label?: string } | undefined;
     if (named && typeof named.label === "string" && named.label !== primary.displayLabel) return "unproven";
-    if (primary.displayLabel === acknowledgement.label && primary.nameRevision === acknowledgement.revision) {
-      return acknowledgement.changed === false ? "unchanged" : "confirmed";
+    if (
+      !acknowledgedNameMatches(intention, primary.displayLabel, acknowledgement.changed === true)
+      || primary.displayLabel !== acknowledgement.label
+      || primary.nameRevision !== acknowledgement.revision
+    ) {
+      return "current";
     }
-    return "current";
+    return acknowledgement.changed === false ? "unchanged" : "confirmed";
   }
   if (intention.kind === "order") {
     if (acknowledgement.moved !== true) return "unchanged";
@@ -313,6 +341,7 @@ export function PersonalPortfolio() {
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
   const [renameTarget, setRenameTarget] = useState<PersonalSpace | null>(null);
   const [renameValue, setRenameValue] = useState("");
+  const [renameNotice, setRenameNotice] = useState("");
   const requestSeq = useRef(0);
 
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
@@ -493,7 +522,7 @@ export function PersonalPortfolio() {
     intention: PortfolioIntention,
     outcome: PortfolioMutationOutcome,
     acknowledgement: Record<string, unknown> | null,
-  ): Promise<{ reread: PortfolioReread; effect: OwnerEffect }> {
+  ): Promise<{ reread: PortfolioReread; effect: OwnerEffect; record: OwnerSpaceRecord | null }> {
     try {
       const ids = [
         { type: intention.spaceType, id: intention.spaceId },
@@ -501,13 +530,13 @@ export function PersonalPortfolio() {
       ].filter((item): item is { type: PersonalSpace["spaceType"]; id: string } => Boolean(item.type && item.id));
       let records: Array<OwnerSpaceRecord | "absent"> = [];
       if (intention.kind !== "preference") {
-        if (ids.length === 0) return { reread: "failed", effect: "unproven" };
+        if (ids.length === 0) return { reread: "failed", effect: "unproven", record: null };
         const reads = await Promise.all(ids.map((item) => readTargetedRecord(item.type, item.id)));
-        if (reads.some((item) => item === null)) return { reread: "failed", effect: "unproven" };
+        if (reads.some((item) => item === null)) return { reread: "failed", effect: "unproven", record: null };
         records = reads.filter((item): item is OwnerSpaceRecord | "absent" => item !== null);
       }
       const refreshed = await loadRef.current();
-      if (!refreshed) return { reread: "failed", effect: "unproven" };
+      if (!refreshed) return { reread: "failed", effect: "unproven", record: null };
       const effect = reconcileOwnerEffect({
         intention,
         outcome,
@@ -515,9 +544,14 @@ export function PersonalPortfolio() {
         records,
         board: refreshed,
       });
-      return { reread: effect === "unproven" ? "failed" : "reviewed", effect };
+      const primary = records[0];
+      return {
+        reread: effect === "unproven" ? "failed" : "reviewed",
+        effect,
+        record: primary && primary !== "absent" ? primary : null,
+      };
     } catch {
-      return { reread: "failed", effect: "unproven" };
+      return { reread: "failed", effect: "unproven", record: null };
     }
   }
 
@@ -528,6 +562,7 @@ export function PersonalPortfolio() {
     setPending(path);
     setUncertain("");
     setNotice("");
+    let retainRename = false;
     try {
       const response = await fetch(path, {
         method,
@@ -541,10 +576,30 @@ export function PersonalPortfolio() {
       acknowledgementRef.current = body;
       if (outcome === "refused") {
         settleMutation("refused", "not-attempted", "current", "");
-        setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
+        const message = typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.";
+        setNotice(message);
+        if (intention.kind === "rename") {
+          retainRename = true;
+          setRenameNotice(message);
+        }
         return;
       }
       const probed = await probeIntention(intention, outcome, body);
+      if (intention.kind === "rename" && probed.effect !== "confirmed" && probed.effect !== "unchanged") {
+        retainRename = true;
+        if (probed.record && typeof probed.record.nameRevision === "number") {
+          const currentLabel = probed.record.displayLabel;
+          setRenameTarget((current) => current ? {
+            ...current,
+            nameRevision: probed.record?.nameRevision ?? current.nameRevision,
+            label: currentLabel ?? current.label,
+          } : current);
+        }
+        const message = outcome === "conflict"
+          ? (typeof body.message === "string" ? body.message : "Le nom a changé. La valeur actuelle est affichée ; confirmez à nouveau.")
+          : "Le résultat n'est pas confirmé. La valeur actuelle a été relue ; aucune nouvelle tentative n'est envoyée.";
+        setRenameNotice(message);
+      }
       if (outcome === "confirmed" && probed.effect === "confirmed") notifyPortfolioChanged();
       settleMutation(
         outcome,
@@ -560,14 +615,28 @@ export function PersonalPortfolio() {
       const current = intentionRef.current;
       const probed = current
         ? await probeIntention(current, "unknown", null)
-        : { reread: "failed" as const, effect: "unproven" as const };
+        : { reread: "failed" as const, effect: "unproven" as const, record: null };
+      if (current?.kind === "rename") {
+        retainRename = true;
+        if (probed.record && typeof probed.record.nameRevision === "number") {
+          setRenameTarget((open) => open ? {
+            ...open,
+            nameRevision: probed.record?.nameRevision ?? open.nameRevision,
+            label: probed.record?.displayLabel ?? open.label,
+          } : open);
+        }
+        setRenameNotice("Le résultat n'est pas confirmé. La valeur actuelle a été relue ; aucune nouvelle tentative n'est envoyée.");
+      }
       settleMutation("unknown", probed.reread, probed.effect, "");
     } finally {
       busy.current = false;
       setPending("");
       setConfirm(null);
       setConfirmRestore(null);
-      setRenameTarget(null);
+      if (!retainRename) {
+        setRenameTarget(null);
+        setRenameNotice("");
+      }
     }
   }
 
@@ -747,7 +816,7 @@ export function PersonalPortfolio() {
             <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
             <div className="personal-portfolio-menu-rule" role="separator" />
             <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
-            <button type="button" role="menuitem" disabled={locked} onClick={() => { setRenameTarget(space); setRenameValue(space.label); setMenu(null); }}><Mark name="edit" />Renommer</button>
+            <button type="button" role="menuitem" disabled={locked} onClick={() => { setRenameTarget(space); setRenameValue(space.label); setRenameNotice(""); setMenu(null); }}><Mark name="edit" />Renommer</button>
             <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
             <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) - 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Monter</button>
             <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) + 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Descendre</button>
@@ -949,8 +1018,10 @@ export function PersonalPortfolio() {
               <input data-testid="portfolio-rename-input" value={renameValue} onChange={(event) => setRenameValue(event.target.value)} />
             </label>
             {renameTarget.spaceType === "preparation" ? <p>Un titre manuel ne sera plus écrasé par Nora.</p> : null}
+            {renameNotice ? <p role="alert" data-testid="portfolio-rename-message">{renameNotice}</p> : null}
+            {renameNotice && renameTarget.label !== renameValue.trim() ? <p>Valeur actuelle : {renameTarget.label}</p> : null}
             <div className="personal-portfolio-modal-actions">
-              <button type="button" onClick={() => setRenameTarget(null)}>Annuler</button>
+              <button type="button" onClick={() => { if (!locked) { setRenameTarget(null); setRenameNotice(""); } }}>Annuler</button>
               <button type="button" className="personal-portfolio-primary" disabled={locked || !renameValue.trim()} onClick={() => {
                 const intentionKey = crypto.randomUUID();
                 const path = renameTarget.spaceType === "preparation"
@@ -959,7 +1030,14 @@ export function PersonalPortfolio() {
                 const payload = renameTarget.spaceType === "preparation"
                   ? { title: renameValue, expectedRevision: renameTarget.nameRevision, intentionKey }
                   : { name: renameValue, expectedRevision: renameTarget.nameRevision, intentionKey };
-                void mutate(path, "PUT", payload, { kind: "rename", spaceType: renameTarget.spaceType, spaceId: renameTarget.id, knownVersion: renameTarget.nameRevision, intentionKey });
+                void mutate(path, "PUT", payload, {
+                  kind: "rename",
+                  spaceType: renameTarget.spaceType,
+                  spaceId: renameTarget.id,
+                  knownVersion: renameTarget.nameRevision,
+                  intentionKey,
+                  requestedLabel: renameValue,
+                });
               }}>Enregistrer</button>
             </div>
           </div>

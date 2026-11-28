@@ -24,7 +24,10 @@ export async function PUT(req: Request, ctx: { params: Promise<{ projectId: stri
       expectedRevision: body.expectedRevision,
       intentionKey: body.intentionKey,
     });
-    return NextResponse.json(result, { headers: { "cache-control": "private, no-store" } });
+    return NextResponse.json(
+      { ...result, spaceType: "project", spaceId: projectId },
+      { headers: { "cache-control": "private, no-store" } },
+    );
   } catch (error) {
     const mapped = studioErrorResponse(error);
     return NextResponse.json(mapped.body, { status: mapped.status });

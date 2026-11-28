@@ -78,3 +78,47 @@ test("preparation title stays independent of the official project name", async (
   await expect(page.getByText(renamed)).toHaveCount(0);
   await expect(page.getByTestId(`open-project-${projectId}`)).toHaveCount(0);
 });
+
+test("rename keeps the typed value when validation fails or the version is stale", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  const preparationId = await openNewPreparation(page);
+  await page.goto("/portfolio");
+  const row = page.getByTestId(`resume-prep-${preparationId}`);
+  await row.getByRole("button", { name: "Actions de l'espace" }).click();
+  await page.getByRole("menuitem", { name: "Renommer" }).click();
+  const dialog = page.getByTestId("portfolio-rename");
+  const input = page.getByTestId("portfolio-rename-input");
+  await expect(input).toBeFocused();
+  await input.fill("<titre refusé>");
+  await dialog.getByRole("button", { name: "Enregistrer" }).click();
+  await expect(dialog).toBeVisible();
+  await expect(page.getByTestId("portfolio-rename-message")).toBeVisible();
+  await expect(input).toHaveValue("<titre refusé>");
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+
+  await row.getByRole("button", { name: "Actions de l'espace" }).click();
+  await page.getByRole("menuitem", { name: "Renommer" }).click();
+  const current = await page.request.get(`/api/portfolio/spaces/preparation/${preparationId}`);
+  expect(current.ok()).toBeTruthy();
+  const record = await current.json() as { nameRevision: number };
+  const ahead = await page.request.put(`/api/preparations/${preparationId}/title`, {
+    data: {
+      title: "Titre déjà enregistré",
+      expectedRevision: record.nameRevision,
+      intentionKey: `ahead-${crypto.randomUUID()}`,
+    },
+  });
+  expect(ahead.ok()).toBeTruthy();
+  await input.fill("Titre proposé ensuite");
+  await dialog.getByRole("button", { name: "Enregistrer" }).click();
+  await expect(dialog).toBeVisible();
+  await expect(page.getByTestId("portfolio-rename-message")).toBeVisible();
+  await expect(input).toHaveValue("Titre proposé ensuite");
+  await expect(dialog).toContainText("Titre déjà enregistré");
+  await dialog.getByRole("button", { name: "Enregistrer" }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(row).toContainText("Titre proposé ensuite", { timeout: 15000 });
+});
