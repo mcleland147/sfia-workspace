@@ -209,6 +209,8 @@ export function NoraLiveActivity(props: {
                         <span className="fig-nora-live-activity-source-cov">
                           {d.coverage === "DISCOVERED"
                             ? "Identifiée"
+                            : d.coverage === "COMPARE"
+                              ? "Comparaison"
                             : d.coverage === "CONSULTED" ||
                                 d.coverage === "VERIFIED" ||
                                 d.coverage === "COMPLETE" ||

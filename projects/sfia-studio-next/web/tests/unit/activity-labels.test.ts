@@ -5,6 +5,8 @@ import {
   compactActivitySummary,
   formatSourceActivitySummary,
   projectActivityLabel,
+  activityReadStillApplies,
+  interpretActivityHistoryPayload,
   projectMissionHeadline,
   resolveActivityDisplayHeadline,
 } from "@/domains/conversation/activity-labels";
@@ -145,8 +147,15 @@ describe("activity-labels functional completion", () => {
     expect(understand?.resultSummary).toBeNull();
     const sources = groups.find((g) => g.key === "sources");
     expect(sources?.resultSummary).toMatch(/consultée/i);
-    // Prefer significant source activity over repeating orientation.
-    expect(projectMissionHeadline(events)).toMatch(/Document consulté|StockTrack/i);
+    expect(projectMissionHeadline(events)).toBe("Orientation du travail");
+    expect(
+      resolveActivityDisplayHeadline({
+        active: true,
+        propsHeadline: "Document consulté — StockTrack",
+        events,
+        groupTitles: groups.map((g) => g.title),
+      }),
+    ).toBe("Orientation du travail");
   });
 
   it("projects compare_document_proposal with +/− line counters", () => {
@@ -231,5 +240,77 @@ describe("activity-labels functional completion", () => {
         groupTitles: groups.map((g) => g.title),
       }),
     ).toBeNull();
+  });
+
+  it("keeps a structured objective when the poller headline is an operation", () => {
+    const events = [
+      {
+        sequence: 1,
+        nature: "COMPLETED" as const,
+        status: "COMPLETED",
+        phase: "nora.objective",
+        summary: "Orientation du travail terminée",
+        detail: { objective: "Analyse des règles d'habilitation" },
+      },
+      {
+        sequence: 2,
+        nature: "OBSERVED" as const,
+        status: "COMPLETED",
+        phase: "nora.source.git",
+        summary: "Consultation Git — rules.ts",
+        sourceRef: "git:rules",
+        detail: { kind: "GIT", coverage: "CONSULTED", title: "rules.ts" },
+      },
+    ];
+    expect(
+      resolveActivityDisplayHeadline({
+        active: false,
+        propsHeadline: "Consultation Git — rules.ts",
+        events,
+        groupTitles: ["Analyse des règles d'habilitation"],
+      }),
+    ).toBe("Analyse des règles d'habilitation");
+  });
+
+  it("does not treat an invalid history payload as an empty history", () => {
+    expect(interpretActivityHistoryPayload(null).kind).toBe("invalid");
+    expect(interpretActivityHistoryPayload({ turnStatus: "COMPLETE" }).kind).toBe("invalid");
+    expect(interpretActivityHistoryPayload({ events: [], turnStatus: "COMPLETE" }).kind).toBe(
+      "empty",
+    );
+    expect(interpretActivityHistoryPayload({ events: [{ sequence: 1 }] }).kind).toBe("ready");
+  });
+
+  it("drops a late activity read when the turn or scope changed", () => {
+    expect(
+      activityReadStillApplies({
+        epochAtStart: 2,
+        epochNow: 2,
+        scopeAtStart: "proj_a",
+        scopeNow: "proj_a",
+        turnExpected: "turn_a",
+        turnReceived: "turn_a",
+      }),
+    ).toBe(true);
+    expect(
+      activityReadStillApplies({
+        epochAtStart: 2,
+        epochNow: 3,
+        scopeAtStart: "proj_a",
+        scopeNow: "proj_a",
+        turnExpected: "turn_a",
+        turnReceived: "turn_a",
+      }),
+    ).toBe(false);
+    expect(
+      activityReadStillApplies({
+        epochAtStart: 2,
+        epochNow: 2,
+        scopeAtStart: "proj_a",
+        scopeNow: "proj_b",
+        turnExpected: "turn_a",
+        turnReceived: "turn_a",
+      }),
+    ).toBe(false);
   });
 });

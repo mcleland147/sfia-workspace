@@ -23,7 +23,7 @@ import {
   resolveSasPresentationStage,
   sasPresentationCopy,
 } from "@/components/figma/sas-presentation";
-import { projectActivityLabel } from "@/domains/conversation/activity-labels";
+import { activityReadStillApplies } from "@/domains/conversation/activity-labels";
 import {
   clearPrepComposerDraft,
   readPrepComposerDraft,
@@ -487,26 +487,39 @@ export default function PreparationPage() {
     let lastActivitySeq = 0;
     let knownTurnCommandId: string | null = null;
     const pollEpoch = ++activityPollEpochRef.current;
-    const pollLiveActivity = async () => {
+    const pollLiveActivity = async (opts?: { terminal?: boolean }) => {
+      const scopeId = preparationId;
+      const still = (turnReceived: string | null) =>
+        activityReadStillApplies({
+          epochAtStart: pollEpoch,
+          epochNow: activityPollEpochRef.current,
+          scopeAtStart: scopeId,
+          scopeNow: preparationId,
+          turnExpected: knownTurnCommandId,
+          turnReceived,
+        });
       try {
-        if (pollEpoch !== activityPollEpochRef.current) return;
+        if (!still(null)) return;
         if (!knownTurnCommandId) {
           const look = await fetch(
             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
           );
+          if (!still(null)) return;
           if (look.ok) {
             const lj = (await look.json()) as { turnCommandId?: string | null };
+            if (!still(null)) return;
             if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
           }
         }
         if (!knownTurnCommandId) return;
-        if (pollEpoch !== activityPollEpochRef.current) return;
-        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
+        if (!still(null)) return;
+        const q =
+          opts?.terminal || lastActivitySeq <= 0 ? "" : `?afterSequence=${lastActivitySeq}`;
         const act = await fetch(
           `/api/preparations/${preparationId}/turns/${knownTurnCommandId}/activity${q}`,
         );
+        if (!still(null)) return;
         if (!act.ok) return;
-        if (pollEpoch !== activityPollEpochRef.current) return;
         const aj = (await act.json()) as {
           events?: Array<{
             sequence: number;
@@ -519,10 +532,13 @@ export default function PreparationPage() {
           }>;
           turnCommandId?: string;
         };
-        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
+        if (!still(aj.turnCommandId ?? null)) return;
+        if (!Array.isArray(aj.events)) return;
+        if (opts?.terminal) {
+          setLiveActivityEvents(aj.events);
           return;
         }
-        const batch = aj.events ?? [];
+        const batch = aj.events;
         if (batch.length === 0) return;
         setLiveActivityEvents((prev) => {
           const seen = new Set(prev.map((e) => e.sequence));
@@ -534,9 +550,8 @@ export default function PreparationPage() {
         });
         const last = batch[batch.length - 1]!;
         lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
-        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
       } catch {
-        /* observational poll */
+        /* observational poll — does not change the turn result */
       }
     };
     const activityPollTimer = window.setInterval(() => {
@@ -559,13 +574,10 @@ export default function PreparationPage() {
       } catch {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
-      // RB-01/02 — fence late polls before terminal clear (do not re-hydrate idle card).
-      activityPollEpochRef.current += 1;
       if (res.ok) {
         messageTurnKeyRef.current = null;
         setMessages((j.messages as typeof messages) ?? []);
         setNoraActivity("idle");
-        setLiveActivityEvents([]);
         setLiveActivityHeadline("");
         const mp = j.missionProjection as
           | { clientIntentKey?: string; status?: string }
@@ -620,7 +632,13 @@ export default function PreparationPage() {
       setStatus("échec réseau — intention de tour conservée");
     } finally {
       window.clearInterval(activityPollTimer);
-      await pollLiveActivity();
+      await Promise.race([
+        pollLiveActivity({ terminal: true }),
+        new Promise((resolve) => window.setTimeout(resolve, 500)),
+      ]);
+      if (activityPollEpochRef.current === pollEpoch) {
+        activityPollEpochRef.current += 1;
+      }
       setBusy(false);
     }
   }

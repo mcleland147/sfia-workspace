@@ -28,3 +28,12 @@ Les preuves du 25 novembre ci-dessus restent inchangées. Ajout factuel :
 - Les confirmations d'enregistrement au Journal et « L'état du projet a été mis à jour » quittent le corps conversationnel et sont appendues dans `nora_activity_events` (`nora.effect.knowledge`, `nora.effect.pilotage`). Les refus, conflits, résultats partiels et UNKNOWN restent dans la réponse.
 - L'historique d'une réponse charge `GET /api/projects/{projectId}/turns/{turnCommandId}/activity` à l'ouverture. La route vérifie Pilote → projet → conversation → tour avant la lecture.
 - Le polling d'activité fait une lecture terminale après l'arrêt de l'intervalle.
+
+## Complément 2026-11-28 — intégrité de la projection
+
+- Le détail d'activité n'est plus limité aux huit dernières opérations. Le compteur porte sur l'ensemble. L'affichage pagine par 40, comme la carte déjà en place.
+- Chaque comparaison documentaire attestée reste dans le détail. Le résumé compte les comparaisons lorsqu'il y en a plusieurs.
+- Une annonce répétée de la même opération se ferme avec son événement terminal. Deux opérations identifiées sur une même source restent distinctes. Une limite antérieure n'est pas convertie en réussite.
+- Le titre de premier niveau est l'objectif structuré, ou « Orientation du travail ». Une consultation, un fichier ou la dernière ligne reçue par le poller ne prend pas cette place.
+- La lecture terminale du sas et du projet est un instantané du tour, borné à 500 ms, contrôlé après la lecture du corps, puis l'époque est invalidée. Elle ne vide plus les événements avant de relire seulement la fin du tour.
+- Un échec de lecture de l'historique n'est pas un historique vide et peut être relancé. Un échec d'inscription d'une confirmation n'empêche pas les suivantes ; les lignes non inscrites restent dans la réponse.

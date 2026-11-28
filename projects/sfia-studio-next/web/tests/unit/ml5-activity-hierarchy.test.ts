@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildActivityGroups,
+  buildActivitySteps,
   projectMissionHeadline,
 } from "@/domains/conversation/activity-labels";
 
@@ -128,6 +129,90 @@ describe("ML5 LIVE activity hierarchy", () => {
       },
     ]);
     expect(groups.find((g) => g.key === "sources")?.state).not.toBe("done");
+  });
+
+  it("keeps every effect in the detail and the counter", () => {
+    const events = Array.from({ length: 10 }, (_, i) => ({
+      sequence: i + 1,
+      phase: "nora.effect.knowledge",
+      nature: "COMPLETED" as const,
+      status: "COMPLETED",
+      summary: `Connaissance ${i + 1} enregistrée`,
+      detail: { ownerRef: `acq_${i + 1}` },
+    }));
+    const group = buildActivityGroups(events).find((g) => g.key === "produce");
+    expect(group?.details).toHaveLength(10);
+    expect(group?.resultSummary).toBe("10 opérations");
+    expect(buildActivitySteps(events)).toHaveLength(10);
+  });
+
+  it("closes repeated announcements of the same operation", () => {
+    const groups = buildActivityGroups([
+      {
+        sequence: 1,
+        phase: "nora.objective",
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        summary: "Orientation du travail à partir de la demande du Pilote",
+        detail: { objective: "Orientation du travail à partir de la demande du Pilote" },
+      },
+      {
+        sequence: 2,
+        phase: "nora.objective",
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        summary: "Orientation du travail à partir de la demande du Pilote",
+        detail: { objective: "Orientation du travail à partir de la demande du Pilote" },
+      },
+      {
+        sequence: 3,
+        phase: "nora.objective",
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        summary: "Orientation du travail terminée",
+        detail: { objective: "Analyse des règles d'habilitation" },
+      },
+    ]);
+    expect(groups.find((g) => g.key === "understand")?.state).toBe("done");
+  });
+
+  it("keeps two operations on the same source and every comparison", () => {
+    const groups = buildActivityGroups([
+      {
+        sequence: 1,
+        phase: "nora.source.d4",
+        nature: "OBSERVED",
+        status: "LIMITED",
+        summary: "Lecture partielle — Cadrage",
+        sourceRef: "document:doc_x/revision:v1",
+        detail: { kind: "D4", coverage: "PARTIAL", title: "Cadrage", operation: "read-v1" },
+      },
+      {
+        sequence: 2,
+        phase: "nora.source.d4",
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        summary: "Comparaison documentaire — V1 → V2 — +3 lignes / −1 ligne",
+        sourceRef: "document:doc_x/revision:v1",
+        detail: { kind: "D4", coverage: "COMPLETE", title: "Cadrage", operation: "compare-v1-v2" },
+      },
+      {
+        sequence: 3,
+        phase: "nora.source.d4",
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        summary: "Comparaison documentaire — V2 → V3 — +1 ligne / −4 lignes",
+        sourceRef: "document:doc_x/revision:v2",
+        detail: { kind: "D4", coverage: "COMPLETE", title: "Cadrage", operation: "compare-v2-v3" },
+      },
+    ]);
+    const sources = groups.find((g) => g.key === "sources");
+    expect(sources?.state).not.toBe("done");
+    expect(sources?.resultSummary).toMatch(/2 comparaisons/);
+    const titles = sources?.details.map((d) => d.title) ?? [];
+    expect(titles.some((t) => t.includes("V1 → V2"))).toBe(true);
+    expect(titles.some((t) => t.includes("V2 → V3"))).toBe(true);
+    expect(projectMissionHeadline(groups.flatMap(() => []))).toBe("Orientation du travail");
   });
 });
 

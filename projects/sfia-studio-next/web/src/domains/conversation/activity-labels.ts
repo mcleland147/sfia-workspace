@@ -319,10 +319,10 @@ function correlationRef(
     detailString(ev.detail, "operationId") ||
     detailString(ev.detail, "effectId") ||
     detailString(ev.detail, "ownerRef") ||
+    detailString(ev.detail, "operation") ||
     "";
   if (op) return `op:${op}`;
-  const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
-  if (ref) return `ref:${ref}`;
+  // One orientation stream per phase. A source reference alone is not an operation identity.
   if (/objective|investigation\.engaged/i.test(ev.phase || "")) return `phase:${ev.phase}`;
   return null;
 }
@@ -336,9 +336,14 @@ function foldOperationStates(
   for (const ev of sorted) {
     const st = authoritativeState(ev);
     const ref = correlationRef(ev);
-    if (ref && open.has(ref) && (st === "done" || st === "failed" || st === "limited")) {
+    const terminal = st === "done" || st === "failed" || st === "limited";
+    if (ref && terminal && open.has(ref)) {
       states[open.get(ref)!] = st;
       open.delete(ref);
+      continue;
+    }
+    if (ref && st === "current" && open.has(ref)) {
+      // Repeated announcement of the same operation — do not leave an extra current.
       continue;
     }
     states.push(st);
@@ -489,7 +494,7 @@ export function buildActivitySteps(
       byId.get(id)!.sequence = prev.sequence;
     }
   }
-  return [...byId.values()].sort((a, b) => a.sequence - b.sequence).slice(-8);
+  return [...byId.values()].sort((a, b) => a.sequence - b.sequence);
 }
 
 /** Compact API used by pollers — replaces technical `NATURE: summary` headlines. */
@@ -648,33 +653,40 @@ export function buildActivityGroups(
       if (discovered && !consulted && consultations === 0) {
         bits.push(`${discovered} identifiée${discovered > 1 ? "s" : ""}`);
       }
-      const compareLabel = [...list]
-        .reverse()
-        .map((e) => (e.summary || "").trim())
-        .find((s) => /^Comparaison documentaire\b/i.test(s) && !looksTechnical(s));
+      const comparisons = list
+        .filter((e) => /^Comparaison documentaire\b/i.test((e.summary || "").trim()) && !looksTechnical(e.summary || ""))
+        .sort((a, b) => a.sequence - b.sequence);
       const bitsLine = bits.join(" · ");
-      resultSummary = compareLabel
-        ? [compareLabel.slice(0, 110), bitsLine].filter(Boolean).join(" · ")
-        : bitsLine || null;
+      const compareLine =
+        comparisons.length > 1
+          ? `${comparisons.length} comparaisons`
+          : (comparisons[0]?.summary ?? "").trim().slice(0, 110);
+      resultSummary = [compareLine, bitsLine].filter(Boolean).join(" · ") || null;
       details = sources.map((s) => ({
         key: s.key,
         title: s.title,
         coverage: s.coverage,
         kind: s.kind,
       }));
-      // Keep each consultation operation visible when multiple reads of one source.
       if (consultations > sources.length) {
         const steps = buildActivitySteps(list).filter(
           (s) => !isGenericOrientationSummary(s.label),
         );
-        if (steps.length > details.length) {
-          details = steps.map((s) => ({
-            key: s.key,
-            title: s.label,
-            coverage: s.state.toUpperCase(),
-            kind: "STEP",
-          }));
-        }
+        details = steps.map((step) => ({
+          key: step.key,
+          title: step.label,
+          coverage: step.state.toUpperCase(),
+          kind: "STEP",
+        }));
+      }
+      for (const comparison of comparisons) {
+        const title = (comparison.summary || "").trim();
+        details.push({
+          key: `compare:${comparison.sequence}`,
+          title,
+          coverage: "COMPARE",
+          kind: "COMPARE",
+        });
       }
     } else if (key === "understand") {
       // IT-01 — keep a single group title; do not echo ANNOUNCED/COMPLETED orientation blurbs.
@@ -683,7 +695,7 @@ export function buildActivityGroups(
     } else {
       const steps = buildActivitySteps(list).filter((s) => !isGenericOrientationSummary(s.label));
       resultSummary =
-        steps.length > 1 ? `${steps.length} opérations observées` : steps[0]?.label || null;
+        steps.length > 1 ? `${steps.length} opérations` : steps[0]?.label || null;
       details = steps.map((s) => ({
         key: s.key,
         title: s.label,
@@ -720,86 +732,97 @@ export function buildActivityGroups(
   return groups;
 }
 
+function isOperationHeadline(text: string): boolean {
+  return /^(Consultation Git|Comparaison documentaire|Document consulté|Source web)\b/i.test(
+    text.trim(),
+  );
+}
+
 /**
- * Mission-level headline: prefer objective events; never last filename alone.
- * When richer source/compare activity exists, prefer it over generic orientation
- * so the LIVE card does not only repeat « Orientation du travail ».
+ * Level-1 title: the structured objective, or an honest generic orientation.
+ * A consultation, a file, a comparison or the last polled event is not the objective.
  */
 export function projectMissionHeadline(
   events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
 ): string {
-  const compareOrSource = [...events]
-    .reverse()
-    .find((e) => {
-      const s = (e.summary || "").trim();
-      if (/^Comparaison documentaire\b/i.test(s)) return true;
-      // Never promote a single Git file consultation into the mission title.
-      if (/^Consultation Git\b/i.test(s)) return false;
-      if (
-        /source\./i.test(e.phase || "") &&
-        s &&
-        !looksTechnical(s) &&
-        !isGenericOrientationSummary(s)
-      ) {
-        return e.nature === "OBSERVED" || e.nature === "COMPLETED";
-      }
-      return false;
-    });
-  if (compareOrSource?.summary && !looksTechnical(compareOrSource.summary)) {
-    return compareOrSource.summary.slice(0, 160);
-  }
-  const objective = [...events]
-    .reverse()
-    .find(
-      (e) =>
-        /objective|investigation\.engaged/i.test(e.phase || "") ||
-        detailString(e.detail, "objective"),
+  const objective = [...events].reverse().find((e) => {
+    const titled = detailString(e.detail, "metierTitle") || detailString(e.detail, "objective");
+    return (
+      Boolean(titled) || /objective|investigation\.engaged/i.test(e.phase || "")
     );
+  });
   if (objective) {
-    const o = detailString(objective.detail, "objective") || objective.summary;
-    if (o && !looksTechnical(o) && !/^Prise en charge/i.test(o)) {
-      // Collapse generic orientation blurbs to the stable group title (IT-01).
-      if (isGenericOrientationSummary(o)) return "Orientation du travail";
+    const o =
+      detailString(objective.detail, "metierTitle") ||
+      detailString(objective.detail, "objective") ||
+      "";
+    if (
+      o &&
+      !looksTechnical(o) &&
+      !isGenericOrientationSummary(o) &&
+      !isOperationHeadline(o) &&
+      !/^Prise en charge/i.test(o)
+    ) {
       return o.slice(0, 160);
     }
   }
-  const last = events[events.length - 1];
-  if (last) {
-    const headline = projectActivityLabel(last).slice(0, 160);
-    if (headline && !/Consultation Git —/i.test(headline)) {
-      if (isGenericOrientationSummary(headline)) return "Orientation du travail";
-      return headline;
-    }
-  }
-  return "Activité Nora";
+  return "Orientation du travail";
 }
 
-/** Idle card: drop headline when it only repeats a group title or orientation blurb. */
+/** Level-1 title. A polled operation must not replace the objective. */
 export function resolveActivityDisplayHeadline(input: {
   active: boolean;
   propsHeadline?: string | null;
   events: Array<ActivityLabelInput & { sequence: number; nature: string }>;
   groupTitles: string[];
 }): string | null {
+  void input.groupTitles;
+  const mission = input.events.length ? projectMissionHeadline(input.events) : "";
+  if (mission && mission !== "Orientation du travail") return mission.slice(0, 160);
   const fromProps = (input.propsHeadline || "").trim();
-  const fromMission = input.events.length
-    ? projectMissionHeadline(input.events)
-    : input.active
-      ? "Activité en cours"
-      : "Activité";
-  let headline = fromProps || fromMission;
-  if (fromProps && isGenericOrientationSummary(fromProps)) {
-    headline = fromMission;
+  if (
+    input.events.length === 0 &&
+    fromProps &&
+    !isOperationHeadline(fromProps) &&
+    !isGenericOrientationSummary(fromProps)
+  ) {
+    return fromProps.slice(0, 160);
   }
-  if (!input.active) {
-    if (isGenericOrientationSummary(headline) || headline === "Orientation du travail") {
-      const richer = input.groupTitles.find(
-        (t) => t && t !== "Orientation du travail" && !isGenericOrientationSummary(t),
-      );
-      if (richer) return richer.slice(0, 160);
-      return null;
-    }
-    if (input.groupTitles.some((t) => t === headline)) return null;
+  if (input.active) return "Orientation du travail";
+  return null;
+}
+
+export function activityReadStillApplies(input: {
+  epochAtStart: number;
+  epochNow: number;
+  scopeAtStart: string;
+  scopeNow: string;
+  turnExpected: string | null;
+  turnReceived: string | null;
+}): boolean {
+  if (input.epochAtStart !== input.epochNow) return false;
+  if (input.scopeAtStart !== input.scopeNow) return false;
+  if (
+    input.turnExpected &&
+    input.turnReceived &&
+    input.turnExpected !== input.turnReceived
+  ) {
+    return false;
   }
-  return headline || null;
+  return true;
+}
+
+export type ActivityHistoryRead =
+  | { kind: "ready"; events: unknown[]; turnStatus: string | null }
+  | { kind: "empty"; turnStatus: string | null }
+  | { kind: "invalid" };
+
+/** Distinguish a real empty history from an unusable payload. */
+export function interpretActivityHistoryPayload(body: unknown): ActivityHistoryRead {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return { kind: "invalid" };
+  const record = body as { events?: unknown; turnStatus?: unknown };
+  if (!Array.isArray(record.events)) return { kind: "invalid" };
+  const turnStatus = typeof record.turnStatus === "string" ? record.turnStatus : null;
+  if (record.events.length === 0) return { kind: "empty", turnStatus };
+  return { kind: "ready", events: record.events, turnStatus };
 }

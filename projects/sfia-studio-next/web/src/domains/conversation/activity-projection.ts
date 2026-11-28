@@ -27,6 +27,27 @@ export type ActivityEventInput = {
  * GET-side consumers must treat ANNOUNCED ≠ OBSERVED.
  * Sequence is allocated under turn lock to survive concurrent writers (unique turn+seq).
  */
+/**
+ * Record each activity fact on its own. One failure must not drop the facts that follow.
+ * Missed lines stay available to the caller; this function does not invent a confirmation.
+ */
+export async function appendActivityFactsSafely<T>(
+  facts: T[],
+  append: (fact: T) => Promise<void>,
+): Promise<{ recorded: number; missed: T[] }> {
+  const missed: T[] = [];
+  let recorded = 0;
+  for (const fact of facts) {
+    try {
+      await append(fact);
+      recorded += 1;
+    } catch {
+      missed.push(fact);
+    }
+  }
+  return { recorded, missed };
+}
+
 export async function appendActivityEvent(input: ActivityEventInput) {
   return db.transaction(async (tx) => {
     await tx.execute(

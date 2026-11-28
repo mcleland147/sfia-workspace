@@ -56,7 +56,7 @@ import {
   type ActivityFreshness,
   type ActivitySnapshot,
 } from "@/lib/project-projection-sync";
-import { projectActivityLabel } from "@/domains/conversation/activity-labels";
+import { activityReadStillApplies } from "@/domains/conversation/activity-labels";
 import {
   conversationalClientCommandKey,
   mayClearComposerDraftOnReconcile,
@@ -2991,26 +2991,39 @@ export default function ProjectPage() {
     let knownTurnCommandId: string | null = null;
     // L1.5 — fence late polls from a previous turn after this send ends.
     const pollEpoch = ++activityPollEpochRef.current;
-    const pollLiveActivity = async () => {
+    const pollLiveActivity = async (opts?: { terminal?: boolean }) => {
+      const scopeId = params.projectId;
+      const still = (turnReceived: string | null) =>
+        activityReadStillApplies({
+          epochAtStart: pollEpoch,
+          epochNow: activityPollEpochRef.current,
+          scopeAtStart: scopeId,
+          scopeNow: params.projectId,
+          turnExpected: knownTurnCommandId,
+          turnReceived,
+        });
       try {
-        if (pollEpoch !== activityPollEpochRef.current) return;
+        if (!still(null)) return;
         if (!knownTurnCommandId) {
           const look = await fetch(
             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
           );
+          if (!still(null)) return;
           if (look.ok) {
             const lj = (await look.json()) as { turnCommandId?: string | null };
+            if (!still(null)) return;
             if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
           }
         }
         if (!knownTurnCommandId) return;
-        if (pollEpoch !== activityPollEpochRef.current) return;
-        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
+        if (!still(null)) return;
+        const q =
+          opts?.terminal || lastActivitySeq <= 0 ? "" : `?afterSequence=${lastActivitySeq}`;
         const act = await fetch(
           `/api/projects/${params.projectId}/turns/${knownTurnCommandId}/activity${q}`,
         );
+        if (!still(null)) return;
         if (!act.ok) return;
-        if (pollEpoch !== activityPollEpochRef.current) return;
         const aj = (await act.json()) as {
           events?: Array<{
             sequence: number;
@@ -3023,10 +3036,13 @@ export default function ProjectPage() {
           }>;
           turnCommandId?: string;
         };
-        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
+        if (!still(aj.turnCommandId ?? null)) return;
+        if (!Array.isArray(aj.events)) return;
+        if (opts?.terminal) {
+          setLiveActivityEvents(aj.events);
           return;
         }
-        const batch = aj.events ?? [];
+        const batch = aj.events;
         if (batch.length === 0) return;
         setLiveActivityEvents((prev) => {
           const seen = new Set(prev.map((e) => e.sequence));
@@ -3038,9 +3054,8 @@ export default function ProjectPage() {
         });
         const last = batch[batch.length - 1]!;
         lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
-        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
       } catch {
-        /* observational poll */
+        /* observational poll — does not change the turn result */
       }
     };
     const activityPollTimer = window.setInterval(() => {
@@ -3117,7 +3132,6 @@ export default function ProjectPage() {
         if (prepared?.contractId) {
           void openContractViewer(prepared.contractId);
         }
-        void pollLiveActivity();
         const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
         const independent = serverKind === "DIALOGUE_INDEPENDANT";
         const effectBlocked = Boolean(j.pendingEffectBlocked);
@@ -3132,7 +3146,6 @@ export default function ProjectPage() {
         const preserveMetierPending =
           (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
         setMessages((j.messages as Msg[]) ?? []);
-        setLiveActivityEvents([]);
         setLiveActivityHeadline("");
         {
           const mode = String(j.noraMode ?? "").trim();
@@ -3488,8 +3501,13 @@ export default function ProjectPage() {
       }
     } finally {
       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
-      await pollLiveActivity();
-      activityPollEpochRef.current += 1;
+      await Promise.race([
+        pollLiveActivity({ terminal: true }),
+        new Promise((resolve) => window.setTimeout(resolve, 500)),
+      ]);
+      if (activityPollEpochRef.current === pollEpoch) {
+        activityPollEpochRef.current += 1;
+      }
       setBusy(false);
     }
   }

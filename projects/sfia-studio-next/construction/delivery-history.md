@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-INTEGRITY-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — complément lot 4, intégrité de l'activité
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `7c2cd338ab9c6932c491fb8baf5c4e6390d757b8`
+- **commit**: `fix(next): preserve complete Nora activity history`
+- **schema_revision**: unchanged
+- **scope**: détail complet et compteurs sur l'ensemble, corrélation des annonces répétées, lecture terminale bornée, historique relisable, confirmations non perdues en silence, objectif distinct des opérations
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN
+
 ## delivery_id: DELIV-2026-11-28-ML5-NORA-ACTIVITY-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

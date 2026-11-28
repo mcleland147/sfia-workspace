@@ -15,6 +15,7 @@ import {
 } from "@/db/schema";
 import {
   appendActivityEvent,
+  appendActivityFactsSafely,
   assertProjectTurnActivityAccess,
   listActivityEvents,
 } from "@/domains/conversation/activity-projection";
@@ -134,5 +135,16 @@ describe("project activity access", () => {
         turnCommandId: newId("turn"),
       }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
+  });
+
+  it("keeps recording later facts when one append fails", async () => {
+    const result = await appendActivityFactsSafely(
+      ["première confirmation", "deuxième confirmation", "troisième confirmation"],
+      async (fact) => {
+        if (fact.startsWith("deuxième")) throw new Error("append failed");
+      },
+    );
+    expect(result.recorded).toBe(2);
+    expect(result.missed).toEqual(["deuxième confirmation"]);
   });
 });

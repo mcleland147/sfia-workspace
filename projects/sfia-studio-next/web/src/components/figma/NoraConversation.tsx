@@ -15,7 +15,10 @@ import {
   compositionAnchorsReferences,
 } from "@/domains/conversation/visual-composition";
 import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
-import { buildActivityGroups } from "@/domains/conversation/activity-labels";
+import {
+  buildActivityGroups,
+  interpretActivityHistoryPayload,
+} from "@/domains/conversation/activity-labels";
 import { NoraSharedComposer } from "@/components/figma/NoraSharedComposer";
 
 export type NoraMsg = {
@@ -460,45 +463,78 @@ const ACTIVITY_STATE_LABEL: Record<string, string> = {
   failed: "Non abouti",
 };
 
+type HistoryEvent = {
+  sequence: number;
+  nature: string;
+  status: string;
+  summary: string;
+  phase: string;
+  sourceRef?: string | null;
+  detail?: Record<string, unknown> | null;
+};
+
 function NoraTurnActivityHistory(props: { href: string; fallback?: string | null }) {
-  const [events, setEvents] = useState<
-    Array<{
-      sequence: number;
-      nature: string;
-      status: string;
-      summary: string;
-      phase: string;
-      sourceRef?: string | null;
-      detail?: Record<string, unknown> | null;
-    }> | null
-  >(null);
+  const [events, setEvents] = useState<HistoryEvent[] | null>(null);
+  const [turnStatus, setTurnStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const loaded = useRef(false);
+  const [phase, setPhase] = useState<"idle" | "loading" | "ready" | "empty" | "error">("idle");
+  const [visible, setVisible] = useState(40);
+  const hrefRef = useRef(props.href);
+  hrefRef.current = props.href;
+
+  useEffect(() => {
+    setEvents(null);
+    setTurnStatus(null);
+    setError(null);
+    setPhase("idle");
+    setVisible(40);
+  }, [props.href]);
 
   async function load() {
-    if (loaded.current) return;
-    loaded.current = true;
+    if (phase === "loading" || phase === "ready" || phase === "empty") return;
+    const requested = props.href;
+    setPhase("loading");
+    setError(null);
     try {
-      const res = await fetch(props.href);
+      const res = await fetch(requested);
+      if (hrefRef.current !== requested) return;
       if (!res.ok) {
+        setPhase("error");
         setError("Lecture de l'activité indisponible pour ce tour.");
         return;
       }
-      const body = (await res.json()) as { events?: typeof events };
-      setEvents(body.events ?? []);
+      const body = (await res.json()) as unknown;
+      if (hrefRef.current !== requested) return;
+      const read = interpretActivityHistoryPayload(body);
+      if (read.kind === "invalid") {
+        setPhase("error");
+        setError("Lecture de l'activité indisponible — réponse inexploitable.");
+        return;
+      }
+      setTurnStatus(read.turnStatus);
+      if (read.kind === "empty") {
+        setEvents([]);
+        setPhase("empty");
+        return;
+      }
+      setEvents(read.events as HistoryEvent[]);
+      setPhase("ready");
     } catch {
+      if (hrefRef.current !== requested) return;
+      setPhase("error");
       setError("Lecture de l'activité indisponible pour ce tour.");
     }
   }
 
-  const groups = events
-    ? buildActivityGroups(
-        events.map((ev) => ({
-          ...ev,
-          detail: ev.detail ?? undefined,
-        })),
-      )
-    : [];
+  const groups =
+    phase === "ready" && events
+      ? buildActivityGroups(
+          events.map((ev) => ({
+            ...ev,
+            detail: ev.detail ?? undefined,
+          })),
+        )
+      : [];
 
   return (
     <details
@@ -509,11 +545,17 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
       }}
     >
       <summary>Activité de cette réponse</summary>
-      {error ? <p>{error}</p> : null}
-      {!events && props.fallback ? <p>{props.fallback}</p> : null}
-      {events && groups.length === 0 ? (
-        <p>Aucun événement durable pour ce tour.</p>
+      {turnStatus ? <p>Issue du tour : {turnStatus}</p> : null}
+      {error ? (
+        <p>
+          {error}{" "}
+          <button type="button" onClick={() => void load()}>
+            Relire
+          </button>
+        </p>
       ) : null}
+      {phase === "idle" && props.fallback ? <p>{props.fallback}</p> : null}
+      {phase === "empty" ? <p>Aucun événement durable pour ce tour.</p> : null}
       {groups.map((group) => (
         <div key={group.key} data-testid={`nora-activity-group-${group.key}`}>
           <p>
@@ -522,7 +564,7 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
           {group.resultSummary ? <p>{group.resultSummary}</p> : null}
           {group.details.length > 0 ? (
             <ul>
-              {group.details.map((detail) => (
+              {group.details.slice(0, visible).map((detail) => (
                 <li key={detail.key}>
                   {detail.title} · {detail.coverage}
                 </li>
@@ -531,6 +573,11 @@ function NoraTurnActivityHistory(props: { href: string; fallback?: string | null
           ) : null}
         </div>
       ))}
+      {groups.some((group) => group.details.length > visible) ? (
+        <button type="button" onClick={() => setVisible((count) => count + 40)}>
+          Afficher la suite
+        </button>
+      ) : null}
     </details>
   );
 }

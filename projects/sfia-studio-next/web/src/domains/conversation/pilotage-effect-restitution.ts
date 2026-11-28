@@ -151,14 +151,15 @@ function effectSplit(effect: NonNullable<PilotageEffectView>): {
 export type PilotageActivityFact = {
   summary: string;
   status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
-  effectId: string;
+  /** Present only when Studio returned a decision id. Not a FinOps correlation. */
+  ownerRef: string | null;
 };
 
 export function pilotageEffectActivityFacts(
   effects: Array<PilotageEffectView | null | undefined>,
 ): PilotageActivityFact[] {
   const out: PilotageActivityFact[] = [];
-  effects.forEach((effect, index) => {
+  effects.forEach((effect) => {
     if (!effect?.attempted) return;
     const split = effectSplit(effect);
     const st = (effect.status ?? "UNKNOWN").toUpperCase();
@@ -170,9 +171,9 @@ export function pilotageEffectActivityFacts(
           : st === "CONFLICT" || st === "ALREADY_APPLIED"
             ? "LIMITED"
             : "UNKNOWN";
-    const effectId = `${effect.operation ?? "pilotage"}:${effect.decisionId ?? index}:${st}`;
+    const ownerRef = effect.decisionId?.trim() || null;
     for (const summary of split.activity) {
-      out.push({ summary, status, effectId });
+      out.push({ summary, status, ownerRef });
     }
   });
   return out;

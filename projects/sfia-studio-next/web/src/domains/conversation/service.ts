@@ -5027,22 +5027,26 @@ export async function postUserMessageAndNora(
   // Operational confirmations stay in the durable activity, not the conversational body.
   // A failed append must not cancel an owner result already confirmed.
   if (!ownershipLostBeforeD4) {
+    const facts = [
+      ...knowledgeEffectActivityFacts(knowledgeEffectRecords).map((fact) => ({
+        ...fact,
+        phase: "nora.effect.knowledge",
+        kind: "KNOWLEDGE_EFFECT",
+        ownerRef: fact.ownerRef,
+      })),
+      ...pilotageEffectActivityFacts(pilotageEffectRecords).map((fact) => ({
+        ...fact,
+        phase: "nora.effect.pilotage",
+        kind: "PILOTAGE_EFFECT",
+      })),
+    ];
+    let missed = facts;
     try {
-      const { appendActivityEvent } = await import("./activity-projection");
-      const facts = [
-        ...knowledgeEffectActivityFacts(knowledgeEffectRecords).map((fact) => ({
-          ...fact,
-          phase: "nora.effect.knowledge",
-          kind: "KNOWLEDGE_EFFECT",
-        })),
-        ...pilotageEffectActivityFacts(pilotageEffectRecords).map((fact) => ({
-          ...fact,
-          phase: "nora.effect.pilotage",
-          kind: "PILOTAGE_EFFECT",
-          ownerRef: null as string | null,
-        })),
-      ];
-      for (const fact of facts) {
+      const { appendActivityEvent, appendActivityFactsSafely } = await import(
+        "./activity-projection"
+      );
+      const result = await appendActivityFactsSafely(facts, async (fact) => {
+        const ownerRef = fact.ownerRef?.trim() || "";
         await appendActivityEvent({
           conversationId: reserved.conversationId,
           turnCommandId: reserved.commandId,
@@ -5058,15 +5062,24 @@ export async function postUserMessageAndNora(
           status: fact.status,
           summary: fact.summary.slice(0, 240),
           detail: {
-            effectId: fact.effectId,
-            ownerRef: fact.ownerRef,
             kind: fact.kind,
+            ...(ownerRef ? { ownerRef } : {}),
           },
           ownerToken: reserved.ownerToken,
         });
-      }
+      });
+      missed = result.missed;
     } catch {
-      /* activity is observational */
+      missed = facts;
+    }
+    if (missed.length > 0) {
+      const note = [
+        "Certaines confirmations opérationnelles n'ont pas pu être inscrites dans l'activité.",
+        ...missed.map((fact) => fact.summary),
+      ].join("\n");
+      assistantBody = assistantBody.trim()
+        ? `${assistantBody.trimEnd()}\n\n${note}`
+        : note;
     }
   }
 

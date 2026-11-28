@@ -118,14 +118,14 @@ export function knowledgeEffectConversationLines(effects: TurnKnowledgeEffect[])
 export type KnowledgeActivityFact = {
   summary: string;
   status: "COMPLETED" | "FAILED" | "LIMITED" | "UNKNOWN";
-  effectId: string;
+  /** Present only when the owner returned a reference. */
   ownerRef: string | null;
 };
 
 export function knowledgeEffectActivityFacts(
   effects: TurnKnowledgeEffect[],
 ): KnowledgeActivityFact[] {
-  return effects.flatMap((effect, index) => {
+  return effects.flatMap((effect) => {
     const lines = knowledgeEffectFactLines([effect]);
     if (lines.length === 0) return [];
     const st = (effect.status ?? "UNKNOWN").toUpperCase();
@@ -136,14 +136,10 @@ export function knowledgeEffectActivityFacts(
         : st === "PARTIAL" || st === "NOT_EXECUTED" || st === "SKIPPED"
           ? "LIMITED"
           : "UNKNOWN";
-    const effectId =
-      effect.ownerRef?.trim() ||
-      `${effect.proposalKind ?? "knowledge"}:${effect.semanticIntentId ?? index}:${st}`;
     return lines.map((summary) => ({
       summary,
       status,
-      effectId,
-      ownerRef: effect.ownerRef ?? null,
+      ownerRef: effect.ownerRef?.trim() || null,
     }));
   });
 }
