@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.15, revue de sortie L5 |
+| Date / version | 28 novembre 2026 — v0.16, GO L6 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -12,7 +12,7 @@
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
 | Candidat DEV courant | `9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b`, tree `85c1eb14e76ad5a654e7c5e8063b140eed68f832` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée, policy v0.2 configurée (§15). |
-| Gate courant | L1 à L4 acceptés techniquement par Morris avec réserves RECETTE. L5 publié et revu READY WITH RESERVES — sortie technique favorable au périmètre ciblé (§20), acceptation Morris distincte ; dette de nettoyage des claims à traiter avant acceptation finale. Dix-sept contrôles différés. L6 non engagé, GO LIVE distinct. Aucun GO promotion, PR ou merge. |
+| Gate courant | L1 à L5 acceptés techniquement par Morris avec réserves RECETTE ; dette L5 §20 maintenue. L6 autorisé — diagnostic et correction ciblée dictée (§21), LIVE sous GO distinct. Dix-sept contrôles différés maintenus. Aucun GO promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -27,7 +27,7 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.15 : 4/7 lots acceptés techniquement par Morris avec réserves RECETTE ; L5 revue de sortie favorable avec réserves explicites, décision Morris attendue ; 2 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.16 : 5/7 lots acceptés techniquement par Morris avec réserves RECETTE ; L6 autorisé, L7 non engagé. Aucune acceptation fonctionnelle définitive.
 
 | Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
@@ -35,8 +35,8 @@ Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes pré
 | 2 | Fraîcheur des projections projet | Chargement initial du contexte et de la continuité existante, cohérence des surfaces après effets, étape UX de préparation. MP13 ; MP03/04/10/12 au seul périmètre chargement/projections. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 01748758 / 30601c08 ; limites et PROJ-REC §12 maintenues |
 | 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | ACCEPTED BY MORRIS — TECHNIQUE WITH RECETTE RESERVES | 8445752f ; activation et résolution DET conformes ; COG-REC-01 différé §15 |
 | 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 9bc9f346 / 5f8770a2 ; limites et ACT-01–05 §18 maintenues |
-| 5 | Corrélation et fiabilité FinOps | Rattachement des mesures aux travaux, compteurs, coûts et inconnues intelligibles. MP16, support MP14. | REVIEWED — READY WITH RESERVES (SORTIE TECHNIQUE FAVORABLE) | 9e2f9911 / 4953fe72 ; correctifs ciblés, limites et FIN-REC-01/02 §20 |
-| 6 | Qualification et correction de la dictée | Diagnostic LIVE court, puis dictée et onde réellement fonctionnelles. MP06/07, MP01/02 associés. | NOT STARTED — GO LIVE DISTINCT | Diagnostic §8 ; cause fournisseur NOT OBSERVED |
+| 5 | Corrélation et fiabilité FinOps | Rattachement des mesures aux travaux, compteurs, coûts et inconnues intelligibles. MP16, support MP14. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 9e2f9911 / 4953fe72 ; FIN-REC-01/02 et dette §20 maintenues |
+| 6 | Qualification et correction de la dictée | Diagnostic LIVE court, puis dictée et onde réellement fonctionnelles. MP06/07, MP01/02 associés. | AUTHORIZED — DIAGNOSTIC ET CORRECTION NON ÉMISSIFS | Diagnostic §8 et pré-check §21 ; GO LIVE distinct attendu |
 | 7 | Convergence UX résiduelle | Cohérence visuelle et navigation, animation, repères, provenance et libellés, Markdown. MP02/04/05/08/10/12/17 et DOC résiduels. | NOT STARTED | Diagnostic §9 ; Figma/DOM à états appariés |
 
 ## 3. Contrats de sortie et frontières par lot
@@ -149,7 +149,9 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 
 | 28/11/2026 12:05 +01 | L5 — candidat publié et revue | 9e2f9911 / 4953fe72 ; Cursor et ChatGPT READY WITH RESERVES, sortie technique favorable ciblée §20 | Arbitrage Morris L5 et GO préparation L6 attendus |
 
-**Prochaine action :** décision Morris de sortie technique L5 avec réserves et dette explicite, puis L6 — dictée, préparer un diagnostic discriminant court sous GO LIVE distinct. Pas de nouveau cycle complet FinOps recommandé ; nettoyage borné des claims avant acceptation finale sous mandat explicite. Optimisation multimodèle différée. Pas de cutover, LIVE, clôture MP ou adoption implicites.
+| 28/11/2026 | Morris accepte la sortie technique L5 et engage L6 | 9e2f9911 / 4953fe72 ; réserves et dette §20 maintenues | GO diagnostic/correction dictée §21, LIVE distinct |
+
+**Prochaine action :** L6 — vérifier la conformité Realtime GA, corriger les écarts établis, qualifier la chaîne audio en DEV et préparer un essai LIVE court sous GO distinct. Pas de clôture technique L6 sur seules fixtures ; pas de cutover, LIVE, clôture MP ou adoption implicites.
 
 ## 7. Revue indépendante L1 — 28 novembre 2026
 
@@ -515,3 +517,15 @@ FIN-REC-01/02 restent DEFERRED TO RECETTE : tour naturel avec probe consommé et
 **ChatGPT : READY WITH RESERVES — sortie technique L5 favorable au périmètre ciblé, sous acceptation explicite des réserves et exit de dette par Morris.** Pas de deuxième cycle FinOps complet recommandé selon arbitrage §19 ; approfondissement après données multimodèles représentatives. L6 : préparer diagnostic dictée MP06/07, GO LIVE court distinct avant émission, puis correctif fondé sur la cause. 4/7 lots acceptés techniquement, 5/7 revues favorables. R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / 17 MP OPEN / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.
 
 Actualisation D1 du fichier unique à partir de `37f23f7b099bb73c7108e6c2e7875ab982dffb97`, branche `docs/next-openai-studio-convergence-20261126`. Aucun code, config, Figma, main, handoff ou norme modifié par ChatGPT.
+
+## 21. Arbitrage Morris et mandat L6 — 28 novembre 2026
+
+Morris valide explicitement L5 et autorise L6 : diagnostiquer la cause, corriger et rendre la dictée réellement fonctionnelle. Les 17 contrôles antérieurs et la dette de nettoyage des claims §20 restent ouverts. Le GO d'engagement n'est pas le GO LIVE spécifique prévu au §3 L6.
+
+- Pré-check Git : DEV `9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b`, tree `85c1eb14e76ad5a654e7c5e8063b140eed68f832`, main `997897fd7cf914771e7d08e8030dc7123fab7d25`, dernier handoff `4953fe72a3df425632f073a8745bf7833f788814`. SEF, Roadmaps main/candidate, R4, SEM, ENV-01, versioning, naming, routing/template v2.6 consultés. État local NON OBSERVÉ. Diagnostic `515561e7` §8 : flag et live rapportés en RECETTE, PROVIDER_ERROR, aucune trace fournisseur exploitable ; cause historique NON OBSERVÉE. As-built audio, plan LIVE (NOT EXECUTED) et contrat visuel 27/11 relus au candidat DEV.
+- Constat statique : `composer-dictation-session.ts` blob 4838f811f824df839bf4a46fd76a95074b52671b, L376–392 utilise le payload GA type transcription, PCM 24 kHz, languages fr, prompt, turn_detection null ; L936–940 envoie encore OpenAI-Beta: realtime=v1. Documentation officielle consultée le 28/11 : [migration GA](https://developers.openai.com/api/docs/guides/realtime), [dépréciations](https://developers.openai.com/api/docs/deprecations), [transcription Realtime](https://developers.openai.com/api/docs/guides/realtime-transcription). Beta retirée le 12/05/2026, header à supprimer en GA ; endpoint intent=transcription, modèle gpt-live-transcribe et turn_detection null conformes sur ces points. Incompatibilité de contrat établie, causalité de l'erreur historique non prouvée. Ne pas modifier le modèle ni le payload sans autre écart démontré.
+- Observabilité et cycle de vie : L543–570 convertit event.error objet via String puis rejette avec code générique ; L930–981 timeout d'ouverture ne ferme pas explicitement la socket locale non encore retournée, et close/error après ouverture ne sont pas projetés explicitement dans le cycle de session. Examiner/corriger les chemins avérés de fermeture et d'erreurs, codes et étapes discriminants non sensibles, sans journaliser audio/transcript/secret. Fixture accepte session.update sans valider le contrat fournisseur ; preuve actuelle DET/BROWSER substituée, non LIVE. MP07 : onde alimentée par AnalyserNode seulement après listening (ComposerDictationControl L467–526) ; vérifier signal/silence et reprise, ne pas inventer d'animation.
+- Mandat cycle 08 EVOL, Standard, Review Pack Light avec contenu utile complet et handoff obligatoire. Corriger l'écart GA et la restitution des erreurs/cleanup directement liés, tester ouverture/ack, PCM, delta, commit/finalize, cancel, isolation et brouillon sur chemins réels sas/projet avec substitution explicitée. Pas de redesign, migration, TTS, nouvel appel Nora ni auto-send. Figma 05.18/05.21 et contrat visuel existants ; pas de F2 sans capture appariée. Publier delta DEV cohérent FF sans CI distante. Aucun changement de RECETTE, de secrets, de plafonds globaux, d'Admin ou WEB.
+- Gate LIVE distinct : proposer un premier essai discriminant sur candidat DEV isolé corrigé (port 3101, DB isolée, clé DEV admise, fixture réellement OFF), 1 session / 60 s au total, audio FR synthétique non confidentiel, borne audio <= 30 s, 1 ouverture sans retry, fermeture forcée au délai, aucun envoi Nora. Coût estimatif selon tarif audio en vigueur à confirmer ; pas de plafond facturé garanti. Si échec, conserver catégorie/code/paramètre fournisseur sanitizés et STOP sans retry aveugle ; si succès, vérifier transcription finale, onde et brouillon sur le parcours produit, distinguer audio synthétique du micro réel. Ne pas contourner les gates ou la lane. Preuve LIVE requise pour recommander la sortie technique L6, sauf arbitrage Morris explicite ; qualité naturelle, micro réel si non observé, longues dictées et parité RECETTE restent à qualifier. MP06/07 OPEN. L7 seulement après revue et GO.
+
+Actualisation D1 du fichier unique à partir de `82ee158ae6c8e2d6e5bc961057e79c24bc68422c`, branche `docs/next-openai-studio-convergence-20261126`. Aucun code, config, Figma, main, handoff ou norme modifié par ChatGPT.
