@@ -13,18 +13,74 @@ type BoardResponse = {
   error?: string;
 };
 
+export type PortfolioMutationOutcome = "confirmed" | "refused" | "conflict" | "unknown";
+export type PortfolioReread = "matched" | "unverified" | "failed" | "not-attempted";
+
+export type PortfolioIntention = {
+  kind: "favorite" | "archive" | "preference" | "order";
+  spaceType?: PersonalSpace["spaceType"];
+  spaceId?: string;
+  desired?: boolean;
+  view?: string;
+  sort?: string;
+  knownVersion: number;
+};
+
+/** Confirmed refusals are the route contract. A 5xx or a 2xx without an acknowledgement stays unknown. */
+export function classifyPortfolioResponse(status: number, body: Record<string, unknown> | null): PortfolioMutationOutcome {
+  if (status === 409) return "conflict";
+  if (status === 400 || status === 401 || status === 403 || status === 404 || status === 422) return "refused";
+  if (status >= 500 || status <= 0) return "unknown";
+  if (status >= 200 && status < 300) {
+    if (!body) return "unknown";
+    const acknowledged =
+      typeof body.rowVersion === "number" ||
+      typeof body.version === "number" ||
+      typeof body.favorite === "boolean" ||
+      typeof body.archived === "boolean" ||
+      typeof body.applied === "boolean";
+    return acknowledged ? "confirmed" : "unknown";
+  }
+  return "unknown";
+}
+
+/** A successful read counts only when it shows the state the intention was about. */
+export function intentionMatchesBoard(
+  intention: PortfolioIntention,
+  board: {
+    items: Array<{ spaceType: string; id: string; favorite: boolean; archived: boolean }>;
+    preferences: { view: string; sort: string; version: number };
+  },
+): boolean {
+  if (intention.kind === "preference") {
+    const viewOk = !intention.view || board.preferences.view === intention.view;
+    const sortOk = !intention.sort || board.preferences.sort === intention.sort;
+    return viewOk && sortOk && board.preferences.version > intention.knownVersion;
+  }
+  if (intention.kind === "order") {
+    return board.preferences.sort === "custom" && board.preferences.version > intention.knownVersion;
+  }
+  const item = board.items.find((entry) => entry.spaceType === intention.spaceType && entry.id === intention.spaceId);
+  if (!item) return false;
+  if (intention.kind === "favorite") return item.favorite === intention.desired;
+  return item.archived === intention.desired;
+}
+
 /**
- * A refusal is settled. Any other outcome stays blocked until a reread returns
- * the owner state. A lost acknowledgement stays unknown, and is never sent again.
+ * A refusal is settled. Any other outcome stays blocked until a reread shows
+ * the relevant owner state. A lost acknowledgement is never sent again.
  */
 export function portfolioMutationFollowUp(input: {
-  outcome: "confirmed" | "refused" | "conflict" | "unknown";
-  reread: "succeeded" | "failed" | "not-attempted";
+  outcome: PortfolioMutationOutcome;
+  reread: PortfolioReread;
 }): { uncertain: boolean; retry: false; blockFurtherMutations: boolean } {
   if (input.outcome === "refused") {
     return { uncertain: false, retry: false, blockFurtherMutations: false };
   }
-  if (input.reread === "succeeded") {
+  if (input.reread === "matched" && (input.outcome === "confirmed" || input.outcome === "conflict")) {
+    return { uncertain: false, retry: false, blockFurtherMutations: false };
+  }
+  if (input.outcome === "unknown" && input.reread === "matched") {
     return { uncertain: false, retry: false, blockFurtherMutations: false };
   }
   return {
@@ -104,19 +160,17 @@ export function PersonalPortfolio() {
         setLoading(false);
         return false;
       }
+      const nextBoard = body.board;
       setBoard((prev) => {
-        if (!cursor || !prev) return body.board!;
+        if (!cursor || !prev) return nextBoard;
         const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
-        const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
-        return { ...body.board!, items: [...prev.items, ...extra] };
+        const extra = nextBoard.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
+        return { ...nextBoard, items: [...prev.items, ...extra] };
       });
       notifyPortfolioChanged();
       setError("");
-      blocked.current = false;
-      setHeld(false);
-      setUncertain("");
       setLoading(false);
-      return true;
+      return nextBoard;
     } catch {
       if (requestId !== requestSeq.current) return false;
       setError("Lecture du portefeuille impossible.");
@@ -147,19 +201,24 @@ export function PersonalPortfolio() {
   const loadRef = useRef(load);
   loadRef.current = load;
 
+  const intentionRef = useRef<PortfolioIntention | null>(null);
+
   function settleMutation(
-    outcome: "confirmed" | "refused" | "conflict" | "unknown",
-    reread: "succeeded" | "failed" | "not-attempted",
+    outcome: PortfolioMutationOutcome,
+    reread: PortfolioReread,
     knownMessage: string,
   ) {
     const follow = portfolioMutationFollowUp({ outcome, reread });
     blocked.current = follow.blockFurtherMutations;
     setHeld(follow.blockFurtherMutations);
+    if (!follow.blockFurtherMutations) intentionRef.current = null;
     if (follow.uncertain) {
       setUncertain(
         reread === "failed"
           ? "Résultat incertain. La relecture a échoué et l'action n'a pas été relancée."
-          : "Résultat incertain. L'action n'est pas relancée.",
+          : reread === "unverified"
+            ? "Résultat incertain. La relecture ne confirme pas l'espace concerné."
+            : "Résultat incertain. L'action n'est pas relancée.",
       );
       return;
     }
@@ -173,9 +232,35 @@ export function PersonalPortfolio() {
     }
   }
 
-  async function mutate(path: string, method: string, payload: unknown) {
+  async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
+    try {
+      if (intention.kind === "favorite") {
+        const response = await fetch("/api/portfolio/favorites");
+        if (!response.ok) return "failed";
+        const body = (await response.json()) as { favorites?: PersonalSpace[] };
+        const found = Boolean(body.favorites?.some((item) => item.spaceType === intention.spaceType && item.id === intention.spaceId));
+        return found === intention.desired ? "matched" : "unverified";
+      }
+      if (intention.kind === "archive") {
+        const scopeName = intention.desired ? "archive" : "current";
+        const response = await fetch(`/api/portfolio?scope=${scopeName}&expanded=1`);
+        if (!response.ok) return "failed";
+        const body = (await response.json()) as BoardResponse;
+        if (!body.board) return "failed";
+        return intentionMatchesBoard(intention, body.board) ? "matched" : "unverified";
+      }
+      const board = await loadRef.current();
+      if (!board) return "failed";
+      return intentionMatchesBoard(intention, board) ? "matched" : "unverified";
+    } catch {
+      return "failed";
+    }
+  }
+
+  async function mutate(path: string, method: string, payload: Record<string, unknown>, intention: PortfolioIntention) {
     if (busy.current || blocked.current) return;
     busy.current = true;
+    intentionRef.current = intention;
     setPending(path);
     setUncertain("");
     setNotice("");
@@ -185,42 +270,40 @@ export function PersonalPortfolio() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const body = (await response.json().catch(() => ({}))) as { error?: string; message?: string };
-      if (response.status === 409) {
-        const reread = await loadRef.current();
-        settleMutation(
-          "conflict",
-          reread ? "succeeded" : "failed",
-          body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.",
-        );
-        return;
-      }
-      if (!response.ok) {
+      const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+      const outcome = classifyPortfolioResponse(response.status, body);
+      if (outcome === "refused") {
         settleMutation("refused", "not-attempted", "");
-        setNotice(body.message || body.error || "La modification n'a pas abouti.");
+        setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
         return;
       }
-      notifyPortfolioChanged();
-      const reread = await loadRef.current();
+      const reread = await probeIntention(intention);
+      if (outcome === "confirmed") notifyPortfolioChanged();
+      await loadRef.current();
       settleMutation(
-        "confirmed",
-        reread ? "succeeded" : "failed",
-        "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
+        outcome,
+        reread,
+        outcome === "conflict"
+          ? (typeof body.message === "string" ? body.message : "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.")
+          : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
       );
     } catch {
-      let reread = false;
-      try {
-        reread = await loadRef.current();
-      } catch {
-        reread = false;
-      }
-      settleMutation("unknown", reread ? "succeeded" : "failed", "");
+      const reread = intentionRef.current ? await probeIntention(intentionRef.current) : "failed";
+      settleMutation("unknown", reread, "");
     } finally {
       busy.current = false;
       setPending("");
       setConfirm(null);
       setConfirmRestore(null);
     }
+  }
+
+  async function rereadHeld() {
+    const intention = intentionRef.current;
+    const reread = intention ? await probeIntention(intention) : "failed";
+    await loadRef.current();
+    if (!intention) return;
+    settleMutation("unknown", reread, "");
   }
 
   async function startPreparation() {
@@ -241,7 +324,12 @@ export function PersonalPortfolio() {
   }
 
   if (loading && !board) {
-    return <div className="personal-portfolio" data-testid="portfolio-loading">Chargement du portefeuille…</div>;
+    return (
+      <div className="personal-portfolio" data-testid="portfolio-loading" aria-busy="true">
+        <p>Chargement du portefeuille…</p>
+        <div className="personal-portfolio-skeleton" />
+      </div>
+    );
   }
   if (error && !board) {
     return (
@@ -252,6 +340,7 @@ export function PersonalPortfolio() {
     );
   }
   if (!board) return null;
+  const locked = held || Boolean(pending);
   const canReorder =
     board.preferences.sort === "custom" && filter === "all" && !query.trim() && scope === "current";
   const orderContext = { filter, query: query.trim(), scope };
@@ -270,7 +359,7 @@ export function PersonalPortfolio() {
       <article
         key={`${space.spaceType}-${space.id}`}
         className={board!.preferences.view === "grid" ? "personal-portfolio-card" : "personal-portfolio-row"}
-        draggable={canReorder}
+        draggable={canReorder && !locked}
         onDragStart={(event) => {
           const token = `${space.spaceType}:${space.id}`;
           draggedSpace.current = token;
@@ -281,7 +370,7 @@ export function PersonalPortfolio() {
           if (canReorder) event.preventDefault();
         }}
         onDrop={(event) => {
-          if (!canReorder) return;
+          if (!canReorder || locked) return;
           event.preventDefault();
           const raw = event.dataTransfer.getData("text/plain") || draggedSpace.current;
           draggedSpace.current = "";
@@ -294,7 +383,7 @@ export function PersonalPortfolio() {
             beforeSpaceId: space.id,
             expectedVersion: board!.preferences.version,
             context: orderContext,
-          });
+          }, { kind: "order", knownVersion: board!.preferences.version });
         }}
         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
       >
@@ -305,27 +394,28 @@ export function PersonalPortfolio() {
           <button
             type="button"
             aria-pressed={space.favorite}
+            disabled={locked}
             aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
             onClick={() =>
               void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", {
                 favorite: !space.favorite,
                 expectedVersion: space.rowVersion,
-              })
+              }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })
             }
           >
             {space.favorite ? "★" : "☆"}
           </button>
           {canReorder ? (
             <>
-              <button type="button" aria-label="Monter" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext })}>↑</button>
-              <button type="button" aria-label="Descendre" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext })}>↓</button>
+              <button type="button" aria-label="Monter" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↑</button>
+              <button type="button" aria-label="Descendre" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↓</button>
             </>
           ) : null}
           <button type="button" aria-label="Actions de l'espace" onClick={() => setMenu(menu === space.id ? null : space.id)}>…</button>
           {menu === space.id ? (
             <div className="personal-portfolio-menu" role="menu">
               <button type="button" disabled aria-disabled="true" title="Le renommage n'est pas disponible dans cette version.">Renommer — indisponible</button>
-              <button type="button" onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>
+              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>
                 {scope === "archive" ? "Restaurer" : "Archiver"}
               </button>
               <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible dans cette version.">Supprimer — indisponible</button>
@@ -354,7 +444,7 @@ export function PersonalPortfolio() {
       {notice ? <p role="status" data-testid="portfolio-conflict">{notice}</p> : null}
       {uncertain ? <p role="status" data-testid="portfolio-creation-uncertainty">{uncertain}</p> : null}
       {held ? (
-        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>
+        <button type="button" data-testid="portfolio-reread" onClick={() => void rereadHeld()}>
           Relire le portefeuille
         </button>
       ) : null}
@@ -370,13 +460,18 @@ export function PersonalPortfolio() {
 
       {board.resume && scope === "current" ? (
         <section className="personal-portfolio-resume" data-testid="portfolio-resume">
+          <div className="personal-portfolio-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4.16667 10H15.8333M10 15.8333L15.8333 10L10 4.16667" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
           <div>
             <p className="personal-portfolio-kicker">REPRENDRE LE TRAVAIL</p>
             <h2>{board.resume.label}</h2>
             <p>{board.resume.activityLabel} · {formatWhen(board.resume.lastOpenedAt || board.resume.createdAt)}</p>
           </div>
           <div className="personal-portfolio-grow" />
-          <a className="btn" href={hrefFor(board.resume)} onClick={() => notePersonalSpaceEntry(board.resume!.spaceType, board.resume!.id)}>Continuer</a>
+          <a className="personal-portfolio-primary" href={hrefFor(board.resume)} onClick={() => notePersonalSpaceEntry(board.resume!.spaceType, board.resume!.id)}>Continuer avec Nora</a>
         </section>
       ) : null}
 
@@ -400,12 +495,13 @@ export function PersonalPortfolio() {
         <input aria-label="Filtrer les espaces" placeholder="Filtrer les espaces…" value={query} onChange={(event) => setQuery(event.target.value)} data-testid="portfolio-search" />
         <select
           aria-label="Tri"
+          disabled={locked}
           value={board.preferences.sort}
           onChange={(event) =>
             void mutate("/api/portfolio/preferences", "PATCH", {
               sort: event.target.value as PortfolioSort,
               expectedVersion: board.preferences.version,
-            })
+            }, { kind: "preference", sort: event.target.value, knownVersion: board.preferences.version })
           }
         >
           <option value="recent">Activité récente</option>
@@ -423,12 +519,13 @@ export function PersonalPortfolio() {
               key={key}
               type="button"
               aria-pressed={board.preferences.view === key}
+              disabled={locked}
               aria-label={label}
               onClick={() =>
                 void mutate("/api/portfolio/preferences", "PATCH", {
                   view: key as PortfolioView,
                   expectedVersion: board.preferences.version,
-                })
+                }, { kind: "preference", view: key, knownVersion: board.preferences.version })
               }
             >
               {label}
@@ -470,17 +567,27 @@ export function PersonalPortfolio() {
       </section>
 
       {confirm ? (
-        <div className="personal-portfolio-dialog" role="dialog" aria-label="Confirmer l'archivage">
-          <p>Archiver « {confirm.label} » retire cet espace de l’accueil. Le projet, ses documents et ses droits restent inchangés.</p>
-          <button type="button" onClick={() => void mutate(`/api/portfolio/spaces/${confirm.spaceType}/${confirm.id}/archive`, "PUT", { archived: true, confirm: true, expectedVersion: confirm.rowVersion })}>Archiver</button>
-          <button type="button" onClick={() => setConfirm(null)}>Annuler</button>
+        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirm(null); }}>
+          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirm(null); }}>
+            <h2>Retirer {confirm.label} du portefeuille courant ?</h2>
+            <p>L’espace reste accessible dans Archives et par ses liens. Le travail n’est pas interrompu.</p>
+            <div className="personal-portfolio-modal-actions">
+              <button type="button" onClick={() => setConfirm(null)}>Annuler</button>
+              <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirm.spaceType}/${confirm.id}/archive`, "PUT", { archived: true, confirm: true, expectedVersion: confirm.rowVersion }, { kind: "archive", spaceType: confirm.spaceType, spaceId: confirm.id, desired: true, knownVersion: confirm.rowVersion })}>Archiver</button>
+            </div>
+          </div>
         </div>
       ) : null}
       {confirmRestore ? (
-        <div className="personal-portfolio-dialog" role="dialog" aria-label="Confirmer la restauration">
-          <p>Restaurer « {confirmRestore.label} » le replace dans le portefeuille courant, avec le même identifiant.</p>
-          <button type="button" onClick={() => void mutate(`/api/portfolio/spaces/${confirmRestore.spaceType}/${confirmRestore.id}/archive`, "PUT", { archived: false, confirm: true, expectedVersion: confirmRestore.rowVersion })}>Restaurer</button>
-          <button type="button" onClick={() => setConfirmRestore(null)}>Annuler</button>
+        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirmRestore(null); }}>
+          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirmRestore(null); }}>
+            <h2>Restaurer {confirmRestore.label} ?</h2>
+            <p>Le même espace revient dans le portefeuille courant, avec son organisation personnelle.</p>
+            <div className="personal-portfolio-modal-actions">
+              <button type="button" onClick={() => setConfirmRestore(null)}>Annuler</button>
+              <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirmRestore.spaceType}/${confirmRestore.id}/archive`, "PUT", { archived: false, confirm: true, expectedVersion: confirmRestore.rowVersion }, { kind: "archive", spaceType: confirmRestore.spaceType, spaceId: confirmRestore.id, desired: false, knownVersion: confirmRestore.rowVersion })}>Restaurer</button>
+            </div>
+          </div>
         </div>
       ) : null}
     </div>

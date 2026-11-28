@@ -1,6 +1,25 @@
 # As-built — Portefeuille personnel et navigation
 
-Date : 28 novembre 2026. Mandat 1, finalisation du complément A. Classe NO RELEASE.
+Date : 28 novembre 2026. Mandat 1, complément B. Classe NO RELEASE.
+
+## Complément B — composition
+
+Source lue : fichier Figma `itgvCulInEnFY6DvgIegvP`, page 14 `1417:6`.
+Nœuds extraits : reprise `1420:269`, synthèse `1420:250`, ligne `1420:129`, menu `1420:1803`, archivage `1420:3227`.
+La reprise utilise le fond `#242c4b`, la bordure `#7880ef`, le repère 64 px et l'action 218×38.
+La synthèse reste en trois colonnes, y compris sous 768 px, avec une typographie réduite.
+Le bureau compact (jusqu'à 1433 px) utilise 28 px de marge. Le mobile utilise 16 px.
+L'archivage et la restauration passent par une modale. Le texte suit l'archive personnelle : l'espace reste accessible, le travail n'est pas interrompu.
+Le menu laisse le renommage et la suppression indisponibles.
+Le tiroir personnel s'ouvre depuis le bandeau mobile et se ferme par Échap, le fond ou Fermer. Les largeurs des autres variantes du rail ne changent pas.
+
+Une lecture réussie ne lève plus le blocage d'une mutation incertaine. Un 500 ou un 503 reste inconnu. Un succès exige un accusé exploitable. La relecture d'un favori interroge les favoris du Pilote. La relecture d'une archive interroge le périmètre correspondant. Si l'espace n'y figure pas, le résultat reste incertain et les commandes incompatibles restent désactivées. L'intention n'est pas renvoyée.
+
+Les 27 états applicables sont portés par le même écran, selon les données et le viewport. Aucune mesure F2 appariée n'a été produite dans ce cycle. Le verdict visuel est REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
+
+## Complément A
+
+Date de la finalisation fonctionnelle. Classe NO RELEASE.
 Schéma 028 inchangé. Aucune migration 029. Complément B non engagé.
 
 ## Finalisation — garanties résiduelles

@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — complément B, transposition du portefeuille personnel
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `1eedfba8ea09163a1ba780fbeb16563034895379`
+- **commit**: `feat(next): present the personal portfolio from the studio composition`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: composition page 14, navigation personnelle mobile, états sincères, réconciliation d'une mutation incertaine
+- **classe**: NO RELEASE · évolution compatible · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-GUARANTEES-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

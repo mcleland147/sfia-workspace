@@ -86,6 +86,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
   const onSasVisual = pathname.startsWith("/dev/sas-visual/");
   const onSasPreparation = Boolean(preparationId) || onSasVisual;
   const [openingPrep, setOpeningPrep] = useState(false);
+  const [personalNavOpen, setPersonalNavOpen] = useState(false);
   const [prepNotice, setPrepNotice] = useState("");
   const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
   const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
@@ -418,6 +419,9 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
             data-testid="studio-shell-topbar"
           >
             <div className="flex items-center gap-3 min-w-0 md:hidden">
+              <button type="button" className="md:hidden" data-testid="personal-nav-open" aria-expanded={personalNavOpen} aria-controls="personal-nav-drawer" onClick={() => setPersonalNavOpen(true)}>
+                Menu
+              </button>
               <span
                 aria-hidden
                 className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[8px] text-sm font-bold"
@@ -525,6 +529,17 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
           {children}
         </main>
 
+        {personalSpace && personalNavOpen ? (
+          <div className="studio-personal-drawer md:hidden" onClick={() => setPersonalNavOpen(false)}>
+            <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
+              <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
+              <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
+              <Link href="/portfolio?scope=archive" onClick={() => setPersonalNavOpen(false)}>Archives</Link>
+              <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
+              <PersonalRailFavorites />
+            </div>
+          </div>
+        ) : null}
         {personalSpace ? (
           <nav
             className="studio-shell-bottom-nav md:hidden"
