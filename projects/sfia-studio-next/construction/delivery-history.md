@@ -5575,4 +5575,5 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 - **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés au lot 7 ; lots 2 à 7 non engagés
 - **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
 - **Statut** : DEV PUBLIÉ POUR REVUE — NOT ACCEPTED — NOT ADOPTED
+- **Complément** : gardes de contexte documentaire. Une erreur de restauration obsolète ne retire plus la proposition active. Un numéro de révision absent n'hérite plus de l'ancien numéro. Une tête résolue après un changement de sélection n'écrase plus le focus. Le SHA de ce complément est reporté dans le Review Pack, pas dans un second commit destiné à l'y inscrire.
 

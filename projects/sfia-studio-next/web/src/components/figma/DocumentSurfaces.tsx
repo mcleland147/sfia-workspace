@@ -99,8 +99,9 @@ export function focusAfterAvailableConservation<T extends WorkingDocumentFocus>(
   if (save.status !== "AVAILABLE") return { focus, rebased: false };
   if (!save.documentId || !save.revisionId) return { focus, rebased: false };
   if (focus.documentId !== save.documentId) return { focus, rebased: false };
+  // A missing owner number stays unknown. Never label the new revision with the previous number.
   const revisionNumber =
-    typeof save.revisionNumber === "number" ? save.revisionNumber : focus.sourceRevisionNumber;
+    typeof save.revisionNumber === "number" ? save.revisionNumber : undefined;
   return {
     rebased: true,
     focus: {
@@ -195,6 +196,44 @@ export function documentTurnMayApply(input: {
 }
 
 /**
+ * An in-flight candidate restore may change pending state, focus or status
+ * only while it still refers to the selected project, document and candidate.
+ */
+export function pendingCandidateRestoreOwnsContext(input: {
+  projectIdAtStart: string;
+  projectIdNow: string | null;
+  documentId: string;
+  candidateId: string;
+  focusDocumentId: string | null;
+  focusCandidateId: string | null | undefined;
+  requestSeqAtStart: number;
+  requestSeqNow: number;
+}): boolean {
+  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
+  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
+  if (input.focusDocumentId !== input.documentId) return false;
+  if (input.focusCandidateId !== input.candidateId) return false;
+  return true;
+}
+
+/**
+ * A head resolved for one revision may be applied only if that selection
+ * is still the latest one, in the same project, and the pilot did not close it.
+ */
+export function documentSelectionResolveIsCurrent(input: {
+  projectIdAtStart: string;
+  projectIdNow: string | null;
+  requestSeqAtStart: number;
+  requestSeqNow: number;
+  viewerClosedDuringResolve: boolean;
+}): boolean {
+  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
+  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
+  if (input.viewerClosedDuringResolve) return false;
+  return true;
+}
+
+/**
  * A restored candidate is shown only if the project, document, candidate and
  * viewer generation are still the ones captured before the request returned.
  */
@@ -210,10 +249,20 @@ export function pendingCandidateRestoreIsCurrent(input: {
   candidateDocumentId: string | null;
   candidateMarkdown: string | null;
 }): boolean {
-  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
-  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
-  if (input.focusDocumentId !== input.documentId) return false;
-  if (input.focusCandidateId !== input.candidateId) return false;
+  if (
+    !pendingCandidateRestoreOwnsContext({
+      projectIdAtStart: input.projectIdAtStart,
+      projectIdNow: input.projectIdNow,
+      documentId: input.documentId,
+      candidateId: input.candidateId,
+      focusDocumentId: input.focusDocumentId,
+      focusCandidateId: input.focusCandidateId,
+      requestSeqAtStart: input.requestSeqAtStart,
+      requestSeqNow: input.requestSeqNow,
+    })
+  ) {
+    return false;
+  }
   if (!input.candidateDocumentId || input.candidateDocumentId !== input.documentId) return false;
   return typeof input.candidateMarkdown === "string" && input.candidateMarkdown.length > 0;
 }

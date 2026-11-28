@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  documentSelectionResolveIsCurrent,
   documentTurnMayApply,
   focusAfterAvailableConservation,
   formatPilotFacingProvenance,
   pendingCandidateRestoreIsCurrent,
+  pendingCandidateRestoreOwnsContext,
   resolveTravailDocumentPresentation,
   revisionCurrencyFromIdentity,
   revisionCurrencyLabel,
@@ -99,6 +101,19 @@ describe("documentary focus after conservation", () => {
         revisionId: "rev-2",
       }).rebased,
     ).toBe(false);
+  });
+
+  it("does not attach the previous revision number when D4 omits the new one", () => {
+    const next = focusAfterAvailableConservation(stale, {
+      status: "AVAILABLE",
+      documentId: "doc-1",
+      revisionId: "rev-2",
+    });
+    expect(next.rebased).toBe(true);
+    expect(next.focus?.sourceRevisionId).toBe("rev-2");
+    expect(next.focus?.observedHeadRevisionId).toBe("rev-2");
+    expect(next.focus?.sourceRevisionNumber).toBeUndefined();
+    expect(next.focus?.observedHeadRevisionNumber).toBeUndefined();
   });
 });
 
@@ -241,6 +256,61 @@ describe("document turn scope and candidate restore", () => {
         candidateMarkdown: "# A",
       }),
     ).toBe(false);
+  });
+
+  it("lets a stale restore error leave a newer candidate untouched", () => {
+    const newer = {
+      projectIdAtStart: "proj-1",
+      projectIdNow: "proj-1",
+      documentId: "doc-a",
+      candidateId: "cand-old",
+      focusDocumentId: "doc-b",
+      focusCandidateId: "cand-new",
+      requestSeqAtStart: 4,
+      requestSeqNow: 6,
+    };
+    expect(pendingCandidateRestoreOwnsContext(newer)).toBe(false);
+    expect(
+      pendingCandidateRestoreOwnsContext({
+        ...newer,
+        documentId: "doc-b",
+        candidateId: "cand-new",
+        focusDocumentId: "doc-b",
+        focusCandidateId: "cand-new",
+        requestSeqAtStart: 6,
+        requestSeqNow: 6,
+      }),
+    ).toBe(true);
+  });
+
+  it("drops a head resolved after the pilot selected another revision", () => {
+    expect(
+      documentSelectionResolveIsCurrent({
+        projectIdAtStart: "proj-1",
+        projectIdNow: "proj-1",
+        requestSeqAtStart: 3,
+        requestSeqNow: 4,
+        viewerClosedDuringResolve: false,
+      }),
+    ).toBe(false);
+    expect(
+      documentSelectionResolveIsCurrent({
+        projectIdAtStart: "proj-1",
+        projectIdNow: "proj-1",
+        requestSeqAtStart: 4,
+        requestSeqNow: 4,
+        viewerClosedDuringResolve: true,
+      }),
+    ).toBe(false);
+    expect(
+      documentSelectionResolveIsCurrent({
+        projectIdAtStart: "proj-1",
+        projectIdNow: "proj-1",
+        requestSeqAtStart: 4,
+        requestSeqNow: 4,
+        viewerClosedDuringResolve: false,
+      }),
+    ).toBe(true);
   });
 });
 

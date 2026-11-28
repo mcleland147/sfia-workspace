@@ -34,10 +34,12 @@ import {
   DocumentCompareSurface,
   DocumentHistorySurface,
   DocumentReadSurface,
+  documentSelectionResolveIsCurrent,
   documentTurnMayApply,
   focusAfterAvailableConservation,
   formatPilotFacingProvenance,
   pendingCandidateRestoreIsCurrent,
+  pendingCandidateRestoreOwnsContext,
   resolveTravailDocumentPresentation,
   type DocumentComparePayload,
   type RevisionRow,
@@ -1617,7 +1619,18 @@ export default function ProjectPage() {
   }) {
     const prepId = preparationIdRef.current;
     if (!prepId) return;
+    const projectIdAtStart = params.projectId;
+    const selectionSeq = ++viewerRequestSeqRef.current;
+    const viewerOpenAtStart = viewerOpenRef.current;
     const head = await resolveObservedHead(prepId, input.doc.document.id);
+    const selectionStillCurrent = documentSelectionResolveIsCurrent({
+      projectIdAtStart,
+      projectIdNow: projectIdRef.current,
+      requestSeqAtStart: selectionSeq,
+      requestSeqNow: viewerRequestSeqRef.current,
+      viewerClosedDuringResolve: viewerOpenAtStart && !viewerOpenRef.current,
+    });
+    if (!selectionStillCurrent) return;
     if (!head) {
       setStatusHint("Aucune révision courante AVAILABLE — reprise Nora impossible.");
       return;
@@ -1639,8 +1652,7 @@ export default function ProjectPage() {
       pendingCandidateId: undefined,
       pendingCandidateContentSha256: undefined,
     });
-    const projectIdAtStart = params.projectId;
-    const seq = ++viewerRequestSeqRef.current;
+    const seq = selectionSeq;
     viewerOpenRef.current = true;
     selectSurface("travail");
     commitViewer({
@@ -2224,8 +2236,24 @@ export default function ProjectPage() {
                     };
                   };
                   if (!cres.ok || cj.status !== "PENDING" || !cj.candidate?.contentMarkdown) {
-                    // SUPERSEDED / denied / missing — clear pending UI, keep focus identities for requalify.
-                    setPendingProposal(null);
+                    // An older error must not clear a newer proposal or its status.
+                    if (
+                      !pendingCandidateRestoreOwnsContext({
+                        projectIdAtStart: projectIdAtRestore,
+                        projectIdNow: projectIdRef.current,
+                        documentId: restored.documentId,
+                        candidateId: restored.pendingCandidateId!,
+                        focusDocumentId: documentFocusRef.current?.documentId ?? null,
+                        focusCandidateId: documentFocusRef.current?.pendingCandidateId,
+                        requestSeqAtStart: restoreSeq,
+                        requestSeqNow: viewerRequestSeqRef.current,
+                      })
+                    ) {
+                      return;
+                    }
+                    setPendingProposal((prev) =>
+                      !prev || prev.candidateId === restored.pendingCandidateId ? null : prev,
+                    );
                     const curFocus = documentFocusRef.current;
                     if (
                       curFocus &&
@@ -2299,7 +2327,23 @@ export default function ProjectPage() {
                     conserveProposal: false,
                   });
                 } catch {
-                  setPendingProposal(null);
+                  if (
+                    !pendingCandidateRestoreOwnsContext({
+                      projectIdAtStart: projectIdAtRestore,
+                      projectIdNow: projectIdRef.current,
+                      documentId: restored.documentId,
+                      candidateId: restored.pendingCandidateId!,
+                      focusDocumentId: documentFocusRef.current?.documentId ?? null,
+                      focusCandidateId: documentFocusRef.current?.pendingCandidateId,
+                      requestSeqAtStart: restoreSeq,
+                      requestSeqNow: viewerRequestSeqRef.current,
+                    })
+                  ) {
+                    return;
+                  }
+                  setPendingProposal((prev) =>
+                    !prev || prev.candidateId === restored.pendingCandidateId ? null : prev,
+                  );
                 }
               })();
             }
