@@ -11,6 +11,14 @@
 | UI | mic uniquement si `dictationEnabled === true` (capability produit) |
 | LIVE fournisseur | **non déclenché** |
 
+## Complément 2026-11-28 — contrat GA
+
+Le socket d'ouverture n'envoie plus le header `OpenAI-Beta`. L'URL reste `wss://api.openai.com/v1/realtime?intent=transcription`. `session.update` reste une session `transcription`, PCM 24 kHz, `gpt-live-transcribe`, `languages: ["fr"]`, `turn_detection: null`. L'ouverture n'est acquittée que par `session.updated`.
+
+Une erreur fournisseur objet expose un code distinct (authentification, permission, modèle, paramètre, transcription, timeout, rupture). Le message renvoyé au Pilote reste une phrase courte. Le journal technique porte l'étape, la session Studio, le code fournisseur, le paramètre et le statut HTTP, sans clé, audio ni transcription.
+
+Un timeout d'upgrade ferme la socket avant de la retourner. Une fermeture après ouverture termine la session et n'est pas rouverte. L'onde reste celle de l'analyseur, démarrée seulement en écoute. La cause historique du premier `PROVIDER_ERROR` en recette n'est pas rejouée : aucun appel fournisseur dans ce complément.
+
 ## Flux
 
 Pilote → capability → micro → `POST …/sessions` (admission) → `session.updated` → PCM `seq=0,1,…` → auto-commit → SSE deltas/items → Arrêter → drain → finalize (attend **commitsAwaitingAck** + items + provisionals) → brouillon → Envoyer USER.

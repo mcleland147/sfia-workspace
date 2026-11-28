@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-DICTATION-GA-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — lot 6, correction du transport de dictée
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `9e2f9911e0ba18f77ddbe3b6431b4e4ebe6eaf1b`
+- **commit**: `fix(next): restore realtime composer dictation`
+- **schema_revision**: unchanged
+- **scope**: header Beta retiré, erreurs fournisseur discriminantes, fermeture de socket au timeout et après rupture. LIVE non exécuté.
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN
+
 ## delivery_id: DELIV-2026-11-28-ML5-FINOPS-ATTRIBUTION-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -22,12 +22,31 @@ import {
   mergeDictationIntoDraft,
 } from "./composer-dictation-reducer";
 
+export type DictationTransportLifecycle = {
+  code: string;
+  message: string;
+  httpStatus?: number | null;
+};
+
 export type RealtimeTransport = {
   send: (payload: Record<string, unknown>) => void;
   close: () => void;
   /** Register handler for provider JSON events. */
   onEvent: (handler: (event: Record<string, unknown>) => void) => void;
+  /** Socket close or error after the local handshake, including a close that raced the handler. */
+  onLifecycle?: (handler: (event: DictationTransportLifecycle) => void) => void;
 };
+
+export class DictationTransportError extends Error {
+  code: string;
+  httpStatus: number | null;
+  constructor(code: string, message: string, httpStatus: number | null = null) {
+    super(message);
+    this.name = "DictationTransportError";
+    this.code = code;
+    this.httpStatus = httpStatus;
+  }
+}
 
 export type RealtimeTransportFactory = (input: {
   sessionId: string;
@@ -348,7 +367,6 @@ export async function createDictationSession(input: {
       };
     }
     record.transport = transport;
-    transport.onEvent((event) => handleProviderEvent(record, event));
     let providerReady = false;
     const sessionReady = new Promise<void>((resolve, reject) => {
       const t = setTimeout(() => {
@@ -373,23 +391,18 @@ export async function createDictationSession(input: {
         reject(err);
       };
     });
-    transport.send({
-      type: "session.update",
-      session: {
-        type: "transcription",
-        audio: {
-          input: {
-            format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
-            transcription: {
-              model: COMPOSER_DICTATION_MODEL,
-              languages: ["fr"],
-              prompt: DICTATION_VOCAB_HINT,
-            },
-            turn_detection: null,
-          },
-        },
-      },
+    transport.onLifecycle?.((info) => {
+      failDictationTransport(record, {
+        step: record.status === "pending" ? "open" : record.status,
+        code: info.code,
+        message: info.message,
+        httpStatus: info.httpStatus ?? null,
+      });
     });
+    transport.onEvent((event) => handleProviderEvent(record, event));
+    if (!isTerminalStatus(record.status)) {
+      transport.send(buildTranscriptionSessionUpdate());
+    }
     await sessionReady;
     // Terminal wins: cancel/fail during wait must not reopen as open.
     if (isTerminalStatus(record.status)) {
@@ -407,18 +420,34 @@ export async function createDictationSession(input: {
     emit(record, { type: "session.open", sessionId });
     return { ok: true, session: record };
   } catch (e) {
-    const rawMessage =
-      e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
-    const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
-    const providerErr = rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR");
-    const code = timedOut
-      ? "SESSION_OPEN_TIMEOUT"
-      : providerErr
-        ? "PROVIDER_ERROR"
-        : "TRANSPORT_OPEN_FAILED";
-    if (!isTerminalStatus(record.status)) {
+    const fromTransport = e instanceof DictationTransportError ? e : null;
+    const rawMessage = (
+      fromTransport?.message ??
+      (e instanceof Error ? e.message : "TRANSPORT_OPEN_FAILED")
+    ).slice(0, 240);
+    const timedOut =
+      rawMessage === "SESSION_OPEN_TIMEOUT" || fromTransport?.code === "SESSION_OPEN_TIMEOUT";
+    const alreadyTerminal = isTerminalStatus(record.status);
+    const code =
+      alreadyTerminal && record.errorCode
+        ? record.errorCode
+        : fromTransport?.code
+          ? fromTransport.code
+          : timedOut
+            ? "SESSION_OPEN_TIMEOUT"
+            : rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR")
+              ? "PROVIDER_ERROR"
+              : "TRANSPORT_OPEN_FAILED";
+    if (!alreadyTerminal) {
       record.status = "failed";
       record.errorCode = code;
+      emit(record, {
+        type: "session.error",
+        sessionId,
+        code,
+        message: code,
+      });
+      void recordDictationFinops(record, "failed");
     }
     try {
       record.transport?.close();
@@ -428,13 +457,6 @@ export async function createDictationSession(input: {
     record.transport = null;
     record.onProviderSessionReady = null;
     record.onProviderSessionReadyReject = null;
-    emit(record, {
-      type: "session.error",
-      sessionId,
-      code,
-      message: rawMessage,
-    });
-    void recordDictationFinops(record, "failed");
     return { ok: false, code, message: rawMessage };
   }
 }
@@ -541,32 +563,11 @@ function handleProviderEvent(
     return;
   }
   if (type === "error" || type === "conversation.item.input_audio_transcription.failed") {
-    // Never reopen / overwrite a terminal cancel/complete/expire with failed.
-    if (isTerminalStatus(session.status)) {
-      return;
-    }
-    const message = String(
-      event.error ?? event.message ?? "transcription failed",
-    ).slice(0, 240);
-    const stillOpening = session.status === "pending";
-    session.status = "failed";
-    session.errorCode = "PROVIDER_ERROR";
-    emit(session, {
-      type: "session.error",
-      sessionId: session.sessionId,
-      code: "PROVIDER_ERROR",
-      message,
+    const described = describeDictationProviderFailure(event);
+    failDictationTransport(session, {
+      step: session.status === "pending" ? "session.update" : "transcription",
+      ...described,
     });
-    if (stillOpening && session.onProviderSessionReadyReject) {
-      session.onProviderSessionReadyReject(new Error("PROVIDER_ERROR"));
-    }
-    try {
-      session.transport?.close();
-    } catch {
-      /* */
-    }
-    session.transport = null;
-    void recordDictationFinops(session, "failed");
   }
 }
 
@@ -927,32 +928,222 @@ async function recordDictationFinops(
   }
 }
 
-async function openOpenAiTranscriptionTransport(input: {
-  sessionId: string;
-  model: string;
-  apiKey: string;
-}): Promise<RealtimeTransport> {
-  const { default: WebSocket } = await import("ws");
-  const url = "wss://api.openai.com/v1/realtime?intent=transcription";
-  const ws = new WebSocket(url, {
-    headers: {
-      Authorization: `Bearer ${input.apiKey}`,
-      "OpenAI-Beta": "realtime=v1",
+/** GA transcription session.update. The live opener sends this object unchanged. */
+export function buildTranscriptionSessionUpdate(): Record<string, unknown> {
+  return {
+    type: "session.update",
+    session: {
+      type: "transcription",
+      audio: {
+        input: {
+          format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
+          transcription: {
+            model: COMPOSER_DICTATION_MODEL,
+            languages: ["fr"],
+            prompt: DICTATION_VOCAB_HINT,
+          },
+          turn_detection: null,
+        },
+      },
     },
+  };
+}
+
+/** GA WebSocket headers. Authorization only — no retired realtime beta header. */
+export function transcriptionSocketHeaders(apiKey: string): Record<string, string> {
+  return { Authorization: `Bearer ${apiKey}` };
+}
+
+function traceField(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed ? trimmed.slice(0, 80) : null;
+}
+
+function sanitizeTrace(value: string): string {
+  return value
+    .replace(/sk-[A-Za-z0-9_-]{6,}/g, "[redacted]")
+    .replace(/Bearer\s+\S+/gi, "Bearer [redacted]")
+    .slice(0, 160);
+}
+
+export function describeDictationProviderFailure(event: Record<string, unknown>): {
+  code: string;
+  message: string;
+  providerCode: string | null;
+  errorType: string | null;
+  parameter: string | null;
+  httpStatus: number | null;
+} {
+  const err = event.error;
+  const obj = err && typeof err === "object" ? (err as Record<string, unknown>) : null;
+  const providerCode = traceField(obj?.code ?? event.code);
+  const errorType = traceField(obj?.type);
+  const parameter = traceField(obj?.param ?? obj?.parameter);
+  const rawMessage =
+    traceField(obj?.message) ??
+    (typeof err === "string" ? traceField(err) : null) ??
+    traceField(event.message) ??
+    "";
+  const httpStatus = typeof obj?.status === "number" ? obj.status : null;
+  const blob = `${providerCode ?? ""} ${errorType ?? ""} ${parameter ?? ""} ${rawMessage}`.toLowerCase();
+  let code = "PROVIDER_ERROR";
+  if (event.type === "conversation.item.input_audio_transcription.failed") {
+    code = "TRANSCRIPTION_FAILED";
+  } else if (
+    httpStatus === 401 ||
+    blob.includes("invalid_api_key") ||
+    blob.includes("authentication")
+  ) {
+    code = "AUTHENTICATION";
+  } else if (httpStatus === 403 || blob.includes("permission") || blob.includes("insufficient_quota")) {
+    code = "PROVIDER_PERMISSION";
+  } else if (
+    providerCode === "model_not_found" ||
+    (blob.includes("model") &&
+      (blob.includes("not found") || blob.includes("unavailable") || blob.includes("does not exist")))
+  ) {
+    code = "MODEL_UNAVAILABLE";
+  } else if (
+    parameter ||
+    blob.includes("invalid_request") ||
+    blob.includes("invalid_value") ||
+    blob.includes("unknown_parameter")
+  ) {
+    code = "SESSION_PARAMETER_INVALID";
+  }
+  return {
+    code,
+    message: sanitizeTrace(rawMessage) || code,
+    providerCode,
+    errorType,
+    parameter,
+    httpStatus,
+  };
+}
+
+function classifySocketError(err: unknown): DictationTransportError {
+  const raw = err instanceof Error ? err.message : "";
+  const http = /(?:Unexpected server response:|status code)\s*(\d{3})/i.exec(raw);
+  const status = http ? Number(http[1]) : null;
+  if (status === 401) return new DictationTransportError("AUTHENTICATION", "HTTP 401", 401);
+  if (status === 403) return new DictationTransportError("PROVIDER_PERMISSION", "HTTP 403", 403);
+  if (status != null && status >= 400) {
+    return new DictationTransportError("TRANSPORT_OPEN_FAILED", `HTTP ${status}`, status);
+  }
+  return new DictationTransportError("TRANSPORT_OPEN_FAILED", "REALTIME_SOCKET_ERROR");
+}
+
+function traceDictationFailure(
+  session: DictationSessionRecord,
+  detail: {
+    step: string;
+    code: string;
+    providerCode?: string | null;
+    errorType?: string | null;
+    parameter?: string | null;
+    httpStatus?: number | null;
+  },
+): void {
+  console.error(
+    "[composer-dictation]",
+    JSON.stringify({
+      step: detail.step,
+      sessionId: session.sessionId,
+      code: detail.code,
+      providerCode: detail.providerCode ?? null,
+      errorType: detail.errorType ?? null,
+      parameter: detail.parameter ?? null,
+      httpStatus: detail.httpStatus ?? null,
+      status: session.status,
+    }),
+  );
+}
+
+function failDictationTransport(
+  session: DictationSessionRecord,
+  detail: {
+    step: string;
+    code: string;
+    message: string;
+    providerCode?: string | null;
+    errorType?: string | null;
+    parameter?: string | null;
+    httpStatus?: number | null;
+  },
+): void {
+  if (isTerminalStatus(session.status)) return;
+  const stillOpening = session.status === "pending";
+  session.status = "failed";
+  session.errorCode = detail.code;
+  emit(session, {
+    type: "session.error",
+    sessionId: session.sessionId,
+    code: detail.code,
+    message: detail.code,
   });
+  traceDictationFailure(session, detail);
+  if (stillOpening && session.onProviderSessionReadyReject) {
+    session.onProviderSessionReadyReject(
+      new DictationTransportError(detail.code, detail.code, detail.httpStatus ?? null),
+    );
+  }
+  try {
+    session.transport?.close();
+  } catch {
+    /* */
+  }
+  session.transport = null;
+  void recordDictationFinops(session, "failed");
+}
+
+type TranscriptionSocket = {
+  readyState: number;
+  send: (data: string) => void;
+  close: () => void;
+  once: (event: string, cb: (...args: unknown[]) => void) => void;
+  on: (event: string, cb: (...args: unknown[]) => void) => void;
+};
+
+const SOCKET_OPEN_STATE = 1;
+
+/** Live socket handshake. A timeout or upgrade error closes the socket before it is returned. */
+export async function connectTranscriptionSocket(
+  ws: TranscriptionSocket,
+  openTimeoutMs = 15_000,
+): Promise<RealtimeTransport> {
   await new Promise<void>((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error("REALTIME_OPEN_TIMEOUT")), 15_000);
+    const timer = setTimeout(() => {
+      try {
+        ws.close();
+      } catch {
+        /* */
+      }
+      reject(new DictationTransportError("REALTIME_OPEN_TIMEOUT", "REALTIME_OPEN_TIMEOUT"));
+    }, openTimeoutMs);
     ws.once("open", () => {
-      clearTimeout(t);
+      clearTimeout(timer);
       resolve();
     });
-    ws.once("error", (err) => {
-      clearTimeout(t);
-      reject(err);
+    ws.once("error", (err: unknown) => {
+      clearTimeout(timer);
+      try {
+        ws.close();
+      } catch {
+        /* */
+      }
+      reject(classifySocketError(err));
     });
   });
+
   let handler: ((event: Record<string, unknown>) => void) | null = null;
-  ws.on("message", (data) => {
+  let lifecycle: ((event: DictationTransportLifecycle) => void) | null = null;
+  let pendingLifecycle: DictationTransportLifecycle | null = null;
+  const emitLife = (event: DictationTransportLifecycle) => {
+    if (lifecycle) lifecycle(event);
+    else pendingLifecycle = event;
+  };
+  ws.on("message", (data: unknown) => {
     try {
       const parsed = JSON.parse(String(data)) as Record<string, unknown>;
       handler?.(parsed);
@@ -960,11 +1151,20 @@ async function openOpenAiTranscriptionTransport(input: {
       /* ignore malformed */
     }
   });
+  ws.on("close", () => {
+    emitLife({ code: "TRANSPORT_CLOSED", message: "socket closed" });
+  });
+  ws.on("error", (err: unknown) => {
+    const classified = classifySocketError(err);
+    emitLife({
+      code: classified.code,
+      message: classified.message,
+      httpStatus: classified.httpStatus,
+    });
+  });
   return {
     send: (payload) => {
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify(payload));
-      }
+      if (ws.readyState === SOCKET_OPEN_STATE) ws.send(JSON.stringify(payload));
     },
     close: () => {
       try {
@@ -976,5 +1176,26 @@ async function openOpenAiTranscriptionTransport(input: {
     onEvent: (h) => {
       handler = h;
     },
+    onLifecycle: (h) => {
+      lifecycle = h;
+      if (pendingLifecycle) {
+        const pending = pendingLifecycle;
+        pendingLifecycle = null;
+        h(pending);
+      }
+    },
   };
+}
+
+async function openOpenAiTranscriptionTransport(input: {
+  sessionId: string;
+  model: string;
+  apiKey: string;
+}): Promise<RealtimeTransport> {
+  const { default: WebSocket } = await import("ws");
+  const url = "wss://api.openai.com/v1/realtime?intent=transcription";
+  const ws = new WebSocket(url, {
+    headers: transcriptionSocketHeaders(input.apiKey),
+  });
+  return connectTranscriptionSocket(ws);
 }

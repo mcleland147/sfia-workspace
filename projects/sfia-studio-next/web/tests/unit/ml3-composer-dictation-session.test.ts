@@ -1,10 +1,16 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   _resetDictationSessionsForTests,
   appendDictationAudio,
+  buildTranscriptionSessionUpdate,
   cancelDictationSession,
+  connectTranscriptionSocket,
   createDictationSession,
+  describeDictationProviderFailure,
   finalizeDictationSession,
+  transcriptionSocketHeaders,
   type RealtimeTransport,
 } from "@/domains/conversation/composer-dictation-session";
 import { admitDictationProviderEmission } from "@/domains/conversation/composer-dictation-admission";
@@ -996,5 +1002,202 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) return;
     expect(created.session.status).toBe("open");
+  });
+});
+
+describe("GA transcription transport", () => {
+  it("builds the transcription session.update used by the live opener", () => {
+    const update = buildTranscriptionSessionUpdate() as {
+      type: string;
+      session: {
+        type: string;
+        audio: {
+          input: {
+            format: { type: string; rate: number };
+            transcription: { model: string; languages: string[]; language?: string };
+            turn_detection: null;
+          };
+        };
+      };
+    };
+    expect(update.type).toBe("session.update");
+    expect(update.session.type).toBe("transcription");
+    expect(update.session.audio.input.format).toEqual({ type: "audio/pcm", rate: 24000 });
+    expect(update.session.audio.input.transcription.model).toBe("gpt-live-transcribe");
+    expect(update.session.audio.input.transcription.languages).toEqual(["fr"]);
+    expect(update.session.audio.input.transcription.language).toBeUndefined();
+    expect(update.session.audio.input.turn_detection).toBeNull();
+    const src = readFileSync(
+      join(process.cwd(), "src/domains/conversation/composer-dictation-session.ts"),
+      "utf8",
+    );
+    expect(src).not.toContain("OpenAI-Beta");
+    expect(src).toContain("intent=transcription");
+    expect(src).toContain("transcriptionSocketHeaders");
+  });
+
+  it("sends only the GA authorization header", () => {
+    const headers = transcriptionSocketHeaders("sk-test-not-a-secret");
+    expect(Object.keys(headers)).toEqual(["Authorization"]);
+    expect(headers.Authorization.startsWith("Bearer ")).toBe(true);
+    expect(headers["OpenAI-Beta" as keyof typeof headers]).toBeUndefined();
+  });
+
+  it("keeps a structured provider error distinct from an empty history", () => {
+    const described = describeDictationProviderFailure({
+      type: "error",
+      error: {
+        type: "invalid_request_error",
+        code: "invalid_value",
+        message: "Unknown parameter: session.audio.input.language",
+        param: "session.audio.input.transcription.languages",
+      },
+    });
+    expect(described.code).toBe("SESSION_PARAMETER_INVALID");
+    expect(described.parameter).toBe("session.audio.input.transcription.languages");
+    expect(described.message).not.toContain("[object Object]");
+    expect(described.message).toContain("Unknown parameter");
+  });
+
+  it("closes the socket when the upgrade times out", async () => {
+    let closed = false;
+    const listeners = new Map<string, Array<(...args: unknown[]) => void>>();
+    const ws = {
+      readyState: 0,
+      send: () => undefined,
+      close: () => {
+        closed = true;
+        ws.readyState = 3;
+      },
+      once: (event: string, cb: (...args: unknown[]) => void) => {
+        const list = listeners.get(event) ?? [];
+        list.push(cb);
+        listeners.set(event, list);
+      },
+      on: (event: string, cb: (...args: unknown[]) => void) => {
+        const list = listeners.get(event) ?? [];
+        list.push(cb);
+        listeners.set(event, list);
+      },
+    };
+    await expect(connectTranscriptionSocket(ws, 20)).rejects.toMatchObject({
+      code: "REALTIME_OPEN_TIMEOUT",
+    });
+    expect(closed).toBe(true);
+  });
+
+  it("classifies an HTTP 401 upgrade without keeping the socket", async () => {
+    const listeners = new Map<string, Array<(...args: unknown[]) => void>>();
+    let closed = false;
+    const ws = {
+      readyState: 0,
+      send: () => undefined,
+      close: () => {
+        closed = true;
+      },
+      once: (event: string, cb: (...args: unknown[]) => void) => {
+        const list = listeners.get(event) ?? [];
+        list.push(cb);
+        listeners.set(event, list);
+        if (event === "error") {
+          queueMicrotask(() => cb(new Error("Unexpected server response: 401")));
+        }
+      },
+      on: () => undefined,
+    };
+    await expect(connectTranscriptionSocket(ws, 1_000)).rejects.toMatchObject({
+      code: "AUTHENTICATION",
+      httpStatus: 401,
+    });
+    expect(closed).toBe(true);
+  });
+});
+
+describe("dictation transport lifecycle", () => {
+  beforeEach(() => {
+    _resetDictationSessionsForTests();
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_DICTATION_TRANSPORT = "fixture";
+    process.env.VITEST = "true";
+  });
+
+  afterEach(() => {
+    _resetDictationSessionsForTests();
+  });
+
+  it("fails an open session when the socket closes and ignores a later transcript", async () => {
+    let lifecycle: ((event: { code: string; message: string }) => void) | null = null;
+    let handler: ((event: Record<string, unknown>) => void) | null = null;
+    const transport: RealtimeTransport = {
+      send: (payload) => {
+        if (payload.type === "session.update") {
+          queueMicrotask(() => handler?.({ type: "session.updated" }));
+        }
+      },
+      close: () => undefined,
+      onEvent: (next) => {
+        handler = next;
+      },
+      onLifecycle: (next) => {
+        lifecycle = next;
+      },
+    };
+    const created = await createDictationSession({
+      pilotId: "pilot-close",
+      projectId: "proj-close",
+      conversationKey: "proj-close",
+      baselineDraft: "brouillon",
+      transportFactory: async () => transport,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    lifecycle?.({ code: "TRANSPORT_CLOSED", message: "socket closed" });
+    expect(created.session.status).toBe("failed");
+    expect(created.session.errorCode).toBe("TRANSPORT_CLOSED");
+    handler?.({
+      type: "conversation.item.input_audio_transcription.delta",
+      item_id: "late",
+      delta: "tardif",
+    });
+    expect(created.session.draft.provisionalByItem.late).toBeUndefined();
+    lifecycle?.({ code: "TRANSPORT_CLOSED", message: "again" });
+    expect(created.session.status).toBe("failed");
+  });
+
+  it("returns a structured provider code when session.update is rejected", async () => {
+    const transport: RealtimeTransport = {
+      send: (payload) => {
+        if (payload.type === "session.update") {
+          queueMicrotask(() =>
+            handler?.({
+              type: "error",
+              error: {
+                type: "invalid_request_error",
+                code: "invalid_value",
+                message: "Unsupported language",
+                param: "session.audio.input.transcription.languages",
+              },
+            }),
+          );
+        }
+      },
+      close: () => undefined,
+      onEvent: (next) => {
+        handler = next;
+      },
+    };
+    let handler: ((event: Record<string, unknown>) => void) | null = null;
+    const created = await createDictationSession({
+      pilotId: "pilot-param",
+      projectId: "proj-param",
+      conversationKey: "proj-param",
+      baselineDraft: "",
+      transportFactory: async () => transport,
+    });
+    expect(created.ok).toBe(false);
+    if (created.ok) return;
+    expect(created.code).toBe("SESSION_PARAMETER_INVALID");
+    expect(created.message).not.toContain("[object Object]");
   });
 });

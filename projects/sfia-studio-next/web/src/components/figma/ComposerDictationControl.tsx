@@ -117,10 +117,24 @@ export function dictationClientErrorMessage(input: {
   const code = (input.code || "").trim();
   const raw = (input.message || "").trim();
   const fromCode =
-    code === "SESSION_OPEN_TIMEOUT" || raw === "SESSION_OPEN_TIMEOUT"
+    code === "SESSION_OPEN_TIMEOUT" ||
+    raw === "SESSION_OPEN_TIMEOUT" ||
+    code === "REALTIME_OPEN_TIMEOUT"
       ? "Connexion dictée expirée — réessayez ou utilisez le clavier"
       : code === "TRANSPORT_OPEN_FAILED"
         ? "Transport dictée indisponible — réessayez ou utilisez le clavier"
+        : code === "TRANSPORT_CLOSED" || code === "TRANSPORT_ERROR"
+          ? "La connexion de dictée s'est interrompue — réessayez ou utilisez le clavier"
+        : code === "SESSION_PARAMETER_INVALID"
+          ? "La configuration de la dictée a été refusée — réessayez ou utilisez le clavier"
+          : code === "MODEL_UNAVAILABLE"
+            ? "Le modèle de dictée n'est pas disponible"
+            : code === "AUTHENTICATION" || code === "PROVIDER_PERMISSION"
+              ? "Dictée indisponible (accès fournisseur refusé)"
+              : code === "TRANSCRIPTION_FAILED"
+                ? "La transcription n'a pas abouti — le brouillon est conservé"
+                : code === "PROVIDER_ERROR"
+                  ? "La dictée n'a pas pu démarrer — réessayez ou utilisez le clavier"
         : code === "FLAG_OFF"
           ? "Dictée non activée sur cet environnement"
           : code === "CONCURRENCY_LIMIT"
