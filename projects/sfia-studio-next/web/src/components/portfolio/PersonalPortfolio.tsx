@@ -1012,7 +1012,8 @@ export function PersonalPortfolio() {
         <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setRenameTarget(null); }}>
           <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label={renameTarget.spaceType === "preparation" ? "Renommer la préparation" : "Renommer le projet"} data-testid="portfolio-rename" onClick={(event) => event.stopPropagation()}>
             <h2>{renameTarget.spaceType === "preparation" ? "Renommer la préparation" : "Renommer le projet"}</h2>
-            <p>{renameTarget.spaceType === "preparation" ? "Le titre sert à retrouver votre échange. Il ne modifie pas le nom du futur projet." : "Le nom officiel change. L’identité du projet, son fil et ses ressources restent les mêmes."}</p>
+            <p>{renameTarget.spaceType === "preparation" ? "Le titre sert à retrouver votre échange. Il ne modifie pas le nom du futur projet." : "Le nom du projet sera mis à jour sans modifier son identité, ses documents ni sa conversation."}</p>
+            {renameTarget.spaceType === "project" ? <p>Le renommage ne modifie pas le dépôt Git associé.</p> : null}
             <label className="personal-portfolio-rename-field">
               <span>{renameTarget.spaceType === "preparation" ? "TITRE DE LA PRÉPARATION" : "NOM DU PROJET"}</span>
               <input data-testid="portfolio-rename-input" value={renameValue} onChange={(event) => setRenameValue(event.target.value)} />
