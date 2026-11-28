@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.1 |
+| Date / version | 28 novembre 2026 — v0.2, revue L1 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -11,7 +11,7 @@
 | Campagne | Equipéo STOPPED BY MORRIS après T09 bis ; T08 DEFERRED, T10–T13 NOT RUN ; 8/13 tours exercés + répétition T09, R00 partiel. MaintiPlan suspendu. |
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
-| Gate courant | Trajectoire approuvée ; diagnostic READY WITH RESERVES (revue ChatGPT). Lot 1 à engager sous mandat concentré ; aucun autre GO technique, config, LIVE, promotion, push produit, PR ou merge. |
+| Gate courant | L1 construit localement, parcours nominal BROWSER substitué démontré ; Cursor READY WITH RESERVES, revue ChatGPT NOT READY pour sortie/commit, complément ciblé à arbitrer (§7). L2 non engagé. Aucun GO commit/push produit, config, LIVE, promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -26,11 +26,11 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. A l'initialisation, 0/7 lots qualifiés ou acceptés.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la revue v0.2 : 1/7 lot construit localement avec preuve nominale partielle, 0/7 lots acceptés ; 6 non engagés.
 
-| Ordre | Lot | Résultat et références | Statut initial | Dernière preuve / gate |
+| Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
-| 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | PREPARATION | Diagnostic §3 ; prochain mandat de construction DEV |
+| 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | NOT READY — COMPLÉMENT CIBLÉ REQUIS | Handoff 451e9179 ; nominal BROWSER substitué PASS rapporté ; revue §7 |
 | 2 | Fraîcheur des projections projet | Compteurs et surfaces actualisés après effets sans reload. MP13. | NOT STARTED | Diagnostic §9 ; attendre revue L1 |
 | 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | NOT STARTED — GO CONFIG DISTINCT | Diagnostic §4 ; variables absentes en RECETTE |
 | 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | NOT STARTED | Diagnostic §5 ; arbitrer confirmations et états |
@@ -42,7 +42,7 @@ Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes pré
 
 ### L1 — Intégrité du cycle documentaire
 
-- IN : DOC-A (prévisualisation du candidat), DOC-B (courante/historique exact vs actuel), DOC-C (focus obsolète après conservation). DOC-D (titre métier stable, suffixe version géré par Studio) et DOC-E (proposition consommée vs expirée) à inclure seulement si correction locale et cohérente au même cycle de vie, sinon reporter explicitement en L7. DOC-F : présentation des comparaisons L4, Markdown historique L7 sauf dépendance directe nécessaire à l'inspection.
+- IN : DOC-A (prévisualisation du candidat), DOC-B (courante/historique exact vs actuel), DOC-C (focus obsolète après conservation). DOC-D (titre métier stable, suffixe version géré par Studio) et DOC-E (proposition consommée vs expirée) conditionnels au mandat initial ; report L7 recommandé par Cursor et retenu dans la proposition de sortie ChatGPT, à arbitrer par Morris (§7). DOC-F : présentation des comparaisons L4, Markdown historique L7 sauf dépendance directe nécessaire à l'inspection.
 - Cause code CONFIRMED : focus post-AVAILABLE conserve sourceRevisionId/observedHeadRevisionId anciens ; resolveReviseTarget puis garde sourceIsHistorical légitime. Lien transactionnel T09 bis PROBABLE (payload absent, PG deux révisions). DOC-A PROBABLE : identité de base et candidat mélangées, overwrite possible. DOC-B : exact et head inconnue traités comme historique. Reproduire et confirmer avant patch.
 - Propriétaires D3/D4 et projections ; pas de second moteur, pas de révision sans contrôle serveur, ni mise à jour rétroactive Equipéo. Préserver BASE_STALE, autorisation historique, ownership, idempotence, lien exact, identité unique et contenu scellé.
 - Exit : test BROWSER en vrai parcours client (Documents → inspecter V1 → réviser → inspecter candidat V2 → conserver → V2 courante → réviser V3 sans reset/reload/hauth artificiels → conserver), contenu affiché = candidat scellé = contenu conservé, un document / trois révisions, V1/V2 historiques intactes ; vrai historique exige confirmation, head concurrente refuse, retry/reprise sûr. DET/PG complémentaires, preuves BROWSER substituées identifiées ; LIVE ciblé distinct après autorisation.
@@ -117,4 +117,41 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 | 28/11/2026 | Diagnostic repris | 515561e7 / revue READY WITH RESERVES | Trajectoire proposée |
 | 28/11/2026 | Accord Morris sur les sept lots et publication du suivi | Présent document v0.1, mandat D1 ; 0/7 acceptés | Préparer mandat L1, autres lots sous gates distincts |
 
-**Prochaine action :** L1 intégrité du cycle documentaire, construction ciblée DEV après pré-check et contrat Cursor. Pas de mutation RECETTE, de push produit, de PR/merge, de clôture de MP ou d'adoption. La publication du présent suivi n'est ni un résultat technique ni un nouvel arbitrage normatif.
+| 28/11/2026 09:21 +01 | L1 — construction locale et revue indépendante | Cursor READY WITH RESERVES / ChatGPT NOT READY pour sortie ; handoff 451e9179, §7 | Complément ciblé sous GO Morris ; pas de L2 |
+
+**Prochaine action :** compléter et requalifier L1 sous mandat borné après arbitrage Morris. Aucun commit/push produit, mutation RECETTE, PR/merge, clôture de MP ou adoption.
+
+## 7. Revue indépendante L1 — 28 novembre 2026
+
+### 7.1 Identité et contrôle de portée
+
+Rapport Critical Cursor 09:21+01 ; pack 09:20:09+01. [Handoff Full](https://github.com/mcleland147/sfia-workspace/blob/451e9179f0f5a608a47c92a06796552438374eae/sfia-review-handoff/latest-chatgpt-review.md), blob `a4fe170bde6db3120e0ebafe395d376e70136731`, 1217 lignes, commit mono-fichier vérifié. Main, produit et docs d'entrée inchangés avant cette mise à jour. Code de base `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`. Diff local non committé : SHA candidat final NON ATTRIBUÉ. ChatGPT a relu le diff et le test nouveau inclus au pack, les sources SEF/Roadmap/P2/SEM et les portions de code d'entrée ; état local, exécution des tests, captures binaires et PG non vérifiés indépendamment.
+
+8 fichiers rapportés : page projet, DocumentSurfaces, TravailViewer, fixture-semantic-qualify, unit documents-surfaces-projection, nouveau e2e document-revision-lifecycle, delivery-history et as-built Ensemble 06. 7 modifications + 1 création. Le fichier `web/src/domains/conversation/fixture-semantic-qualify.ts` n'était pas dans l'allowlist code explicite : extension bornée de fixture vraisemblablement utile, garde TEST_BOUNDARY préexistante constatée dans Git ; écart de périmètre à régulariser explicitement, pas d'autorisation rétroactive supposée. Aucune modification du service propriétaire D4 ni de document-act/service conversation dans le diff fourni. Pas de migration. La preuve de diff complet repose sur le pack et le statut rapporté. La mention « Content coverage N/A » est erronée pour un lot comportant code et documents modifiés ; contenu créé et diff sont effectivement fournis, couverture à corriger et confirmer.
+
+### 7.2 Résultats positifs et preuves
+
+| Sujet | Résultat et niveau |
+| --- | --- |
+| DOC-C | Rebase du focus après AVAILABLE du document correspondant vers révision écrite ; garde historique serveur inchangée. Cause statique corroborée ; payload T09 bis original absent. |
+| DOC-A | Identité candidat distincte d'une révision durable, incrément du numéro de requête à la projection, corps candidat affiché au nominal ; erreur de corps prévue. Course exacte pré-correctif non reproduite en navigateur de façon discriminante. |
+| DOC-B | Exact distinct de courant/historique, état non vérifié introduit ; nominal courant V2/V3 et V1 historique exercés. |
+| DET | 18 PASS documents-surfaces-projection sur état final rapporté ; 8 PASS document-act/pending-proposal-viewer avant déplacement des fonctions, à rejouer au diff final. |
+| PG | 10 PASS : historique (4), autonomie documentaire (3), conserve-only (1), candidat (1), hauth/pdoc (1). Gardes propriétaires inchangées. |
+| BROWSER | 1 spec nouveau PASS 24,2 s, :3101 / sfia_next_e2e, Nora substituée, vrai parcours client : V1 → candidat V2 visible → pas de V2 durable avant conservation → V2 courante → candidat V3 dans même fil sans reload/injection → V3 courante → historique V1/V2/V3, une identité, V1 historique demande confirmation, aucune V4 sans choix, reload V3. Les marqueurs textuels sont discriminants ; empreintes intégrales non rapprochées. |
+| Environnement | Webpack canonique échoue sur @cursor/sdk/agent.d.ts.map ; test réussi sous Turbopack, même port/base de test rapportés, clé OpenAI vidée, serveur arrêté. Lint ciblé exit 0 et diff --check clean. TypeScript et build de production non documentés. RECETTE BUILD p0S18hf inchangé selon Cursor ; aucune émission LIVE. |
+| Captures | 6 PNG locales inventoriées avec empreintes dans pack ; non consultées indépendamment. Pas de F2. |
+| DOC-D/E | Report proposé au L7 : pas de suppression lexicale aveugle de V1 ni backfill ; distinction consommée/expirée à projeter à partir des états réels (nécessité d'un nouvel état durable non démontrée). |
+
+### 7.3 Réserves de revue et complément ciblé avant sortie
+
+1. **Identité / concurrence client (bloquant pour sortie).** Annexe A : `resolveTravailDocumentPresentation` identifie une proposition par égalité Markdown alors que `proposalCandidateId` existe ; une révision durable de contenu identique pourrait être étiquetée proposition. Utiliser identité de ressource/candidat et contenu vérifié, pas texte seul. Dans `page.tsx` le retour AVAILABLE efface pending globalement et peut actualiser le viewer de n'importe quel document ; le garde documentId de la fonction pure ne couvre pas toute la chaîne. Le retour candidat peut réutiliser le focus courant d'un autre document et la restauration asynchrone du candidat au reload ne vérifie pas systématiquement qu'il s'agit encore du focus sélectionné. Scénarios de navigation A→B, retour tardif, restauration, réponses concurrentes : reproduire/infirmer, corriger strictement les chemins démontrés, pas de réarchitecture. Le garde `documentTurnGenRef` englobe tout `res.ok`, donc risque de sauter réconciliation et restitution d'autres effets D3/D5/D6 ; démontrer l'impossibilité du cas ou isoler la garde au contexte documentaire, conserver les résultats propriétaires. Vérifier également l'actualité sur head non disponible ou snapshot contradictoire et ne pas inventer de numéro si le résultat ne le fournit pas.
+2. **Contrat de preuve (bloquant).** A17 liens exacts conversationnels non rejoués, B empreinte/contenu intégral avant/après non rapprochés, C09/C13/C14 absence d'essai BROWSER discriminant, C10 ownership non rejoué ; C03/C04 et historique E2E à compléter/rejouer proportionnellement. Couvrir notamment candidat remplacé/indisponible, contenu identique candidat/révision, lecture D4 tardive après proposition, changement de document pendant attente et reload/reprise du candidat/ACK perdu. ACK perdu : ne pas rebaser vers une head non attribuable ; examiner chemin de réconciliation par corrélation de la conservation connue et prouver absence de doublon et reprise honnête. Ne pas exiger une nouvelle émission LIVE. Tests existants possibles : réutiliser les PG et spec historique, prouver intégrité par comparaison intégrale/empreinte des révisions et candidat, vérifier base V2 réellement transmise, aucune injection d'identifiants contournant la chaîne. Fixture V3 distincte est une preuve mécanique, pas preuve de qualité cognitive cumulative.
+3. **Qualification technique (bloquant avant commit).** Rejouer les tests affectés au diff final, TypeScript et build de production isolé, lint/diff, analyser le blocage webpack avec cause et baseline démontrées (ne pas réparer @cursor/sdk dans ce lot). Un échec préexistant peut rester réserve après qualification et arbitrage, pas un PASS fictif. Identifier les tests non exécutés et les sources obligatoires effectivement lues (la liste §4 du pack est insuffisante pour confirmer SEF/ENV/SEM/méthode lus par Cursor). Contrat UX page 08 réutilisé, pas de redesign ni F2 fort.
+4. **Mandat et traçabilité.** Régulariser la fixture test-only via GO borné de Morris (ou alternative autorisée), vérifier son inaccessibilité hors fixture lane, corriger la content coverage (created/modified, pas N/A), restituer diff final complet et preuve mono-cycle. Aucun commit projet ni nouvelle autorisation externe.
+
+### 7.4 Verdict et gate
+
+**ChatGPT : NOT READY — résultat central positif, complément de fiabilité et preuves avant sortie du lot.** Ne pas annuler le travail nominal ; pas de reprise intégrale, ni nouveau macro-lot. Le choix de report DOC-D/E vers L7 et l'extension de fixture sont proposés à Morris. Le lot 1 reste ouvert ; les six autres restent non démarrés. Prochaine décision : GO borné pour le complément de L1, puis nouvelle revue distante avant commit éventuel. Préserver diff actuel, RECETTE et projets métier. Aucune acceptation de réserve, MP clôturée, mutation produit ou évolution de la trajectoire approuvée par cette contribution D1.
+
+Mandat de cette actualisation : suivi documentaire borné accordé par Morris le 28/11, fichier unique, base `b93cf033dc906c35ff5aecd949590c9d5d46d11b`, branche `docs/next-openai-studio-convergence-20261126`. Pas de modification des autres documents, ni main, ni produit, ni handoff.
