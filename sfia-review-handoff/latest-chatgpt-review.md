@@ -1,1399 +1,380 @@
-# Review Pack — Lot 2 complément — Coordination, erreurs de lecture, SAS06
+# SFIA Studio Next — Lot 3 — Préparation d'admission cognitive RECETTE
 
-Mono-cycle. Full. Candidat produit distant = source de revue.
+Cycle 07 — Intégration / DevOps. Profil Critical. Typologie RUN / correctif de configuration.
+Jalon R5 / ML5. Classe NO RELEASE. STABLE NOT AVAILABLE. NOT ADOPTED.
+Revue : Full. Handoff : required / publish-in-cycle.
+Date du pack : 2026-11-28 11:01 CET.
 
-## 1. Identité
+Ce cycle est non mutatif. Aucun fichier produit n'est créé ou modifié. Aucune configuration, aucun processus, aucune base et aucune émission fournisseur n'ont été touchés.
 
-- Date : 2026-11-28T10:50+01:00
-- Cycle 08 Delivery, Critical, complément EVOL du lot 2
-- Base : 953a4af445f3d29b730909d0854981ff40065424, tree 3c7cddb4680fd508156a6557836c3ba403146413
-- Candidat : 017487581c317f957ef7a96ff2f3d95450fcf9ab
-- Tree : b398725b2bbef59c295dbc3093f23a767f433994
-- URL : https://github.com/mcleland147/sfia-workspace/commit/017487581c317f957ef7a96ff2f3d95450fcf9ab
-- Handoff précédent, immuable : cf0519159a9c0f324e88c1e9a287818c47389d1e, blob dfb097a70fd84c6f2c5eb1eab3a19d1ea9f4ab88
-- Suivi lu : origin/docs 72293b82, blob 36be182e, §11.3 et §11.4
-- Figma lu : fichier itgvCulInEnFY6DvgIegvP, nœud 1022:164, session 951c39b3-483d-4fa4-8491-5b41a0e7bbbd. Fenêtre 702 de large, état « contexte en chargement ». Les icônes locales existantes correspondent aux pictogrammes de la frame. Aucun asset Figma temporaire n'est référencé.
-- Statuts maintenus. Lot 3 non engagé. CI non exécutée.
+## 1. Identité et mandat
+
+Morris a accepté la sortie technique du lot 2 avec ses réserves RECETTE et a autorisé la préparation du lot 3.
+
+Objectif : rétablir en RECETTE la capacité d'allocation cognitive adaptative déjà disponible en DEV, sans reconstruire le moteur. Anomalie principale MP15. Prérequis de qualification MP14, non exercé ici.
+
+Périmètre exécuté :
+
+- A. Vérification de la configuration réellement utilisée au démarrage.
+- B. Préflight déterministe d'admission, hors processus RECETTE, sans émission.
+- C. Plan d'activation, rollback et protocole LIVE borné, non exécutés.
+
+Hors mandat, non faits : modification de RECETTE, redémarrage, qualification LIVE, promotion d'un candidat, lot 4, CI distante, PR, push de main, migration, changement de code.
+
+Statuts maintenus : R5 IN PROGRESS, ML5 OPEN, LIVRAISON 1 NOT ACCEPTED, 17 MP OPEN, R6 NOT STARTED, NO RELEASE, STABLE NOT AVAILABLE, NOT ADOPTED. MP15 reste OPEN jusqu'à un GO de configuration distinct.
 
 ## 2. Git Truth Check
 
-Entrée égale au distant 953a4af4. Seuls les dossiers temporaires de revue étaient non suivis. origin/main 997897fd. merge-base = origin/main. Ports 3100 PID 55011 et 3200 PID 77113 inchangés. 3101 utilisé pour une preuve isolée puis arrêté.
+Dépôt `mcleland147/sfia-workspace`. Remote `origin` = `https://github.com/mcleland147/sfia-workspace.git`.
 
-Sortie : HEAD local = origin = 01748758. Push fast-forward. Aucune exécution Actions pour ce SHA.
+| Contrôle | Résultat |
+| --- | --- |
+| Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD local | `017487581c317f957ef7a96ff2f3d95450fcf9ab` |
+| HEAD distant | `017487581c317f957ef7a96ff2f3d95450fcf9ab` |
+| Tree | `b398725b2bbef59c295dbc3093f23a767f433994` |
+| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| merge-base HEAD / origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Worktree produit | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Statut | uniquement non suivi : `.tmp-sfia-review/` et `projects/sfia-studio-next/web/.tmp-sfia-review/` |
+| Branche documentaire | `origin/docs/next-openai-studio-convergence-20261126` = `2a003f0db9386daf9436f032aced1c870f8f3cf3` |
+| Handoff avant ce cycle | `origin/sfia/review-handoff` = `30601c08510f929eb0df09041b03a6b26859b70e` |
+| Worktree handoff | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023`, propre, branche `sfia/review-handoff` |
+| Checkout local `main` | `/Users/morris/Projects/sfia-workspace` est à `4b1a0580`, en retard sur `origin/main`. Les sources « sur main » ont été lues via `origin/main`, pas via ce checkout. |
 
-## 3. Constats confirmés
+Aucun nettoyage, stash, restauration ou suppression. Aucun commit produit : le candidat DEV distant existant est inchangé.
 
-Les trois constats de §11.3 sont confirmés dans 953a4af4 avant correction :
+Candidat réellement servi en RECETTE, distinct du HEAD DEV :
 
-- refreshDurablePilotage comparait la génération de navigation et params.projectId capturé par la closure.
-- refreshJournalContinuity et le GET projet pouvaient rejeter, et send traitait toute exception comme un ACK perdu.
-- La prélecture SAS06 passait à ready sur HTTP OK seul. Le titre « Préparation terminée » suivait la qualification même si le contexte n'était pas chargé, et un statut absent devenait PROPOSED. La carte faisait 816 px avec un padding calé sur 124 px.
+- Worktree `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-0ae9e1f7aaee`
+- HEAD détaché `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`
+- cwd du processus = `.../projects/sfia-studio-next/web`
+- BUILD_ID lu sur disque `p0S18hfVdGrMjGeNMGlbV`, mtime 2026-11-27 22:42:14 CET, avant le démarrage du processus
 
-## 4. Corrections
+## 3. Sources effectivement lues
 
-A. Chaque relecture durable ouvre une génération propre via openProjectionRead. L'application compare cette génération à la dernière, et le projet à projectIdRef, mis à jour pendant le rendu. Une lecture plus récente, même échouée, retire le droit d'appliquer une réponse plus ancienne. Le Journal est relu après reprise de mission, après qualification terminale, après réconciliation, et au retour sur Journal. Une lecture documentaire ciblée met à jour l'activité seulement si aucune relecture plus récente n'a commencé. Elle ne remplace pas la connaissance projet par le payload Journal.
+Méthode, depuis `origin/main` `997897fd` :
 
-B. refreshDurablePilotage, refreshJournalContinuity, refreshProjectThreadSnapshot et le chargement initial absorbent réseau, HTTP et parsing. Après un tour confirmé, une exception de relecture ne crée pas de pending et ne gèle pas les choix. Le résultat métier reste. La fraîcheur passe à non confirmée ou indisponible. Un ACK perdu avant confirmation métier conserve rememberPending. ProjectOverview n'affiche un zéro que pour un snapshot présent. unavailable n'est plus un chargement perpétuel. ProjectJournal signale une lecture indisponible même si des sujets existent, distingue les décisions non confirmées, et propose Relire.
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`, blob `3315bbae4757ad42255d16cba47d9e32be2a7842`, §4.3.0b (pré-check Next, ENV-01, versioning, STOP).
+- `prompts/templates/sfia-cycle-execution-template.md`, blob `f4fdb488fdf81fa9bf874c1c24c1a22d0cb296c1`, §2.0.H et §9.1.
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`, blob `675de2df07602d8f88d51ee03ddddd4ca4ebd2ea` (identité de la source ; pas de réécriture).
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`, blob `673545f945e0ba1e9e57647c0c316bbc46c1a402`.
+- `scripts/sfia/README.md`, blob `e0c5894b8a4f1cfefdc63d5f0fb51ef7f025ad9f`. Le publisher réellement invoqué est `scripts/sfia/publish-review-handoff.sh` du worktree produit.
+- CKC cycle 07 : aucun pilote détaillé. Fallback `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`, blob `aa574926dc6c597675f9fe9257f2820c2a11ed5e`. Guidance expérimentale uniquement. Le template v2.6 reste contractuel.
 
-C. La fenêtre fait 702×823 et se centre verticalement : à 1680×970 le padding haut est (970−823)/2 = 73,5 px. Tant que le contexte charge, le kicker, le titre et le lead sont ceux de la frame 1022:164. « Préparation terminée » exige un contexte validé, une qualification PROPOSED et la fin du délai d'affichage déjà existant. Un statut absent n'est pas converti en PROPOSED. La prélecture lit le corps et n'est ready que si l'identité projet correspond et que connaissance et activité sont présentes. Cette prélecture n'hydrate pas les surfaces du projet.
+Gouvernance Next, blobs identiques sur `origin/main` et sur le HEAD produit :
 
-## 5. Fichiers
+- `governance/environnements-recette-et-promotions.md`, blob `14b61f0d1265cf85fcca09b028dd09bd8c71597f`, politique v0.1, VALIDATED CONTENT BY MORRIS. ENV-01 REQUIRED pour ce cycle technique. Application : lecture et préparation, aucune mutation.
+- `governance/product-versioning.md`, blob `8bc93e0fafac0f981c446e978a37f5f93d183875`. Classe de ce cycle : préparation de configuration, NO RELEASE, STABLE NOT AVAILABLE.
+- `governance/SEF.md` sur le HEAD produit : SEF v0.2 VALIDATED BY MORRIS / R0-A, addendum SEF-01. En-tête et statut lus.
+- `governance/roadmap.md` : bannière factuelle du 22 novembre 2026 (Ensemble 08 mergé, ML5 non autorisé par cette fusion). Elle n'enregistre pas encore l'état programme R5/ML5 du suivi v0.8. Le statut programme utilisé est celui du suivi, pas une réécriture de la roadmap.
+- `governance/product-naming-conventions.md` : non mobilisé pour un nouveau nom. Pas de nouveau composant.
+- `cadrage/vision-cible/README.md` : non relu en détail. Ce cycle ne change ni le besoin ni l'UX. N/A de conception, justifié.
+- Décisions R4 / SEM : aucune décision de gouvernance relue ne qualifie v0.2 en RECETTE.
 
-Aucun fichier créé. 11 fichiers modifiés, liste dans le diff ci-dessous. Routes API et services propriétaires inchangés.
+Suivi opérationnel :
 
-## 6. Preuves
+- `construction/suivi-trajectoire-corrective-post-recette-equipeo.md`
+- ref `2a003f0db9386daf9436f032aced1c870f8f3cf3`
+- blob `d03a271a46d74f0941280b203573fab9382b30c6`
+- version v0.8
+- sections lues : §3 contrat L3, §9.1 qualification proportionnée, §13 arbitrage et préparation L3
 
-- Unitaires project-projection-sync et durable-refresh-guard : 16 tests PASS.
-- Build isolé STUDIO_E2E=1 : PASS, types de l'application inclus.
-- Playwright project-context-load.spec.ts sur :3101 / sfia_next_e2e, Turbopack, Nora substituée : PASS en 13,7 s. Le repère de contexte atteint done et l'accès au projet reste disponible.
-- git diff --check : PASS.
-- Le test sas06-responsive a été aligné sur 823 px et le centrage. Il n'a pas été rejoué : son helper attend encore le badge « deterministic-fixture », absent de l'UI. Ce n'est pas un PASS géométrique.
-- CI : aucune exécution.
-- PG : non requis, services inchangés. Preuves PG historiques non rejouées.
-- LIVE : NOT RUN.
+Diagnostic causal :
 
-## 7. Reports RECETTE
+- `sfia-review-handoff/latest-chatgpt-review.md` à `515561e7e5bf395907bf4ec0f4c9990a36dc4aa7`
+- blob `7dddb39b87405de30d997f2e8a6d4900ae56b1d2`
+- §4 Famille B MP-15, et fiches MP-14 / MP-15
 
-PROJ-REC-01, PROJ-REC-02 et PROJ-REC-03 restent ouverts. Ils ne sont pas des PASS. Les six DOC-REC du lot 1 restent ouverts.
+Contrats et preuves historiques :
 
-## 8. Réserves
+- `construction/ml5-cognitive-calibration-recommendation-20261126.md` : politique v0.1, lane DEV, « NON RECETTE ». La validation Morris du 26/11 ne qualifie pas RECETTE v0.2. Luna Low y est encore candidat, pas admis.
+- `construction/delivery-history.md`, entrée `DELIV-2026-11-26-ML5-WEB-PDF-FINALISATION` : v0.2 explicite, Luna Low expérimental DEV. Commit d'introduction du jeu v0.2 : `912ef30b40f2447a925f4182bc4961560eca810e` (2026-11-26 14:14 +0100).
+- `construction/ml5-recette-cutover-manifest-20261127.md` : manifeste historique du candidat `e8e6e069`, plus du candidat servi. Il marque l'allocation adaptative « admise » à partir des seules enveloppes 120 / 1M / 2M. Cette affirmation n'est pas une preuve d'admission v0.2.
+- `architecture-technique/allocation-cognitive-recherche-web-et-finops.md` et `conducteur-cognitif-et-production-nora.md` : non relus intégralement. La chaîne exécutable a été lue dans le code servi, cité plus bas. `construction/convergence-openai-studio/contrat-technique.md` et `construction/recette-metier-ml5-e2e-post-correctif-20261127.md` : non utilisés comme preuve d'admission ; le diagnostic §4 et le code identique suffisent. Pas de nouveau diagnostic transverse.
 
-- Pas de parcours navigateur d'un projet déjà peuplé, ni d'un GET en échec après un POST acquitté. La séparation est couverte par turnProjectionRefreshOutcome et par le catch de send, qui appelle cette fonction.
-- Pas de F2. La géométrie 823 px et le centrage sont dans le composant et dans le test, le test n'a pas été exécuté.
-- Webpack canonique et tsc global hors lot, non revendiqués.
+Code lu, blobs identiques entre DEV `01748758` et RECETTE `0ae9e1f7` :
 
-## 9. Fake/Real
+| Fichier | Blob |
+| --- | --- |
+| `web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts` | `a526b0fd688d971345e6d6927dcbe4a18c8c5509` |
+| `web/src/domains/conversation/cognitive-resources/resource-admission.ts` | `b4ab0dd7ac8d9ab1948db2dc20a11119d4215f18` |
+| `web/tests/unit/ml5-cognitive-resources.test.ts` | `68a5c3eb259f8a582fca8784a5aa49f445fe88e5` |
 
-Règles déterministes sur les fonctions branchées. Navigateur en fixture, base sfia_next_e2e. RECETTE non mutée.
+Chaîne également lue : `cognitive-policy.ts` (`admissionModeFromEnv`, `resolveAdmittedResource`), `cognitive-conductor.ts` (appel `buildCognitivePolicy`), `run-nora-cognitive-turn.ts` (trace proposed / admitted), `nora-adapter.ts` (persistance `modelApplied` / `effortApplied` = `UNVERIFIED`), `provider-emission-frontier.ts` (`admissionModeFromEnv`, défaut operational).
 
-## 10. Content coverage
+## 4. Identités d'environnement
 
-Le diff complet du commit, depuis 953a4af4, est reproduit ci-dessous. Aucun fichier modifié n'est laissé en N/A.
+Aucune mutation. Les deux serveurs écoutaient encore aux mêmes PID à la fin du préflight.
 
-## 11. Verdict
+| | DEV | RECETTE |
+| --- | --- | --- |
+| Port | 127.0.0.1:3100 | 127.0.0.1:3200 |
+| PID serveur | 55011 | 77113 |
+| PID parent | 54968, PPID 1 | 77087, PPID 1 |
+| Commande | `npm exec next start -p 3100 -H 127.0.0.1` | `npm exec next start -H 127.0.0.1 -p 3200` |
+| Démarrage | 2026-11-27 22:18:46 CET | 2026-11-27 22:42:48 CET |
+| cwd | worktree produit `.../web` | worktree `0ae9e1f7` `.../web` |
+| Gestionnaire | pas un LaunchAgent listé ; parent launchd | `com.sfia.studio.next.recette.ml4d-ux004` |
+| PostgreSQL | Docker `sfia-next-dev-pg`, 127.0.0.1:5433 | Docker `sfia-next-recette-pg`, 127.0.0.1:5434 |
+| Base | `sfia_next_dev` | `sfia_next_recette_ml4` |
+| Rôle conteneur | `sfia_next_dev` | `sfia_next_recette_ml4` |
+| Schéma | non ré-audité (hors effet) | table `derived_embedding_chunks` présente ; seul script `027_derived_embedding_chunks.sql` existe au-delà de 026. Marqueur 027 du manifeste, sans nouvelle migration. |
+| SHA annoncé au lancement | non exporté par un script observé | script : `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` |
+| BUILD | fichier `.next/BUILD_ID` = `31044BhyAFqJ_OpeQJS_K`, mtime 22:38:53, donc APRÈS le démarrage de 55011. Ce fichier ne prouve pas le build chargé par le PID. | `p0S18hfVdGrMjGeNMGlbV`, mtime avant le démarrage, relu identique |
 
-READY WITH RESERVES
+`ps -Eww` sur 55011, 54968, 77113 et 77087 ne contient aucun des paramètres cognitifs (sortie de 83 à 102 octets). L'environnement du processus n'est pas lisible par ce moyen sur cette machine. L'effectif est donc inféré de la chaîne de lancement, pas lu dans la mémoire du processus.
 
-Les trois défauts de sortie technique sont corrigés et publiés. La qualification comportementale d'un projet riche, d'une course réelle et de la géométrie SAS06 rejouée reste en RECETTE.
+## 5. Chaîne de priorité et valeurs non sensibles
 
-## 12. Diff utile
+### RECETTE — chaîne réelle
 
+1. LaunchAgent `~/Library/LaunchAgents/com.sfia.studio.next.recette.ml4d-ux004.plist`. Seule variable : `PATH`. Aucune variable cognitive.
+2. Programme : `~/.local/share/sfia-studio-next/bin/start-recette-ml5.sh` (mtime 2026-11-27 22:42:39 CET, neuf secondes avant le PID).
+3. Le script fait `set -a; source ~/.config/sfia-studio-next/recette/.env.local; set +a`, puis écrase explicitement `STUDIO_LANE`, `PORT`, `NODE_ENV`, `SFIA_SOURCE_SHA`, les flags WEB, et `SFIA_BUILD_ID` depuis `.next/BUILD_ID`.
+4. Le script n'écrit ni ne supprime `SFIA_COG_PROVISIONAL_POLICY` ni `SFIA_COG_PROVISIONAL_RECETTE_ADMIT`.
+5. Le répertoire web servi ne contient aucun `.env`, `.env.local`, `.env.production` ou `.env.production.local`. Next ne peut pas ajouter ces clés au démarrage.
+6. Next ne remplace pas une variable déjà présente. Ici les deux clés ne sont présentes nulle part dans la chaîne.
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md
-index 90ae4961..c3894ea9 100644
---- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md
-+++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md
-@@ -368,4 +368,6 @@ Ce travail a un **blast radius D2/D3/D4/D5/D6** et dépasse une pure transpositi
+Fichier source : `~/.config/sfia-studio-next/recette/.env.local`, mtime 2026-11-27 10:48:01 CET, donc avant le démarrage, et non modifié depuis. Les sauvegardes historiques du même dossier ont été inventoriées par noms de clés seulement : aucune ne contient les deux clés d'admission.
 
- ### 10.3. Écart autorisé — chargement du contexte, 28 novembre 2026
+Le fichier porte encore `SFIA_SOURCE_SHA=e8e6e06961fa0a7224db3badb3b591b8be8046ac`. Le script l'écrase avec `0ae9e1f7…`. Lire le fichier seul induit en erreur sur le SHA. Cela ne change pas l'admission : les deux clés restent absentes des deux côtés.
 
--Morris autorise, pour le lot 2, un quatrième repère dans l'écran de préparation existant : chargement du contexte et de la continuité projet. Cet écart ne remplace pas la maquette trois étapes et ne prétend pas à une fidélité géométrique F2 de la carte 702×726. Le repère est lié à la lecture réelle du projet déjà créé. Il ne retarde pas la qualification, ne bloque pas « Accéder au projet », et ne constitue pas une nouvelle connaissance. La réouverture d'un projet existant reste un chargement, pas une nouvelle création.
-+Morris autorise, pour le lot 2, un quatrième repère dans l'écran de préparation existant : chargement du contexte et de la continuité projet. Le repère est lié à la lecture réelle du projet déjà créé. Il ne retarde pas la qualification, ne bloque pas « Accéder au projet », et ne constitue pas une nouvelle connaissance. La réouverture d'un projet existant reste un chargement, pas une nouvelle création.
-+
-+Complément du 28 novembre 2026 : la frame Figma 1022:164 a été mise à jour. La fenêtre de référence observée est 702×823, centrée verticalement dans un viewport 1680×970. L'état affiché par cette frame est le chargement du contexte, avec le titre « Projet créé. Préparation de ton espace de travail. » « Préparation terminée » n'est annoncé que si le contexte est validé et la qualification proposée. Ce n'est pas un verdict F2.
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index f51bfad1..b1b07b4d 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -5587,4 +5587,5 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- - **Schéma** : aucun changement · aucune migration
- - **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
- - **Statut** : DEV CANDIDATE — NOT ACCEPTED — NOT ADOPTED
-+- **Complément** : relectures coordonnées par génération et identité courante, erreur de relecture séparée d'un effet déjà confirmé, fenêtre SAS06 alignée sur la frame 1022:164 (702×823, état de chargement du contexte). Le SHA de ce complément est reporté dans le Review Pack.
+### DEV — chaîne réelle
 
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index 3e1cc5d4..1a5e0178 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -6,6 +6,7 @@ import { SafeMarkdown } from "@/components/SafeMarkdown";
- import { PreparationConversation } from "@/components/figma/PreparationConversation";
- import { PreparationProposal } from "@/components/figma/PreparationProposal";
- import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
-+import { contextPreloadVerdict } from "@/lib/project-projection-sync";
- import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
- import { ProjectJournal } from "@/components/figma/ProjectJournal";
- import {
-@@ -128,9 +129,9 @@ export default function PreparationPage() {
-   const [createProgressQualification, setCreateProgressQualification] =
-     useState<InitialQualificationProjection | null>(null);
-   const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
--  const [createContextLoad, setCreateContextLoad] = useState<"loading" | "ready" | "failed">(
--    "loading",
--  );
-+  const [createContextLoad, setCreateContextLoad] = useState<
-+    "loading" | "ready" | "partial" | "failed"
-+  >("loading");
-   /** RB-06 — UX min presentation for steps 2 and 3 (backend not delayed). Documented: 1200 ms. */
-   const SAS_STEP_MIN_MS = 1200;
-   const createProgressEnteredAtRef = useRef<number>(0);
-@@ -175,9 +176,26 @@ export default function PreparationPage() {
-     let cancelled = false;
-     setCreateContextLoad("loading");
-     void fetch(`/api/projects/${pendingNavigateProjectId}`)
--      .then((res) => {
-+      .then(async (res) => {
-+        if (cancelled) return;
-+        let body: {
-+          project?: { id?: string | null } | null;
-+          knowledge?: unknown;
-+          activity?: unknown;
-+        } | null = null;
-+        try {
-+          body = (await res.json()) as typeof body;
-+        } catch {
-+          body = null;
-+        }
-         if (cancelled) return;
--        setCreateContextLoad(res.ok ? "ready" : "failed");
-+        setCreateContextLoad(
-+          contextPreloadVerdict({
-+            expectedProjectId: pendingNavigateProjectId,
-+            httpOk: res.ok,
-+            body,
-+          }),
-+        );
-       })
-       .catch(() => {
-         if (!cancelled) setCreateContextLoad("failed");
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 604649a7..7fde3860 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -45,10 +45,14 @@ import {
-   type RevisionRow,
-   revisionCurrencyLabel,
- } from "@/components/figma/DocumentSurfaces";
--import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
-+import {
-+  openProjectionRead,
-+  projectionReadApplies,
-+} from "@/lib/durable-refresh-guard";
- import {
-   activityAfterProjectRead,
-   journalMayReplaceProjectKnowledge,
-+  turnProjectionRefreshOutcome,
-   type ActivityFreshness,
-   type ActivitySnapshot,
- } from "@/lib/project-projection-sync";
-@@ -367,6 +371,7 @@ export default function ProjectPage() {
-     openPointsCount: number;
-   } | null>(null);
-   const [activityFreshness, setActivityFreshness] = useState<ActivityFreshness>("loading");
-+  const projectActivityRef = useRef<ActivitySnapshot>(null);
-   const [journalContinuity, setJournalContinuity] = useState<"loading" | "ready" | "unavailable">(
-     "loading",
-   );
-@@ -413,6 +418,8 @@ export default function ProjectPage() {
-   const pilotIdRef = useRef<string | null>(null);
-   const preparationIdRef = useRef<string | null>(null);
-   const projectIdRef = useRef(params.projectId);
-+  projectIdRef.current = params.projectId;
-+  const projectionReadGenRef = useRef(0);
-   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
-   /** L1.5 — invalidate in-flight activity polls when a new send starts or ends. */
-   const activityPollEpochRef = useRef(0);
-@@ -587,6 +594,7 @@ export default function ProjectPage() {
+Pas de LaunchAgent dédié. `next start` a pour cwd le web du worktree produit, qui contient `.env.local` (mtime 2026-11-27 07:16:09 CET, avant le PID 22:18). Next charge ce fichier pour les clés absentes de l'environnement du lanceur. Le lanceur n'a pas de script qui écrase la politique. L'environnement du PID reste non lisible.
 
-   async function refreshJournalContinuity(projectId: string) {
-     const gen = ++journalReqRef.current;
-+    try {
-     const res = await fetch(`/api/projects/${projectId}/journal`);
-     if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
-     if (!res.ok) {
-@@ -649,6 +657,16 @@ export default function ProjectPage() {
-     setJournalSources(body.sourceLinks ?? []);
-     setJournalContradictions(body.contradictions ?? []);
-     setJournalContinuity("ready");
-+    } catch {
-+      if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
-+      setJournalContinuity("unavailable");
-+    }
-+  }
-+
-+  async function revalidateOwnedProjections(projectId?: string) {
-+    const id = projectId ?? projectIdRef.current;
-+    await refreshDurablePilotage({ projectId: id });
-+    await refreshJournalContinuity(id);
-   }
+### Tableau comparé
 
-   useEffect(() => {
-@@ -1442,7 +1460,6 @@ export default function ProjectPage() {
+| Clé | DEV fichier `.env.local` | RECETTE après source + script |
+| --- | --- | --- |
+| STUDIO_LANE | DEV | RECETTE |
+| SFIA_SOURCE_SHA | ABSENT | effectif de lancement `0ae9e1f7…` (fichier stale `e8e6e069…` écrasé) |
+| SFIA_BUILD_ID | ABSENT du fichier ; build du PID NON OBSERVÉ | `p0S18hfVdGrMjGeNMGlbV` |
+| SFIA_COG_PROFILE_TYPE | OPERATIONAL_PROVISIONAL | OPERATIONAL_PROVISIONAL |
+| SFIA_COG_PROVISIONAL_POLICY | v0.2 | ABSENT |
+| SFIA_COG_PROVISIONAL_RECETTE_ADMIT | ABSENT | ABSENT |
+| SFIA_COGNITIVE_ADMISSION_MODE | operational | ABSENT, donc défaut code `operational` |
+| SFIA_COGNITIVE_MAX_SEGMENTS | 120 | 120 |
+| SFIA_COGNITIVE_REEVAL_TOKENS | 1000000 | 1000000 |
+| SFIA_COGNITIVE_MAX_TOKENS | 2000000 | 2000000 |
 
-   function selectSurface(next: Surface) {
-     surfaceNavGenRef.current += 1;
--    const navGen = surfaceNavGenRef.current;
-     const projectIdAtNav = params.projectId;
-     pendingSurfaceRef.current = next;
-     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-@@ -1465,9 +1482,12 @@ export default function ProjectPage() {
-     }
-     // E07 — revalidate durable pilotage on surface change (GET only, no métier mutation).
-     // Stale-response guard lives inside refreshDurablePilotage (before setState).
--    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
-+    void refreshDurablePilotage({ projectId: projectIdAtNav }).catch(() => {
-       /* best-effort — navigation must stay non-blocking */
-     });
-+    if (next === "journal") {
-+      void refreshJournalContinuity(projectIdAtNav);
-+    }
-   }
+`SFIA_COG_PROFILE_TYPE=OPERATIONAL_PROVISIONAL` n'ouvre pas la politique. Les plafonds 120 / 1M / 2M ne l'ouvrent pas non plus.
 
-   function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
-@@ -1808,83 +1828,80 @@ export default function ProjectPage() {
-     }
-   }
+### Disciplines
 
--  async function refreshDurablePilotage(opts?: { generation?: number; projectId?: string }) {
--    const request = {
--      generation: opts?.generation ?? surfaceNavGenRef.current,
--      projectId: opts?.projectId ?? params.projectId,
--    };
-+  async function refreshDurablePilotage(opts?: { projectId?: string }) {
-+    const projectId = opts?.projectId ?? projectIdRef.current;
-+    const opened = openProjectionRead({
-+      currentGeneration: projectionReadGenRef.current,
-+      projectId,
-+    });
-+    projectionReadGenRef.current = opened.generation;
-     const stillApplicable = () =>
--      shouldApplyDurableRefresh({
--        request,
--        currentGeneration: surfaceNavGenRef.current,
--        currentProjectId: params.projectId,
-+      projectionReadApplies({
-+        request: opened.request,
-+        latestGeneration: projectionReadGenRef.current,
-+        currentProjectId: projectIdRef.current,
-       });
-+    const markUnread = () => {
-+      if (!stillApplicable()) return;
-+      setActivityFreshness(
-+        activityAfterProjectRead({
-+          previous: projectActivityRef.current,
-+          incoming: undefined,
-+          httpOk: false,
-+          snapshotPresent: false,
-+        }).freshness,
-+      );
-+    };
+| État | DEV | RECETTE |
+| --- | --- | --- |
+| CONFIGURED | v0.2, sans jeton RECETTE (non requis en DEV) | policy ABSENT, admit ABSENT, plafonds présents |
+| EFFECTIVE | inféré : fichier antérieur au PID, chargé par `next start`. Mémoire processus NON OBSERVÉE. | inféré : chaîne LaunchAgent → script → fichier, fichiers antérieurs au PID et inchangés. Mémoire processus NON OBSERVÉE. Résolution : `legacy_sol`. |
+| ADMITTED | couples v0.2 si la politique chargée est bien v0.2 | non. Provisional inactif. Sol low/medium/high restent le seul couloir opérationnel. |
+| AVAILABLE | le code du blob `a526b0fd` sait activer v0.2 | le même blob est dans le candidat servi ; il n'est pas activé |
+| LIVE EXERCISED | non demandé | NOT RUN |
+| USER QUALIFIED | la calibration du 26/11 est v0.1 DEV, pas une qualification RECETTE v0.2 | non |
 
--    // Prefer full project GET so surfaces (Projet / Trajectoire / CKI) share one durable snapshot.
--    const projRes = await fetch(`/api/projects/${request.projectId}`);
--    // Guard BEFORE any React mutation — out-of-order GETs must not clobber newer state.
--    if (!stillApplicable()) return;
--
--    if (projRes.ok) {
--      const pj = (await projRes.json()) as {
--        pilotage?: PilotageProjection | null;
--        messages?: Msg[];
--        documents?: Doc[];
--        knowledge?: Knowledge | null;
--        activity?: ActivitySnapshot | null;
--      };
-+    try {
-+      const projRes = await fetch(`/api/projects/${projectId}`);
-       if (!stillApplicable()) return;
--      if (pj.pilotage) {
--        setPilotageProjection(pj.pilotage);
--      }
--      if (Array.isArray(pj.messages)) {
--        setMessages(pj.messages);
--      }
--      if (Array.isArray(pj.documents)) setDocuments(pj.documents);
--      if (pj.knowledge !== undefined) setKnowledge(pj.knowledge ?? null);
--      const hasActivity = Object.prototype.hasOwnProperty.call(pj, "activity");
--      const applied = activityAfterProjectRead({
--        previous: projectActivity,
--        incoming: hasActivity ? (pj.activity ?? null) : projectActivity,
--        httpOk: true,
--      });
--      setProjectActivity(applied.activity);
--      setActivityFreshness(applied.freshness);
--      const cycle = pj.pilotage?.cycle;
--      if (cycle?.status === "ACTIVE") {
--        setPilotageStatus((prev) =>
--          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
--            ? prev
--            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
--        );
-+      if (projRes.ok) {
-+        const pj = (await projRes.json()) as {
-+          pilotage?: PilotageProjection | null;
-+          messages?: Msg[];
-+          documents?: Doc[];
-+          knowledge?: Knowledge | null;
-+          activity?: ActivitySnapshot | null;
-+        };
-+        if (!stillApplicable()) return;
-+        if (pj.pilotage) setPilotageProjection(pj.pilotage);
-+        if (Array.isArray(pj.messages)) setMessages(pj.messages);
-+        if (Array.isArray(pj.documents)) setDocuments(pj.documents);
-+        if (pj.knowledge !== undefined) setKnowledge(pj.knowledge ?? null);
-+        const hasActivity =
-+          Object.prototype.hasOwnProperty.call(pj, "activity") && pj.activity != null;
-+        const applied = activityAfterProjectRead({
-+          previous: projectActivityRef.current,
-+          incoming: hasActivity ? pj.activity : undefined,
-+          httpOk: true,
-+          snapshotPresent: hasActivity,
-+        });
-+        if (hasActivity) {
-+          projectActivityRef.current = applied.activity;
-+          setProjectActivity(applied.activity);
-+        }
-+        setActivityFreshness(applied.freshness);
-+        const cycle = pj.pilotage?.cycle;
-+        if (cycle?.status === "ACTIVE") {
-+          setPilotageStatus((prev) =>
-+            prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
-+              ? prev
-+              : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
-+          );
-+        }
-+        return;
-       }
--      return;
--    }
--
--    setActivityFreshness(
--      activityAfterProjectRead({
--        previous: projectActivity,
--        incoming: undefined,
--        httpOk: false,
--      }).freshness,
--    );
--
--    // Fallback: dedicated pilotage route (same applicability gate)
--    const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
--    if (!stillApplicable()) return;
--    if (only.ok) {
-+      markUnread();
-+      const only = await fetch(`/api/projects/${projectId}/pilotage`);
-+      if (!stillApplicable()) return;
-+      if (!only.ok) return;
-       const pj = await only.json();
-       if (!stillApplicable()) return;
-       const pilotage = (pj.pilotage ?? pj) as PilotageProjection;
-       setPilotageProjection(pilotage);
--      const cycle = pilotage?.cycle;
--      if (cycle?.status === "ACTIVE") {
--        setPilotageStatus((prev) =>
--          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
--            ? prev
--            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
--        );
--      }
-+    } catch {
-+      markUnread();
-     }
-   }
+## 6. Confirmation de MP15
 
-@@ -1966,14 +1983,36 @@ export default function ProjectPage() {
-   }
+Le pré-check ChatGPT est confirmé localement.
 
-   async function refreshProjectThreadSnapshot(): Promise<Msg[]> {
--    const proj = await fetch(`/api/projects/${params.projectId}`);
--    if (!proj.ok) return [];
--    const pj = await proj.json();
--    setDocuments(pj.documents ?? []);
--    setKnowledge(pj.knowledge ?? null);
--    const msgs = Array.isArray(pj.messages) ? (pj.messages as Msg[]) : [];
--    if (msgs.length) setMessages(msgs);
--    return msgs;
-+    const projectId = projectIdRef.current;
-+    const opened = openProjectionRead({
-+      currentGeneration: projectionReadGenRef.current,
-+      projectId,
-+    });
-+    projectionReadGenRef.current = opened.generation;
-+    const still = () =>
-+      projectionReadApplies({
-+        request: opened.request,
-+        latestGeneration: projectionReadGenRef.current,
-+        currentProjectId: projectIdRef.current,
-+      });
-+    try {
-+      const proj = await fetch(`/api/projects/${projectId}`);
-+      if (!still() || !proj.ok) return [];
-+      const pj = await proj.json();
-+      if (!still()) return [];
-+      setDocuments(pj.documents ?? []);
-+      setKnowledge(pj.knowledge ?? null);
-+      if (pj.activity) {
-+        projectActivityRef.current = pj.activity;
-+        setProjectActivity(pj.activity);
-+        setActivityFreshness("ready");
-+      }
-+      const msgs = Array.isArray(pj.messages) ? (pj.messages as Msg[]) : [];
-+      if (msgs.length) setMessages(msgs);
-+      return msgs;
-+    } catch {
-+      return [];
-+    }
-   }
+Sans `SFIA_COG_PROVISIONAL_POLICY`, `resolveProvisionalPolicy` retourne `legacy_sol`, `provisionalActive=false`, code `COG_POLICY_ABSENT_FALLBACK_LEGACY_SOL`. C'est le cas de la chaîne RECETTE actuelle.
 
-   async function tryClearOrphanPendingFromThread(
-@@ -1991,7 +2030,7 @@ export default function ProjectPage() {
-       pending,
-       noraMode: "thread-orphan-recovery",
-     });
--    await refreshDurablePilotage();
-+    await revalidateOwnedProjections();
-     return true;
-   }
+RECETTE n'active v0.2 que si la politique vaut `v0.2` et si l'admit vaut exactement `qualified-v0.2` ou `qualified:v0.2`. Le jeton `qualified` seul est refusé (`COG_POLICY_RECETTE_ADMIT_BARE_QUALIFIED_REJECTED`). `qualified-v0.1` ne satisfait pas une politique v0.2.
 
-@@ -2033,7 +2072,7 @@ export default function ProjectPage() {
-           setChoiceFrozen(true);
-           setNoraActivity("error");
-         }
--        await refreshDurablePilotage();
-+        await revalidateOwnedProjections();
-         return;
-       }
+`admitModelEffort` en mode operational, politique inactive, n'admet que Sol low, medium et high. Terra et Luna sont refusés. Le défaut opérationnel redevient `gpt-6.2-sol` @ `medium`.
 
-@@ -2063,7 +2102,7 @@ export default function ProjectPage() {
-           noraMode: body.noraMode,
-         });
-         await refreshProjectThreadSnapshot();
--        await refreshDurablePilotage();
-+        await revalidateOwnedProjections();
-         if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
-           if (status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
-             setNoraActivity("preparing");
-@@ -2106,7 +2145,7 @@ export default function ProjectPage() {
-           noraMode: String(j.noraMode ?? ""),
-         });
-         await refreshProjectThreadSnapshot();
--        await refreshDurablePilotage();
-+        await revalidateOwnedProjections();
-       } else {
-         const cat = String(j.errorCategory ?? "");
-         if (retry.status === 409 && cat.toUpperCase() === "TURN_IN_PROGRESS") {
-@@ -2133,6 +2172,7 @@ export default function ProjectPage() {
-   useEffect(() => {
-     let cancelled = false;
-     setProjectLoadState("loading");
-+    projectActivityRef.current = null;
-     setProjectActivity(null);
-     setActivityFreshness("loading");
-     setUnavailableKind(null);
-@@ -2148,6 +2188,7 @@ export default function ProjectPage() {
-     });
+Aucun changement de code n'est nécessaire pour lever MP15. Le défaut est une clé absente au démarrage, pas un moteur à reconstruire. Aucune réécriture n'est demandée.
 
-     async function load() {
-+      try {
-       const res = await fetch(`/api/projects/${params.projectId}`);
-       if (cancelled) return;
-       if (res.status === 401) {
-@@ -2238,8 +2279,10 @@ export default function ProjectPage() {
-       setKnowledge(j.knowledge ?? null);
-       setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
-       setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
--      setProjectActivity(j.activity ?? null);
--      setActivityFreshness("ready");
-+      const loadedActivity = j.activity ?? null;
-+      projectActivityRef.current = loadedActivity;
-+      setProjectActivity(loadedActivity);
-+      setActivityFreshness(loadedActivity ? "ready" : "unavailable");
-       const nextPrepId = j.preparation?.id ?? null;
-       setPreparationId(nextPrepId);
-       preparationIdRef.current = nextPrepId;
-@@ -2499,17 +2542,26 @@ export default function ProjectPage() {
-             documentSave?: { documentId?: string; status?: string } | null;
-           };
-           if (resume.recovered) {
-+            const readGen = projectionReadGenRef.current;
-             const refreshed = await fetch(`/api/projects/${params.projectId}`);
-             if (refreshed.ok) {
-               const rj = await refreshed.json();
--              if (cancelled) return;
--              setMessages(rj.messages ?? []);
--              setDocuments(rj.documents ?? []);
--              setKnowledge(rj.knowledge ?? null);
-+              if (cancelled || projectIdRef.current !== params.projectId) return;
-+              if (projectionReadGenRef.current === readGen) {
-+                setMessages(rj.messages ?? []);
-+                setDocuments(rj.documents ?? []);
-+                setKnowledge(rj.knowledge ?? null);
-+                if (rj.activity) {
-+                  projectActivityRef.current = rj.activity;
-+                  setProjectActivity(rj.activity);
-+                  setActivityFreshness("ready");
-+                }
-+              }
-               if (resume.documentSave?.documentId) {
-                 setStatusHint("Fil durable · reprise de mission documentée");
-               }
-             }
-+            await refreshJournalContinuity(params.projectId);
-           }
-         }
-       } catch {
-@@ -2518,6 +2570,13 @@ export default function ProjectPage() {
+Le manifeste du 27/11 qui qualifie l'allocation « admise » parce que les enveloppes 120 / 1M / 2M sont posées est trop large. Ces enveloppes sont bien présentes aujourd'hui, et la politique v0.2 ne l'est pas.
 
-       // Mark ready only after surface sync from this load has been applied.
-       if (!cancelled) setProjectLoadState("ready");
-+      } catch {
-+        if (cancelled || projectIdRef.current !== params.projectId) return;
-+        setActivityFreshness("unavailable");
-+        setJournalContinuity("unavailable");
-+        setUnavailableKind("temporary");
-+        setProjectLoadState("ready");
-+      }
-     }
-     void load();
-     return () => {
-@@ -2570,15 +2629,28 @@ export default function ProjectPage() {
-           setInitialQualification(body.initialQualification);
-         }
-       }
-+      const readGen = projectionReadGenRef.current;
-       const res = await fetch(`/api/projects/${params.projectId}`);
--      if (!res.ok || cancelled) return;
-+      if (!res.ok || cancelled || projectIdRef.current !== params.projectId) return;
-       const j = await res.json();
-+      if (projectionReadGenRef.current !== readGen) return;
-       setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
-       if (j.initialQualification) {
-         missingQualificationAttemptsRef.current = 0;
-         setInitialQualification(j.initialQualification as InitialQualificationProjection);
-       }
-       setMessages((j.messages ?? []) as Msg[]);
-+      if (j.activity) {
-+        projectActivityRef.current = j.activity;
-+        setProjectActivity(j.activity);
-+        setActivityFreshness("ready");
-+      }
-+      const qStatus = String(
-+        (j.initialQualification as InitialQualificationProjection | null)?.status ?? "",
-+      );
-+      if (qStatus === "PROPOSED" || qStatus === "CLARIFICATION" || qStatus === "FAILED") {
-+        await refreshJournalContinuity(params.projectId);
-+      }
-     };
-     intervalId = window.setInterval(() => void tick(), 2000);
-     void tick();
-@@ -2593,7 +2665,6 @@ export default function ProjectPage() {
-   // + generation bump so concurrent/stale project GETs cannot clobber a newer surface.
-   useEffect(() => {
-     surfaceNavGenRef.current += 1;
--    const navGen = surfaceNavGenRef.current;
-     const projectIdAtNav = params.projectId;
-     const qSurface = parseSurface(searchParams.get("surface"));
-     const qDocId = searchParams.get("documentId");
-@@ -2604,9 +2675,12 @@ export default function ProjectPage() {
-     if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
-       clearProjectSurfaceNavIntent(params.projectId, qSurface);
-     }
--    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
-+    void refreshDurablePilotage({ projectId: projectIdAtNav }).catch(() => {
-       /* best-effort — URL surface sync must stay non-blocking */
-     });
-+    if (qSurface === "journal") {
-+      void refreshJournalContinuity(projectIdAtNav);
-+    }
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [searchParams]);
+## 7. Matrice DET
 
-@@ -2682,11 +2756,21 @@ export default function ProjectPage() {
-           `${j.reason ?? "BASE_STALE"} — nouvelle base présentée ; brouillon conservé. Rebasage explicite requis.`,
-         );
-         // Refresh inspect (new base) but DO NOT overwrite reviseDraft.
-+        const docReadGen = projectionReadGenRef.current;
-         const proj = await fetch(`/api/projects/${params.projectId}`);
-         if (proj.ok) {
-           const pj = await proj.json();
-           const docs = (pj.documents ?? []) as Doc[];
-           setDocuments(docs);
-+          if (
-+            pj.activity &&
-+            docReadGen === projectionReadGenRef.current &&
-+            projectIdRef.current === params.projectId
-+          ) {
-+            projectActivityRef.current = pj.activity;
-+            setProjectActivity(pj.activity);
-+            setActivityFreshness("ready");
-+          }
-           const fresh = docs.find((d) => d.document.id === inspect.document.id);
-           if (fresh) {
-             setInspect(fresh);
-@@ -2697,11 +2781,21 @@ export default function ProjectPage() {
-       }
+Exécutée le 2026-11-28 hors processus RECETTE, avec des objets d'environnement explicites passés aux fonctions produit. Aucune variable réelle n'a été écrite. Aucune émission réseau.
 
-       if (resultStatus === "AVAILABLE") {
-+        const docReadGen = projectionReadGenRef.current;
-         const proj = await fetch(`/api/projects/${params.projectId}`);
-         if (proj.ok) {
-           const pj = await proj.json();
-           const docs = (pj.documents ?? []) as Doc[];
-           setDocuments(docs);
-+          if (
-+            pj.activity &&
-+            docReadGen === projectionReadGenRef.current &&
-+            projectIdRef.current === params.projectId
-+          ) {
-+            projectActivityRef.current = pj.activity;
-+            setProjectActivity(pj.activity);
-+            setActivityFreshness("ready");
-+          }
-           const fresh = docs.find((d) => d.document.id === inspect.document.id);
-           if (fresh) {
-             setInspect(fresh);
-@@ -2723,11 +2817,21 @@ export default function ProjectPage() {
-           correlationKey,
-         );
-         if (recon.found && recon.status === "AVAILABLE") {
-+          const docReadGen = projectionReadGenRef.current;
-           const proj = await fetch(`/api/projects/${params.projectId}`);
-           if (proj.ok) {
-             const pj = await proj.json();
-             const docs = (pj.documents ?? []) as Doc[];
-             setDocuments(docs);
-+            if (
-+              pj.activity &&
-+              docReadGen === projectionReadGenRef.current &&
-+              projectIdRef.current === params.projectId
-+            ) {
-+              projectActivityRef.current = pj.activity;
-+              setProjectActivity(pj.activity);
-+              setActivityFreshness("ready");
-+            }
-             const fresh = docs.find((d) => d.document.id === inspect.document.id);
-             if (fresh) {
-               setInspect(fresh);
-@@ -2964,6 +3068,7 @@ export default function ProjectPage() {
-     if (!fromChoice) {
-       setDraft("");
-     }
-+    let metierConfirmed = false;
-     try {
-       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
-         method: "POST",
-@@ -3305,8 +3410,6 @@ export default function ProjectPage() {
-             );
-           }
-         }
--        await refreshDurablePilotage();
--        await refreshJournalContinuity(params.projectId);
-         setNoraActivity(
-           j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
-             ? "error"
-@@ -3322,6 +3425,21 @@ export default function ProjectPage() {
-         } else {
-           setChoiceFrozen(false);
-         }
-+        metierConfirmed = true;
-+        try {
-+          await revalidateOwnedProjections();
-+        } catch {
-+          if (
-+            turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }) ===
-+            "preserve-metier"
-+          ) {
-+            setActivityFreshness((prev) => (prev === "ready" ? "stale" : prev));
-+            setJournalContinuity((prev) => (prev === "loading" ? "unavailable" : prev));
-+            setStatus(
-+              "Effet enregistré. La relecture du projet n’a pas abouti — vous pouvez relire sans relancer Nora.",
-+            );
-+          }
-+        }
-       } else {
-         // ACK lost / HTTP error — KEEP choices frozen (server may have applied).
-         // TURN_IN_PROGRESS: this clientTurnKey was NOT reserved — never orphan-remember it.
-@@ -3351,12 +3469,23 @@ export default function ProjectPage() {
-         }
-       }
-     } catch {
--      // Network loss after click: fail closed. Do not select a head from another
--      // operation and do not replay a conservation whose result is unknown.
--      setChoiceFrozen(true);
--      rememberPending(buildPending());
--      setNoraActivity("error");
--      setStatus("échec réseau — intention de tour conservée");
-+      if (
-+        metierConfirmed &&
-+        turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }) ===
-+          "preserve-metier"
-+      ) {
-+        setActivityFreshness((prev) => (prev === "ready" ? "stale" : prev));
-+        setJournalContinuity((prev) => (prev === "loading" ? "unavailable" : prev));
-+        setStatus(
-+          "Effet enregistré. La relecture du projet n’a pas abouti — vous pouvez relire sans relancer Nora.",
-+        );
-+      } else {
-+        // Network loss before a confirmed turn: fail closed.
-+        setChoiceFrozen(true);
-+        rememberPending(buildPending());
-+        setNoraActivity("error");
-+        setStatus("échec réseau — intention de tour conservée");
-+      }
-     } finally {
-       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
-       activityPollEpochRef.current += 1;
-@@ -4187,6 +4316,9 @@ export default function ProjectPage() {
-           openPoints={knowledge?.openPoints ?? []}
-           continuityLoading={journalContinuity === "loading" || activityFreshness === "loading"}
-           continuityUnavailable={journalContinuity === "unavailable"}
-+          onRetryContinuity={() => {
-+            void refreshJournalContinuity(projectIdRef.current);
-+          }}
-           decisions={journalDecisions}
-           restrictions={journalRestrictions}
-           sourceLinks={journalSources}
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-index ba67f5eb..bf820a41 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-@@ -301,6 +301,7 @@ export function ProjectJournal(props: {
-   /** True while the project continuity read has not completed. Empty is not unloaded. */
-   continuityLoading?: boolean;
-   continuityUnavailable?: boolean;
-+  onRetryContinuity?: () => void;
-   /** Sas-only mutation affordance — project Journal stays read-oriented. */
-   onRenameSubject?: (id: string, title: string) => void;
-   splitSlot?: React.ReactNode;
-@@ -639,6 +640,17 @@ export function ProjectJournal(props: {
-           </div>
-         )}
+Commande de réutilisation des tests existants, depuis `projects/sfia-studio-next/web`, `DATABASE_URL` et `OPENAI_API_KEY` retirés du processus de test :
 
-+        {props.continuityUnavailable ? (
-+          <p className="journal-empty-copy" data-testid="journal-continuity-unconfirmed">
-+            Lecture du Journal non confirmée. Les dernières données de ce projet restent affichées.{" "}
-+            {props.onRetryContinuity ? (
-+              <button type="button" className="btn secondary" onClick={props.onRetryContinuity}>
-+                Relire
-+              </button>
-+            ) : null}
-+          </p>
-+        ) : null}
-+
-         {tab === "subjects" ? (
-           emptySubjects ? (
-             <div className="journal-hierarchy journal-empty" data-testid="journal-empty-structure">
-@@ -714,7 +726,13 @@ export function ProjectJournal(props: {
-             decisions={filteredDecisions}
-             selectedId={selectedDecisionId}
-             showEmpty={showDecisionSearchEmpty}
--            emptyCopy={COPY.emptyDecisions}
-+            emptyCopy={
-+              props.continuityLoading
-+                ? "Chargement des décisions."
-+                : props.continuityUnavailable
-+                  ? "Décisions non confirmées par la dernière lecture."
-+                  : COPY.emptyDecisions
-+            }
-             searchEmptyCopy={COPY.searchEmptyDecisions}
-             onSelect={pickDecision}
-           />
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-index 5e8916df..6d74cdb0 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-@@ -67,8 +67,17 @@ export function ProjectOverview(props: {
- }) {
-   const cycle = props.pilotage?.cycle;
-   const activity = props.activity;
--  const activityLoaded = (props.activityFreshness ?? "ready") === "ready" || activity !== null;
--  const activityUnconfirmed = props.activityFreshness === "stale";
-+  const freshness = props.activityFreshness ?? "loading";
-+  const hasSnapshot = activity !== null;
-+  const showCounts = hasSnapshot && (freshness === "ready" || freshness === "stale");
-+  const activityUnconfirmed = freshness === "stale" && hasSnapshot;
-+  const freshnessLabel = activityUnconfirmed
-+    ? "Dernière lecture conservée — fraîcheur non confirmée"
-+    : showCounts
-+      ? "Vue synthétique des espaces du projet"
-+      : freshness === "loading"
-+        ? "Chargement des compteurs"
-+        : "Lecture indisponible";
-   // Prefer a durable project description; never invent illustrative copy.
-   // Proposed orientation is a trajectory artifact — only use as fallback when no description.
-   const description = props.description?.trim() || null;
-@@ -194,11 +203,7 @@ export function ProjectOverview(props: {
-         <div className="flex flex-wrap items-end justify-between gap-2" style={{ minHeight: 32 }}>
-           <h3 className="text-[22px] font-semibold leading-8 text-[#f3f5ff]">Activité du projet</h3>
-           <p className="text-xs text-[#7787a4]" data-testid="project-activity-freshness">
--            {activityUnconfirmed
--              ? "Dernière lecture conservée — fraîcheur non confirmée"
--              : activityLoaded
--                ? "Vue synthétique des espaces du projet"
--                : "Chargement des compteurs"}
-+            {freshnessLabel}
-           </p>
-         </div>
-         <div
-@@ -215,7 +220,8 @@ export function ProjectOverview(props: {
-             title="Sujets ouverts"
-             source="Journal"
-             count={activity?.openSubjects.count ?? 0}
--            loaded={activityLoaded}
-+            loaded={showCounts}
-+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
-             empty="Aucun sujet actif capitalisé."
-             examples={activity?.openSubjects.examples.map((e) => e.title) ?? []}
-             href={`/projects/${props.projectId}?surface=journal`}
-@@ -225,7 +231,8 @@ export function ProjectOverview(props: {
-             title="Décisions applicables"
-             source="Gouvernance"
-             count={activity?.applicableDecisions.count ?? 0}
--            loaded={activityLoaded}
-+            loaded={showCounts}
-+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
-             empty="Aucune décision applicable."
-             examples={activity?.applicableDecisions.examples.map((e) => e.statement) ?? []}
-             href={`/projects/${props.projectId}?surface=journal`}
-@@ -235,7 +242,8 @@ export function ProjectOverview(props: {
-             title="Documents du projet"
-             source="Bibliothèque"
-             count={activity?.documentsInProgress.count ?? 0}
--            loaded={activityLoaded}
-+            loaded={showCounts}
-+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
-             empty="Aucun document en cours de rédaction."
-             examples={activity?.documentsInProgress.examples.map((e) => e.title) ?? []}
-             href={`/projects/${props.projectId}?surface=document`}
-@@ -252,6 +260,7 @@ function ActivityCard(props: {
-   source: string;
-   count: number;
-   loaded: boolean;
-+  pendingLabel?: string;
-   empty: string;
-   examples: string[];
-   href: string;
-@@ -284,7 +293,9 @@ function ActivityCard(props: {
-       <div className="my-4 h-px shrink-0 bg-[#2b3850]" data-testid={`${props.testId}-sep-top`} />
-       <div className="min-h-[72px] flex-1">
-         {!props.loaded ? (
--          <p className="text-sm leading-relaxed text-[#a3b0c7]">Compteur non chargé.</p>
-+          <p className="text-sm leading-relaxed text-[#a3b0c7]">
-+            {props.pendingLabel ?? "Compteur non chargé."}
-+          </p>
-         ) : props.count === 0 ? (
-           <p className="text-sm leading-relaxed text-[#a3b0c7]">{props.empty}</p>
-         ) : (
-diff --git a/projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx b/projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
-index 91ac59bf..c35bff1c 100644
---- a/projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
-@@ -2,6 +2,7 @@
+`npx vitest run tests/unit/ml5-cognitive-resources.test.ts --reporter=verbose`
 
- import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
- import {
-+  preparationAnnouncement,
-   preparationContinuityMarks,
-   type ContextLoadState,
-   type PrepMark,
-@@ -9,7 +10,7 @@ import {
+Résultat : 38 tests passés, 1 fichier, durée 373 ms. Vitest a injecté 3 variables depuis le `.env.local` DEV du worktree. Les cas d'admission écrasent `STUDIO_LANE` et la politique dans le test. La matrice ci-dessous ne dépend pas de cette injection : elle appelle `resolveProvisionalPolicy`, `resolveOperationalDefaultResource` et `isProvisionalAdmittedCouple` avec un objet isolé.
 
- /**
-  * Figma SAS06 (1022:164) — Création et qualification initiale.
-- * Dimensions : 702×726 · assets SVG natifs sous /public/figma/sas06/ (download_assets MCP).
-+ * Frame 1022:164, référence 702×823. Assets locaux identiques aux icônes de la frame.
-  */
- const ASSET = {
-   halo: "/figma/sas06/icone-halo.svg",
-@@ -35,55 +36,26 @@ export function SasCreateProgressPopup(props: {
- }) {
-   if (!props.visible) return null;
+| Cas | id | active | défaut | couples provisoires admis |
+| --- | --- | --- | --- | --- |
+| 1. RECETTE sans policy | legacy_sol | false | gpt-6.2-sol@medium | aucun |
+| 2. RECETTE v0.2 sans admit | legacy_sol | false | gpt-6.2-sol@medium | aucun |
+| 3. RECETTE v0.2 + `qualified` | legacy_sol | false | gpt-6.2-sol@medium | aucun |
+| 4. RECETTE v0.2 + `qualified-v0.1` | legacy_sol | false | gpt-6.2-sol@medium | aucun |
+| 5. RECETTE v0.2 + `qualified-v0.2` | v0.2 | true | gpt-6.1-terra@medium | luna@low, luna@medium, terra@medium, sol@low, sol@medium, sol@high |
+| 6. DEV v0.2 | v0.2 | true | gpt-6.1-terra@medium | même jeu que le cas 5 |
+| 7. `legacy_sol`, même si l'admit v0.2 est présent | legacy_sol | false | gpt-6.2-sol@medium | aucun |
 
--  const complete = props.complete === true;
-   const iqStatus = props.qualification?.status ?? null;
--  /** AT-03 — terminal ≠ always « trajectoire prête ». */
--  const outcome: "PROPOSED" | "CLARIFICATION" | "FAILED" | "RUNNING" =
--    !complete
--      ? "RUNNING"
--      : iqStatus === "PROPOSED"
--        ? "PROPOSED"
--        : iqStatus === "FAILED"
--          ? "FAILED"
--          : iqStatus === "CLARIFICATION"
--            ? "CLARIFICATION"
--            : "PROPOSED";
--
--  const kicker =
--    outcome === "RUNNING"
--      ? "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION"
--      : outcome === "PROPOSED"
--        ? "PROJET CRÉÉ / TRAJECTOIRE PROPOSÉE"
--        : outcome === "CLARIFICATION"
--          ? "PROJET CRÉÉ / CLARIFICATION NÉCESSAIRE"
--          : "PROJET CRÉÉ / REPRISE NÉCESSAIRE";
--
--  const titleText =
--    outcome === "RUNNING"
--      ? "Projet créé. Nora prépare la suite."
--      : outcome === "PROPOSED"
--        ? "Préparation terminée. Accède au projet quand tu veux."
--        : outcome === "CLARIFICATION"
--          ? "Projet créé. Nora a besoin d’une précision avant de proposer la trajectoire."
--          : "Projet créé. La qualification initiale n’a pas abouti.";
--
--  const leadText =
--    outcome === "RUNNING"
--      ? props.projectName
--        ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
--        : "Nora analyse ton intention pour proposer une première trajectoire."
--      : outcome === "PROPOSED"
--        ? props.projectName
--          ? `La première proposition de trajectoire pour « ${props.projectName} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
--          : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord."
--        : outcome === "CLARIFICATION"
--          ? "Une clarification est dans le fil du projet. Réponds-y pour que Nora propose une trajectoire. Aucun cycle n’est ouvert."
--          : "Tu peux accéder au projet et reprendre la conversation. Aucun cycle n’a été ouvert.";
-+  const contextLoad = props.contextLoad ?? "loading";
-+  const announcement = preparationAnnouncement({
-+    context: contextLoad,
-+    qualificationStatus: iqStatus,
-+    dwellComplete: props.complete === true,
-+    projectName: props.projectName,
-+  });
-+  const kicker = announcement.kicker;
-+  const titleText = announcement.title;
-+  const leadText = announcement.lead;
-+  const outcome =
-+    iqStatus === "PROPOSED" || iqStatus === "CLARIFICATION" || iqStatus === "FAILED"
-+      ? iqStatus
-+      : "RUNNING";
+Cas 5, codes : `COG_POLICY_PROVISIONAL_ml5-cog-provisional-policy-v0.2-20261126`, `COG_POLICY_VERSION_v0.2`, `LANE_RECETTE`, `COG_POLICY_RECETTE_ADMIT_QUALIFIED`, `COG_POLICY_RECETTE_ADMIT_VERSION_v0.2`.
 
-   const marks = preparationContinuityMarks({
-     projectCreated: true,
--    context: props.contextLoad ?? "loading",
--    qualificationStatus: complete ? (iqStatus ?? "PROPOSED") : iqStatus,
-+    context: contextLoad,
-+    qualificationStatus: iqStatus,
-   });
-   const steps: Array<{
-     n: 1 | 2 | 3 | 4;
-@@ -95,19 +67,19 @@ export function SasCreateProgressPopup(props: {
-       n: 1,
-       key: "project",
-       title: "Projet créé",
--      detail: "Il reste accessible, même si tu quittes Studio.",
-+      detail: "Ton projet est enregistré et reste accessible.",
-     },
-     {
-       n: 2,
-       key: "context",
-       title: "Chargement du contexte et de la continuité projet",
--      detail: "Sujets, acquis, points ouverts, documents et pilotage déjà disponibles.",
-+      detail: "Récupération des sujets, acquis, points ouverts, documents et informations de pilotage.",
-     },
-     {
-       n: 3,
-       key: "cycles",
-       title: "Identification des cycles pertinents",
--      detail: "Analyse des cycles pertinents et des références CKI.",
-+      detail: "Qualification initiale de la trajectoire et des références CKI.",
-     },
-     {
-       n: 4,
-@@ -118,7 +90,9 @@ export function SasCreateProgressPopup(props: {
-           ? "Clarification dans le fil — pas encore de proposition de trajectoire."
-           : outcome === "FAILED"
-             ? "La qualification n’a pas abouti ; tu peux reprendre dans le projet."
--            : "Une proposition de trajectoire dans le fil du projet.",
-+            : outcome === "PROPOSED"
-+              ? "Une proposition de trajectoire dans le fil du projet."
-+              : "Une proposition ou une clarification dans le fil du projet.",
-     },
-   ];
+Terra high et Luna high ne figurent pas dans le jeu admis. Ils restent candidats (`PROVISIONAL_CANDIDATE_NOT_ADMITTED`). Le catalogue n'a pas été élargi. Aucun mapping tâche → modèle n'a été ajouté.
 
-@@ -131,7 +105,7 @@ export function SasCreateProgressPopup(props: {
-         // Short viewports (e.g. PW 1280×720): shrink top padding (floor 16px) so the
-         // 702×726 card can scroll and "Accéder au projet" stays reachable.
-         // Four markers. Desktop padding shrinks when the card no longer fits 124px.
--        padding: "clamp(16px, calc(100vh - 816px - 24px), 124px) 16px 24px",
-+        padding: "clamp(16px, calc((100vh - 823px) / 2), 240px) 16px 24px",
-       }}
-       role="dialog"
-       aria-modal="true"
-@@ -143,7 +117,7 @@ export function SasCreateProgressPopup(props: {
-         style={{
-           width: 702,
-           // Morris 2026-11-28: fourth real context step. Height follows the added row.
--          height: 816,
-+          height: 823,
-           maxHeight: "calc(100vh - 40px)",
-           maxWidth: "calc(100vw - 32px)",
-           background: "#1b2639",
-@@ -195,7 +169,7 @@ export function SasCreateProgressPopup(props: {
-         <div style={{ padding: "24px 35px 0" }}>
-           <h2
-             id="sas-create-progress-title"
--            className="text-[28px] font-semibold leading-tight"
-+            className="text-[26px] font-semibold leading-tight"
-           >
-             {titleText}
-           </h2>
-@@ -233,7 +207,7 @@ export function SasCreateProgressPopup(props: {
-             const statusColor =
-               mark === "done" ? "#6cdbba" : mark === "running" ? "#7477ed" : mark === "failed" ? "#e2a36b" : "#7787a4";
-             const borderColor = current ? "#7477ed" : "#2b3850";
--            const minH = current ? 96 : 72;
-+            const minH = current ? 104 : item.n === 1 ? 79 : 86;
+Précision du cas 7 : `isProvisionalAdmittedCouple` est faux, le défaut est Sol medium. `admitModelEffort` continue d'accepter Sol low/medium/high par la bande historique, politique inactive. Le rollback ne retire pas Sol. Il retire Terra et Luna.
 
-             return (
-               <li
-@@ -268,7 +242,7 @@ export function SasCreateProgressPopup(props: {
-                         width={35}
-                         height={35}
-                         className="fig-sas-progress-ring-spin"
--                        data-terminal={complete ? "1" : "0"}
-+                        data-terminal={announcement.announceComplete ? "1" : "0"}
-                         aria-hidden
-                       />
-                       <span className="absolute inset-0 flex items-center justify-center">
-@@ -326,7 +300,7 @@ export function SasCreateProgressPopup(props: {
-             />
-           </span>
-           <p className="text-[12px] leading-relaxed text-[#a3b0c7]">
--            Tu peux quitter Studio : cette préparation sera retrouvée à ton retour.
-+            Tu peux accéder au projet dès maintenant ou quitter Studio : la préparation sera retrouvée à ton retour.
-           </p>
-         </div>
+Le mode `calibration` n'est pas la cible. Il reste un mode séparé, non activé par l'absence de `SFIA_COGNITIVE_ADMISSION_MODE`.
 
-diff --git a/projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts b/projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts
-index f2d121f7..b51255b8 100644
---- a/projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts
-+++ b/projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts
-@@ -25,3 +25,27 @@ export function shouldApplyDurableRefresh(input: {
-   if (input.request.generation !== input.currentGeneration) return false;
-   return true;
- }
-+
-+/** One generation per read. A newer read, even a failed one, retires older responses. */
-+export function openProjectionRead(input: {
-+  currentGeneration: number;
-+  projectId: string;
-+}): { generation: number; request: DurableRefreshRequestIdentity } {
-+  const generation = input.currentGeneration + 1;
-+  return {
-+    generation,
-+    request: { generation, projectId: input.projectId },
-+  };
-+}
-+
-+export function projectionReadApplies(input: {
-+  request: DurableRefreshRequestIdentity;
-+  latestGeneration: number;
-+  currentProjectId: string;
-+}): boolean {
-+  return shouldApplyDurableRefresh({
-+    request: input.request,
-+    currentGeneration: input.latestGeneration,
-+    currentProjectId: input.currentProjectId,
-+  });
-+}
-diff --git a/projects/sfia-studio-next/web/src/lib/project-projection-sync.ts b/projects/sfia-studio-next/web/src/lib/project-projection-sync.ts
-index 38fa0186..a947727d 100644
---- a/projects/sfia-studio-next/web/src/lib/project-projection-sync.ts
-+++ b/projects/sfia-studio-next/web/src/lib/project-projection-sync.ts
-@@ -17,8 +17,11 @@ export function activityAfterProjectRead(input: {
-   previous: ActivitySnapshot;
-   incoming: ActivitySnapshot | undefined;
-   httpOk: boolean;
-+  /** True only when the payload contains an activity object. Null is not an empty snapshot. */
-+  snapshotPresent?: boolean;
- }): { activity: ActivitySnapshot; freshness: ActivityFreshness } {
--  if (!input.httpOk) {
-+  const present = input.snapshotPresent ?? input.incoming != null;
-+  if (!input.httpOk || !present) {
-     return {
-       activity: input.previous,
-       freshness: input.previous ? "stale" : "unavailable",
-@@ -27,6 +30,37 @@ export function activityAfterProjectRead(input: {
-   return { activity: input.incoming ?? null, freshness: "ready" };
- }
+## 8. Chaîne jusqu'à l'émission — arrêt avant le fournisseur
 
-+/**
-+ * A confirmed turn stays confirmed when the following projection read fails.
-+ * Lost ACK remains the outcome only when the métier result itself is unknown.
-+ */
-+export function turnProjectionRefreshOutcome(input: {
-+  metierConfirmed: boolean;
-+  projectionFailed: boolean;
-+}): "preserve-metier" | "metier-unconfirmed" {
-+  if (input.metierConfirmed && input.projectionFailed) return "preserve-metier";
-+  return "metier-unconfirmed";
-+}
-+
-+export type ProjectPreloadBody = {
-+  project?: { id?: string | null } | null;
-+  knowledge?: unknown;
-+  activity?: unknown;
-+};
-+
-+/** Popup preload. Validating the body is not the same as hydrating project surfaces. */
-+export function contextPreloadVerdict(input: {
-+  expectedProjectId: string;
-+  httpOk: boolean;
-+  body: ProjectPreloadBody | null;
-+}): "ready" | "partial" | "failed" {
-+  if (!input.httpOk || !input.body) return "failed";
-+  const id = input.body.project?.id;
-+  if (!id || id !== input.expectedProjectId) return "failed";
-+  if (input.body.knowledge == null || input.body.activity == null) return "partial";
-+  return "ready";
-+}
-+
- /** Journal GET carries richer provenance. It must not replace project knowledge. */
- export function journalMayReplaceProjectKnowledge(): false {
-   return false;
-@@ -34,7 +68,7 @@ export function journalMayReplaceProjectKnowledge(): false {
+Politique effective (`resolveProvisionalPolicy` sur `process.env`) → ressource par défaut ou couple proposé → `admitModelEffort` / `resolveAdmittedResource` → `buildCognitivePolicy` (conducteur, `cognitive-conductor.ts`) → trace `proposed` / `admitted` dans `run-nora-cognitive-turn.ts` → `nora-adapter` envoie `modelRequested` et `effortRequested` → Frontier contrôle le mode et l'enveloppe HTTP → émission fournisseur.
 
- export type PrepMark = "pending" | "running" | "done" | "incomplete" | "failed";
+Ce cycle s'arrête avant toute émission. `web/scripts/ml5-provisional-policy-qualification-live.mts` n'a pas été lancé. Il force `STUDIO_LANE=DEV` et ne doit pas servir de contournement RECETTE.
 
--export type ContextLoadState = "loading" | "ready" | "failed";
-+export type ContextLoadState = "loading" | "ready" | "partial" | "failed";
+`nora-adapter.ts` enregistre `modelApplied: "UNVERIFIED"` et `effortApplied: "UNVERIFIED"` lorsque le fournisseur ne confirme pas le modèle. Ces champs ne sont pas recopiés depuis la valeur demandée. Une future preuve LIVE devra les laisser UNVERIFIED s'ils ne sont pas exposés. `modelRequested`, `effortRequested`, `policyVersion` et `reasonCodes` sont, eux, produits par le code local avant l'appel.
 
- /**
-  * Four preparation markers. Context load and trajectory qualification are
-@@ -53,7 +87,13 @@ export function preparationContinuityMarks(input: {
-   return {
-     project: input.projectCreated ? "done" : "pending",
-     context:
--      input.context === "ready" ? "done" : input.context === "failed" ? "failed" : "running",
-+      input.context === "ready"
-+        ? "done"
-+        : input.context === "failed"
-+          ? "failed"
-+          : input.context === "partial"
-+            ? "incomplete"
-+            : "running",
-     cycles: !input.projectCreated
-       ? "pending"
-       : failed
-@@ -66,3 +106,62 @@ export function preparationContinuityMarks(input: {
-     reply: !terminal ? "pending" : failed ? "failed" : clarification ? "incomplete" : "done",
-   };
- }
-+
-+export function preparationAnnouncement(input: {
-+  context: ContextLoadState;
-+  qualificationStatus: string | null;
-+  dwellComplete: boolean;
-+  projectName: string;
-+}): { kicker: string; title: string; lead: string; announceComplete: boolean } {
-+  const name = input.projectName.trim();
-+  if (input.context === "loading" || input.context === "partial") {
-+    return {
-+      kicker: "PROJET CRÉÉ  /  CONTEXTE EN CHARGEMENT",
-+      title: "Projet créé. Préparation de ton espace de travail.",
-+      lead: "Studio récupère le contexte et les connaissances existantes du projet. Nora prépare la trajectoire initiale.",
-+      announceComplete: false,
-+    };
-+  }
-+  if (input.context === "failed") {
-+    return {
-+      kicker: "PROJET CRÉÉ / CONTEXTE INDISPONIBLE",
-+      title: "Projet créé. Le contexte n’a pas pu être relu.",
-+      lead: "Tu peux accéder au projet. La lecture sera reprise à l’entrée. Aucun cycle n’a été ouvert.",
-+      announceComplete: false,
-+    };
-+  }
-+  if (input.qualificationStatus === "FAILED") {
-+    return {
-+      kicker: "PROJET CRÉÉ / REPRISE NÉCESSAIRE",
-+      title: "Projet créé. La qualification initiale n’a pas abouti.",
-+      lead: "Tu peux accéder au projet et reprendre la conversation. Aucun cycle n’a été ouvert.",
-+      announceComplete: false,
-+    };
-+  }
-+  if (input.qualificationStatus === "CLARIFICATION") {
-+    return {
-+      kicker: "PROJET CRÉÉ / CLARIFICATION NÉCESSAIRE",
-+      title: "Projet créé. Nora a besoin d’une précision avant de proposer la trajectoire.",
-+      lead: "Une clarification est dans le fil du projet. Réponds-y pour que Nora propose une trajectoire. Aucun cycle n’est ouvert.",
-+      announceComplete: false,
-+    };
-+  }
-+  if (input.qualificationStatus === "PROPOSED" && input.dwellComplete) {
-+    return {
-+      kicker: "PROJET CRÉÉ / TRAJECTOIRE PROPOSÉE",
-+      title: "Préparation terminée. Accède au projet quand tu veux.",
-+      lead: name
-+        ? `La première proposition de trajectoire pour « ${name} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
-+        : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord.",
-+      announceComplete: true,
-+    };
-+  }
-+  return {
-+    kicker: "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION",
-+    title: "Projet créé. Nora prépare la suite.",
-+    lead: name
-+      ? `Nora analyse l’intention de « ${name} » pour proposer une première trajectoire.`
-+      : "Nora analyse ton intention pour proposer une première trajectoire.",
-+    announceComplete: false,
-+  };
-+}
-diff --git a/projects/sfia-studio-next/web/tests/e2e/sas06-responsive-viewports.spec.ts b/projects/sfia-studio-next/web/tests/e2e/sas06-responsive-viewports.spec.ts
-index 3f4c9469..b212a853 100644
---- a/projects/sfia-studio-next/web/tests/e2e/sas06-responsive-viewports.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/sas06-responsive-viewports.spec.ts
-@@ -3,7 +3,8 @@ import { test, expect, type Page } from "@playwright/test";
+## 9. Plan d'activation — non exécuté
 
- /**
-  * Ensemble 07 SAS06 — responsive contract:
-- * - 1680×970: card 702×816 after the authorized fourth context step (F2 726 no longer claimed)
-+ * - 1680×970: card 702×823, top padding equals vertical centering of that card.
-+ *   This is a geometry check of the implemented window, not an F2 verdict.
-  * - 1280×720: CTA reachable via scroll; click navigates to project
-  */
- async function openSas06Popup(page: Page, seed: string) {
-@@ -27,7 +28,7 @@ async function openSas06Popup(page: Page, seed: string) {
-   await expect(page.getByTestId("sas-create-progress-popup")).toBeVisible({ timeout: 30000 });
- }
+Même candidat, même build, pas de cutover des lots 1 et 2.
 
--test("SAS06 desktop 1680×970 matches Figma geometry (F2 ≤2px)", async ({ page }) => {
-+test("SAS06 desktop 1680×970 uses the 823px window and centered padding", async ({ page }) => {
-   await page.setViewportSize({ width: 1680, height: 970 });
-   await openSas06Popup(page, "SAS06 desktop geometry seed");
+Fichier concerné, hors Git :
 
-@@ -41,9 +42,9 @@ test("SAS06 desktop 1680×970 matches Figma geometry (F2 ≤2px)", async ({ page
-   expect(cardBox).toBeTruthy();
+`/Users/morris/.config/sfia-studio-next/recette/.env.local`
 
-   const padTop = (cardBox!.y - (overlayBox!.y ?? 0));
--  expect(Math.abs(padTop - 124)).toBeLessThanOrEqual(2);
-+  expect(Math.abs(padTop - (970 - 823) / 2)).toBeLessThanOrEqual(2);
-   expect(Math.abs(cardBox!.width - 702)).toBeLessThanOrEqual(2);
--  expect(Math.abs(cardBox!.height - 816)).toBeLessThanOrEqual(2);
-+  expect(Math.abs(cardBox!.height - 823)).toBeLessThanOrEqual(2);
+Deux lignes à ajouter, et rien d'autre :
 
-   await expect(dismiss).toBeVisible();
-   const dismissBox = await dismiss.boundingBox();
-@@ -71,9 +72,8 @@ test("SAS06 short 1280×720 CTA reachable with scroll and click", async ({ page
-   const cardBox = await card.boundingBox();
-   expect(overlayBox).toBeTruthy();
-   expect(cardBox).toBeTruthy();
--  // Short viewport must shrink top padding below Figma 124 so content fits/scrolls.
-   const padTop = cardBox!.y - (overlayBox!.y ?? 0);
--  expect(padTop).toBeLessThan(124);
-+  expect(padTop).toBeLessThan(73.5);
-   expect(padTop).toBeGreaterThanOrEqual(14);
-
-   await dismiss.scrollIntoViewIfNeeded();
-diff --git a/projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts b/projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts
-index 3cb38106..4112f46c 100644
---- a/projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts
-@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
- import { countProjectLibraryDocuments } from "@/domains/preparation/project-activity-projection";
- import {
-   activityAfterProjectRead,
-+  contextPreloadVerdict,
-   journalMayReplaceProjectKnowledge,
-+  preparationAnnouncement,
-   preparationContinuityMarks,
-+  turnProjectionRefreshOutcome,
- } from "@/lib/project-projection-sync";
--import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
-+import { openProjectionRead, projectionReadApplies, shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
-
- const activity = {
-   openSubjects: { count: 2, examples: [{ id: "s1", title: "Sujet" }] },
-@@ -115,4 +118,103 @@ describe("project projection sync", () => {
-     expect(failedContext.cycles).toBe("incomplete");
-     expect(failedContext.reply).toBe("incomplete");
-   });
-+
-+  it("does not treat a missing activity object as a confirmed zero", () => {
-+    const next = activityAfterProjectRead({
-+      previous: null,
-+      incoming: undefined,
-+      httpOk: true,
-+      snapshotPresent: false,
-+    });
-+    expect(next.activity).toBeNull();
-+    expect(next.freshness).toBe("unavailable");
-+  });
-+
-+  it("keeps a confirmed turn when the projection read fails", () => {
-+    expect(
-+      turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }),
-+    ).toBe("preserve-metier");
-+    expect(
-+      turnProjectionRefreshOutcome({ metierConfirmed: false, projectionFailed: true }),
-+    ).toBe("metier-unconfirmed");
-+  });
-+
-+  it("rejects a preload that is only an HTTP success", () => {
-+    expect(
-+      contextPreloadVerdict({
-+        expectedProjectId: "p1",
-+        httpOk: true,
-+        body: { project: { id: "p2" }, knowledge: {}, activity: {} },
-+      }),
-+    ).toBe("failed");
-+    expect(
-+      contextPreloadVerdict({
-+        expectedProjectId: "p1",
-+        httpOk: true,
-+        body: { project: { id: "p1" } },
-+      }),
-+    ).toBe("partial");
-+    expect(
-+      contextPreloadVerdict({
-+        expectedProjectId: "p1",
-+        httpOk: true,
-+        body: { project: { id: "p1" }, knowledge: null, activity: null },
-+      }),
-+    ).toBe("partial");
-+    expect(
-+      contextPreloadVerdict({
-+        expectedProjectId: "p1",
-+        httpOk: true,
-+        body: { project: { id: "p1" }, knowledge: { subjects: [] }, activity: { openPointsCount: 0 } },
-+      }),
-+    ).toBe("ready");
-+  });
-+
-+  it("does not announce preparation complete while context is unfinished or qualification is absent", () => {
-+    const loading = preparationAnnouncement({
-+      context: "loading",
-+      qualificationStatus: "PROPOSED",
-+      dwellComplete: true,
-+      projectName: "Atlas",
-+    });
-+    expect(loading.announceComplete).toBe(false);
-+    expect(loading.kicker).toContain("CONTEXTE EN CHARGEMENT");
-+    const absent = preparationAnnouncement({
-+      context: "ready",
-+      qualificationStatus: null,
-+      dwellComplete: true,
-+      projectName: "Atlas",
-+    });
-+    expect(absent.announceComplete).toBe(false);
-+    expect(absent.title).not.toContain("Préparation terminée");
-+  });
-+
-+  it("rejects an older read after a newer one has been opened, including on another project", () => {
-+    const first = openProjectionRead({ currentGeneration: 0, projectId: "p1" });
-+    const second = openProjectionRead({
-+      currentGeneration: first.generation,
-+      projectId: "p1",
-+    });
-+    expect(
-+      projectionReadApplies({
-+        request: first.request,
-+        latestGeneration: second.generation,
-+        currentProjectId: "p1",
-+      }),
-+    ).toBe(false);
-+    expect(
-+      projectionReadApplies({
-+        request: second.request,
-+        latestGeneration: second.generation,
-+        currentProjectId: "p2",
-+      }),
-+    ).toBe(false);
-+    expect(
-+      shouldApplyDurableRefresh({
-+        request: second.request,
-+        currentGeneration: second.generation,
-+        currentProjectId: "p1",
-+      }),
-+    ).toBe(true);
-+  });
- });
+```text
+SFIA_COG_PROVISIONAL_POLICY=v0.2
+SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.2
 ```
+
+Ne pas ajouter `SFIA_COGNITIVE_ADMISSION_MODE` : son absence est déjà le défaut `operational`. Ne pas modifier les plafonds, le profil, les secrets, `STUDIO_LANE`, ni le SHA du fichier. Ne pas « corriger » le SHA stale du fichier : le script continue de l'écraser, et le modifier mélangerait activation et promotion.
+
+Launcher : aucune surcharge à ajouter pour que les deux clés prennent effet. `start-recette-ml5.sh` ne les touche pas. Le plist ne les porte pas. Les poser dans le fichier sourcé suffit.
+
+Sauvegarde non sensible, au moment du GO futur :
+
+- Conserver le tableau de la section 5 comme état antérieur des clés d'admission (absentes) et des plafonds.
+- Une copie locale horodatée du fichier peut être faite hors Git, sur la machine, immédiatement avant l'édition.
+- Ne pas commiter cette copie. Ne pas la publier. Ne pas restaurer plus tard un `.env` historique complet : les sauvegardes déjà présentes contiennent des secrets obsolètes et des SHA périmés.
+
+Redémarrage, uniquement après GO Morris :
+
+```text
+launchctl kickstart -k "gui/$(id -u)/com.sfia.studio.next.recette.ml4d-ux004"
+```
+
+C'est le gestionnaire réel du PID 77087. Ne pas arrêter le port 3100. Ne pas lancer un second serveur sur 3200.
+
+Vérifications après redémarrage :
+
+1. Nouveau PID sur 127.0.0.1:3200, commande `next start -H 127.0.0.1 -p 3200`.
+2. cwd inchangé : worktree `0ae9e1f7`.
+3. `.next/BUILD_ID` toujours `p0S18hfVdGrMjGeNMGlbV`.
+4. Le script exporte toujours `SFIA_SOURCE_SHA=0ae9e1f7aaee3658eb3e9a135523e83a72631b31`.
+5. Relecture des seules clés autorisées : policy `v0.2`, admit `qualified-v0.2`, mode absent, plafonds 120 / 1000000 / 2000000, lane RECETTE, WEB search à 0, collector admin à 0.
+6. Rejouer la résolution du cas 5 sur ces valeurs, dans un processus jetable, sans appel fournisseur. Attendu : `v0.2` actif, défaut Terra medium.
+7. Base `sfia_next_recette_ml4` inchangée, table `derived_embedding_chunks` toujours là, aucune migration.
+8. Ne pas déclarer l'environnement du PID « lu » si `ps -E` reste vide. L'effectif reste alors inféré de la chaîne relue après écriture. Un endpoint de diagnostic serait un changement de code, hors de ce mandat.
+
+Conditions de rollback, non exécutées :
+
+- Retirer les deux lignes, ou poser `SFIA_COG_PROVISIONAL_POLICY=legacy_sol` et retirer l'admit.
+- Relancer le même LaunchAgent.
+- Résolution attendue : cas 1 ou cas 7, défaut Sol medium.
+- Ne pas restaurer un ancien fichier d'environnement complet.
+- Ne pas restaurer PostgreSQL.
+- Ne pas changer de worktree ni de BUILD.
+
+À préserver pendant l'activation future : SHA `0ae9e1f7`, BUILD `p0S18hfVdGrMjGeNMGlbV`, PostgreSQL, schéma 027, données, projets Equipéo et MaintiPlan, configuration DEV, secrets isolés, WEB LIVE OFF, Admin OFF.
+
+## 10. Contrôle de promotion réutilisable
+
+À appliquer à toute future mise à disposition RECETTE. L'échec d'un point interdit de déclarer l'allocation adaptative admise.
+
+1. Le SHA servi est celui exporté par le script de démarrage, pas le SHA éventuellement stale du fichier d'environnement.
+2. Le BUILD_ID servi est celui lu au démarrage, avec une mtime antérieure au PID.
+3. `STUDIO_LANE=RECETTE`.
+4. `SFIA_COG_PROVISIONAL_POLICY` a la version voulue. Pour l'activation préparée ici : `v0.2`.
+5. `SFIA_COG_PROVISIONAL_RECETTE_ADMIT` vaut `qualified-` suivi de cette même version. `qualified` seul est un échec.
+6. `resolveProvisionalPolicy` sur cet environnement est `provisionalActive=true` et le défaut est Terra medium. Un simple témoin de plafonds ne compte pas.
+7. Les plafonds 120 / 1M / 2M sont enregistrés à part. Leur présence ne prouve pas l'admission.
+8. Le mode d'admission absent signifie `operational`. Un mode `calibration` laissé par erreur est un échec de cette promotion.
+9. Aucune émission n'est requise pour ce contrôle. Il est déterministe.
+
+Cet angle mort est celui du manifeste du 27/11 et du diagnostic §4 : la promotion a documenté les enveloppes et n'a pas posé l'admit.
+
+## 11. Protocole LIVE — non exécuté
+
+LIVE : NOT RUN. GO spécifique requis. Le script historique DEV n'est pas un substitut.
+
+Projet futur : un projet de qualification isolé, données synthétiques, créé pour l'essai. Ne pas utiliser Equipéo ni MaintiPlan. Ne pas reproduire MaintiPlan T08. Ne pas modifier les plafonds globaux 120 / 1M / 2M.
+
+Preuves à distinguer, pour chaque tour : `modelProposed`, `modelRequested`, `modelApplied`, `effortProposed`, `effortRequested`, `effortApplied`, `policyVersion`, `reasonCodes`, admission, usage, latence, qualité du résultat. Si le SDK n'expose pas le modèle ou l'effort appliqué : écrire UNVERIFIED. Ne jamais recopier la valeur demandée. Le code actuel persiste déjà le littéral `UNVERIFIED`.
+
+La corrélation FinOps exhaustive reste le lot 5. Ici, l'usage sert de garde d'enveloppe, pas de certification tarifaire. Les coûts ci-dessous sont des estimations d'ordre de grandeur tirées du corpus DEV du 26/11 (Luna ~0,0038 USD / 6 appels, Terra ~0,0308 / 7, Sol ~0,0933 / 6). Ce ne sont pas des factures. ESTIMATED ≠ facturé.
+
+### Scénario A — interaction simple
+
+Intention : dans le projet synthétique, une seule demande courte du type « Réponds en une phrase pour confirmer que tu as le contexte de ce projet de qualification. »
+
+Résultat attendu : une réponse courte et proportionnée. `modelRequested` dans le jeu luna@low, luna@medium ou terra@medium. La politique v0.2 doit apparaître dans les reason codes. Sol n'est pas imposé. Si le seul modèle demandé est Sol et que le code est `COG_POLICY_ABSENT_FALLBACK_LEGACY_SOL`, l'activation n'a pas pris : STOP, ne pas enchaîner le scénario B.
+
+Bornes : 1 tour utilisateur ; 3 requêtes fournisseur au plus, retries compris ; 40 000 tokens d'entrée ; 2 000 tokens de sortie ; 3 minutes ; estimation sous 0,05 USD ; arrêt si l'estimation dépasse 0,10 USD ou si l'usage est inconnu après la réponse.
+
+### Scénario B — analyse plus exigeante
+
+Intention : une demande qui pose plusieurs contraintes contradictoires et demande une seule clarification prioritaire. Ne pas exiger Sol. Ne pas exiger les trois modèles. Ne pas forcer une alternance.
+
+Résultat attendu : une réponse qui identifie la tension et propose une clarification. Le couple demandé peut rester Terra medium ou passer à Sol si la proposition cognitive le justifie et que l'admission l'accepte. Terra high et Luna high doivent rester refusés.
+
+Bornes : 2 tours utilisateur au plus ; 6 requêtes fournisseur au plus, retries compris ; 120 000 tokens d'entrée ; 8 000 tokens de sortie ; 8 minutes ; estimation d'enveloppe 0,40 USD ; arrêt à 0,40 USD estimés, ou si un troisième tour commencerait, ou si un couple non admis est appliqué.
+
+### Enveloppe commune du GO LIVE
+
+Deux scénarios, un seul projet synthétique. Plafond combiné : 9 requêtes, 160 000 tokens d'entrée, 10 000 tokens de sortie, 15 minutes, arrêt dur à 0,50 USD estimés. STOP aussi si WEB LIVE s'allume, si Admin est sollicité, si un projet réel est lu, si le SHA ou le BUILD changent pendant l'essai, ou si la politique observée n'est pas v0.2.
+
+Ce protocole qualifie l'admission. Il ne qualifie pas à lui seul le modèle réellement exécuté tant que `modelApplied` reste UNVERIFIED. Il ne clôt pas MP14 ni le lot 5.
+
+## 12. Risques, réserves, dette
+
+Risques maîtrisés par le plan, non réalisés dans ce cycle : mauvaise lane, politique non admise, surcharge invisible (le launcher a été lu : il ne pose pas la politique), coût LIVE (enveloppe proposée, non consommée), mélange activation / promotion (explicitement séparé), restauration d'un ancien fichier secret (interdite dans le rollback).
+
+Réserves :
+
+- L'environnement des PID n'a pas été lu. L'effectif est inféré. C'est suffisant pour préparer l'activation, pas pour prétendre avoir échantillonné `process.env` du serveur vivant.
+- Le BUILD_ID sur disque du serveur DEV a été réécrit après le démarrage du PID 55011. Il n'est pas cité comme build servi.
+- `modelApplied` et `effortApplied` resteront UNVERIFIED tant que le SDK ne les expose pas. Ce n'est pas un échec d'admission, et ce n'est pas une preuve du modèle exécuté.
+- La calibration du 26/11 ne qualifie pas RECETTE v0.2. Luna Low en v0.2 est une admission de code DEV, pas une campagne RECETTE.
+- Les contrôles RECETTE des lots 1 et 2 (DOC-REC, PROJ-REC) restent ouverts. Ils ne sont pas requalifiés ici.
+- Aucune dette structurelle nouvelle. Aucun store, aucune migration, aucun endpoint ajouté.
+
+STOP non rencontrés : pas de divergence du HEAD produit, identité RECETTE établie, configuration de lancement vérifiable, pas de besoin architectural, pas de migration, pas de nouvelle permission fournisseur, pas de rotation de secret, pas d'appel LIVE, pas de redémarrage.
+
+## 13. Décisions Morris demandées
+
+Trois GO restent distincts. Ils sont préparés ensemble pour éviter un cycle par arbitrage. Aucun n'est exécuté.
+
+1. Configuration : autoriser l'ajout des deux lignes dans `~/.config/sfia-studio-next/recette/.env.local`, sans autre édition.
+2. Redémarrage : autoriser `launchctl kickstart -k` du seul agent `com.sfia.studio.next.recette.ml4d-ux004`, sur le candidat déjà servi `0ae9e1f7` / BUILD `p0S18hfVdGrMjGeNMGlbV`.
+3. LIVE : autoriser séparément les scénarios A et B dans l'enveloppe de la section 11, sur un projet synthétique nouveau.
+
+Non demandés et non recommandés dans le même geste : promotion des lots 1 et 2, nouveau cutover, changement des plafonds, ouverture Admin ou WEB, lot 4, restauration PostgreSQL.
+
+## 14. Fake / Real
+
+| Canal | Qualification |
+| --- | --- |
+| DET | Règles produit réellement exécutées. 38 tests unitaires PASS. Matrice à 7 cas PASS sur fonctions exportées. |
+| Configuration | Lecture réelle du plist, du script, du fichier et des métadonnées de processus. EFFECTIVE mémoire : NON OBSERVÉ. |
+| PG | Lecture d'identité seulement (`current_database`, présence de `derived_embedding_chunks`). Aucune mutation. |
+| BROWSER | Non nécessaire pour ce préflight. Non exécuté. |
+| LIVE | NOT RUN. Aucune preuve cognitive réelle ne se déduit des tests unitaires. |
+
+## 15. Fichiers, diff, publication produit
+
+Fichiers produit créés : aucun.
+Fichiers produit modifiés : aucun.
+Diff produit : vide.
+Commit produit : aucun. Le candidat DEV distant reste `017487581c317f957ef7a96ff2f3d95450fcf9ab`, tree `b398725b2bbef59c295dbc3093f23a767f433994`.
+CI distante : NOT RUN.
+URL du commit déjà publié, non modifié par ce cycle : `https://github.com/mcleland147/sfia-workspace/commit/017487581c317f957ef7a96ff2f3d95450fcf9ab`.
+
+Content coverage des modifications produit : N/A, motivé. Le cycle ne change aucun fichier versionné du produit. Les résultats produits par la préparation — tableau de configuration, matrice, plan d'activation, rollback, contrôle de promotion et protocole LIVE — sont intégralement dans ce pack, pas seulement résumés.
+
+## 16. Verdict de préparation
+
+READY WITH RESERVES.
+
+L'activation est préparée. La cause de MP15 est confirmée sur la chaîne de lancement. Le moteur existant suffit. Les limites qualifiées sont : environnement du processus non lu en mémoire, BUILD DEV du PID non établi, LIVE non exécuté, modèle appliqué non observable autrement que UNVERIFIED, et MP15 encore OPEN tant que Morris n'a pas autorisé l'écriture et le redémarrage.
+
+Le verdict porte sur la préparation. Il ne dit pas que l'admission RECETTE est active.
