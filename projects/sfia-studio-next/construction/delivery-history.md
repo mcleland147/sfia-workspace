@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-GUARANTEES-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — finalisation ciblée du complément A
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `561b7277703aeea46f15f1b642efb4d8f57ed285`
+- **commit**: `fix(next): close the remaining personal portfolio guarantees`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: linéarisation D1/D2, résultat incertain, horodatage monotone, cohérence de lecture et version d'ordre
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · complément B non engagé
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-RELIABILITY-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -121,10 +121,11 @@ describe("personal portfolio organization (PG)", () => {
       { id: first, ownerPilotId: owner, name: "Alpha" },
       { id: second, ownerPilotId: owner, name: "Bravo" },
     ]);
+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
     const moved = await movePersonalSpace(owner, {
       spaceType: "project",
       spaceId: second,
-      expectedVersion: 0,
+      expectedVersion: prefs.version,
       direction: "up",
       context: { filter: "all", query: "", scope: "current" },
     });
@@ -218,6 +219,16 @@ describe("personal portfolio organization (PG)", () => {
         spaceType: "project",
         spaceId: bravo,
         expectedVersion: 0,
+        direction: "up",
+        context: { filter: "all", query: "", scope: "current" },
+      }),
+    ).rejects.toMatchObject({ httpStatus: 409 });
+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
+    await expect(
+      movePersonalSpace(owner, {
+        spaceType: "project",
+        spaceId: bravo,
+        expectedVersion: prefs.version,
         beforeSpaceId: "missing",
         beforeSpaceType: "project",
         context: { filter: "all", query: "", scope: "current" },
@@ -227,5 +238,150 @@ describe("personal portfolio organization (PG)", () => {
     expect(board.groups.project).toBe(2);
     expect(board.groups.preparation).toBe(1);
     expect(board.filteredTotal).toBe(3);
+    expect(board.groups.project + board.groups.preparation).toBe(board.filteredTotal);
+  });
+
+  it("refuses a favorite once the preparation row is attached", async () => {
+    const owner = await seedPilot("PF-boundary");
+    const prep = newId("prep");
+    const projectId = newId("proj");
+    await db.insert(preparations).values({
+      id: prep,
+      ownerPilotId: owner,
+      status: "OPEN",
+      previewName: "Bientôt rattachée",
+      previewSummary: "",
+    });
+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Projet issu" });
+    let releaseHold: () => void = () => undefined;
+    const hold = new Promise<void>((resolve) => {
+      releaseHold = resolve;
+    });
+    let markReady: () => void = () => undefined;
+    const ready = new Promise<void>((resolve) => {
+      markReady = resolve;
+    });
+    const attachment = sql.begin(async (tx) => {
+      await tx`SELECT pg_advisory_xact_lock(hashtext(${owner}), hashtext(${"sfia:d2:project-name"}))`;
+      await tx`
+        SELECT id FROM preparations
+        WHERE id = ${prep} AND owner_pilot_id = ${owner}
+        FOR UPDATE
+      `;
+      markReady();
+      await hold;
+      await tx`
+        INSERT INTO preparation_project_links (preparation_id, project_id)
+        VALUES (${prep}, ${projectId})
+      `;
+    });
+    await ready;
+    const favorite = setSpaceFavorite(owner, "preparation", prep, {
+      favorite: true,
+      expectedVersion: 0,
+    });
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    releaseHold();
+    await attachment;
+    await expect(favorite).rejects.toMatchObject({ httpStatus: 404 });
+    const stored = await sql<{ n: string }[]>`
+      SELECT count(*)::text AS n FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${prep}
+    `;
+    expect(stored[0]?.n).toBe("0");
+    const board = await loadPersonalBoard(owner, { preview: false });
+    expect(board.items.some((item) => item.id === prep)).toBe(false);
+    expect(board.counters.favorites).toBe(0);
+  });
+
+  it("does not move the opening time backwards and ignores a late replay", async () => {
+    const owner = await seedPilot("PF-open");
+    const projectId = newId("proj");
+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Reprise" });
+    const tab = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
+    const other = "bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee";
+    expect((await recordSpaceOpened(owner, "project", projectId, `${tab}:1`)).applied).toBe(true);
+    await sql`
+      UPDATE pilot_space_organization
+      SET last_opened_at = clock_timestamp() + interval '2 hours'
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    const ahead = await sql<{ opened: string }[]>`
+      SELECT last_opened_at::text AS opened FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    expect((await recordSpaceOpened(owner, "project", projectId, `${other}:1`)).applied).toBe(true);
+    const afterOther = await sql<{ opened: string; navigation_key: string }[]>`
+      SELECT last_opened_at::text AS opened, navigation_key
+      FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    expect(afterOther[0]?.opened >= (ahead[0]?.opened || "")).toBe(true);
+    expect(afterOther[0]?.navigation_key).toContain(`${tab}:1`);
+    const replay = await recordSpaceOpened(owner, "project", projectId, `${tab}:1`);
+    expect(replay.applied).toBe(false);
+    const afterReplay = await sql<{ opened: string }[]>`
+      SELECT last_opened_at::text AS opened FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
+    `;
+    expect(afterReplay[0]?.opened).toBe(afterOther[0]?.opened);
+  });
+
+  it("rejects a stale order after a restore and does not shift twice", async () => {
+    const owner = await seedPilot("PF-restore");
+    const first = newId("proj");
+    const second = newId("proj");
+    await db.insert(projects).values([
+      { id: first, ownerPilotId: owner, name: "Un" },
+      { id: second, ownerPilotId: owner, name: "Deux" },
+    ]);
+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
+    const moved = await movePersonalSpace(owner, {
+      spaceType: "project",
+      spaceId: second,
+      expectedVersion: prefs.version,
+      direction: "up",
+      context: { filter: "all", query: "", scope: "current" },
+    });
+    const before = await loadPersonalBoard(owner, { preview: false });
+    const archived = await setSpaceArchive(owner, "project", first, {
+      archived: true,
+      expectedVersion: before.items.find((item) => item.id === first)?.rowVersion ?? 0,
+      confirm: true,
+    });
+    const restored = await setSpaceArchive(owner, "project", first, {
+      archived: false,
+      expectedVersion: archived.rowVersion,
+      confirm: true,
+    });
+    const positions = await sql<{ id: string; custom_position: number }[]>`
+      SELECT space_id AS id, custom_position FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner}
+      ORDER BY custom_position
+    `;
+    const repeated = await setSpaceArchive(owner, "project", first, {
+      archived: false,
+      expectedVersion: restored.rowVersion,
+      confirm: true,
+    });
+    expect(repeated.rowVersion).toBe(restored.rowVersion);
+    const again = await sql<{ id: string; custom_position: number }[]>`
+      SELECT space_id AS id, custom_position FROM pilot_space_organization
+      WHERE owner_pilot_id = ${owner}
+      ORDER BY custom_position
+    `;
+    expect(again).toEqual(positions);
+    await expect(
+      movePersonalSpace(owner, {
+        spaceType: "project",
+        spaceId: second,
+        expectedVersion: moved.version,
+        direction: "down",
+        context: { filter: "all", query: "", scope: "current" },
+      }),
+    ).rejects.toMatchObject({ httpStatus: 409 });
+    await expect(loadPersonalBoard(owner, { cursor: "not-a-cursor", preview: false })).rejects.toMatchObject({
+      httpStatus: 400,
+    });
   });
 });

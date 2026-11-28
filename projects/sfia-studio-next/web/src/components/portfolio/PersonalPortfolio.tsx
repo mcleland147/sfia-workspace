@@ -13,6 +13,27 @@ type BoardResponse = {
   error?: string;
 };
 
+/**
+ * A refusal is settled. Any other outcome stays blocked until a reread returns
+ * the owner state. A lost acknowledgement stays unknown, and is never sent again.
+ */
+export function portfolioMutationFollowUp(input: {
+  outcome: "confirmed" | "refused" | "conflict" | "unknown";
+  reread: "succeeded" | "failed" | "not-attempted";
+}): { uncertain: boolean; retry: false; blockFurtherMutations: boolean } {
+  if (input.outcome === "refused") {
+    return { uncertain: false, retry: false, blockFurtherMutations: false };
+  }
+  if (input.reread === "succeeded") {
+    return { uncertain: false, retry: false, blockFurtherMutations: false };
+  }
+  return {
+    uncertain: input.outcome === "unknown",
+    retry: false,
+    blockFurtherMutations: true,
+  };
+}
+
 function formatCount(value: number | null): string {
   if (value === null) return "…";
   return value < 10 ? String(value).padStart(2, "0") : String(value);
@@ -35,12 +56,14 @@ export function PersonalPortfolio() {
   const router = useRouter();
   const params = useSearchParams();
   const busy = useRef(false);
+  const blocked = useRef(false);
   const draggedSpace = useRef("");
   const [board, setBoard] = useState<PersonalBoard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [uncertain, setUncertain] = useState("");
+  const [held, setHeld] = useState(false);
   const [creating, setCreating] = useState(false);
   const [pending, setPending] = useState("");
   const [query, setQuery] = useState("");
@@ -62,28 +85,44 @@ export function PersonalPortfolio() {
     if (query.trim()) params.set("q", query.trim());
     if (expanded) params.set("expanded", "1");
     if (cursor) params.set("cursor", cursor);
-    const response = await fetch(`/api/portfolio?${params.toString()}`);
-    if (requestId !== requestSeq.current) return;
-    const body = (await response.json()) as BoardResponse;
-    if (requestId !== requestSeq.current) return;
-    if (response.status === 401) {
-      router.push("/login");
-      return;
-    }
-    if (!response.ok || !body.board) {
-      setError(body.error || "Lecture du portefeuille impossible.");
+    try {
+      const response = await fetch(`/api/portfolio?${params.toString()}`);
+      if (requestId !== requestSeq.current) return false;
+      let body: BoardResponse = {};
+      try {
+        body = (await response.json()) as BoardResponse;
+      } catch {
+        body = {};
+      }
+      if (requestId !== requestSeq.current) return false;
+      if (response.status === 401) {
+        router.push("/login");
+        return false;
+      }
+      if (!response.ok || !body.board) {
+        setError(body.error || "Lecture du portefeuille impossible.");
+        setLoading(false);
+        return false;
+      }
+      setBoard((prev) => {
+        if (!cursor || !prev) return body.board!;
+        const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
+        const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
+        return { ...body.board!, items: [...prev.items, ...extra] };
+      });
+      notifyPortfolioChanged();
+      setError("");
+      blocked.current = false;
+      setHeld(false);
+      setUncertain("");
       setLoading(false);
-      return;
+      return true;
+    } catch {
+      if (requestId !== requestSeq.current) return false;
+      setError("Lecture du portefeuille impossible.");
+      setLoading(false);
+      return false;
     }
-    setBoard((prev) => {
-      if (!cursor || !prev) return body.board!;
-      const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
-      const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
-      return { ...body.board!, items: [...prev.items, ...extra] };
-    });
-    notifyPortfolioChanged();
-    setError("");
-    setLoading(false);
   }, [expanded, filter, query, router, scope]);
 
   useEffect(() => {
@@ -105,8 +144,37 @@ export function PersonalPortfolio() {
     return () => clearTimeout(handle);
   }, [load]);
 
+  const loadRef = useRef(load);
+  loadRef.current = load;
+
+  function settleMutation(
+    outcome: "confirmed" | "refused" | "conflict" | "unknown",
+    reread: "succeeded" | "failed" | "not-attempted",
+    knownMessage: string,
+  ) {
+    const follow = portfolioMutationFollowUp({ outcome, reread });
+    blocked.current = follow.blockFurtherMutations;
+    setHeld(follow.blockFurtherMutations);
+    if (follow.uncertain) {
+      setUncertain(
+        reread === "failed"
+          ? "Résultat incertain. La relecture a échoué et l'action n'a pas été relancée."
+          : "Résultat incertain. L'action n'est pas relancée.",
+      );
+      return;
+    }
+    setUncertain("");
+    if (follow.blockFurtherMutations) {
+      setNotice(knownMessage);
+      return;
+    }
+    if (outcome === "unknown") {
+      setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
+    }
+  }
+
   async function mutate(path: string, method: string, payload: unknown) {
-    if (busy.current) return;
+    if (busy.current || blocked.current) return;
     busy.current = true;
     setPending(path);
     setUncertain("");
@@ -119,23 +187,34 @@ export function PersonalPortfolio() {
       });
       const body = (await response.json().catch(() => ({}))) as { error?: string; message?: string };
       if (response.status === 409) {
-        setNotice(body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.");
-        await load();
+        const reread = await loadRef.current();
+        settleMutation(
+          "conflict",
+          reread ? "succeeded" : "failed",
+          body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.",
+        );
         return;
       }
       if (!response.ok) {
+        settleMutation("refused", "not-attempted", "");
         setNotice(body.message || body.error || "La modification n'a pas abouti.");
         return;
       }
       notifyPortfolioChanged();
-      await load();
+      const reread = await loadRef.current();
+      settleMutation(
+        "confirmed",
+        reread ? "succeeded" : "failed",
+        "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
+      );
     } catch {
-      setUncertain("Résultat incertain. L'action n'est pas relancée.");
+      let reread = false;
       try {
-        await load();
+        reread = await loadRef.current();
       } catch {
-        setUncertain("Résultat incertain. La relecture a échoué et l'action n'a pas été relancée.");
+        reread = false;
       }
+      settleMutation("unknown", reread ? "succeeded" : "failed", "");
     } finally {
       busy.current = false;
       setPending("");
@@ -168,7 +247,7 @@ export function PersonalPortfolio() {
     return (
       <div className="personal-portfolio" role="alert" data-testid="portfolio-page">
         <p>Portefeuille indisponible.</p>
-        <button type="button" onClick={() => void load()}>Réessayer</button>
+        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>Réessayer</button>
       </div>
     );
   }
@@ -274,6 +353,11 @@ export function PersonalPortfolio() {
       {error ? <p role="alert">{error}</p> : null}
       {notice ? <p role="status" data-testid="portfolio-conflict">{notice}</p> : null}
       {uncertain ? <p role="status" data-testid="portfolio-creation-uncertainty">{uncertain}</p> : null}
+      {held ? (
+        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>
+          Relire le portefeuille
+        </button>
+      ) : null}
       {pending ? <p role="status">Modification en cours…</p> : null}
 
       <section className="personal-portfolio-synthesis" aria-label="Synthèse du portefeuille">

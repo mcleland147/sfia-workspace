@@ -27,19 +27,14 @@ export async function GET(req: Request) {
     });
     const portfolio = preparationsCursor
       ? await loadPortfolio(session.pilotId, { preparationsCursor })
-      : {
-          kind: board.counters.projects + board.counters.preparations === 0 ? "empty" : "ready",
-          projects: [],
-          openPreparations: board.counters.preparations,
-          preparations: { items: [], nextCursor: null },
-        };
+      : null;
     return json({
       session: {
         pilotId: session.pilotId,
         displayName: session.displayName,
         authMode: session.authMode,
       },
-      portfolio,
+      ...(portfolio ? { portfolio } : {}),
       board,
     });
   } catch (e) {

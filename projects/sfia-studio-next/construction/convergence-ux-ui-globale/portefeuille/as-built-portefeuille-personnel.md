@@ -1,7 +1,23 @@
 # As-built — Portefeuille personnel et navigation
 
-Date : 28 novembre 2026. Mandat 1, complément A. Classe NO RELEASE.
+Date : 28 novembre 2026. Mandat 1, finalisation du complément A. Classe NO RELEASE.
 Schéma 028 inchangé. Aucune migration 029. Complément B non engagé.
+
+## Finalisation — garanties résiduelles
+
+Les lectures du tableau partagent une transaction REPEATABLE READ. Les compteurs, les effectifs, le total, la page et la reprise d'une même réponse voient le même instant. La collection peut encore changer entre deux pages.
+
+Le curseur et le tri départagent l'identité type et identifiant. Un curseur mal formé répond 400.
+
+Une écriture personnelle verrouille d'abord le Pilote, puis la ligne du projet ou de la préparation, puis revérifie l'éligibilité. Le déplacement verrouille aussi les préparations ouvertes du Pilote, par identifiant. La création de projet conserve ses propres verrous. Une préparation rattachée avant l'effet n'est plus favorite et n'apparaît plus comme espace autonome.
+
+L'ordre n'est modifié que si le tri enregistré est le tri personnalisé. L'archivage et la restauration qui changent l'état incrémentent la version d'organisation. Une restauration déjà effective ne décale pas les positions.
+
+Le signal d'ouverture prend l'heure du serveur au moment de l'effet et ne recule jamais. Les huit dernières clés sont retenues dans la clé existante. Une clé déjà vue, y compris après l'ouverture d'un autre onglet, ne compte pas comme une nouvelle ouverture. Une clé plus ancienne que cette fenêtre peut encore être acceptée : la colonne unique ne conserve pas un journal illimité.
+
+Une lecture en échec ne remplace pas le tableau par une liste vide. Un accusé perdu laisse le résultat inconnu et bloque les modifications suivantes jusqu'à une relecture réussie. L'intention n'est pas renvoyée. Le bouton Relire ne refait que la lecture.
+
+La réponse GET du portefeuille ne renvoie plus une ancienne projection vide. Le tableau est le contrat servi. L'ancienne lecture reste disponible seulement lorsqu'un curseur de préparations est demandé.
 
 ## Complément A — lectures et écritures
 
@@ -10,8 +26,8 @@ Le filtre, la recherche, le tri et la page sont exécutés par PostgreSQL sur l'
 Les compteurs portent sur les espaces courants. Les effectifs de groupe et le total filtré portent sur le résultat complet, pas sur la page.
 L'aperçu reste à 5. La collection déployée reste à 25. Le curseur est lié au tri, au filtre, à la recherche et au périmètre. Un curseur d'une autre lecture est refusé.
 
-Les écritures D1 prennent un verrou transactionnel par Pilote, distinct des verrous D2.
-La première écriture et les écritures suivantes se sérialisent ainsi. Une version périmée répond 409. L'éligibilité propriétaire est revérifiée dans le verrou.
+Les écritures D1 prennent un verrou transactionnel par Pilote, distinct des verrous D2, puis le verrou de ligne décrit ci-dessus.
+La première écriture et les écritures suivantes se sérialisent ainsi. Une version périmée répond 409. L'éligibilité propriétaire est revérifiée après l'attente.
 
 L'ordre personnalisé n'est accepté que sur la collection courante, filtre Tout, sans recherche.
 Le déplacement se fait avant la cible, dans les deux sens. Une cible absente ne réussit pas.
@@ -21,12 +37,12 @@ Le signal d'ouverture n'utilise plus l'origine de performance du document comme 
 Une note d'entrée est posée avant la navigation depuis le portefeuille ou un favori.
 Le même onglet ignore une clé déjà envoyée ou une séquence plus ancienne.
 Un remontage du même document sans nouvelle note ne crée pas une seconde ouverture.
-Un autre onglet peut encore faire avancer l'horodatage selon l'ordre d'arrivée : la table ne conserve que la dernière clé.
+La fenêtre des huit dernières clés et l'horodatage monotone sont décrits ci-dessus. Une clé plus ancienne que cette fenêtre reste une limite du schéma 028.
 Un rechargement sans note, un échec HTTP et un espace archivé ne changent pas la date. La navigation n'est pas bloquée.
 
 Le rail relit les favoris quand le tableau change, et ignore une réponse plus ancienne.
 Les compteurs filtrent la collection. La recherche du rail interroge les espaces du Pilote. Le lien Archives ouvre le périmètre archivé.
-Une mutation en cours n'est pas relancée. Un 409 déclenche une relecture. Un échec réseau laisse le résultat inconnu et ne renvoie pas l'intention.
+Une mutation en cours n'est pas relancée. Un 409 déclenche une relecture. Un échec réseau laisse le résultat inconnu, bloque les modifications suivantes tant que la relecture échoue, et ne renvoie pas l'intention.
 
 ## G2
 

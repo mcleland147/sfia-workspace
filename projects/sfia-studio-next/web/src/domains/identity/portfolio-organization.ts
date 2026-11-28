@@ -84,13 +84,37 @@ export function destinationIndex(length: number, from: number, before: number): 
   return from < before ? before - 1 : before;
 }
 
+const REMEMBERED_NAVIGATION_KEYS = 8;
+
+function rememberedNavigationKeys(stored: string | null): string[] {
+  if (!stored) return [];
+  return stored
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(-REMEMBERED_NAVIGATION_KEYS);
+}
+
+/** Accept a new opening, and reject a key already seen or an older key from the same tab. */
 export function acceptNavigationKey(stored: string | null, incoming: string): boolean {
   const key = incoming.trim();
-  if (!key || stored === key) return false;
+  if (!key) return false;
+  const remembered = rememberedNavigationKeys(stored);
+  if (remembered.includes(key)) return false;
   const next = parseNavigationKey(key);
-  const previous = stored ? parseNavigationKey(stored) : null;
-  if (next && previous && next.tab === previous.tab && next.seq <= previous.seq) return false;
+  if (!next) return !remembered.includes(key);
+  const sameTab = remembered
+    .map(parseNavigationKey)
+    .filter((item): item is { tab: string; seq: number } => item?.tab === next.tab);
+  if (sameTab.some((item) => item.seq >= next.seq)) return false;
   return true;
+}
+
+export function rememberNavigationKey(stored: string | null, incoming: string): string {
+  const key = incoming.trim();
+  const remembered = rememberedNavigationKeys(stored).filter((item) => item !== key);
+  remembered.push(key);
+  return remembered.slice(-REMEMBERED_NAVIGATION_KEYS).join(",");
 }
 
 function parseNavigationKey(value: string): { tab: string; seq: number } | null {
@@ -165,15 +189,15 @@ function collectionSql(pilotId: string) {
 }
 
 function orderSql(sort: PortfolioSort) {
-  if (sort === "name") return sql`label ASC, id ASC`;
-  if (sort === "custom") return sql`custom_position ASC NULLS LAST, created_at DESC, id DESC`;
-  if (sort === "recent") return sql`activity_at DESC, id DESC`;
-  return sql`created_at DESC, id DESC`;
+  if (sort === "name") return sql`label ASC, space_type ASC, id ASC`;
+  if (sort === "custom") return sql`custom_position ASC NULLS LAST, created_at DESC, space_type ASC, id DESC`;
+  if (sort === "recent") return sql`activity_at DESC, space_type ASC, id DESC`;
+  return sql`created_at DESC, space_type ASC, id DESC`;
 }
 
 function keysetSql(cursor: ReadCursor) {
   if (cursor.sort === "name") {
-    return sql`AND (label, id) > (${cursor.label}, ${cursor.id})`;
+    return sql`AND (label, space_type, id) > (${cursor.label}, ${cursor.spaceType}, ${cursor.id})`;
   }
   if (cursor.sort === "custom") {
     const position = cursor.position ?? 2147483647;
@@ -181,14 +205,14 @@ function keysetSql(cursor: ReadCursor) {
       COALESCE(custom_position, 2147483647) > ${position}
       OR (
         COALESCE(custom_position, 2147483647) = ${position}
-        AND (created_at, id) < (${cursor.createdAt}::timestamptz, ${cursor.id})
+        AND (created_at, space_type, id) < (${cursor.createdAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})
       )
     )`;
   }
   if (cursor.sort === "recent") {
-    return sql`AND (activity_at, id) < (${cursor.activityAt}::timestamptz, ${cursor.id})`;
+    return sql`AND (activity_at, space_type, id) < (${cursor.activityAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})`;
   }
-  return sql`AND (created_at, id) < (${cursor.createdAt}::timestamptz, ${cursor.id})`;
+  return sql`AND (created_at, space_type, id) < (${cursor.createdAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})`;
 }
 
 export async function loadPersonalBoard(
@@ -211,7 +235,9 @@ export async function loadPersonalBoard(
   const limit = preview ? PORTFOLIO_PREVIEW_LIMIT : PORTFOLIO_PAGE_SIZE;
   const needle = query ? `%${query.replace(/[\\%_]/g, (char) => `\\${char}`)}%` : null;
 
-  const pref = await sql<
+  return sql.begin(async (tx) => {
+  await tx`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ`;
+  const pref = await tx<
     { view: string; sort_mode: string | null; organization_version: number }[]
   >`
     SELECT view, sort_mode, organization_version
@@ -220,7 +246,7 @@ export async function loadPersonalBoard(
   `;
   const storedSort = pref[0]?.sort_mode ?? null;
   const sortExplicit = storedSort !== null && SORTS.has(storedSort as PortfolioSort);
-  const signal = await sql<{ present: boolean }[]>`
+  const signal = await tx<{ present: boolean }[]>`
     SELECT EXISTS (
       SELECT 1 FROM (${collectionSql(pilotId)}) spaces
       WHERE archived_at IS NULL AND last_opened_at IS NOT NULL
@@ -232,7 +258,7 @@ export async function loadPersonalBoard(
       ? "recent"
       : "created";
 
-  const counts = await sql<
+  const counts = await tx<
     { projects: number; preparations: number; favorites: number }[]
   >`
     SELECT
@@ -261,18 +287,18 @@ export async function loadPersonalBoard(
       httpStatus: 400,
     });
   }
-  const grouped = await sql<{ space_type: SpaceType; n: number }[]>`
+  const grouped = await tx<{ space_type: SpaceType; n: number }[]>`
     SELECT space_type, count(*)::int AS n
     FROM (${collectionSql(pilotId)}) spaces
     WHERE ${scopeSql} ${filterSql} ${searchSql}
     GROUP BY space_type
   `;
-  const filtered = await sql<{ n: number }[]>`
+  const filtered = await tx<{ n: number }[]>`
     SELECT count(*)::int AS n
     FROM (${collectionSql(pilotId)}) spaces
     WHERE ${scopeSql} ${filterSql} ${searchSql}
   `;
-  const page = await sql<Row[]>`
+  const page = await tx<Row[]>`
     SELECT
       space_type, id, label,
       created_text AS created_at,
@@ -287,7 +313,7 @@ export async function loadPersonalBoard(
   `;
   const resumeRows =
     scope === "current"
-      ? await sql<Row[]>`
+      ? await tx<Row[]>`
           SELECT
             space_type, id, label,
             created_text AS created_at,
@@ -341,6 +367,7 @@ export async function loadPersonalBoard(
     filter,
     query,
   };
+  });
 }
 
 function encodeCursor(value: ReadCursor): string {
@@ -353,6 +380,9 @@ function decodeCursor(raw: string): ReadCursor {
     if (!parsed.sort || !parsed.filter || !parsed.scope || !parsed.spaceType || !parsed.id || !parsed.createdAt) {
       throw new Error("shape");
     }
+    if (parsed.spaceType !== "project" && parsed.spaceType !== "preparation") throw new Error("shape");
+    if (!isPortfolioTimestamp(parsed.createdAt)) throw new Error("shape");
+    if (parsed.activityAt && !isPortfolioTimestamp(parsed.activityAt)) throw new Error("shape");
     return {
       sort: parsed.sort,
       filter: parsed.filter,
@@ -370,8 +400,60 @@ function decodeCursor(raw: string): ReadCursor {
   }
 }
 
+function isPortfolioTimestamp(value: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
 async function lockPilot(tx: typeof sql, pilotId: string) {
   await tx`SELECT pg_advisory_xact_lock(hashtext(${pilotId}), hashtext(${PILOT_LOCK}))`;
+}
+
+/** Same preparation row lock used by project creation, taken after the personal lock. */
+async function lockSpace(tx: typeof sql, pilotId: string, spaceType: SpaceType, spaceId: string) {
+  if (spaceType === "project") {
+    await tx`
+      SELECT id FROM projects
+      WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
+      FOR UPDATE
+    `;
+    return;
+  }
+  await tx`
+    SELECT id FROM preparations
+    WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
+    FOR UPDATE
+  `;
+}
+
+async function lockOpenPreparations(tx: typeof sql, pilotId: string) {
+  await tx`
+    SELECT id FROM preparations
+    WHERE owner_pilot_id = ${pilotId} AND status = 'OPEN'
+    ORDER BY id
+    FOR UPDATE
+  `;
+}
+
+async function bumpOrganizationVersion(tx: typeof sql, pilotId: string) {
+  const current = await tx<{ organization_version: number }[]>`
+    SELECT organization_version FROM pilot_portfolio_preferences
+    WHERE owner_pilot_id = ${pilotId}
+    FOR UPDATE
+  `;
+  const next = (current[0]?.organization_version ?? 0) + 1;
+  if (!current[0]) {
+    await tx`
+      INSERT INTO pilot_portfolio_preferences (owner_pilot_id, organization_version)
+      VALUES (${pilotId}, ${next})
+    `;
+  } else {
+    await tx`
+      UPDATE pilot_portfolio_preferences
+      SET organization_version = ${next}, updated_at = clock_timestamp()
+      WHERE owner_pilot_id = ${pilotId}
+    `;
+  }
+  return next;
 }
 
 async function assertEligible(tx: typeof sql, pilotId: string, spaceType: SpaceType, spaceId: string) {
@@ -445,6 +527,7 @@ export async function setSpaceFavorite(
 ) {
   return sql.begin(async (tx) => {
     await lockPilot(tx, pilotId);
+    await lockSpace(tx, pilotId, spaceType, spaceId);
     await assertEligible(tx, pilotId, spaceType, spaceId);
     const current = await tx<{ row_version: number }[]>`
       SELECT row_version FROM pilot_space_organization
@@ -479,15 +562,19 @@ export async function setSpaceArchive(
   }
   return sql.begin(async (tx) => {
     await lockPilot(tx, pilotId);
+    await lockSpace(tx, pilotId, spaceType, spaceId);
     await assertEligible(tx, pilotId, spaceType, spaceId);
-    const current = await tx<{ row_version: number; custom_position: number | null }[]>`
-      SELECT row_version, custom_position FROM pilot_space_organization
+    const current = await tx<{ row_version: number; custom_position: number | null; archived_at: string | null }[]>`
+      SELECT row_version, custom_position, archived_at FROM pilot_space_organization
       WHERE owner_pilot_id = ${pilotId} AND space_type = ${spaceType} AND space_id = ${spaceId}
       FOR UPDATE
     `;
     const version = current[0]?.row_version ?? 0;
     if (version !== input.expectedVersion) {
       throw new StudioError("CONFLICT", "L'organisation de cet espace a changé.", { httpStatus: 409 });
+    }
+    if (current[0] && Boolean(current[0].archived_at) === input.archived) {
+      return { rowVersion: version, archived: input.archived };
     }
     const next = version + 1;
     if (!input.archived && current[0]?.custom_position != null) {
@@ -512,9 +599,10 @@ export async function setSpaceArchive(
       )
       ON CONFLICT (owner_pilot_id, space_type, space_id)
       DO UPDATE SET
-        archived_at = CASE WHEN ${input.archived} THEN now() ELSE NULL END,
+        archived_at = CASE WHEN ${input.archived} THEN clock_timestamp() ELSE NULL END,
         row_version = ${next}
     `;
+    await bumpOrganizationVersion(tx, pilotId);
     return { rowVersion: next, archived: input.archived };
   });
 }
@@ -529,6 +617,7 @@ export async function recordSpaceOpened(
   if (!key) throw new StudioError("INVALID_REQUEST", "Clé de navigation absente.", { httpStatus: 400 });
   return sql.begin(async (tx) => {
     await lockPilot(tx, pilotId);
+    await lockSpace(tx, pilotId, spaceType, spaceId);
     await assertEligible(tx, pilotId, spaceType, spaceId);
     const current = await tx<{ archived_at: string | null; navigation_key: string | null }[]>`
       SELECT archived_at, navigation_key FROM pilot_space_organization
@@ -539,13 +628,19 @@ export async function recordSpaceOpened(
     if (!acceptNavigationKey(current[0]?.navigation_key ?? null, key)) {
       return { applied: false, reason: "duplicate" };
     }
+    const remembered = rememberNavigationKey(current[0]?.navigation_key ?? null, key);
     await tx`
       INSERT INTO pilot_space_organization (
         owner_pilot_id, space_type, space_id, last_opened_at, navigation_key
       )
-      VALUES (${pilotId}, ${spaceType}, ${spaceId}, now(), ${key})
+      VALUES (${pilotId}, ${spaceType}, ${spaceId}, clock_timestamp(), ${remembered})
       ON CONFLICT (owner_pilot_id, space_type, space_id)
-      DO UPDATE SET last_opened_at = now(), navigation_key = ${key}
+      DO UPDATE SET
+        last_opened_at = GREATEST(
+          COALESCE(pilot_space_organization.last_opened_at, clock_timestamp()),
+          clock_timestamp()
+        ),
+        navigation_key = ${remembered}
       WHERE pilot_space_organization.archived_at IS NULL
     `;
     return { applied: true };
@@ -574,15 +669,22 @@ export async function movePersonalSpace(
   }
   return sql.begin(async (tx) => {
     await lockPilot(tx, pilotId);
+    await lockSpace(tx, pilotId, input.spaceType, input.spaceId);
+    await lockOpenPreparations(tx, pilotId);
     await assertEligible(tx, pilotId, input.spaceType, input.spaceId);
-    const pref = await tx<{ organization_version: number }[]>`
-      SELECT organization_version FROM pilot_portfolio_preferences
+    const pref = await tx<{ organization_version: number; sort_mode: string | null }[]>`
+      SELECT organization_version, sort_mode FROM pilot_portfolio_preferences
       WHERE owner_pilot_id = ${pilotId}
       FOR UPDATE
     `;
     const version = pref[0]?.organization_version ?? 0;
     if (version !== input.expectedVersion) {
       throw new StudioError("CONFLICT", "L'ordre a changé. Relisez le portefeuille.", { httpStatus: 409 });
+    }
+    if (pref[0]?.sort_mode !== "custom") {
+      throw new StudioError("CONFLICT", "L'ordre personnalisé n'est pas le tri enregistré.", {
+        httpStatus: 409,
+      });
     }
     const rows = await tx<Row[]>`
       SELECT space_type, id, label, created_text AS created_at, opened_text AS last_opened_at,
