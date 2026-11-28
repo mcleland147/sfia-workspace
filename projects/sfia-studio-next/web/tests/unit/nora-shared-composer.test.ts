@@ -39,13 +39,12 @@ describe("NoraSharedComposer wiring", () => {
     expect(preparationConversation).toMatch(/<NoraSharedComposer[\s\S]*variant="prep"/);
   });
 
-  it("does not aria-hide the sas command bar when draft is empty (mic stays exposed)", () => {
+  it("keeps the microphone in the shared row, not a second command bar", () => {
     const src = readFileSync(join(root, "NoraSharedComposer.tsx"), "utf8");
-    const barOpen = src.match(/<div[\s\S]*?className="sas-composer-bar"[^>]*>/)?.[0] ?? "";
-    expect(barOpen).not.toContain("aria-hidden");
-    expect(src).toMatch(
-      /className="sas-composer-hint"[\s\S]*aria-hidden=\{!dictationActive && !props\.draft\.trim\(\)\}/,
-    );
+    expect(src).not.toMatch(/sas-composer/);
+    const row = src.match(/<div className="fig-travail-composer-row">[\s\S]*?<\/div>/)?.[0] ?? "";
+    expect(row).toContain("dictationControl");
+    expect(row).not.toContain("aria-hidden={");
   });
 
   it("routes dictation to project API when projectId is set", () => {
@@ -103,11 +102,11 @@ describe("NoraSharedComposer C.1 consolidation", () => {
     expect(src).toMatch(/const sharedTextareaProps = \{/);
     expect(src).toMatch(/function onTextareaKeyDown/);
     expect(src).toMatch(/function canAdmitSend/);
-    // Contractual send rules remain distinct.
-    expect(src).toMatch(/variant === "prep"/);
-    expect(src).toMatch(/metaKey \|\| e\.ctrlKey/);
-    expect(src).toMatch(/!e\.shiftKey/);
-    // No Enter-send while dictation active.
+    const keydown = src.match(/function onTextareaKeyDown[\s\S]*?\n  \}/)?.[0] ?? "";
+    expect(keydown).not.toMatch(/variant|metaKey|ctrlKey/);
+    expect(keydown).toMatch(/!e\.shiftKey/);
+    expect(src).toMatch(/className="fig-composer fig-travail-composer relative"/);
+    expect(src).not.toMatch(/if \(props\.variant === "prep"\) return/);
     expect(src).toMatch(/dictationActive[\s\S]*e\.preventDefault/);
   });
 

@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-SHARED-COMPOSER-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — compositeur unique Travail et sas
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `87a25c5eed65a1b30c6f608dcccb57f0c5992eff`
+- **commit**: `refactor(studio-next): unify Nora conversation composer`
+- **schema_revision**: inchangé, `029`
+- **scope**: un seul rendu de compositeur ; le sas abandonne sa branche visuelle ; clavier de Travail pour les deux surfaces
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · push produit non inclus
+- **reserves**: F2 non mesuré sur un rectangle Figma apparié ; R-M3-DOC-TITLE cause de refus remappée, non corrigée
+
 ## delivery_id: DELIV-2026-11-28-ML5-PROJECT-SURFACES-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -134,16 +134,18 @@ export function PreparationConversation(props: {
         ) : null}
       </div>
 
-      <NoraSharedComposer
-        variant="prep"
-        draft={props.draft}
-        onDraft={props.onDraftChange}
-        busy={props.busy}
-        onSend={props.onSend}
-        projectId={props.projectId ?? undefined}
-        preparationId={props.preparationId}
-        dictationEnabled={props.dictationEnabled}
-      />
+      <div className="sas-composer-slot">
+        <NoraSharedComposer
+          variant="prep"
+          draft={props.draft}
+          onDraft={props.onDraftChange}
+          busy={props.busy}
+          onSend={props.onSend}
+          projectId={props.projectId ?? undefined}
+          preparationId={props.preparationId}
+          dictationEnabled={props.dictationEnabled}
+        />
+      </div>
       {props.footer}
     </section>
   );

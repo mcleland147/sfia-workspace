@@ -1,5 +1,9 @@
 # As-built — Macro-lot 3 — Interaction audio (dictée compositeur)
 
+Complément 28/11/2026, base `87a25c5e`. Travail et le sas partagent désormais le même rendu de compositeur. Le contrôle micro, le transport et la dictée ne sont pas modifiés. L6 reste différé.
+
+# As-built — Macro-lot 3 — Interaction audio (dictée compositeur)
+
 | Champ | Valeur |
 |---|---|
 | Date | 2026-11-27 |

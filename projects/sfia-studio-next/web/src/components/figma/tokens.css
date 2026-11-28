@@ -30,7 +30,6 @@
   --sas-header: 72px;
   --sas-conversation-w: 800px;
   --sas-preview-w: 518px;
-  --sas-composer-h: 118px;
   /* Figma reference height (655) is a proportion cue — runtime fills available shell height. */
   --sas-panel-h-ref: 655px;
 }
@@ -1654,92 +1653,9 @@
   border-color: color-mix(in srgb, var(--bad) 55%, var(--fig-line));
 }
 
-.sas-composer {
+.sas-composer-slot {
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  height: var(--sas-composer-h);
-  min-height: var(--sas-composer-h);
-  max-height: var(--sas-composer-h);
-  border: 1px solid var(--fig-line);
-  border-radius: var(--fig-radius);
-  background: var(--fig-panel);
-  padding: 14px 16px 10px;
-  box-sizing: border-box;
-}
-
-.sas-composer-input {
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 42px;
-  resize: none;
-  border: 0;
-  background: transparent;
-  color: var(--fig-ink);
-  font-family: inherit;
-  /* Match SAS / conversation body (11px). */
-  font-size: 11px;
-  line-height: 1.35;
-  padding: 0;
-  outline: none;
-}
-
-.sas-composer-input::placeholder {
-  color: var(--fig-quiet);
-}
-
-.sas-composer-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px solid var(--fig-line);
-  flex-shrink: 0;
-}
-
-.sas-composer-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--fig-quiet);
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.sas-composer-plus {
-  color: var(--fig-muted);
-  font-size: 18px;
-  line-height: 1;
-}
-
-.sas-composer-send {
-  width: 48px;
-  height: 30px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--fig-accent);
-  color: var(--fig-ink);
-  font-size: 19px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.sas-composer-send:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.sas-composer-send:focus-visible,
-.sas-composer-input:focus-visible {
-  outline: 2px solid var(--fig-accent);
-  outline-offset: 2px;
+  min-width: 0;
 }
 
 .sas-preview {
@@ -1996,7 +1912,7 @@
   .sas-preview-inner {
     min-height: 0;
   }
-  .sas-composer {
+  .sas-composer-slot {
     position: sticky;
     bottom: 0;
     z-index: 2;

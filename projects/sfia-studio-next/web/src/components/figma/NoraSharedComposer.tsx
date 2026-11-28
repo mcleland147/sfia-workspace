@@ -32,8 +32,9 @@ export type NoraSharedComposerProps = {
 };
 
 /**
- * Shared composer shell — prep vs travail keep contractual chrome/send rules,
- * but IME, growth, dictation lock, and send admission share one interaction path (E4 C.1).
+ * One composer for Travail and the preparation screen.
+ * Context differs only by ids, placeholder, lock and an authorised attachment.
+ * Desktop Enter sends; Shift+Enter keeps a newline. That is the Travail contract.
  */
 export function NoraSharedComposer(props: NoraSharedComposerProps) {
   const composerLocked = Boolean(props.composerLocked);
@@ -47,12 +48,7 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
   const dictationMount = Boolean(dictationProjectId || dictationPreparationId);
 
   const sendDisabled =
-    props.busy ||
-    dictationActive ||
-    (props.variant === "travail"
-      ? !props.draft.trim() && !hasDossier
-      : !props.draft.trim()) ||
-    composerLocked;
+    props.busy || dictationActive || (!props.draft.trim() && !hasDossier) || composerLocked;
 
   const isMobile =
     typeof window !== "undefined" &&
@@ -64,11 +60,10 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
     if (!el) return;
     el.style.height = "auto";
     const max = Math.min(window.innerHeight * 0.36, 280);
-    const min = props.variant === "prep" ? 42 : 24;
-    const next = Math.min(Math.max(el.scrollHeight, min), max);
+    const next = Math.min(Math.max(el.scrollHeight, 24), max);
     el.style.height = `${next}px`;
     el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
-  }, [props.draft, props.variant]);
+  }, [props.draft]);
 
   const placeholder =
     props.placeholder ??
@@ -78,27 +73,15 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
 
   function canAdmitSend(): boolean {
     if (props.busy || composerLocked || dictationActive) return false;
-    if (props.variant === "travail") return Boolean(props.draft.trim() || hasDossier);
-    return Boolean(props.draft.trim());
+    return Boolean(props.draft.trim() || hasDossier);
   }
 
   function onTextareaKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
-    // During dictation: never send (Enter or shortcuts).
     if (composerLocked || dictationActive) {
       e.preventDefault();
       return;
     }
     if (imeComposing || e.nativeEvent.isComposing) return;
-
-    if (props.variant === "prep") {
-      if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && canAdmitSend()) {
-        e.preventDefault();
-        props.onSend();
-      }
-      return;
-    }
-
-    // Travail: Enter sends on desktop; Shift+Enter newline; mobile keeps Enter as newline.
     if (isMobile) return;
     if (e.key === "Enter" && !e.shiftKey && canAdmitSend()) {
       e.preventDefault();
@@ -137,78 +120,13 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
     onKeyDown: onTextareaKeyDown,
   };
 
-  if (props.variant === "prep") {
-    const expanded = props.draft.includes("\n") || props.draft.length > 80;
-    return (
-      <div
-        className="sas-composer relative"
-        data-testid="prep-composer"
-        data-dictation-active={dictationActive ? "1" : "0"}
-        data-composer-expanded={expanded ? "1" : "0"}
-        style={
-          expanded
-            ? {
-                height: "auto",
-                maxHeight: "min(36vh, 280px)",
-                minHeight: "var(--sas-composer-h)",
-                overflowY: "auto",
-              }
-            : undefined
-        }
-      >
-        <textarea
-          {...sharedTextareaProps}
-          className="sas-composer-input"
-          data-testid="prep-draft"
-          disabled={props.busy || composerLocked}
-        />
-        <div
-          className="sas-composer-bar"
-          data-dictation-active={dictationActive ? "1" : "0"}
-        >
-          <span
-            className="sas-composer-hint"
-            aria-hidden={!dictationActive && !props.draft.trim()}
-            data-dictation-hide={dictationActive ? "1" : undefined}
-            hidden={dictationActive}
-          >
-            <span className="sas-composer-plus" aria-hidden>
-              ＋
-            </span>
-            Échanger librement avec Nora
-          </span>
-          <div className="inline-flex min-w-0 flex-1 items-center justify-end gap-2">
-            {dictationControl}
-            <button
-              type="button"
-              className="sas-composer-send"
-              disabled={sendDisabled}
-              onClick={() => {
-                if (canAdmitSend()) props.onSend();
-              }}
-              data-testid="prep-send"
-              aria-label="Envoyer le message"
-              data-dictation-hide={dictationActive ? "1" : undefined}
-              hidden={dictationActive}
-              tabIndex={dictationActive ? -1 : 0}
-            >
-              <span aria-hidden>↑</span>
-            </button>
-          </div>
-        </div>
-        {props.status ? (
-          <p className="sr-only" role="status">
-            {props.status}
-          </p>
-        ) : null}
-      </div>
-    );
-  }
+  const prep = props.variant === "prep";
 
   return (
     <div
       className="fig-composer fig-travail-composer relative"
-      data-testid="nora-composer"
+      data-testid={prep ? "prep-composer" : "nora-composer"}
+      data-composer-surface={props.variant}
       data-composer-locked={composerLocked ? "1" : "0"}
       data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
       data-dictation-active={dictationActive ? "1" : "0"}
@@ -293,7 +211,7 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
         <textarea
           {...sharedTextareaProps}
           className="fig-travail-composer-input"
-          data-testid="thread-draft"
+          data-testid={prep ? "prep-draft" : "thread-draft"}
           disabled={composerLocked}
           aria-disabled={composerLocked || dictationActive}
         />
@@ -305,7 +223,7 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
           onClick={() => {
             if (canAdmitSend()) props.onSend();
           }}
-          data-testid="thread-send"
+          data-testid={prep ? "prep-send" : "thread-send"}
           aria-label="Envoyer"
           data-dictation-hide={dictationActive ? "1" : undefined}
           hidden={dictationActive}
