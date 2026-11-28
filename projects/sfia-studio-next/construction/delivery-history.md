@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — suppression définitive d'un projet ou d'une préparation autonome
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `8acc05b7db41a4db3bd5fceff4c238b0cb89ccbd`
+- **commit**: `feat(studio-next): support permanent space deletion`
+- **schema_revision**: inchangé, `029`
+- **scope**: effacement transactionnel des données exclusivement propres à l'espace ; confirmation unique dans le portefeuille ; l'archivage personnel reste réversible
+- **classe**: NO RELEASE · compatible évolutive · LIVE NOT RUN · CI NOT RUN · push produit non inclus
+- **reserves**: F2 non mesuré ; une qualification déjà terminée ne bloque pas ; les réserves des mandats 1 à 5 sont transportées
+
 ## delivery_id: DELIV-2026-11-28-ML5-FINOPS-PROJECTION-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

@@ -19,7 +19,7 @@ export type PortfolioMutationOutcome = "confirmed" | "refused" | "conflict" | "u
 export type PortfolioReread = "reviewed" | "failed" | "not-attempted";
 
 export type PortfolioIntention = {
-  kind: "favorite" | "archive" | "preference" | "order" | "rename";
+  kind: "favorite" | "archive" | "preference" | "order" | "rename" | "delete";
   intentionKey?: string;
   spaceType?: PersonalSpace["spaceType"];
   spaceId?: string;
@@ -74,6 +74,9 @@ export function classifyPortfolioResponse(
       return typeof body.label === "string" && typeof body.revision === "number" && typeof body.intentionKey === "string" && typeof body.changed === "boolean"
         ? "confirmed"
         : "unknown";
+    }
+    if (kind === "delete") {
+      return body.deleted === true && typeof body.spaceType === "string" && typeof body.spaceId === "string" ? "confirmed" : "unknown";
     }
   }
   return "unknown";
@@ -161,6 +164,9 @@ export function correlatedAcknowledgement(
       && (body.revision === intention.knownVersion || body.revision === intention.knownVersion + 1)
       && acknowledgedNameMatches(intention, body.label, body.changed === true);
   }
+  if (intention.kind === "delete") {
+    return body.deleted === true && body.spaceType === intention.spaceType && body.spaceId === intention.spaceId;
+  }
   return false;
 }
 
@@ -201,6 +207,12 @@ export function reconcileOwnerEffect(input: {
   }
   const primary = records[0];
   if (!primary) return "unproven";
+  if (intention.kind === "delete") {
+    if (outcome !== "confirmed" || !correlatedAcknowledgement(intention, acknowledgement)) return "current";
+    if (primary !== "absent") return "current";
+    const stillShown = board.items.some((entry) => entry.spaceType === intention.spaceType && entry.id === intention.spaceId);
+    return stillShown ? "current" : "confirmed";
+  }
   if (primary === "absent") return "absent";
   if (!shownAgrees(board, primary)) return "unproven";
   if (!primary.eligible) return "current";
@@ -339,6 +351,7 @@ export function PersonalPortfolio() {
   const acknowledgementRef = useRef<Record<string, unknown> | null>(null);
   const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<PersonalSpace | null>(null);
   const [renameTarget, setRenameTarget] = useState<PersonalSpace | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [renameNotice, setRenameNotice] = useState("");
@@ -347,7 +360,7 @@ export function PersonalPortfolio() {
   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
 
   useEffect(() => {
-    const open = Boolean(confirm || confirmRestore || renameTarget);
+    const open = Boolean(confirm || confirmRestore || confirmDelete || renameTarget);
     if (!open) return;
     const root = dialogRef.current;
     const previous = menuTrigger.current ?? (document.activeElement as HTMLElement | null);
@@ -361,6 +374,7 @@ export function PersonalPortfolio() {
         if (!blocked.current) {
           setConfirm(null);
           setConfirmRestore(null);
+          setConfirmDelete(null);
           setRenameTarget(null);
         }
         return;
@@ -383,7 +397,7 @@ export function PersonalPortfolio() {
       document.removeEventListener("keydown", onKey);
       previous?.focus();
     };
-  }, [confirm, confirmRestore, renameTarget]);
+  }, [confirm, confirmRestore, confirmDelete, renameTarget]);
 
   useEffect(() => {
     if (!menu) return;
@@ -497,7 +511,7 @@ export function PersonalPortfolio() {
       return;
     }
     if (outcome === "confirmed" && effect === "confirmed") {
-      setNotice(settledKind === "order" ? "Ordre enregistré." : settledKind === "rename" ? "Nom enregistré." : "");
+      setNotice(settledKind === "order" ? "Ordre enregistré." : settledKind === "rename" ? "Nom enregistré." : settledKind === "delete" ? "Espace supprimé." : "");
       return;
     }
     if (outcome === "confirmed") {
@@ -633,6 +647,7 @@ export function PersonalPortfolio() {
       setPending("");
       setConfirm(null);
       setConfirmRestore(null);
+      setConfirmDelete(null);
       if (!retainRename) {
         setRenameTarget(null);
         setRenameNotice("");
@@ -821,7 +836,7 @@ export function PersonalPortfolio() {
             <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) - 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Monter</button>
             <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) + 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Descendre</button>
             <button type="button" role="menuitem" disabled={locked} onClick={() => { if (scope === "archive") setConfirmRestore(space); else setConfirm(space); }}><Mark name="archive" />{scope === "archive" ? "Restaurer" : "Archiver"}</button>
-            <button type="button" role="menuitem" disabled title="La suppression n'est pas disponible."><Mark name="trash" />Supprimer</button>
+            <button type="button" role="menuitem" disabled={locked} data-testid="portfolio-delete-action" onClick={() => { setNotice(""); setConfirmDelete(space); setMenu(null); }}><Mark name="trash" />Supprimer</button>
           </div>
         ) : null}
       </article>
@@ -992,6 +1007,23 @@ export function PersonalPortfolio() {
             <div className="personal-portfolio-modal-actions">
               <button type="button" onClick={() => setConfirm(null)}>Annuler</button>
               <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirm.spaceType}/${confirm.id}/archive`, "PUT", { archived: true, confirm: true, expectedVersion: confirm.rowVersion }, { kind: "archive", spaceType: confirm.spaceType, spaceId: confirm.id, desired: true, knownVersion: confirm.rowVersion })}>Archiver</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {confirmDelete ? (
+        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirmDelete(null); }}>
+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la suppression" data-testid="portfolio-delete-dialog" onClick={(event) => event.stopPropagation()}>
+            <h2>Supprimer {confirmDelete.label} ?</h2>
+            <p>
+              {confirmDelete.spaceType === "project"
+                ? "Ce projet et toutes ses données seront supprimés définitivement. Cette action est irréversible."
+                : "Cette préparation et toutes ses données seront supprimées définitivement. Cette action est irréversible."}
+            </p>
+            {notice ? <p role="alert" data-testid="portfolio-delete-message">{notice}</p> : null}
+            <div className="personal-portfolio-modal-actions">
+              <button type="button" onClick={() => { if (!locked) setConfirmDelete(null); }}>Annuler</button>
+              <button type="button" className="personal-portfolio-primary" disabled={locked} data-testid="portfolio-delete-confirm" onClick={() => void mutate(`/api/portfolio/spaces/${confirmDelete.spaceType}/${confirmDelete.id}`, "DELETE", { confirm: true }, { kind: "delete", spaceType: confirmDelete.spaceType, spaceId: confirmDelete.id, knownVersion: confirmDelete.rowVersion })}>Supprimer définitivement</button>
             </div>
           </div>
         </div>

@@ -176,5 +176,33 @@ describe("portfolio organization rules", () => {
       records: [renamed],
       board: { ...board, items: [{ ...board.items[0], label: "Nouveau nom" }] },
     })).toBe("current");
+    const deletion: PortfolioIntention = { kind: "delete", spaceType: "project", spaceId: "prj_1", knownVersion: 4 };
+    const deletedAck = { deleted: true, spaceType: "project", spaceId: "prj_1" };
+    expect(classifyPortfolioResponse(200, deletedAck, "delete")).toBe("confirmed");
+    expect(classifyPortfolioResponse(200, { ok: true }, "delete")).toBe("unknown");
+    expect(classifyPortfolioResponse(404, { error: "NOT_FOUND" }, "delete")).toBe("refused");
+    expect(correlatedAcknowledgement(deletion, deletedAck)).toBe(true);
+    expect(correlatedAcknowledgement(deletion, { deleted: true, spaceType: "preparation", spaceId: "prj_1" })).toBe(false);
+    expect(reconcileOwnerEffect({
+      intention: deletion,
+      outcome: "confirmed",
+      acknowledgement: deletedAck,
+      records: ["absent"],
+      board: { ...board, items: [] },
+    })).toBe("confirmed");
+    expect(reconcileOwnerEffect({
+      intention: deletion,
+      outcome: "confirmed",
+      acknowledgement: deletedAck,
+      records: ["absent"],
+      board,
+    })).toBe("current");
+    expect(reconcileOwnerEffect({
+      intention: deletion,
+      outcome: "unknown",
+      acknowledgement: null,
+      records: ["absent"],
+      board: { ...board, items: [] },
+    })).toBe("current");
   });
 });
