@@ -368,4 +368,6 @@ Ce travail a un **blast radius D2/D3/D4/D5/D6** et dépasse une pure transpositi
 
 ### 10.3. Écart autorisé — chargement du contexte, 28 novembre 2026
 
-Morris autorise, pour le lot 2, un quatrième repère dans l'écran de préparation existant : chargement du contexte et de la continuité projet. Cet écart ne remplace pas la maquette trois étapes et ne prétend pas à une fidélité géométrique F2 de la carte 702×726. Le repère est lié à la lecture réelle du projet déjà créé. Il ne retarde pas la qualification, ne bloque pas « Accéder au projet », et ne constitue pas une nouvelle connaissance. La réouverture d'un projet existant reste un chargement, pas une nouvelle création.
+Morris autorise, pour le lot 2, un quatrième repère dans l'écran de préparation existant : chargement du contexte et de la continuité projet. Le repère est lié à la lecture réelle du projet déjà créé. Il ne retarde pas la qualification, ne bloque pas « Accéder au projet », et ne constitue pas une nouvelle connaissance. La réouverture d'un projet existant reste un chargement, pas une nouvelle création.
+
+Complément du 28 novembre 2026 : la frame Figma 1022:164 a été mise à jour. La fenêtre de référence observée est 702×823, centrée verticalement dans un viewport 1680×970. L'état affiché par cette frame est le chargement du contexte, avec le titre « Projet créé. Préparation de ton espace de travail. » « Préparation terminée » n'est annoncé que si le contexte est validé et la qualification proposée. Ce n'est pas un verdict F2.

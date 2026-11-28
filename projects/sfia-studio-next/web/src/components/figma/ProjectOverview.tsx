@@ -67,8 +67,17 @@ export function ProjectOverview(props: {
 }) {
   const cycle = props.pilotage?.cycle;
   const activity = props.activity;
-  const activityLoaded = (props.activityFreshness ?? "ready") === "ready" || activity !== null;
-  const activityUnconfirmed = props.activityFreshness === "stale";
+  const freshness = props.activityFreshness ?? "loading";
+  const hasSnapshot = activity !== null;
+  const showCounts = hasSnapshot && (freshness === "ready" || freshness === "stale");
+  const activityUnconfirmed = freshness === "stale" && hasSnapshot;
+  const freshnessLabel = activityUnconfirmed
+    ? "Dernière lecture conservée — fraîcheur non confirmée"
+    : showCounts
+      ? "Vue synthétique des espaces du projet"
+      : freshness === "loading"
+        ? "Chargement des compteurs"
+        : "Lecture indisponible";
   // Prefer a durable project description; never invent illustrative copy.
   // Proposed orientation is a trajectory artifact — only use as fallback when no description.
   const description = props.description?.trim() || null;
@@ -194,11 +203,7 @@ export function ProjectOverview(props: {
         <div className="flex flex-wrap items-end justify-between gap-2" style={{ minHeight: 32 }}>
           <h3 className="text-[22px] font-semibold leading-8 text-[#f3f5ff]">Activité du projet</h3>
           <p className="text-xs text-[#7787a4]" data-testid="project-activity-freshness">
-            {activityUnconfirmed
-              ? "Dernière lecture conservée — fraîcheur non confirmée"
-              : activityLoaded
-                ? "Vue synthétique des espaces du projet"
-                : "Chargement des compteurs"}
+            {freshnessLabel}
           </p>
         </div>
         <div
@@ -215,7 +220,8 @@ export function ProjectOverview(props: {
             title="Sujets ouverts"
             source="Journal"
             count={activity?.openSubjects.count ?? 0}
-            loaded={activityLoaded}
+            loaded={showCounts}
+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
             empty="Aucun sujet actif capitalisé."
             examples={activity?.openSubjects.examples.map((e) => e.title) ?? []}
             href={`/projects/${props.projectId}?surface=journal`}
@@ -225,7 +231,8 @@ export function ProjectOverview(props: {
             title="Décisions applicables"
             source="Gouvernance"
             count={activity?.applicableDecisions.count ?? 0}
-            loaded={activityLoaded}
+            loaded={showCounts}
+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
             empty="Aucune décision applicable."
             examples={activity?.applicableDecisions.examples.map((e) => e.statement) ?? []}
             href={`/projects/${props.projectId}?surface=journal`}
@@ -235,7 +242,8 @@ export function ProjectOverview(props: {
             title="Documents du projet"
             source="Bibliothèque"
             count={activity?.documentsInProgress.count ?? 0}
-            loaded={activityLoaded}
+            loaded={showCounts}
+            pendingLabel={freshness === "loading" ? "Compteur non chargé." : "Lecture indisponible."}
             empty="Aucun document en cours de rédaction."
             examples={activity?.documentsInProgress.examples.map((e) => e.title) ?? []}
             href={`/projects/${props.projectId}?surface=document`}
@@ -252,6 +260,7 @@ function ActivityCard(props: {
   source: string;
   count: number;
   loaded: boolean;
+  pendingLabel?: string;
   empty: string;
   examples: string[];
   href: string;
@@ -284,7 +293,9 @@ function ActivityCard(props: {
       <div className="my-4 h-px shrink-0 bg-[#2b3850]" data-testid={`${props.testId}-sep-top`} />
       <div className="min-h-[72px] flex-1">
         {!props.loaded ? (
-          <p className="text-sm leading-relaxed text-[#a3b0c7]">Compteur non chargé.</p>
+          <p className="text-sm leading-relaxed text-[#a3b0c7]">
+            {props.pendingLabel ?? "Compteur non chargé."}
+          </p>
         ) : props.count === 0 ? (
           <p className="text-sm leading-relaxed text-[#a3b0c7]">{props.empty}</p>
         ) : (

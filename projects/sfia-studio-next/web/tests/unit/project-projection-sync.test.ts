@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 import { countProjectLibraryDocuments } from "@/domains/preparation/project-activity-projection";
 import {
   activityAfterProjectRead,
+  contextPreloadVerdict,
   journalMayReplaceProjectKnowledge,
+  preparationAnnouncement,
   preparationContinuityMarks,
+  turnProjectionRefreshOutcome,
 } from "@/lib/project-projection-sync";
-import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+import { openProjectionRead, projectionReadApplies, shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
 
 const activity = {
   openSubjects: { count: 2, examples: [{ id: "s1", title: "Sujet" }] },
@@ -114,5 +117,104 @@ describe("project projection sync", () => {
     expect(failedContext.context).toBe("failed");
     expect(failedContext.cycles).toBe("incomplete");
     expect(failedContext.reply).toBe("incomplete");
+  });
+
+  it("does not treat a missing activity object as a confirmed zero", () => {
+    const next = activityAfterProjectRead({
+      previous: null,
+      incoming: undefined,
+      httpOk: true,
+      snapshotPresent: false,
+    });
+    expect(next.activity).toBeNull();
+    expect(next.freshness).toBe("unavailable");
+  });
+
+  it("keeps a confirmed turn when the projection read fails", () => {
+    expect(
+      turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }),
+    ).toBe("preserve-metier");
+    expect(
+      turnProjectionRefreshOutcome({ metierConfirmed: false, projectionFailed: true }),
+    ).toBe("metier-unconfirmed");
+  });
+
+  it("rejects a preload that is only an HTTP success", () => {
+    expect(
+      contextPreloadVerdict({
+        expectedProjectId: "p1",
+        httpOk: true,
+        body: { project: { id: "p2" }, knowledge: {}, activity: {} },
+      }),
+    ).toBe("failed");
+    expect(
+      contextPreloadVerdict({
+        expectedProjectId: "p1",
+        httpOk: true,
+        body: { project: { id: "p1" } },
+      }),
+    ).toBe("partial");
+    expect(
+      contextPreloadVerdict({
+        expectedProjectId: "p1",
+        httpOk: true,
+        body: { project: { id: "p1" }, knowledge: null, activity: null },
+      }),
+    ).toBe("partial");
+    expect(
+      contextPreloadVerdict({
+        expectedProjectId: "p1",
+        httpOk: true,
+        body: { project: { id: "p1" }, knowledge: { subjects: [] }, activity: { openPointsCount: 0 } },
+      }),
+    ).toBe("ready");
+  });
+
+  it("does not announce preparation complete while context is unfinished or qualification is absent", () => {
+    const loading = preparationAnnouncement({
+      context: "loading",
+      qualificationStatus: "PROPOSED",
+      dwellComplete: true,
+      projectName: "Atlas",
+    });
+    expect(loading.announceComplete).toBe(false);
+    expect(loading.kicker).toContain("CONTEXTE EN CHARGEMENT");
+    const absent = preparationAnnouncement({
+      context: "ready",
+      qualificationStatus: null,
+      dwellComplete: true,
+      projectName: "Atlas",
+    });
+    expect(absent.announceComplete).toBe(false);
+    expect(absent.title).not.toContain("Préparation terminée");
+  });
+
+  it("rejects an older read after a newer one has been opened, including on another project", () => {
+    const first = openProjectionRead({ currentGeneration: 0, projectId: "p1" });
+    const second = openProjectionRead({
+      currentGeneration: first.generation,
+      projectId: "p1",
+    });
+    expect(
+      projectionReadApplies({
+        request: first.request,
+        latestGeneration: second.generation,
+        currentProjectId: "p1",
+      }),
+    ).toBe(false);
+    expect(
+      projectionReadApplies({
+        request: second.request,
+        latestGeneration: second.generation,
+        currentProjectId: "p2",
+      }),
+    ).toBe(false);
+    expect(
+      shouldApplyDurableRefresh({
+        request: second.request,
+        currentGeneration: second.generation,
+        currentProjectId: "p1",
+      }),
+    ).toBe(true);
   });
 });

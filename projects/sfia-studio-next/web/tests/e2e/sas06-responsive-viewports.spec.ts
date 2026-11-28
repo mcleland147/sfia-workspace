@@ -3,7 +3,8 @@ import { test, expect, type Page } from "@playwright/test";
 
 /**
  * Ensemble 07 SAS06 — responsive contract:
- * - 1680×970: card 702×816 after the authorized fourth context step (F2 726 no longer claimed)
+ * - 1680×970: card 702×823, top padding equals vertical centering of that card.
+ *   This is a geometry check of the implemented window, not an F2 verdict.
  * - 1280×720: CTA reachable via scroll; click navigates to project
  */
 async function openSas06Popup(page: Page, seed: string) {
@@ -27,7 +28,7 @@ async function openSas06Popup(page: Page, seed: string) {
   await expect(page.getByTestId("sas-create-progress-popup")).toBeVisible({ timeout: 30000 });
 }
 
-test("SAS06 desktop 1680×970 matches Figma geometry (F2 ≤2px)", async ({ page }) => {
+test("SAS06 desktop 1680×970 uses the 823px window and centered padding", async ({ page }) => {
   await page.setViewportSize({ width: 1680, height: 970 });
   await openSas06Popup(page, "SAS06 desktop geometry seed");
 
@@ -41,9 +42,9 @@ test("SAS06 desktop 1680×970 matches Figma geometry (F2 ≤2px)", async ({ page
   expect(cardBox).toBeTruthy();
 
   const padTop = (cardBox!.y - (overlayBox!.y ?? 0));
-  expect(Math.abs(padTop - 124)).toBeLessThanOrEqual(2);
+  expect(Math.abs(padTop - (970 - 823) / 2)).toBeLessThanOrEqual(2);
   expect(Math.abs(cardBox!.width - 702)).toBeLessThanOrEqual(2);
-  expect(Math.abs(cardBox!.height - 816)).toBeLessThanOrEqual(2);
+  expect(Math.abs(cardBox!.height - 823)).toBeLessThanOrEqual(2);
 
   await expect(dismiss).toBeVisible();
   const dismissBox = await dismiss.boundingBox();
@@ -71,9 +72,8 @@ test("SAS06 short 1280×720 CTA reachable with scroll and click", async ({ page 
   const cardBox = await card.boundingBox();
   expect(overlayBox).toBeTruthy();
   expect(cardBox).toBeTruthy();
-  // Short viewport must shrink top padding below Figma 124 so content fits/scrolls.
   const padTop = cardBox!.y - (overlayBox!.y ?? 0);
-  expect(padTop).toBeLessThan(124);
+  expect(padTop).toBeLessThan(73.5);
   expect(padTop).toBeGreaterThanOrEqual(14);
 
   await dismiss.scrollIntoViewIfNeeded();

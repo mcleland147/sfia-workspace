@@ -2,6 +2,7 @@
 
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import {
+  preparationAnnouncement,
   preparationContinuityMarks,
   type ContextLoadState,
   type PrepMark,
@@ -9,7 +10,7 @@ import {
 
 /**
  * Figma SAS06 (1022:164) — Création et qualification initiale.
- * Dimensions : 702×726 · assets SVG natifs sous /public/figma/sas06/ (download_assets MCP).
+ * Frame 1022:164, référence 702×823. Assets locaux identiques aux icônes de la frame.
  */
 const ASSET = {
   halo: "/figma/sas06/icone-halo.svg",
@@ -35,55 +36,26 @@ export function SasCreateProgressPopup(props: {
 }) {
   if (!props.visible) return null;
 
-  const complete = props.complete === true;
   const iqStatus = props.qualification?.status ?? null;
-  /** AT-03 — terminal ≠ always « trajectoire prête ». */
-  const outcome: "PROPOSED" | "CLARIFICATION" | "FAILED" | "RUNNING" =
-    !complete
-      ? "RUNNING"
-      : iqStatus === "PROPOSED"
-        ? "PROPOSED"
-        : iqStatus === "FAILED"
-          ? "FAILED"
-          : iqStatus === "CLARIFICATION"
-            ? "CLARIFICATION"
-            : "PROPOSED";
-
-  const kicker =
-    outcome === "RUNNING"
-      ? "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION"
-      : outcome === "PROPOSED"
-        ? "PROJET CRÉÉ / TRAJECTOIRE PROPOSÉE"
-        : outcome === "CLARIFICATION"
-          ? "PROJET CRÉÉ / CLARIFICATION NÉCESSAIRE"
-          : "PROJET CRÉÉ / REPRISE NÉCESSAIRE";
-
-  const titleText =
-    outcome === "RUNNING"
-      ? "Projet créé. Nora prépare la suite."
-      : outcome === "PROPOSED"
-        ? "Préparation terminée. Accède au projet quand tu veux."
-        : outcome === "CLARIFICATION"
-          ? "Projet créé. Nora a besoin d’une précision avant de proposer la trajectoire."
-          : "Projet créé. La qualification initiale n’a pas abouti.";
-
-  const leadText =
-    outcome === "RUNNING"
-      ? props.projectName
-        ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
-        : "Nora analyse ton intention pour proposer une première trajectoire."
-      : outcome === "PROPOSED"
-        ? props.projectName
-          ? `La première proposition de trajectoire pour « ${props.projectName} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
-          : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord."
-        : outcome === "CLARIFICATION"
-          ? "Une clarification est dans le fil du projet. Réponds-y pour que Nora propose une trajectoire. Aucun cycle n’est ouvert."
-          : "Tu peux accéder au projet et reprendre la conversation. Aucun cycle n’a été ouvert.";
+  const contextLoad = props.contextLoad ?? "loading";
+  const announcement = preparationAnnouncement({
+    context: contextLoad,
+    qualificationStatus: iqStatus,
+    dwellComplete: props.complete === true,
+    projectName: props.projectName,
+  });
+  const kicker = announcement.kicker;
+  const titleText = announcement.title;
+  const leadText = announcement.lead;
+  const outcome =
+    iqStatus === "PROPOSED" || iqStatus === "CLARIFICATION" || iqStatus === "FAILED"
+      ? iqStatus
+      : "RUNNING";
 
   const marks = preparationContinuityMarks({
     projectCreated: true,
-    context: props.contextLoad ?? "loading",
-    qualificationStatus: complete ? (iqStatus ?? "PROPOSED") : iqStatus,
+    context: contextLoad,
+    qualificationStatus: iqStatus,
   });
   const steps: Array<{
     n: 1 | 2 | 3 | 4;
@@ -95,19 +67,19 @@ export function SasCreateProgressPopup(props: {
       n: 1,
       key: "project",
       title: "Projet créé",
-      detail: "Il reste accessible, même si tu quittes Studio.",
+      detail: "Ton projet est enregistré et reste accessible.",
     },
     {
       n: 2,
       key: "context",
       title: "Chargement du contexte et de la continuité projet",
-      detail: "Sujets, acquis, points ouverts, documents et pilotage déjà disponibles.",
+      detail: "Récupération des sujets, acquis, points ouverts, documents et informations de pilotage.",
     },
     {
       n: 3,
       key: "cycles",
       title: "Identification des cycles pertinents",
-      detail: "Analyse des cycles pertinents et des références CKI.",
+      detail: "Qualification initiale de la trajectoire et des références CKI.",
     },
     {
       n: 4,
@@ -118,7 +90,9 @@ export function SasCreateProgressPopup(props: {
           ? "Clarification dans le fil — pas encore de proposition de trajectoire."
           : outcome === "FAILED"
             ? "La qualification n’a pas abouti ; tu peux reprendre dans le projet."
-            : "Une proposition de trajectoire dans le fil du projet.",
+            : outcome === "PROPOSED"
+              ? "Une proposition de trajectoire dans le fil du projet."
+              : "Une proposition ou une clarification dans le fil du projet.",
     },
   ];
 
@@ -131,7 +105,7 @@ export function SasCreateProgressPopup(props: {
         // Short viewports (e.g. PW 1280×720): shrink top padding (floor 16px) so the
         // 702×726 card can scroll and "Accéder au projet" stays reachable.
         // Four markers. Desktop padding shrinks when the card no longer fits 124px.
-        padding: "clamp(16px, calc(100vh - 816px - 24px), 124px) 16px 24px",
+        padding: "clamp(16px, calc((100vh - 823px) / 2), 240px) 16px 24px",
       }}
       role="dialog"
       aria-modal="true"
@@ -143,7 +117,7 @@ export function SasCreateProgressPopup(props: {
         style={{
           width: 702,
           // Morris 2026-11-28: fourth real context step. Height follows the added row.
-          height: 816,
+          height: 823,
           maxHeight: "calc(100vh - 40px)",
           maxWidth: "calc(100vw - 32px)",
           background: "#1b2639",
@@ -195,7 +169,7 @@ export function SasCreateProgressPopup(props: {
         <div style={{ padding: "24px 35px 0" }}>
           <h2
             id="sas-create-progress-title"
-            className="text-[28px] font-semibold leading-tight"
+            className="text-[26px] font-semibold leading-tight"
           >
             {titleText}
           </h2>
@@ -233,7 +207,7 @@ export function SasCreateProgressPopup(props: {
             const statusColor =
               mark === "done" ? "#6cdbba" : mark === "running" ? "#7477ed" : mark === "failed" ? "#e2a36b" : "#7787a4";
             const borderColor = current ? "#7477ed" : "#2b3850";
-            const minH = current ? 96 : 72;
+            const minH = current ? 104 : item.n === 1 ? 79 : 86;
 
             return (
               <li
@@ -268,7 +242,7 @@ export function SasCreateProgressPopup(props: {
                         width={35}
                         height={35}
                         className="fig-sas-progress-ring-spin"
-                        data-terminal={complete ? "1" : "0"}
+                        data-terminal={announcement.announceComplete ? "1" : "0"}
                         aria-hidden
                       />
                       <span className="absolute inset-0 flex items-center justify-center">
@@ -326,7 +300,7 @@ export function SasCreateProgressPopup(props: {
             />
           </span>
           <p className="text-[12px] leading-relaxed text-[#a3b0c7]">
-            Tu peux quitter Studio : cette préparation sera retrouvée à ton retour.
+            Tu peux accéder au projet dès maintenant ou quitter Studio : la préparation sera retrouvée à ton retour.
           </p>
         </div>
 

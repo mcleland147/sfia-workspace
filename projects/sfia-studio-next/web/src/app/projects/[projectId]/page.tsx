@@ -45,10 +45,14 @@ import {
   type RevisionRow,
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
-import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+import {
+  openProjectionRead,
+  projectionReadApplies,
+} from "@/lib/durable-refresh-guard";
 import {
   activityAfterProjectRead,
   journalMayReplaceProjectKnowledge,
+  turnProjectionRefreshOutcome,
   type ActivityFreshness,
   type ActivitySnapshot,
 } from "@/lib/project-projection-sync";
@@ -367,6 +371,7 @@ export default function ProjectPage() {
     openPointsCount: number;
   } | null>(null);
   const [activityFreshness, setActivityFreshness] = useState<ActivityFreshness>("loading");
+  const projectActivityRef = useRef<ActivitySnapshot>(null);
   const [journalContinuity, setJournalContinuity] = useState<"loading" | "ready" | "unavailable">(
     "loading",
   );
@@ -413,6 +418,8 @@ export default function ProjectPage() {
   const pilotIdRef = useRef<string | null>(null);
   const preparationIdRef = useRef<string | null>(null);
   const projectIdRef = useRef(params.projectId);
+  projectIdRef.current = params.projectId;
+  const projectionReadGenRef = useRef(0);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   /** L1.5 — invalidate in-flight activity polls when a new send starts or ends. */
   const activityPollEpochRef = useRef(0);
@@ -587,6 +594,7 @@ export default function ProjectPage() {
 
   async function refreshJournalContinuity(projectId: string) {
     const gen = ++journalReqRef.current;
+    try {
     const res = await fetch(`/api/projects/${projectId}/journal`);
     if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
     if (!res.ok) {
@@ -649,6 +657,16 @@ export default function ProjectPage() {
     setJournalSources(body.sourceLinks ?? []);
     setJournalContradictions(body.contradictions ?? []);
     setJournalContinuity("ready");
+    } catch {
+      if (gen !== journalReqRef.current || projectIdRef.current !== projectId) return;
+      setJournalContinuity("unavailable");
+    }
+  }
+
+  async function revalidateOwnedProjections(projectId?: string) {
+    const id = projectId ?? projectIdRef.current;
+    await refreshDurablePilotage({ projectId: id });
+    await refreshJournalContinuity(id);
   }
 
   useEffect(() => {
@@ -1442,7 +1460,6 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     surfaceNavGenRef.current += 1;
-    const navGen = surfaceNavGenRef.current;
     const projectIdAtNav = params.projectId;
     pendingSurfaceRef.current = next;
     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
@@ -1465,9 +1482,12 @@ export default function ProjectPage() {
     }
     // E07 — revalidate durable pilotage on surface change (GET only, no métier mutation).
     // Stale-response guard lives inside refreshDurablePilotage (before setState).
-    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+    void refreshDurablePilotage({ projectId: projectIdAtNav }).catch(() => {
       /* best-effort — navigation must stay non-blocking */
     });
+    if (next === "journal") {
+      void refreshJournalContinuity(projectIdAtNav);
+    }
   }
 
   function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
@@ -1808,83 +1828,80 @@ export default function ProjectPage() {
     }
   }
 
-  async function refreshDurablePilotage(opts?: { generation?: number; projectId?: string }) {
-    const request = {
-      generation: opts?.generation ?? surfaceNavGenRef.current,
-      projectId: opts?.projectId ?? params.projectId,
-    };
+  async function refreshDurablePilotage(opts?: { projectId?: string }) {
+    const projectId = opts?.projectId ?? projectIdRef.current;
+    const opened = openProjectionRead({
+      currentGeneration: projectionReadGenRef.current,
+      projectId,
+    });
+    projectionReadGenRef.current = opened.generation;
     const stillApplicable = () =>
-      shouldApplyDurableRefresh({
-        request,
-        currentGeneration: surfaceNavGenRef.current,
-        currentProjectId: params.projectId,
+      projectionReadApplies({
+        request: opened.request,
+        latestGeneration: projectionReadGenRef.current,
+        currentProjectId: projectIdRef.current,
       });
-
-    // Prefer full project GET so surfaces (Projet / Trajectoire / CKI) share one durable snapshot.
-    const projRes = await fetch(`/api/projects/${request.projectId}`);
-    // Guard BEFORE any React mutation — out-of-order GETs must not clobber newer state.
-    if (!stillApplicable()) return;
-
-    if (projRes.ok) {
-      const pj = (await projRes.json()) as {
-        pilotage?: PilotageProjection | null;
-        messages?: Msg[];
-        documents?: Doc[];
-        knowledge?: Knowledge | null;
-        activity?: ActivitySnapshot | null;
-      };
+    const markUnread = () => {
       if (!stillApplicable()) return;
-      if (pj.pilotage) {
-        setPilotageProjection(pj.pilotage);
-      }
-      if (Array.isArray(pj.messages)) {
-        setMessages(pj.messages);
-      }
-      if (Array.isArray(pj.documents)) setDocuments(pj.documents);
-      if (pj.knowledge !== undefined) setKnowledge(pj.knowledge ?? null);
-      const hasActivity = Object.prototype.hasOwnProperty.call(pj, "activity");
-      const applied = activityAfterProjectRead({
-        previous: projectActivity,
-        incoming: hasActivity ? (pj.activity ?? null) : projectActivity,
-        httpOk: true,
-      });
-      setProjectActivity(applied.activity);
-      setActivityFreshness(applied.freshness);
-      const cycle = pj.pilotage?.cycle;
-      if (cycle?.status === "ACTIVE") {
-        setPilotageStatus((prev) =>
-          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
-            ? prev
-            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
-        );
-      }
-      return;
-    }
+      setActivityFreshness(
+        activityAfterProjectRead({
+          previous: projectActivityRef.current,
+          incoming: undefined,
+          httpOk: false,
+          snapshotPresent: false,
+        }).freshness,
+      );
+    };
 
-    setActivityFreshness(
-      activityAfterProjectRead({
-        previous: projectActivity,
-        incoming: undefined,
-        httpOk: false,
-      }).freshness,
-    );
-
-    // Fallback: dedicated pilotage route (same applicability gate)
-    const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
-    if (!stillApplicable()) return;
-    if (only.ok) {
+    try {
+      const projRes = await fetch(`/api/projects/${projectId}`);
+      if (!stillApplicable()) return;
+      if (projRes.ok) {
+        const pj = (await projRes.json()) as {
+          pilotage?: PilotageProjection | null;
+          messages?: Msg[];
+          documents?: Doc[];
+          knowledge?: Knowledge | null;
+          activity?: ActivitySnapshot | null;
+        };
+        if (!stillApplicable()) return;
+        if (pj.pilotage) setPilotageProjection(pj.pilotage);
+        if (Array.isArray(pj.messages)) setMessages(pj.messages);
+        if (Array.isArray(pj.documents)) setDocuments(pj.documents);
+        if (pj.knowledge !== undefined) setKnowledge(pj.knowledge ?? null);
+        const hasActivity =
+          Object.prototype.hasOwnProperty.call(pj, "activity") && pj.activity != null;
+        const applied = activityAfterProjectRead({
+          previous: projectActivityRef.current,
+          incoming: hasActivity ? pj.activity : undefined,
+          httpOk: true,
+          snapshotPresent: hasActivity,
+        });
+        if (hasActivity) {
+          projectActivityRef.current = applied.activity;
+          setProjectActivity(applied.activity);
+        }
+        setActivityFreshness(applied.freshness);
+        const cycle = pj.pilotage?.cycle;
+        if (cycle?.status === "ACTIVE") {
+          setPilotageStatus((prev) =>
+            prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+              ? prev
+              : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
+          );
+        }
+        return;
+      }
+      markUnread();
+      const only = await fetch(`/api/projects/${projectId}/pilotage`);
+      if (!stillApplicable()) return;
+      if (!only.ok) return;
       const pj = await only.json();
       if (!stillApplicable()) return;
       const pilotage = (pj.pilotage ?? pj) as PilotageProjection;
       setPilotageProjection(pilotage);
-      const cycle = pilotage?.cycle;
-      if (cycle?.status === "ACTIVE") {
-        setPilotageStatus((prev) =>
-          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
-            ? prev
-            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
-        );
-      }
+    } catch {
+      markUnread();
     }
   }
 
@@ -1966,14 +1983,36 @@ export default function ProjectPage() {
   }
 
   async function refreshProjectThreadSnapshot(): Promise<Msg[]> {
-    const proj = await fetch(`/api/projects/${params.projectId}`);
-    if (!proj.ok) return [];
-    const pj = await proj.json();
-    setDocuments(pj.documents ?? []);
-    setKnowledge(pj.knowledge ?? null);
-    const msgs = Array.isArray(pj.messages) ? (pj.messages as Msg[]) : [];
-    if (msgs.length) setMessages(msgs);
-    return msgs;
+    const projectId = projectIdRef.current;
+    const opened = openProjectionRead({
+      currentGeneration: projectionReadGenRef.current,
+      projectId,
+    });
+    projectionReadGenRef.current = opened.generation;
+    const still = () =>
+      projectionReadApplies({
+        request: opened.request,
+        latestGeneration: projectionReadGenRef.current,
+        currentProjectId: projectIdRef.current,
+      });
+    try {
+      const proj = await fetch(`/api/projects/${projectId}`);
+      if (!still() || !proj.ok) return [];
+      const pj = await proj.json();
+      if (!still()) return [];
+      setDocuments(pj.documents ?? []);
+      setKnowledge(pj.knowledge ?? null);
+      if (pj.activity) {
+        projectActivityRef.current = pj.activity;
+        setProjectActivity(pj.activity);
+        setActivityFreshness("ready");
+      }
+      const msgs = Array.isArray(pj.messages) ? (pj.messages as Msg[]) : [];
+      if (msgs.length) setMessages(msgs);
+      return msgs;
+    } catch {
+      return [];
+    }
   }
 
   async function tryClearOrphanPendingFromThread(
@@ -1991,7 +2030,7 @@ export default function ProjectPage() {
       pending,
       noraMode: "thread-orphan-recovery",
     });
-    await refreshDurablePilotage();
+    await revalidateOwnedProjections();
     return true;
   }
 
@@ -2033,7 +2072,7 @@ export default function ProjectPage() {
           setChoiceFrozen(true);
           setNoraActivity("error");
         }
-        await refreshDurablePilotage();
+        await revalidateOwnedProjections();
         return;
       }
 
@@ -2063,7 +2102,7 @@ export default function ProjectPage() {
           noraMode: body.noraMode,
         });
         await refreshProjectThreadSnapshot();
-        await refreshDurablePilotage();
+        await revalidateOwnedProjections();
         if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
           if (status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
             setNoraActivity("preparing");
@@ -2106,7 +2145,7 @@ export default function ProjectPage() {
           noraMode: String(j.noraMode ?? ""),
         });
         await refreshProjectThreadSnapshot();
-        await refreshDurablePilotage();
+        await revalidateOwnedProjections();
       } else {
         const cat = String(j.errorCategory ?? "");
         if (retry.status === 409 && cat.toUpperCase() === "TURN_IN_PROGRESS") {
@@ -2133,6 +2172,7 @@ export default function ProjectPage() {
   useEffect(() => {
     let cancelled = false;
     setProjectLoadState("loading");
+    projectActivityRef.current = null;
     setProjectActivity(null);
     setActivityFreshness("loading");
     setUnavailableKind(null);
@@ -2148,6 +2188,7 @@ export default function ProjectPage() {
     });
 
     async function load() {
+      try {
       const res = await fetch(`/api/projects/${params.projectId}`);
       if (cancelled) return;
       if (res.status === 401) {
@@ -2238,8 +2279,10 @@ export default function ProjectPage() {
       setKnowledge(j.knowledge ?? null);
       setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
       setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
-      setProjectActivity(j.activity ?? null);
-      setActivityFreshness("ready");
+      const loadedActivity = j.activity ?? null;
+      projectActivityRef.current = loadedActivity;
+      setProjectActivity(loadedActivity);
+      setActivityFreshness(loadedActivity ? "ready" : "unavailable");
       const nextPrepId = j.preparation?.id ?? null;
       setPreparationId(nextPrepId);
       preparationIdRef.current = nextPrepId;
@@ -2499,17 +2542,26 @@ export default function ProjectPage() {
             documentSave?: { documentId?: string; status?: string } | null;
           };
           if (resume.recovered) {
+            const readGen = projectionReadGenRef.current;
             const refreshed = await fetch(`/api/projects/${params.projectId}`);
             if (refreshed.ok) {
               const rj = await refreshed.json();
-              if (cancelled) return;
-              setMessages(rj.messages ?? []);
-              setDocuments(rj.documents ?? []);
-              setKnowledge(rj.knowledge ?? null);
+              if (cancelled || projectIdRef.current !== params.projectId) return;
+              if (projectionReadGenRef.current === readGen) {
+                setMessages(rj.messages ?? []);
+                setDocuments(rj.documents ?? []);
+                setKnowledge(rj.knowledge ?? null);
+                if (rj.activity) {
+                  projectActivityRef.current = rj.activity;
+                  setProjectActivity(rj.activity);
+                  setActivityFreshness("ready");
+                }
+              }
               if (resume.documentSave?.documentId) {
                 setStatusHint("Fil durable · reprise de mission documentée");
               }
             }
+            await refreshJournalContinuity(params.projectId);
           }
         }
       } catch {
@@ -2518,6 +2570,13 @@ export default function ProjectPage() {
 
       // Mark ready only after surface sync from this load has been applied.
       if (!cancelled) setProjectLoadState("ready");
+      } catch {
+        if (cancelled || projectIdRef.current !== params.projectId) return;
+        setActivityFreshness("unavailable");
+        setJournalContinuity("unavailable");
+        setUnavailableKind("temporary");
+        setProjectLoadState("ready");
+      }
     }
     void load();
     return () => {
@@ -2570,15 +2629,28 @@ export default function ProjectPage() {
           setInitialQualification(body.initialQualification);
         }
       }
+      const readGen = projectionReadGenRef.current;
       const res = await fetch(`/api/projects/${params.projectId}`);
-      if (!res.ok || cancelled) return;
+      if (!res.ok || cancelled || projectIdRef.current !== params.projectId) return;
       const j = await res.json();
+      if (projectionReadGenRef.current !== readGen) return;
       setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
       if (j.initialQualification) {
         missingQualificationAttemptsRef.current = 0;
         setInitialQualification(j.initialQualification as InitialQualificationProjection);
       }
       setMessages((j.messages ?? []) as Msg[]);
+      if (j.activity) {
+        projectActivityRef.current = j.activity;
+        setProjectActivity(j.activity);
+        setActivityFreshness("ready");
+      }
+      const qStatus = String(
+        (j.initialQualification as InitialQualificationProjection | null)?.status ?? "",
+      );
+      if (qStatus === "PROPOSED" || qStatus === "CLARIFICATION" || qStatus === "FAILED") {
+        await refreshJournalContinuity(params.projectId);
+      }
     };
     intervalId = window.setInterval(() => void tick(), 2000);
     void tick();
@@ -2593,7 +2665,6 @@ export default function ProjectPage() {
   // + generation bump so concurrent/stale project GETs cannot clobber a newer surface.
   useEffect(() => {
     surfaceNavGenRef.current += 1;
-    const navGen = surfaceNavGenRef.current;
     const projectIdAtNav = params.projectId;
     const qSurface = parseSurface(searchParams.get("surface"));
     const qDocId = searchParams.get("documentId");
@@ -2604,9 +2675,12 @@ export default function ProjectPage() {
     if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
       clearProjectSurfaceNavIntent(params.projectId, qSurface);
     }
-    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+    void refreshDurablePilotage({ projectId: projectIdAtNav }).catch(() => {
       /* best-effort — URL surface sync must stay non-blocking */
     });
+    if (qSurface === "journal") {
+      void refreshJournalContinuity(projectIdAtNav);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
@@ -2682,11 +2756,21 @@ export default function ProjectPage() {
           `${j.reason ?? "BASE_STALE"} — nouvelle base présentée ; brouillon conservé. Rebasage explicite requis.`,
         );
         // Refresh inspect (new base) but DO NOT overwrite reviseDraft.
+        const docReadGen = projectionReadGenRef.current;
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
           const pj = await proj.json();
           const docs = (pj.documents ?? []) as Doc[];
           setDocuments(docs);
+          if (
+            pj.activity &&
+            docReadGen === projectionReadGenRef.current &&
+            projectIdRef.current === params.projectId
+          ) {
+            projectActivityRef.current = pj.activity;
+            setProjectActivity(pj.activity);
+            setActivityFreshness("ready");
+          }
           const fresh = docs.find((d) => d.document.id === inspect.document.id);
           if (fresh) {
             setInspect(fresh);
@@ -2697,11 +2781,21 @@ export default function ProjectPage() {
       }
 
       if (resultStatus === "AVAILABLE") {
+        const docReadGen = projectionReadGenRef.current;
         const proj = await fetch(`/api/projects/${params.projectId}`);
         if (proj.ok) {
           const pj = await proj.json();
           const docs = (pj.documents ?? []) as Doc[];
           setDocuments(docs);
+          if (
+            pj.activity &&
+            docReadGen === projectionReadGenRef.current &&
+            projectIdRef.current === params.projectId
+          ) {
+            projectActivityRef.current = pj.activity;
+            setProjectActivity(pj.activity);
+            setActivityFreshness("ready");
+          }
           const fresh = docs.find((d) => d.document.id === inspect.document.id);
           if (fresh) {
             setInspect(fresh);
@@ -2723,11 +2817,21 @@ export default function ProjectPage() {
           correlationKey,
         );
         if (recon.found && recon.status === "AVAILABLE") {
+          const docReadGen = projectionReadGenRef.current;
           const proj = await fetch(`/api/projects/${params.projectId}`);
           if (proj.ok) {
             const pj = await proj.json();
             const docs = (pj.documents ?? []) as Doc[];
             setDocuments(docs);
+            if (
+              pj.activity &&
+              docReadGen === projectionReadGenRef.current &&
+              projectIdRef.current === params.projectId
+            ) {
+              projectActivityRef.current = pj.activity;
+              setProjectActivity(pj.activity);
+              setActivityFreshness("ready");
+            }
             const fresh = docs.find((d) => d.document.id === inspect.document.id);
             if (fresh) {
               setInspect(fresh);
@@ -2964,6 +3068,7 @@ export default function ProjectPage() {
     if (!fromChoice) {
       setDraft("");
     }
+    let metierConfirmed = false;
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -3305,8 +3410,6 @@ export default function ProjectPage() {
             );
           }
         }
-        await refreshDurablePilotage();
-        await refreshJournalContinuity(params.projectId);
         setNoraActivity(
           j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
             ? "error"
@@ -3321,6 +3424,21 @@ export default function ProjectPage() {
           setChoiceFrozen(true);
         } else {
           setChoiceFrozen(false);
+        }
+        metierConfirmed = true;
+        try {
+          await revalidateOwnedProjections();
+        } catch {
+          if (
+            turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }) ===
+            "preserve-metier"
+          ) {
+            setActivityFreshness((prev) => (prev === "ready" ? "stale" : prev));
+            setJournalContinuity((prev) => (prev === "loading" ? "unavailable" : prev));
+            setStatus(
+              "Effet enregistré. La relecture du projet n’a pas abouti — vous pouvez relire sans relancer Nora.",
+            );
+          }
         }
       } else {
         // ACK lost / HTTP error — KEEP choices frozen (server may have applied).
@@ -3351,12 +3469,23 @@ export default function ProjectPage() {
         }
       }
     } catch {
-      // Network loss after click: fail closed. Do not select a head from another
-      // operation and do not replay a conservation whose result is unknown.
-      setChoiceFrozen(true);
-      rememberPending(buildPending());
-      setNoraActivity("error");
-      setStatus("échec réseau — intention de tour conservée");
+      if (
+        metierConfirmed &&
+        turnProjectionRefreshOutcome({ metierConfirmed: true, projectionFailed: true }) ===
+          "preserve-metier"
+      ) {
+        setActivityFreshness((prev) => (prev === "ready" ? "stale" : prev));
+        setJournalContinuity((prev) => (prev === "loading" ? "unavailable" : prev));
+        setStatus(
+          "Effet enregistré. La relecture du projet n’a pas abouti — vous pouvez relire sans relancer Nora.",
+        );
+      } else {
+        // Network loss before a confirmed turn: fail closed.
+        setChoiceFrozen(true);
+        rememberPending(buildPending());
+        setNoraActivity("error");
+        setStatus("échec réseau — intention de tour conservée");
+      }
     } finally {
       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
       activityPollEpochRef.current += 1;
@@ -4187,6 +4316,9 @@ export default function ProjectPage() {
           openPoints={knowledge?.openPoints ?? []}
           continuityLoading={journalContinuity === "loading" || activityFreshness === "loading"}
           continuityUnavailable={journalContinuity === "unavailable"}
+          onRetryContinuity={() => {
+            void refreshJournalContinuity(projectIdRef.current);
+          }}
           decisions={journalDecisions}
           restrictions={journalRestrictions}
           sourceLinks={journalSources}

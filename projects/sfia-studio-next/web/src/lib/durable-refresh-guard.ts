@@ -25,3 +25,27 @@ export function shouldApplyDurableRefresh(input: {
   if (input.request.generation !== input.currentGeneration) return false;
   return true;
 }
+
+/** One generation per read. A newer read, even a failed one, retires older responses. */
+export function openProjectionRead(input: {
+  currentGeneration: number;
+  projectId: string;
+}): { generation: number; request: DurableRefreshRequestIdentity } {
+  const generation = input.currentGeneration + 1;
+  return {
+    generation,
+    request: { generation, projectId: input.projectId },
+  };
+}
+
+export function projectionReadApplies(input: {
+  request: DurableRefreshRequestIdentity;
+  latestGeneration: number;
+  currentProjectId: string;
+}): boolean {
+  return shouldApplyDurableRefresh({
+    request: input.request,
+    currentGeneration: input.latestGeneration,
+    currentProjectId: input.currentProjectId,
+  });
+}

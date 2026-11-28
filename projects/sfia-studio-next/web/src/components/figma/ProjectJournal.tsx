@@ -301,6 +301,7 @@ export function ProjectJournal(props: {
   /** True while the project continuity read has not completed. Empty is not unloaded. */
   continuityLoading?: boolean;
   continuityUnavailable?: boolean;
+  onRetryContinuity?: () => void;
   /** Sas-only mutation affordance — project Journal stays read-oriented. */
   onRenameSubject?: (id: string, title: string) => void;
   splitSlot?: React.ReactNode;
@@ -639,6 +640,17 @@ export function ProjectJournal(props: {
           </div>
         )}
 
+        {props.continuityUnavailable ? (
+          <p className="journal-empty-copy" data-testid="journal-continuity-unconfirmed">
+            Lecture du Journal non confirmée. Les dernières données de ce projet restent affichées.{" "}
+            {props.onRetryContinuity ? (
+              <button type="button" className="btn secondary" onClick={props.onRetryContinuity}>
+                Relire
+              </button>
+            ) : null}
+          </p>
+        ) : null}
+
         {tab === "subjects" ? (
           emptySubjects ? (
             <div className="journal-hierarchy journal-empty" data-testid="journal-empty-structure">
@@ -714,7 +726,13 @@ export function ProjectJournal(props: {
             decisions={filteredDecisions}
             selectedId={selectedDecisionId}
             showEmpty={showDecisionSearchEmpty}
-            emptyCopy={COPY.emptyDecisions}
+            emptyCopy={
+              props.continuityLoading
+                ? "Chargement des décisions."
+                : props.continuityUnavailable
+                  ? "Décisions non confirmées par la dernière lecture."
+                  : COPY.emptyDecisions
+            }
             searchEmptyCopy={COPY.searchEmptyDecisions}
             onSelect={pickDecision}
           />

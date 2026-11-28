@@ -6,6 +6,7 @@ import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PreparationConversation } from "@/components/figma/PreparationConversation";
 import { PreparationProposal } from "@/components/figma/PreparationProposal";
 import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
+import { contextPreloadVerdict } from "@/lib/project-projection-sync";
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import { ProjectJournal } from "@/components/figma/ProjectJournal";
 import {
@@ -128,9 +129,9 @@ export default function PreparationPage() {
   const [createProgressQualification, setCreateProgressQualification] =
     useState<InitialQualificationProjection | null>(null);
   const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
-  const [createContextLoad, setCreateContextLoad] = useState<"loading" | "ready" | "failed">(
-    "loading",
-  );
+  const [createContextLoad, setCreateContextLoad] = useState<
+    "loading" | "ready" | "partial" | "failed"
+  >("loading");
   /** RB-06 — UX min presentation for steps 2 and 3 (backend not delayed). Documented: 1200 ms. */
   const SAS_STEP_MIN_MS = 1200;
   const createProgressEnteredAtRef = useRef<number>(0);
@@ -175,9 +176,26 @@ export default function PreparationPage() {
     let cancelled = false;
     setCreateContextLoad("loading");
     void fetch(`/api/projects/${pendingNavigateProjectId}`)
-      .then((res) => {
+      .then(async (res) => {
         if (cancelled) return;
-        setCreateContextLoad(res.ok ? "ready" : "failed");
+        let body: {
+          project?: { id?: string | null } | null;
+          knowledge?: unknown;
+          activity?: unknown;
+        } | null = null;
+        try {
+          body = (await res.json()) as typeof body;
+        } catch {
+          body = null;
+        }
+        if (cancelled) return;
+        setCreateContextLoad(
+          contextPreloadVerdict({
+            expectedProjectId: pendingNavigateProjectId,
+            httpOk: res.ok,
+            body,
+          }),
+        );
       })
       .catch(() => {
         if (!cancelled) setCreateContextLoad("failed");

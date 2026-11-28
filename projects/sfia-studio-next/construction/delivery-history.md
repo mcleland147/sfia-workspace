@@ -5587,4 +5587,5 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 - **Schéma** : aucun changement · aucune migration
 - **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
 - **Statut** : DEV CANDIDATE — NOT ACCEPTED — NOT ADOPTED
+- **Complément** : relectures coordonnées par génération et identité courante, erreur de relecture séparée d'un effet déjà confirmé, fenêtre SAS06 alignée sur la frame 1022:164 (702×823, état de chargement du contexte). Le SHA de ce complément est reporté dans le Review Pack.
 
