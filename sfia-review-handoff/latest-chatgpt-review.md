@@ -1,216 +1,230 @@
-# SFIA Review Pack — Full — Lot 1 intégrité du cycle documentaire
+# Review Pack — Lot 1, finalisation du cycle documentaire
 
-## 0. Identité
+Cycle 08 — Delivery. Profil Critical. Revue Full. Mono-cycle.
+Ce pack remplace le pack local précédent. Il ne l'étend pas.
+Cycle précédent, immuable : handoff `451e9179f0f5a608a47c92a06796552438374eae`, blob `a4fe170bde6db3120e0ebafe395d376e70136731`. Verdict ChatGPT de ce cycle : NOT READY — sortie du lot.
 
-| Champ | Valeur |
-|---|---|
-| Date | 2026-11-28T09:20:09+0100 |
-| Cycle | 08 — Delivery / implémentation |
-| Profil | Critical |
-| Projet | SFIA Studio Next · R5 IN PROGRESS · ML5 OPEN |
-| Lot | 1 uniquement — DOC-A / DOC-B / DOC-C |
-| Livraison | LIVRAISON 1 NOT ACCEPTED · NO RELEASE · NOT ADOPTED |
-| Base produit | `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` |
-| Tree | `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` |
-| Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
-| Docs | `b93cf033dc906c35ff5aecd949590c9d5d46d11b` (lue, non mergée) |
-| Handoff d'entrée | `515561e7e5bf395907bf4ec0f4c9990a36dc4aa7` blob `7dddb39b87405de30d997f2e8a6d4900ae56b1d2` |
-| Delivery | `DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV` |
-| SHA final | non attribué — diff local non committé |
-| Content coverage | N/A — aucune couverture de contenu produit |
-| CKC 08 | absent. Fallback `02-fifteen-cycles-synthetic-map.md` blob `aa574926dc6c597675f9fe9257f2820c2a11ed5e` · method-candidate · guidance seulement |
-| Verdict | READY WITH RESERVES |
+Date du pack : 2026-11-28T09:52+01:00.
 
-## 1. Mandat
+## 1. Identité et mandat
 
-Rendre le parcours naturel V1 → proposition V2 inspectée → conservation V2 → proposition V3 depuis V2 → conservation V3 fiable, sous une seule identité documentaire et dans le même fil. Ne pas reconstruire D4. Ne pas engager les lots 2 à 7. Pas de commit, push, PR, merge, ni promotion RECETTE.
+Projet : SFIA Studio Next. Racine : `projects/sfia-studio-next/`.
+Mandat : finaliser le lot 1 déjà construit. Ne pas le recommencer. Ne pas ouvrir le lot 2.
+Morris autorise la finalisation ciblée, la fixture de test, le report DOC-D/E au lot 7, les validations locales, le commit et le push du candidat DEV, puis ce Review Handoff.
+La publication DEV n'est ni une acceptation, ni une promotion RECETTE, ni une release.
+
+Programme inchangé : R5 IN PROGRESS, ML5 OPEN, LIVRAISON 1 NOT ACCEPTED, 17 MP OPEN, R6 NOT STARTED, NO RELEASE, STABLE NOT AVAILABLE, NOT ADOPTED.
 
 ## 2. Git Truth Check
 
-Contrôle du 2026-11-28T09:01+01, reconfirmé à 09:20+01.
+### Entrée
 
-- Remote `origin` = `mcleland147/sfia-workspace`.
-- HEAD local = HEAD distant produit = `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`.
-- Tree inchangé `84253727…`. Merge-base avec main = `997897fd…`.
-- Au départ : aucun fichier staged, aucune modification produit. Seuls des fichiers `.tmp-sfia-review/` non suivis.
-- Worktree RECETTE détaché `…/sfia-workspace-next-ml5-recette-build-0ae9e1f7aaee` toujours sur `0ae9e1f7`.
-- Worktree handoff `…/sfia-review-handoff-m5a-gi-20261023` sur `sfia/review-handoff`.
-- Aucun stash, reset, ni nettoyage. La branche documentaire n'a pas été mergée.
+Repository : `mcleland147/sfia-workspace`.
+Worktree DEV : `/Users/morris/Projects/sfia-wt-next-ml5-20261123`.
+Branche : `sfia/next-ml5-integrated-delivery-20261123`.
+HEAD local = origin = `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`.
+Tree d'entrée : `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`.
+Main : `997897fd7cf914771e7d08e8030dc7123fab7d25`. Merge-base = main.
+Branche documentaire : `docs/next-openai-studio-convergence-20261126` à `18997b8d452115d7296a8e76f0baa571c89a6576`.
+Le diff local attendu était présent : 7 fichiers modifiés et le test navigateur non suivi. Aucun travail étranger n'y était mêlé. Il n'a pas été nettoyé.
 
-## 3. Environnements
+### Sortie
 
-| Lane | Identité observée |
-|---|---|
-| DEV | next PID 55011, cwd de ce worktree, `:3100`. PostgreSQL `sfia-next-dev-pg` `:5433`. Non utilisé pour les tests mutatifs. |
-| RECETTE | next PID 77113, cwd du worktree `0ae9e1f7`, `:3200`, BUILD `p0S18hf` encore servi à 09:20. Aucun restart, aucune écriture. |
-| Tests | Vitest réécrit la cible vers `sfia_next_e2e` sur `:5433` et refuse l'autre nom. Playwright isolé `:3101` / `sfia_next_e2e`. `OPENAI_API_KEY` vidé pour ce processus. Serveur `:3101` arrêté après la preuve. |
+Commit : `30d598515766781d987f8dba3348f6fa9e659a80`.
+Message : `fix(next): stabilize documentary revision lifecycle`.
+Tree : `29f61e767b37a44c54c3e75818b96496fd1b6624`.
+Push fast-forward : `0ae9e1f7..30d59851` vers `origin/sfia/next-ml5-integrated-delivery-20261123`.
+HEAD local = HEAD distant = `30d598515766781d987f8dba3348f6fa9e659a80`.
+URL : https://github.com/mcleland147/sfia-workspace/commit/30d598515766781d987f8dba3348f6fa9e659a80
+Diff depuis la base : 8 fichiers, 1102 insertions, 143 suppressions.
+Worktree produit après push : seuls restent les dossiers temporaires `.tmp-sfia-review/` et `web/.tmp-sfia-review/`. Ils ne sont pas publiés.
+RECETTE : processus 77113 toujours sur le port 3200, worktree de build `0ae9e1f7`. Aucun redémarrage, aucun cutover.
+DEV métier : processus 55011 toujours sur le port 3100. Le serveur de test 3101 a été arrêté après la preuve.
 
-## 4. Sources lues
+CI distante : les workflows `sfia-studio-next-ci.yml` et `sfia-studio-ci.yml` partent sur une pull request vers `main` ou un push sur `main`. `gh run list` pour `30d59851` ne retourne aucune exécution.
+Statut : REMOTE CI NOT RUN — DEV REVIEW SNAPSHOT. Ce n'est pas un CI PASS.
 
-- Diagnostic `515561e7` §§3, 9, 10, 11, 12, 13.
-- PV `ed38685a` blob `88474002` : T09, T09 bis, DOC-A à DOC-F.
-- Suivi `b93cf033` blob `ea10bc2f` (v0.1), lu par `git show`, non modifié.
-- Code d'entrée aux points cités : `page.tsx` focus après `AVAILABLE`, `resolveReviseTarget`, `sourceIsHistorical`, `revisionCurrencyLabel`, bannière `versionSource === "exact"`.
-- Tests existants : `documents-nora-v2-v4.spec.ts` (sas puis historique V2→V4, pas deux révisions naturelles), `ml5-pending-proposal-viewer.test.ts` (logique de bannière sans course navigateur), `documents-historical-revise.pg.test.ts`, `documents-proposal-candidate.pg.test.ts`, `documents-p0-hauth-pdoc.pg.test.ts`, `ml5-conserve-only-nominal.pg.test.ts`, `ml5-documentary-autonomy.pg.test.ts`, `documents-surfaces-projection.test.ts`.
-- `ml5-documentary-boundary-browser.spec.ts` lu comme qualification LIVE, non exécuté.
-- Contrats visuels réutilisés : lecture, Travail/visionneuse, historique, révision historique, proposition. Aucune maquette reconstruite. Pas de verdict F2.
+## 3. Sources lues pour cette finalisation
 
-## 5. Reproduction avant correction
+Lues dans ce cycle :
 
-Cause de code confirmée par lecture, puis par un test qui fige le comportement de `resolveReviseTarget` :
+- Suivi v0.2, ref `18997b8d`, blob `7389799078cf436c31af04dc4d12134267853232`. Sections 3 et 7 en entier, sections 4 à 6 dans le même extrait. Le contrat du lot 1 et les réserves 7.3 sont la source du complément.
+- Code client repris : `resolveTravailDocumentPresentation`, `focusAfterAvailableConservation`, le retour de tour dans `page.tsx`, la restauration de session, `reconcileRevisionByCorrelation`.
+- Garde de fixture : `fixtureLaneActive` / `assertFixtureLane`, et `mustUseNoraFixture` dans `nora-adapter.ts` (DEV et `STUDIO_E2E=1` ou `STUDIO_FORCE_NORA_FIXTURE=1`, avant tout appel LIVE).
+- Persistance lue, non modifiée : `listDocumentRevisions`, `getDocumentRevision`, `contentFingerprint` (titre, octet nul, markdown).
+- `scripts/e2e-web-server.sh`, `next.config.ts`, `playwright.config.ts`.
+- Déclencheurs de `.github/workflows/sfia-studio-next-ci.yml` et `sfia-studio-ci.yml`.
+- As-built Ensemble 06, section du 28 novembre, et l'entrée `DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV`.
 
-- Un focus dont `sourceRevisionId` et `observedHeadRevisionId` restent sur la révision précédente, alors que D4 a déjà une tête plus récente, fait choisir cette ancienne source comme base. Le serveur applique alors, légitimement, la garde historique.
-- La projection de proposition posait `versionSource: "exact"` et l'identifiant de la révision source sur la visionneuse, sans incrémenter le numéro de requête. Une lecture D4 encore en vol pouvait remplacer le corps du candidat par celui de la source. Le bandeau « version plus récente » suivait `exact`, y compris quand la révision citée était déjà la tête, et quand la tête était inconnue (`revisionCurrencyLabel(n, null)` valait « Historique »).
-- Le payload HTTP exact de T09 bis n'est toujours pas archivé. Le lien transactionnel avec ce tour reste probable. Le mécanisme, lui, est confirmé et maintenant corrigé sur le chemin client.
+Non relues intégralement dans ce cycle, déjà tenues par le cycle `451e9179` : SEF, roadmap, politique d'environnements, versioning produit, décisions R4/UX/SEM, PV Equipéo, contrats de continuité. Aucune de ces sources n'a été modifiée. CKC du cycle 08 : toujours absent. Fallback inchangé, blob `aa574926dc6c597675f9fe9257f2820c2a11ed5e`, guidance expérimentale.
 
-## 6. Contrat technique retenu
+## 4. Risques confirmés ou infirmés
 
-- D4 reste le seul propriétaire. Aucune garde `BASE_STALE`, conflit de tête, autorisation historique, empreinte ou isolation n'est retirée.
-- `focusAfterAvailableConservation` ne rebase que si le résultat est `AVAILABLE`, porte le même `documentId`, et fournit un `revisionId`. La source et la tête observée deviennent cette révision. Le candidat et l'autorisation historique sont retirés.
-- Une réponse de tour plus ancienne que le tour courant ne réécrit ni le focus ni la visionneuse.
-- Une proposition n'a pas de `revisionId` durable. Son corps est celui du candidat scellé. Une lecture D4 antérieure est ignorée parce que le numéro de requête a avancé.
-- Corps de proposition absent : visionneuse indisponible, pas de substitution par V1.
-- Consultation d'une autre version pendant qu'une proposition existe : bannière « autre version », action « Revenir à la proposition ».
-- Monnaie : identifiants D4. Référence exacte égale à la tête = courante. Tête absente = non vérifiée. Le mode `exact` reste visible comme « révision citée », sans impliquer l'historique.
-- ACK perdu avant persistance du nouveau focus : pas de rebase automatique vers une tête qu'on ne peut pas attribuer à cette conservation. La garde historique reste. C'est voulu.
+Confirmé, puis corrigé. `resolveTravailDocumentPresentation` traitait une proposition dès que les deux markdown étaient égaux. Une révision durable du même texte pouvait être étiquetée proposition. La reconnaissance exige maintenant l'identifiant du candidat, le même document, l'absence d'identifiant de révision durable, et l'égalité du corps.
 
-## 7. Changements
+Confirmé, puis corrigé. Le retour `AVAILABLE` effaçait le candidat en cours même pour un autre document, et le `else` nettoyait le focus affiché quand le rebasement était refusé. Le garde de `focusAfterAvailableConservation` ne couvrait pas cette chaîne. Le résultat documentaire n'est appliqué que si le tour possède encore la sélection et si l'effet concerne ce document. Une visionneuse fermée pendant la requête n'est pas rouverte. Le focus du document concerné peut quand même suivre la révision écrite.
 
-Fichiers modifiés, non commités :
+Confirmé, puis corrigé. Le candidat pouvait reprendre le focus d'un autre document lorsque `documentFocusRef` ne portait pas son `documentId`. Le focus n'est réutilisé que s'il désigne déjà ce document. Sinon le focus est créé pour le document du candidat, jamais en copiant un autre.
 
-- `web/src/app/projects/[projectId]/page.tsx`
-- `web/src/components/figma/DocumentSurfaces.tsx`
-- `web/src/components/figma/TravailViewer.tsx`
-- `web/src/domains/conversation/fixture-semantic-qualify.ts` — extension de lane de test seulement : une seconde proposition distincte, « Je souhaite préciser le suivi entre les centres. » La conservation continue d'enregistrer le candidat scellé, pas ce texte fixe.
-- `web/tests/unit/documents-surfaces-projection.test.ts`
-- `web/tests/e2e/document-revision-lifecycle.spec.ts` (nouveau, non suivi)
-- `construction/delivery-history.md`
-- `construction/as-built-ensemble-06-journal-documents-20261120.md` — section datée ajoutée, preuves historiques laissées en place
+Confirmé, puis corrigé. La restauration après rechargement appliquait le candidat sans vérifier que le projet, le document, le candidat et la génération de visionneuse étaient encore ceux capturés avant la réponse. `pendingCandidateRestoreIsCurrent` refuse cette restauration.
 
-Les fonctions pures vivent dans `DocumentSurfaces.tsx`, déjà importé par la page. Un import de `document-act.ts` depuis la page client a été retiré : il tirait `document-command` puis le client PostgreSQL (`fs`) dans le bundle navigateur. Le premier essai navigateur l'a montré par une erreur de build. `document-act.ts` et `service.ts` ne sont pas modifiés. Les gardes serveur restent celles de `0ae9e1f7`.
+Confirmé pour le fil, puis isolé. `documentTurnGenRef` entourait tout le corps `res.ok`. Une réponse plus ancienne qui arrive après une réponse plus récente ne remplace plus le fil. Une réponse qui arrive avant la suivante met encore à jour messages, pilotage, projection et rafraîchissement. Seuls le focus et la visionneuse documentaires exigent que ce tour soit encore le dernier et que la sélection n'ait pas changé. Aucun moteur de tour nouveau.
 
-DOC-D reporté. Le titre est le titre métier produit par Nora. Retirer « V1 » par une règle de caractères serait aveugle et hors du contrat sémantique. Aucun renommage d'Equipéo, aucune migration.
+Infirmé comme défaut à corriger par une nouvelle tête. `reconcileRevisionByCorrelation` sert l'éditeur manuel et cherche une révision par sa clé de corrélation. Le chemin Nora, en cas d'accusé perdu ou de réseau coupé, gèle le choix et ne sélectionne pas une tête. Une conservation `AVAILABLE` sans `revisionId` ne rebase pas et ne retire pas le candidat. L'incertitude reste visible : « Conservation non confirmée — aucune révision identifiée. »
 
-DOC-E reporté. « Propositions expirées » est le libellé de tout groupe de choix devenu non actionnable. Distinguer « conservée » exigerait un état de projection que ce lot ne crée pas.
+Non modifié, à dessein. Les gardes serveur `BASE_STALE`, `CONFLICT`, autorisation historique, empreinte, idempotence et ownership. DOC-D et DOC-E. Le lot 2. `@cursor/sdk`. Les workflows.
+
+## 5. Contrat de transition retenu
+
+Une proposition est une ressource de candidat : `proposalCandidateId`, document, corps. Elle n'a pas de `revisionId` durable.
+Une révision est une ressource D4 : `revisionId`, numéro seulement s'il est fourni, actualité Courante, Historique ou Non vérifiée.
+Deux ressources de même texte restent distinctes.
+Un effet documentaire tardif ne traverse pas un changement de document ni une visionneuse fermée par le Pilote.
+Le fil et les effets de pilotage ne sont pas jetés avec le contexte documentaire.
+Une conservation non identifiée ou un accusé perdu ne devient pas un succès et ne choisit pas une autre tête.
+
+## 6. Fichiers du commit
+
+Modifiés :
+
+- `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx`
+- `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+- `projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts`
+- `projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md`
+- `projects/sfia-studio-next/construction/delivery-history.md`
+
+Créé :
+
+- `projects/sfia-studio-next/web/tests/e2e/document-revision-lifecycle.spec.ts`
+
+Le diff complet depuis `0ae9e1f7` est l'annexe de ce pack. Le commit distant est la source de revue du code. Cette annexe évite de recopier les sources inchangées.
+
+## 7. Validations
+
+| Contrôle | Résultat |
+| --- | --- |
+| Unitaires documentaires | 30 passed. `documents-surfaces-projection`, `document-act`, `ml5-pending-proposal-viewer`. |
+| PostgreSQL isolé `sfia_next_e2e` | 10 passed. Historique 4, autonomie 3, conserve-only 1, candidat 1, hauth/pdoc 1. |
+| Playwright | 2 passed, 40,1 s. `:3101`, base `sfia_next_e2e`, Nora substituée, `OPENAI_API_KEY` vide. |
+| Lint des fichiers du lot | exit 0. Avertissements préexistants de `page.tsx` seulement. |
+| `next build` | exit 0. Compilation, contrôle de types du build, 18,8 s de compilation. Sortie isolée `.next-e2e` (`STUDIO_E2E=1`) pour ne pas remplacer le `.next` du serveur DEV 3100. |
+| `tsc --noEmit` | exit 2. Aucune erreur dans les huit fichiers. Erreurs préexistantes dans des tests hors lot (dictée, FinOps, activité, SDK). |
+| `git diff --check` | propre avant commit. |
+| Webpack canonique | `/login` HTTP 500. `Module parse failed` sur `node_modules/@cursor/sdk/dist/esm/agent.d.ts.map`. Trace : `cursor-sdk-adapter` → `cursor-attempt-service` → `cursor-live-supervisor`. Fichiers non touchés par le lot. Non corrigé. |
+| CI distante | aucune exécution pour `30d59851`. |
 
 ## 8. Preuves
 
-| Preuve | Résultat |
-|---|---|
-| Unit `documents-surfaces-projection.test.ts` | 18 passed, dont reproduction du focus périmé et rebase vers la tête écrite |
-| Unit `document-act.test.ts` + `ml5-pending-proposal-viewer.test.ts` | 8 passed (avant déplacement des fonctions pures ; le fichier `document-act` n'a plus ces fonctions, les assertions sont dans le test de projection rejoué après) |
-| PG `documents-historical-revise` | 4 passed — historique, conflit, base stale |
-| PG `ml5-documentary-autonomy` | 3 passed |
-| PG `ml5-conserve-only-nominal` | 1 passed |
-| PG `documents-proposal-candidate` | 1 passed |
-| PG `documents-p0-hauth-pdoc` | 1 passed |
-| BROWSER `document-revision-lifecycle.spec.ts` | 1 passed (24,2 s) |
-| Lint `next lint` sur les fichiers touchés | exit 0, avertissements préexistants de `page.tsx`, aucune nouvelle erreur |
-| `git diff --check` | clean |
-| Fournisseur | aucune émission. Clé vidée sur le processus `:3101`. |
+Parcours nominal, navigateur, sans rechargement entre V2 et V3 :
 
-Le lanceur webpack de `scripts/e2e-web-server.sh` n'a pas servi `/login` : `Module parse failed` sur `node_modules/@cursor/sdk/dist/esm/agent.d.ts.map`, indépendant de ce lot. La preuve navigateur a été prise sur `:3101`, base `sfia_next_e2e`, `STUDIO_E2E=1`, `STUDIO_FORCE_NORA_FIXTURE=1`, avec Turbopack. Ce n'est pas le lanceur canonique. Le parcours client, D4 et PostgreSQL de test sont réels. Nora est substituée.
+- V1 créée, une seule identité documentaire.
+- Proposition V2 inspectée avant conservation. `data-revision-id` vide. `data-proposal-candidate-id` présent.
+- Le corps API du candidat est celui qui est ensuite enregistré. L'empreinte scellée dans `provenanceJson.contentSha256` est celle du candidat.
+- Aucune V2 durable avant le bouton Conserver.
+- V2 devient courante. V1 inchangée, corps et empreinte.
+- Proposition V3 depuis cette V2, autre candidat, `sourceRevisionId` égal à la révision V2.
+- V3 enregistrée égale au corps inspecté. V1 et V2 inchangées après V3.
+- V1 historique demande « Repartir de la v1 ». Aucune V4 sans ce choix.
+- Après rechargement, V3 reste la courante.
 
-Captures locales, non accessibles sur Git :
+Concurrence navigateur : une conservation dont la réponse est retenue, puis une fermeture de visionneuse, n'ouvre pas à nouveau la visionneuse. La V2 est bien écrite. Après rechargement elle est courante et la visionneuse reste absente.
 
-| Fichier | SHA-256 |
-|---|---|
-| `.tmp-sfia-review/lot1-captures/01-proposition-v2.png` | `58d4d95bd240298233e141eb7b942b942c884179f6b04e93b3e4bebdbf0c9fac` |
-| `02-v2-courante.png` | `39e57da2c1e57672c260f34b7a7a1e5356746a77bc65afc9e023f67f01d37e6a` |
-| `03-proposition-v3.png` | `9d2913adf3cc70ca5cc69180a6e765f2bbd9149d76cd8621013af05f223f5184` |
-| `04-v3-courante.png` | `770e7d9b40a5d472e3a3974c20b36f8e1bfd62b8e1f10df9ca381615d563b511` |
-| `05-historique-v1-v2-v3.png` | `8a69e9d2056d6b49c047a97f7ff4bef010fc3df31a556084638658965e2265d1` |
-| `06-revision-historique-gouvernee.png` | `d27ff2c25fe059ccc1b51fa07d6ddd2182eda06463ed75e905bc82633e992399` |
+Concurrence déterministe, pas rejouée comme second document dans le navigateur :
 
-## 9. Oracles
+- résultat du document A refusé quand le focus et la visionneuse sont sur B ;
+- tour plus ancien refusé pour le document ;
+- visionneuse fermée par le Pilote : focus mis à jour, visionneuse non rouverte ;
+- restauration refusée si le document ou la génération de visionneuse a changé ;
+- même markdown avec un `revisionId` : bannière « autre version », actualité de la révision, pas « proposition ».
 
-| Oracle | Couvert par |
-|---|---|
-| A01–A08 création, inspection V2, pas de V2 durable avant conservation, conservation | BROWSER |
-| A09 pas de faux historique après V2 | BROWSER, badge COURANTE, bannière absente |
-| A10–A15 V3 depuis le même fil, sans reload ni injection d'identifiant, un document, trois révisions | BROWSER |
-| A16 V1 et V2 relues intactes | BROWSER |
-| A17 liens exacts | partiel : la lecture historique ouvre le corps V1 ou V2 cité. Pas de second fil de citations Nora rejoué. |
-| A18 reload | BROWSER, V3 toujours courante |
-| B empreinte et identité | le serveur conserve le candidat scellé (chemin inchangé, PG conserve-only passed). Le navigateur compare les textes distinctifs V1 / V2 / V3. L'empreinte n'est pas recalculée dans le spec. |
-| C01 lecture sans mutation | BROWSER, pas de V4 pendant les lectures |
-| C02 vraie base historique | BROWSER, bouton « Repartir de la v1 » exigé |
-| C03 refus | pas de bouton de refus dans le fixture. Sans clic, aucune V4. Le refus explicite reste couvert par les tests PG historiques. |
-| C04 autorisation valide | PG historique, non rejoué dans le nouveau spec |
-| C05–C07 concurrence, autorisation obsolète, double conservation | PG existants passed, code serveur non modifié |
-| C08 candidat consommé / hash | PG conserve-only (traces `CANDIDATE_CONSUMED`, `CANDIDATE_CLIENT_HASH_MISMATCH`) |
-| C09 corps absent | code : visionneuse indisponible. Pas de spec navigateur dédié. |
-| C10 autre projet | non rejoué ici ; garde D4 préexistante, non modifiée |
-| C11 exacte et courante | unit + BROWSER après conservation |
-| C12 tête inconnue | unit `Non vérifiée`, bannière nulle |
-| C13 autre version pendant une proposition | unit `other-version`. Le spec navigateur ne clique pas ce retour. |
-| C14 réponse tardive | le tour porte un numéro ; une réponse plus ancienne ne réapplique pas le focus. Pas de course réelle injectée dans le navigateur. |
-| D non-régression | PG documentaires ci-dessus. Le spec `documents-nora-v2-v4` n'a pas été rejoué. |
+Captures locales, non publiées, sha256 :
+
+- `01-proposition-v2.png` `5b5a47fbf3aeefd60514d1698652c1952814be8456362e2e076703dd068b970b`
+- `02-v2-courante.png` `52fca320fb468690468a0aa36d5d1c4216f37e665083a95bca5cf1fb7b1aa965`
+- `03-proposition-v3.png` `7bc92a4554d38365fe54c90440afcd2429db05ec43fa920a5d89107e5234c378`
+- `04-v3-courante.png` `f563ef16eb989c3b849b24755d9e4d4089daf6e3dcb66fb0c99e00ffa90dabf4`
+- `05-historique-v1-v2-v3.png` `cb67d80313ad95d10e8833332dab2cb024fc967ed1c3756921e528304bbe6cc5`
+- `06-revision-historique-gouvernee.png` `6a5028f644d09564b1dab1a3ecc99f2bc573731192e113db2b1f0f5aa560b9d2`
+
+Pas de verdict F2. Le contrat visuel page 08 est réutilisé. Aucune maquette nouvelle.
+
+## 9. Couverture des oracles
+
+| Oracle | Niveau |
+| --- | --- |
+| Une identité, V1 V2 V3, V3 courante, V1 et V2 intactes | BROWSER + comparaison API intégrale et empreinte |
+| Base V2 transmise à la proposition V3 | BROWSER, `sourceRevisionId` du candidat V3 |
+| Candidat distinct d'une révision de même texte | DET |
+| Retour tardif A vers une sélection B | DET, branche client réelle |
+| Visionneuse fermée pendant la conservation | BROWSER |
+| Restauration de session devenue obsolète | DET |
+| Accusé perdu | lecture du chemin : pas de tête inventée. Pas de coupure réseau simulée dans le navigateur |
+| Historique, conflit, candidat consommé, autre pilote | PG rejoué, 10 passed |
+| Fixture hors lane LIVE | lecture de `mustUseNoraFixture` et `assertFixtureLane`. Non modifiée hors de l'énoncé V3 déjà présent |
 
 ## 10. Fake / Real
 
-- DET : focus, monnaie, bannière.
-- PG : PostgreSQL de test `sfia_next_e2e`, gardes réelles.
-- BROWSER : vrai navigateur, vraie orchestration, Nora fixture.
-- LIVE : non exécuté. Claim interdit : END-TO-END REAL PROVEN, READY FOR REAL, recette acceptée, MP closes, ADOPTED.
+DET : identité, focus, bannières, portée du tour. Prouvé.
+PG : intégrité, historique, idempotence, ownership, candidat. Prouvé sur `sfia_next_e2e`.
+BROWSER : parcours réel des composants, Nora substituée. Prouvé.
+LIVE : NOT RUN. Aucune émission OpenAI.
 
-Claims retenus : IMPLEMENTED sur le focus, la visionneuse de proposition et la monnaie. COVERAGE VERIFIED pour les tests listés. BEHAVIOR PROVEN pour le parcours fixture V1→V2→V3 et pour les gardes PG rejouées.
+Claims tenus : IMPLEMENTED, COVERAGE VERIFIED, BEHAVIOR PROVEN — DET/PG/BROWSER.
+Claims refusés : END-TO-END REAL PROVEN, READY FOR REAL, MP CLOSED, LIVRAISON 1 ACCEPTED, ADOPTED.
 
-## 11. Réserves
+## 11. Blast radius, dette, réserves
 
-1. Le lanceur webpack canonique `:3101` est bloqué par le parse de `@cursor/sdk`. La preuve utilise Turbopack sur la même base et le même port.
-2. DOC-D et DOC-E reportés au lot UX, avec la raison ci-dessus.
-3. Le payload T09 bis n'est pas rejoué ; le mécanisme l'est.
-4. C03, C04, C10, C13 navigateur et C14 en course réelle ne sont pas tous rejoués dans le nouveau spec.
-5. Aucun commit. Le diff peut encore changer avant un GO de publication produit.
+Blast radius : client documentaire du projet, fixture de test, deux documents de construction, un test navigateur. Aucune migration. Schéma 027 inchangé. Serveur D4 inchangé.
 
-## 12. Décisions Morris
+Dette : aucune nouvelle structure. DOC-D et DOC-E restent au lot 7. Le correctif général de `@cursor/sdk` reste hors lot. Sortie : un loader ou une externalisation qui empêche Webpack de parser `agent.d.ts.map`, sous un mandat distinct.
 
-- Relire le diff local avant tout commit ou push produit.
-- Laisser DOC-D et DOC-E au lot 7, sauf arbitrage contraire.
-- Ne pas promouvoir RECETTE sur ce diff.
-- Ne pas ouvrir le lot 2 tant que cette revue n'est pas acceptée.
-- Ne clôturer aucune MP. Ne pas accepter la Livraison 1.
+Réserves :
 
-## 13. Hors lot, signalé et non corrigé
+1. Le navigateur ne rejoue pas le changement de document A→B, une lecture D4 volontairement retardée, ni une restauration de session. La décision est testée et branchée. La fermeture pendant la requête est, elle, prouvée dans le navigateur.
+2. L'accusé perdu n'est pas simulé. Le code ne choisit pas de tête. Cette absence de simulation reste une réserve de preuve, pas une réserve de comportement observé.
+3. Le serveur Webpack canonique répond 500 sur `/login` à cause de `@cursor/sdk`. Défaut préexistant. Le build de production passe. La preuve navigateur utilise Turbopack, même port, même base, mêmes drapeaux de fixture.
+4. `tsc --noEmit` échoue sur des tests hors lot, préexistants. Le contrôle de types du `next build` passe.
+5. DOC-D et DOC-E ne sont pas traités.
+6. Le SHA de ce commit n'est pas recopié dans `delivery-history.md`, pour ne pas publier un second commit dont le seul objet serait son propre identifiant. Il est ici.
 
-Compteurs Projet, allocation RECETTE, FinOps, dictée, activité transverse, capitalisation, comparaison enrichie, navigation, Figma global.
+## 12. Verdict Cursor
 
-## 14. Verdict
+READY WITH RESERVES.
 
-READY WITH RESERVES
+Le résultat central est démontré sur le candidat publié : une identité, trois versions, le corps inspecté est le corps enregistré, une révision n'est pas une proposition, une conservation tardive ne rouvre pas la visionneuse, les protections D4 rejouées tiennent. Les réserves ci-dessus sont des limites de preuve et un défaut d'outillage préexistant. Elles ne retirent pas le résultat central. Elles empêchent READY FOR REVIEW sans réserve.
 
-Le parcours central V1 → V2 inspectée → V3 est démontré dans le navigateur de test, et les gardes historiques PG restent vertes. Les réserves portent sur le lanceur webpack, les oracles négatifs non tous rejoués dans le nouveau spec, et DOC-D/E reportés. Ce n'est pas une autorisation de commit, de push, ni de RECETTE.
+PUBLISHED DEV est vrai. REVIEWED, ACCEPTED et PROMOTED ne le sont pas.
 
-## 15. Diff local et fichier nouveau
+## Annexe — diff utile
 
-Le diff `git diff` et le spec nouveau suivent. Ils sont la source de revue tant que le produit n'est pas publié.
+Diff complet `0ae9e1f7aaee3658eb3e9a135523e83a72631b31..30d598515766781d987f8dba3348f6fa9e659a80`. Il contient le fichier créé en entier et toutes les sections modifiées. Les sources inchangées ne sont pas recopiées.
 
-## Annexe A — git diff projects/sfia-studio-next
 
-```diff
+
+~~~~diff
 diff --git a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
-index 792a0bd6..eadc24f3 100644
+index 792a0bd6..2809b940 100644
 --- a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
 +++ b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
-@@ -29,3 +29,13 @@ DOC-TECH-15 NOT RUN · DOC-TECH-16 PARTIAL · Journal R-01…R-11 · Sas KNOWN G
+@@ -29,3 +29,14 @@ DOC-TECH-15 NOT RUN · DOC-TECH-16 PARTIAL · Journal R-01…R-11 · Sas KNOWN G
 
  - As-built Journal historique : `as-built-ensemble-06-journal-20261119.md` (ne pas réécrire).
  - Handoff RECETTE : `sfia/review-handoff@3bc3af40` blob `3724604c…`.
 +
 +## 2026-11-28 — cycle documentaire reproductible (lot 1, DEV local)
 +
-+Section factuelle du candidat local non committé. Elle ne remplace pas les preuves historiques ci-dessus. Base `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`. Pas de migration. RECETTE non touchée.
++Section factuelle du candidat de finalisation. Elle ne remplace pas les preuves historiques ci-dessus. Base `0ae9e1f7aaee3658eb3e9a135523e83a72631b31`. Pas de migration. RECETTE non touchée.
 +
 +1. Après une conservation `AVAILABLE` qui renvoie l'identifiant de révision, le focus de travail aligne la source et la tête observée sur cette révision, et retire le candidat ainsi que l'autorisation historique. Une sauvegarde sans identifiant, un autre document, ou un statut autre que `AVAILABLE` ne rebasent pas le focus.
-+2. La visionneuse d'une proposition affiche le corps du candidat, sans identifiant de révision durable, et invalide une lecture D4 encore en vol. Si le corps manque, l'ancienne version n'est pas affichée à la place.
++2. La visionneuse d'une proposition affiche le corps du candidat, sans identifiant de révision durable, et invalide une lecture D4 encore en vol. Si le corps manque, l'ancienne version n'est pas affichée à la place. Une proposition n'est reconnue que si l'identifiant du candidat, le document et le corps affiché correspondent. Un texte identique porté par une révision durable reste une révision.
 +3. Le bandeau « version plus récente » ne s'appuie plus sur le seul mode `exact`. Une référence exacte qui est la tête D4 est courante. Une tête inconnue est « non vérifiée ». Une autre version consultée pendant qu'une proposition existe reste distincte, et la proposition peut être réaffichée.
-+4. Une vraie base historique continue d'exiger la confirmation serveur. `BASE_STALE`, le conflit de tête et l'idempotence de conservation ne sont pas assouplis.
-+5. Le titre métier n'est pas réécrit, et Equipéo n'est pas renommé. Une proposition déjà consommée n'a pas de nouvel état durable : le libellé générique « propositions expirées » des choix non actionnables reste hors de ce lot.
++4. Un résultat documentaire tardif ne met à jour que le document encore sélectionné par ce tour. Il ne remplace pas le focus ou la visionneuse d'un autre document, et ne rouvre pas une visionneuse fermée par le Pilote. Les messages, le pilotage et les autres effets du tour restent appliqués. Une restauration de candidat abandonne si le projet, le document, le candidat ou la génération de visionneuse ont changé. Une conservation dont l'identifiant de révision manque, ou dont l'accusé est perdu, ne choisit pas une tête.
++5. Une vraie base historique continue d'exiger la confirmation serveur. `BASE_STALE`, le conflit de tête et l'idempotence de conservation ne sont pas assouplis.
++6. Le titre métier n'est pas réécrit, et Equipéo n'est pas renommé. Une proposition déjà consommée n'a pas de nouvel état durable : le libellé générique « propositions expirées » des choix non actionnables reste hors de ce lot.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 026bc170..e7f0c1ea 100644
+index 026bc170..fc2106ae 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -5562,3 +5562,17 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
@@ -219,42 +233,78 @@ index 026bc170..e7f0c1ea 100644
 
 +## DELIV-2026-11-28-ML5-DOCUMENTARY-LIFECYCLE-DEV
 +
-+- **Date** : 2026-11-28T09:20+01:00
++- **Date** : 2026-11-28T09:20+01:00, finalisé le même jour
 +- **Cycle** : 08 Delivery / Critical · lot 1 uniquement
 +- **Base** : `0ae9e1f7aaee3658eb3e9a135523e83a72631b31` · tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968`
-+- **SHA final** : non attribué — changements locaux non committés, non poussés
-+- **Nature** : correctif de fiabilité du cycle documentaire, compatible avec les invariants D4
++- **SHA final** : publié sur `sfia/next-ml5-integrated-delivery-20261123` et reporté dans le Review Pack. Il n'est pas inscrit dans ce commit, pour éviter une seconde publication dont le seul objet serait son propre identifiant.
++- **Nature** : correctif de fiabilité du cycle documentaire, compatible avec les invariants D4. Le complément distingue le candidat d'une révision de même texte et borne les retours tardifs au document encore sélectionné.
 +- **Schéma** : aucun changement · 027 inchangé
-+- **Build DEV de production** : non produit
-+- **Preuve navigateur** : Playwright isolé `:3101` / `sfia_next_e2e`, Nora substituée, `document-revision-lifecycle.spec.ts` 1 passed. Le serveur webpack canonique n'a pas démarré (parse préexistant de `@cursor/sdk` `agent.d.ts.map`) ; le parcours a été exécuté sur le même port et la même base avec Turbopack.
-+- **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés ; lots 2 à 7 non engagés
++- **Build DEV de production** : voir le Review Pack du candidat publié
++- **Preuve navigateur** : Playwright isolé `:3101` / `sfia_next_e2e`, Nora substituée. Le serveur webpack canonique n'a pas démarré (parse préexistant de `@cursor/sdk` `agent.d.ts.map`) ; le parcours a été exécuté sur le même port et la même base avec Turbopack.
++- **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés au lot 7 ; lots 2 à 7 non engagés
 +- **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
-+- **Statut** : DEV LOCAL — REVIEW REQUIRED — NOT ADOPTED
++- **Statut** : DEV PUBLIÉ POUR REVUE — NOT ACCEPTED — NOT ADOPTED
 +
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index a33f573e..5d6996eb 100644
+index a33f573e..05228281 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -34,7 +34,9 @@ import {
+@@ -34,7 +34,11 @@ import {
    DocumentCompareSurface,
    DocumentHistorySurface,
    DocumentReadSurface,
++  documentTurnMayApply,
 +  focusAfterAvailableConservation,
    formatPilotFacingProvenance,
++  pendingCandidateRestoreIsCurrent,
 +  resolveTravailDocumentPresentation,
    type DocumentComparePayload,
    type RevisionRow,
    revisionCurrencyLabel,
-@@ -413,6 +415,8 @@ export default function ProjectPage() {
+@@ -413,7 +417,15 @@ export default function ProjectPage() {
    const pendingDocumentOpenIdRef = useRef<string | null>(null);
    /** C1 — ignore stale async viewer responses after A→B / close / project change. */
    const viewerRequestSeqRef = useRef(0);
 +  /** Increments at each send. A late response must not restore an older document focus. */
 +  const documentTurnGenRef = useRef(0);
++  const lastAppliedTurnGenRef = useRef(0);
++  const viewerRef = useRef<TravailViewerResource | null>(null);
    const viewerOpenRef = useRef(false);
++  function commitViewer(next: TravailViewerResource | null) {
++    viewerRef.current = next;
++    setViewer(next);
++  }
    /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
    const surfaceNavGenRef = useRef(0);
-@@ -706,6 +710,7 @@ export default function ProjectPage() {
+   const docViewRef = useRef<DocView>("library");
+@@ -633,7 +645,7 @@ export default function ProjectPage() {
+     // Invalidate in-flight viewer fetches when project changes.
+     viewerRequestSeqRef.current += 1;
+     viewerOpenRef.current = false;
+-    setViewer(null);
++    commitViewer(null);
+     setViewerEnlarged(false);
+   }, [params.projectId]);
+
+@@ -656,7 +668,7 @@ export default function ProjectPage() {
+   function closeViewer() {
+     viewerRequestSeqRef.current += 1;
+     viewerOpenRef.current = false;
+-    setViewer(null);
++    commitViewer(null);
+     setViewerEnlarged(false);
+     setContractViewer(null);
+     setContractInstructionExpanded(false);
+@@ -670,7 +682,7 @@ export default function ProjectPage() {
+     if (seq !== viewerRequestSeqRef.current) return;
+     if (!viewerOpenRef.current) return;
+     if (projectIdRef.current !== projectIdAtStart) return;
+-    setViewer(next);
++    commitViewer(next);
+     setViewerEnlarged(false);
+   }
+
+@@ -706,6 +718,7 @@ export default function ProjectPage() {
      seq: number;
      projectIdAtStart: string;
      revisionNumber?: number | null;
@@ -262,7 +312,7 @@ index a33f573e..5d6996eb 100644
    }) {
      // Consultation is recorded only after a successful D4 read (available content).
      const prepId = preparationIdRef.current;
-@@ -868,6 +873,9 @@ export default function ProjectPage() {
+@@ -868,6 +881,9 @@ export default function ProjectPage() {
            revisionId: resolvedRevisionId,
            revisionNumber: resolvedRevisionNumber,
            versionSource: input.versionSource,
@@ -272,7 +322,34 @@ index a33f573e..5d6996eb 100644
            markdown,
            available: Boolean(markdown),
            unavailableReason: markdown
-@@ -1649,6 +1657,7 @@ export default function ProjectPage() {
+@@ -915,7 +931,7 @@ export default function ProjectPage() {
+     const seq = ++viewerRequestSeqRef.current;
+     viewerOpenRef.current = true;
+     // Placeholder while rights + current revision are revalidated.
+-    setViewer({
++    commitViewer({
+       kind: "document",
+       documentId: doc.document.id,
+       title: doc.document.title,
+@@ -1012,7 +1028,7 @@ export default function ProjectPage() {
+         setStatus("Contrat introuvable pour la visionneuse Travail");
+         return;
+       }
+-      setViewer(null);
++      commitViewer(null);
+       setViewerEnlarged(false);
+       setContractInstructionExpanded(false);
+       setReadyContracts(
+@@ -1627,7 +1643,7 @@ export default function ProjectPage() {
+     const seq = ++viewerRequestSeqRef.current;
+     viewerOpenRef.current = true;
+     selectSurface("travail");
+-    setViewer({
++    commitViewer({
+       kind: "document",
+       documentId: input.doc.document.id,
+       title: input.doc.document.title,
+@@ -1649,6 +1665,7 @@ export default function ProjectPage() {
        titleHint: input.doc.document.title,
        revisionId: historical ? input.sourceRevisionId : null,
        versionSource: historical ? "exact" : "current",
@@ -280,13 +357,44 @@ index a33f573e..5d6996eb 100644
        seq,
        projectIdAtStart,
      });
-@@ -2243,15 +2252,23 @@ export default function ProjectPage() {
+@@ -2184,6 +2201,8 @@ export default function ProjectPage() {
+             setDocumentFocus(restored);
+             documentFocusRef.current = restored;
+             if (restored.pendingCandidateId) {
++              const restoreSeq = ++viewerRequestSeqRef.current;
++              const projectIdAtRestore = params.projectId;
+               void (async () => {
+                 try {
+                   const q = restored.pendingCandidateContentSha256
+@@ -2232,7 +2251,20 @@ export default function ProjectPage() {
+                     return;
+                   }
+                   const headNum = restored.observedHeadRevisionNumber ?? null;
+-                  const md = cj.candidate.contentMarkdown;
++                  const md = cj.candidate.contentMarkdown ?? null;
++                  const stillCurrent = pendingCandidateRestoreIsCurrent({
++                    projectIdAtStart: projectIdAtRestore,
++                    projectIdNow: projectIdRef.current,
++                    documentId: restored.documentId,
++                    candidateId: restored.pendingCandidateId!,
++                    focusDocumentId: documentFocusRef.current?.documentId ?? null,
++                    focusCandidateId: documentFocusRef.current?.pendingCandidateId,
++                    requestSeqAtStart: restoreSeq,
++                    requestSeqNow: viewerRequestSeqRef.current,
++                    candidateDocumentId: cj.candidate.documentId ?? null,
++                    candidateMarkdown: md,
++                  });
++                  if (!stillCurrent) return;
+                   setPendingProposal({
+                     candidateId: restored.pendingCandidateId!,
+                     contentSha256: cj.candidate.contentSha256 ?? restored.pendingCandidateContentSha256 ?? "",
+@@ -2243,15 +2275,22 @@ export default function ProjectPage() {
                      revisionNumberHint: headNum != null ? headNum + 1 : null,
                    });
                    setStatusHint("Examiner une proposition de Nora");
-+                  viewerRequestSeqRef.current += 1;
+-                  setViewer({
 +                  viewerOpenRef.current = true;
-                   setViewer({
++                  commitViewer({
                      kind: "document",
                      documentId: restored.documentId,
                      title: cj.candidate.title ?? "Document",
@@ -309,26 +417,41 @@ index a33f573e..5d6996eb 100644
                    });
                    // Re-bind focus with server hash; never set conserveProposal.
                    applyDocumentFocus({
-@@ -2713,6 +2730,7 @@ export default function ProjectPage() {
+@@ -2713,6 +2752,9 @@ export default function ProjectPage() {
      const raw = (overrideText ?? draft).trim();
      const text = mergeDraftWithDossierAttachment(raw, dossierAttachment).trim();
      if (!text || !preparationId) return;
 +    const turnGen = ++documentTurnGenRef.current;
++    const focusDocumentAtSend = documentFocusRef.current?.documentId ?? null;
++    const viewerOpenAtSend = viewerOpenRef.current;
      const fromChoice = opts?.fromChoice === true;
      const sentVersion = fromChoice ? null : draftVersionRef.current;
      const pendingMeta: Pick<
-@@ -2853,7 +2871,9 @@ export default function ProjectPage() {
+@@ -2853,7 +2895,22 @@ export default function ProjectPage() {
        } catch {
          j = { errorCategory: "RESPONSE_PARSE_FAILED" };
        }
 -      if (res.ok) {
-+      if (res.ok && turnGen !== documentTurnGenRef.current) {
-+        // A newer turn started. Do not restore this response's focus or viewer.
++      if (res.ok && turnGen < lastAppliedTurnGenRef.current) {
++        // An older response arrived after a newer turn was painted.
++        // Leave the thread, owner results and document state as they are.
 +      } else if (res.ok) {
++        lastAppliedTurnGenRef.current = turnGen;
++        const documentEffect = (effectDocumentId: string | null) =>
++          documentTurnMayApply({
++            turnGen,
++            latestTurnGen: documentTurnGenRef.current,
++            focusDocumentAtSend,
++            focusDocumentNow: documentFocusRef.current?.documentId ?? null,
++            viewerClosedByPilot: viewerOpenAtSend && !viewerOpenRef.current,
++            viewerDocumentId:
++              viewerRef.current?.kind === "document" ? viewerRef.current.documentId : null,
++            effectDocumentId,
++          });
          const prepared = j.preparedContract as
            | {
                contractId: string;
-@@ -2908,7 +2928,13 @@ export default function ProjectPage() {
+@@ -2908,7 +2965,13 @@ export default function ProjectPage() {
            }
          }
          const save = j.documentSave as
@@ -343,100 +466,217 @@ index a33f573e..5d6996eb 100644
            | null
            | undefined;
          const pendingCand = j.pendingDocumentCandidate as
-@@ -2983,6 +3009,9 @@ export default function ProjectPage() {
+@@ -2933,7 +2996,11 @@ export default function ProjectPage() {
+             }
+           | null
+           | undefined;
+-        if (histAuth?.authorizationId && documentFocusRef.current) {
++        if (
++          histAuth?.authorizationId &&
++          documentFocusRef.current &&
++          documentEffect(histAuth.documentId ?? documentFocusRef.current.documentId).focus
++        ) {
+           if (histAuth.choice === "USE_SOURCE") {
+             applyDocumentFocus({
+               ...documentFocusRef.current,
+@@ -2970,105 +3037,143 @@ export default function ProjectPage() {
+           typeof pendingCand.contentMarkdown === "string" &&
+           pendingCand.contentMarkdown.length > 0
+         ) {
+-          const headNum =
+-            documentFocusRef.current?.observedHeadRevisionNumber ??
+-            documentsRef.current.find((d) => d.document.id === (pendingCand.documentId || save.documentId))
+-              ?.latestRevision?.revisionNumber ??
+-            null;
+-          const docId =
+-            pendingCand.documentId ||
+-            save.documentId ||
+-            documentFocusRef.current?.documentId ||
+-            "";
++          const docId = pendingCand.documentId || save.documentId || "";
++          const apply = documentEffect(docId);
++          if (!apply.focus && !apply.viewer) {
++            // The pilot moved to another document or a newer turn owns the selection.
++          } else {
            const match = documentsRef.current.find((d) => d.document.id === docId);
++          const headNum = match?.latestRevision?.revisionNumber ?? null;
            const title = pendingCand.title || match?.document.title || "Document";
            const revisionHint = headNum != null ? headNum + 1 : null;
-+          const baseRevisionNumber = documentFocusRef.current?.sourceRevisionNumber ?? headNum;
-+          const knownHeadId =
-+            documentFocusRef.current?.observedHeadRevisionId ?? match?.latestRevision?.id ?? null;
-           // Single coherent object — Candidate badge only with this exact markdown.
-           setPendingProposal({
-             candidateId: pendingCand.candidateId,
-@@ -2990,7 +3019,8 @@ export default function ProjectPage() {
-             documentId: docId,
-             title,
-             contentMarkdown: pendingCand.contentMarkdown,
+-          // Single coherent object — Candidate badge only with this exact markdown.
+-          setPendingProposal({
+-            candidateId: pendingCand.candidateId,
+-            contentSha256: pendingCand.contentSha256 || "",
+-            documentId: docId,
+-            title,
+-            contentMarkdown: pendingCand.contentMarkdown,
 -            sourceRevisionId: documentFocusRef.current?.sourceRevisionId ?? null,
-+            sourceRevisionId:
-+              pendingCand.sourceRevisionId ?? documentFocusRef.current?.sourceRevisionId ?? null,
-             revisionNumberHint: revisionHint,
-           });
-           if (documentFocusRef.current) {
-@@ -3014,21 +3044,55 @@ export default function ProjectPage() {
-               pendingCandidateContentSha256: pendingCand.contentSha256,
+-            revisionNumberHint: revisionHint,
+-          });
+-          if (documentFocusRef.current) {
+-            applyDocumentFocus({
+-              ...documentFocusRef.current,
+-              conserveProposal: false,
+-              pendingCandidateId: pendingCand.candidateId,
+-              pendingCandidateContentSha256: pendingCand.contentSha256,
++          const focusForDoc =
++            documentFocusRef.current?.documentId === docId ? documentFocusRef.current : null;
++          const baseRevisionNumber = focusForDoc?.sourceRevisionNumber ?? headNum;
++          const knownHeadId =
++            pendingCand.observedHeadRevisionId ?? match?.latestRevision?.id ?? null;
++          if (apply.focus) {
++            setPendingProposal({
++              candidateId: pendingCand.candidateId,
++              contentSha256: pendingCand.contentSha256 || "",
++              documentId: docId,
++              title,
++              contentMarkdown: pendingCand.contentMarkdown,
++              sourceRevisionId: pendingCand.sourceRevisionId ?? focusForDoc?.sourceRevisionId ?? null,
++              revisionNumberHint: revisionHint,
+             });
+-          } else if (docId) {
+-            // No prior focus — still bind identities so conserve / reopen stay coherent.
+-            const head = match?.latestRevision;
+-            applyDocumentFocus({
++            if (focusForDoc) {
++              applyDocumentFocus({
++                ...focusForDoc,
++                conserveProposal: false,
++                pendingCandidateId: pendingCand.candidateId,
++                pendingCandidateContentSha256: pendingCand.contentSha256,
++              });
++            } else if (docId) {
++              const head = match?.latestRevision;
++              applyDocumentFocus({
++                documentId: docId,
++                sourceRevisionId: pendingCand.sourceRevisionId ?? head?.id ?? docId,
++                sourceRevisionNumber: head?.revisionNumber,
++                observedHeadRevisionId: pendingCand.observedHeadRevisionId ?? head?.id ?? docId,
++                observedHeadRevisionNumber: head?.revisionNumber,
++                conserveProposal: false,
++                pendingCandidateId: pendingCand.candidateId,
++                pendingCandidateContentSha256: pendingCand.contentSha256,
++              });
++            }
++            setStatusHint("Examiner une proposition de Nora");
++          }
++          if (apply.viewer && docId) {
++            viewerRequestSeqRef.current += 1;
++            viewerOpenRef.current = true;
++            commitViewer({
++              kind: "document",
+               documentId: docId,
+-              sourceRevisionId: head?.id ?? docId,
+-              sourceRevisionNumber: head?.revisionNumber,
+-              observedHeadRevisionId: head?.id ?? docId,
+-              observedHeadRevisionNumber: head?.revisionNumber,
+-              conserveProposal: false,
+-              pendingCandidateId: pendingCand.candidateId,
+-              pendingCandidateContentSha256: pendingCand.contentSha256,
++              title,
++              revisionId: null,
++              revisionNumber: null,
++              proposalCandidateId: pendingCand.candidateId,
++              knownHeadRevisionId: knownHeadId,
++              baseRevisionNumber: baseRevisionNumber ?? null,
++              markdown: pendingCand.contentMarkdown,
++              available: true,
              });
            }
 -          // Always project the candidate body — never leave V1 under a Candidate badge.
-+          // Drop any in-flight D4 read of the source revision so it cannot replace the candidate.
-+          viewerRequestSeqRef.current += 1;
-+          viewerOpenRef.current = true;
-           setViewer({
-             kind: "document",
-             documentId: docId || match?.document.id || "document",
-             title,
+-          setViewer({
+-            kind: "document",
+-            documentId: docId || match?.document.id || "document",
+-            title,
 -            revisionId: documentFocusRef.current?.sourceRevisionId ?? match?.latestRevision?.id ?? null,
 -            revisionNumber: revisionHint,
 -            versionSource: "exact",
-+            revisionId: null,
-+            revisionNumber: null,
-+            proposalCandidateId: pendingCand.candidateId,
-+            knownHeadRevisionId: knownHeadId,
-+            baseRevisionNumber: baseRevisionNumber ?? null,
-             markdown: pendingCand.contentMarkdown,
-             available: true,
-           });
-           setStatusHint("Examiner une proposition de Nora");
+-            markdown: pendingCand.contentMarkdown,
+-            available: true,
+-          });
+-          setStatusHint("Examiner une proposition de Nora");
+-        } else if (save?.status === "AVAILABLE") {
+-          setPendingProposal(null);
+-          if (documentFocusRef.current) {
+-            applyDocumentFocus({
+-              ...documentFocusRef.current,
+-              conserveProposal: false,
+-              pendingCandidateId: undefined,
+-              pendingCandidateContentSha256: undefined,
+-              confirmedHistoricalSource: false,
+-              historicalConfirmation: undefined,
+-              historicalAuthorizationId: undefined,
++          }
 +        } else if (
 +          save?.reason === "PROPOSAL_PENDING_CONSERVATION" &&
 +          pendingCand?.candidateId
 +        ) {
-+          viewerRequestSeqRef.current += 1;
-+          viewerOpenRef.current = true;
-+          setViewer({
-+            kind: "document",
-+            documentId:
-+              pendingCand.documentId ||
-+              save.documentId ||
-+              documentFocusRef.current?.documentId ||
-+              "document",
-+            title: pendingCand.title || "Document",
-+            revisionId: null,
-+            revisionNumber: null,
-+            markdown: null,
-+            available: false,
-+            unavailableReason:
-+              "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
-+          });
-+          setStatusHint("Proposition indisponible");
-         } else if (save?.status === "AVAILABLE") {
-           setPendingProposal(null);
--          if (documentFocusRef.current) {
-+          const conserved = focusAfterAvailableConservation(documentFocusRef.current, {
-+            status: save.status,
-+            documentId: save.documentId,
-+            revisionId: save.revisionId,
-+            revisionNumber: save.revisionNumber,
-+          });
-+          if (conserved.rebased && conserved.focus) {
-+            applyDocumentFocus(conserved.focus);
-+          } else if (documentFocusRef.current) {
-             applyDocumentFocus({
-               ...documentFocusRef.current,
-               conserveProposal: false,
-@@ -3046,9 +3110,9 @@ export default function ProjectPage() {
-           if (
-             viewer?.kind === "document" &&
-             typeof save.documentId === "string" &&
++          const docId = pendingCand.documentId || save.documentId || "";
++          const apply = documentEffect(docId);
++          if (apply.viewer && docId) {
++            viewerRequestSeqRef.current += 1;
++            viewerOpenRef.current = true;
++            commitViewer({
++              kind: "document",
++              documentId: docId,
++              title: pendingCand.title || "Document",
++              revisionId: null,
++              revisionNumber: null,
++              proposalCandidateId: pendingCand.candidateId,
++              markdown: null,
++              available: false,
++              unavailableReason:
++                "Proposition indisponible — l'ancienne version n'est pas affichée à sa place.",
+             });
++            setStatusHint("Proposition indisponible");
+           }
+-          if (typeof save.revisionNumber === "number") {
+-            setStatusHint(`Version v${save.revisionNumber} conservée.`);
++        } else if (save?.status === "AVAILABLE" && save.documentId) {
++          const apply = documentEffect(save.documentId);
++          if (!save.revisionId) {
++            if (apply.focus) {
++              setStatusHint("Conservation non confirmée — aucune révision identifiée.");
++            }
++          } else if (apply.focus) {
++            const conserved = focusAfterAvailableConservation(documentFocusRef.current, {
++              status: save.status,
++              documentId: save.documentId,
++              revisionId: save.revisionId,
++              revisionNumber: save.revisionNumber,
++            });
++            if (conserved.rebased && conserved.focus) {
++              applyDocumentFocus(conserved.focus);
++            }
++            setPendingProposal((prev) =>
++              !prev || prev.documentId === save.documentId ? null : prev,
++            );
++            if (typeof save.revisionNumber === "number") {
++              setStatusHint(`Version v${save.revisionNumber} conservée.`);
++            }
+           }
+-          // Refresh viewer to the newly conserved revision (no longer a pending proposal).
+-          if (
+-            viewer?.kind === "document" &&
+-            typeof save.documentId === "string" &&
 -            typeof (save as { revisionId?: string }).revisionId === "string"
-+            typeof save.revisionId === "string"
-           ) {
+-          ) {
 -            const newRevId = (save as { revisionId: string }).revisionId;
++          if (apply.viewer && save.revisionId) {
 +            const newRevId = save.revisionId;
              const newRevNum =
                typeof save.revisionNumber === "number" ? save.revisionNumber : null;
              const seq = ++viewerRequestSeqRef.current;
-@@ -3060,6 +3124,9 @@ export default function ProjectPage() {
+             const projectIdAtStart = params.projectId;
+-            setViewer((prev) => {
+-              if (!prev || prev.kind !== "document") return prev;
+-              return {
+-                ...prev,
++            const currentViewer = viewerRef.current;
++            const titleHint =
++              currentViewer?.kind === "document" ? currentViewer.title : "Document";
++            if (currentViewer?.kind === "document" && currentViewer.documentId === save.documentId) {
++              commitViewer({
++                ...currentViewer,
                  revisionId: newRevId,
                  revisionNumber: newRevNum,
                  versionSource: "current",
@@ -445,10 +685,14 @@ index a33f573e..5d6996eb 100644
 +                baseRevisionNumber: null,
                  available: false,
                  unavailableReason: "Chargement de la version enregistrée…",
-               };
-@@ -3068,7 +3135,8 @@ export default function ProjectPage() {
+-              };
+-            });
++              });
++            }
+             void fetchDocumentViewerViaD4({
                documentId: save.documentId,
-               titleHint: viewer.title,
+-              titleHint: viewer.title,
++              titleHint,
                revisionId: newRevId,
 -              versionSource: "exact",
 +              versionSource: "current",
@@ -456,7 +700,17 @@ index a33f573e..5d6996eb 100644
                seq,
                projectIdAtStart,
              });
-@@ -3227,7 +3295,7 @@ export default function ProjectPage() {
+@@ -3163,7 +3268,8 @@ export default function ProjectPage() {
+         }
+       }
+     } catch {
+-      // Network loss after click: fail closed — freeze until reconcile proves outcome.
++      // Network loss after click: fail closed. Do not select a head from another
++      // operation and do not replay a conservation whose result is unknown.
+       setChoiceFrozen(true);
+       rememberPending(buildPending());
+       setNoraActivity("error");
+@@ -3227,7 +3333,7 @@ export default function ProjectPage() {
    const readCurrency =
      readingRevisionNumber != null
        ? revisionCurrencyLabel(readingRevisionNumber, headRevisionNumber)
@@ -465,7 +719,7 @@ index a33f573e..5d6996eb 100644
 
    const documentHero =
      surface !== "document"
-@@ -3252,14 +3320,26 @@ export default function ProjectPage() {
+@@ -3252,14 +3358,30 @@ export default function ProjectPage() {
                  sub: "Deux documents côte à côte, avec un résumé des différences en lecture seule.",
                };
 
@@ -487,6 +741,10 @@ index a33f573e..5d6996eb 100644
 +          proposalActive: Boolean(
 +            pendingProposal && pendingProposal.documentId === viewer.documentId,
 +          ),
++          proposalCandidateId: pendingProposal?.candidateId ?? null,
++          viewerProposalCandidateId: viewer.proposalCandidateId ?? null,
++          proposalDocumentId: pendingProposal?.documentId ?? null,
++          viewerDocumentId: viewer.documentId,
 +          proposalMarkdown: pendingProposal?.contentMarkdown ?? null,
 +          viewerMarkdown: viewer.markdown,
 +          revisionId: viewer.revisionId ?? null,
@@ -500,7 +758,7 @@ index a33f573e..5d6996eb 100644
 
    const qualificationLockActive =
      initialQualification?.status === "PENDING" ||
-@@ -3404,6 +3484,28 @@ export default function ProjectPage() {
+@@ -3404,6 +3526,28 @@ export default function ProjectPage() {
                  resource={viewer}
                  enlarged={viewerEnlarged}
                  documentFocusBanner={travailDocumentFocusBanner}
@@ -510,7 +768,7 @@ index a33f573e..5d6996eb 100644
 +                    ? () => {
 +                        viewerRequestSeqRef.current += 1;
 +                        viewerOpenRef.current = true;
-+                        setViewer({
++                        commitViewer({
 +                          kind: "document",
 +                          documentId: pendingProposal.documentId,
 +                          title: pendingProposal.title,
@@ -529,11 +787,29 @@ index a33f573e..5d6996eb 100644
                  onEnlarge={() => setViewerEnlarged(true)}
                  onReduce={() => setViewerEnlarged(false)}
                  onClose={closeViewer}
+@@ -3556,7 +3700,7 @@ export default function ProjectPage() {
+                               const projectIdAtStart = params.projectId;
+                               const seq = ++viewerRequestSeqRef.current;
+                               viewerOpenRef.current = true;
+-                              setViewer({
++                              commitViewer({
+                                 kind: "document",
+                                 documentId,
+                                 title: item.title,
+@@ -4070,7 +4214,7 @@ export default function ProjectPage() {
+               documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
+             const seq = ++viewerRequestSeqRef.current;
+             viewerOpenRef.current = true;
+-            setViewer({
++            commitViewer({
+               kind: "document",
+               documentId,
+               title: titleHint,
 diff --git a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
-index 950313ba..33c87041 100644
+index 950313ba..0c91a4dd 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
-@@ -41,15 +41,162 @@ export type DocumentComparePayload = {
+@@ -41,15 +41,231 @@ export type DocumentComparePayload = {
    note?: string;
  };
 
@@ -661,8 +937,68 @@ index 950313ba..33c87041 100644
 +  return "Non vérifiée";
 +}
 +
++/**
++ * A late document effect may update only the document the turn still owns.
++ * A closed viewer stays closed. Another document's focus and viewer stay put.
++ * Thread and owner results are decided separately by the caller.
++ */
++export function documentTurnMayApply(input: {
++  turnGen: number;
++  latestTurnGen: number;
++  focusDocumentAtSend: string | null;
++  focusDocumentNow: string | null;
++  viewerClosedByPilot: boolean;
++  viewerDocumentId: string | null;
++  effectDocumentId: string | null;
++}): { focus: boolean; viewer: boolean } {
++  const selectionUnchanged =
++    input.focusDocumentAtSend == null ||
++    input.focusDocumentNow == null ||
++    input.focusDocumentAtSend === input.focusDocumentNow;
++  const turnStillOwnsSelection = input.turnGen === input.latestTurnGen && selectionUnchanged;
++  const effectDoc = input.effectDocumentId;
++  const focus =
++    turnStillOwnsSelection &&
++    typeof effectDoc === "string" &&
++    effectDoc.length > 0 &&
++    (input.focusDocumentNow == null || input.focusDocumentNow === effectDoc);
++  const viewer =
++    focus &&
++    !input.viewerClosedByPilot &&
++    (input.viewerDocumentId == null || input.viewerDocumentId === effectDoc);
++  return { focus, viewer };
++}
++
++/**
++ * A restored candidate is shown only if the project, document, candidate and
++ * viewer generation are still the ones captured before the request returned.
++ */
++export function pendingCandidateRestoreIsCurrent(input: {
++  projectIdAtStart: string;
++  projectIdNow: string | null;
++  documentId: string;
++  candidateId: string;
++  focusDocumentId: string | null;
++  focusCandidateId: string | null | undefined;
++  requestSeqAtStart: number;
++  requestSeqNow: number;
++  candidateDocumentId: string | null;
++  candidateMarkdown: string | null;
++}): boolean {
++  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
++  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
++  if (input.focusDocumentId !== input.documentId) return false;
++  if (input.focusCandidateId !== input.candidateId) return false;
++  if (!input.candidateDocumentId || input.candidateDocumentId !== input.documentId) return false;
++  return typeof input.candidateMarkdown === "string" && input.candidateMarkdown.length > 0;
++}
++
 +export function resolveTravailDocumentPresentation(input: {
 +  proposalActive: boolean;
++  proposalCandidateId?: string | null;
++  viewerProposalCandidateId?: string | null;
++  proposalDocumentId?: string | null;
++  viewerDocumentId?: string | null;
 +  proposalMarkdown?: string | null;
 +  viewerMarkdown?: string | null;
 +  revisionId?: string | null;
@@ -674,8 +1010,17 @@ index 950313ba..33c87041 100644
 +  banner: "proposal" | "historical" | "other-version" | null;
 +  currency: RevisionCurrencyLabel | "Proposition";
 +} {
++  const sameDocument =
++    !input.proposalDocumentId ||
++    !input.viewerDocumentId ||
++    input.proposalDocumentId === input.viewerDocumentId;
 +  const showingProposal =
 +    input.proposalActive &&
++    sameDocument &&
++    !input.revisionId &&
++    typeof input.proposalCandidateId === "string" &&
++    input.proposalCandidateId.length > 0 &&
++    input.viewerProposalCandidateId === input.proposalCandidateId &&
 +    typeof input.proposalMarkdown === "string" &&
 +    input.proposalMarkdown.length > 0 &&
 +    input.viewerMarkdown === input.proposalMarkdown;
@@ -699,7 +1044,7 @@ index 950313ba..33c87041 100644
  /**
   * R4 — pilot-facing provenance only. Never invents Git commits or sources from titles.
   * Never surfaces correlationKey / requestId / raw provenanceJson / debug ids.
-@@ -565,7 +712,7 @@ export function DocumentReadSurface(props: {
+@@ -565,7 +781,7 @@ export function DocumentReadSurface(props: {
    markdown: string | null;
    missing?: string | null;
    revisionLabel: string;
@@ -708,7 +1053,7 @@ index 950313ba..33c87041 100644
    loading?: boolean;
    onRequestRevision: () => void;
    onHistory: () => void;
-@@ -700,13 +847,7 @@ export function DocumentHistorySurface(props: {
+@@ -700,13 +916,7 @@ export function DocumentHistorySurface(props: {
                    >
                      <div className="doc-version-row-top">
                        <span className="doc-version-title">Version {r.revisionNumber}</span>
@@ -723,7 +1068,7 @@ index 950313ba..33c87041 100644
                          {currency.toUpperCase()}
                        </span>
                      </div>
-@@ -733,12 +874,9 @@ export function DocumentHistorySurface(props: {
+@@ -733,12 +943,9 @@ export function DocumentHistorySurface(props: {
            <>
              <h3 className="doc-aside-title">Version {selected.revisionNumber}</h3>
              <span
@@ -739,7 +1084,7 @@ index 950313ba..33c87041 100644
              >
                {revisionCurrencyLabel(
                  selected.revisionNumber,
-@@ -751,7 +889,10 @@ export function DocumentHistorySurface(props: {
+@@ -751,7 +958,10 @@ export function DocumentHistorySurface(props: {
                  revisionCurrencyLabel(selected.revisionNumber, props.headRevisionNumber) ===
                  "Courante"
                    ? "Version courante"
@@ -752,7 +1097,7 @@ index 950313ba..33c87041 100644
              />
              <div className="doc-aside-divider" />
 diff --git a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
-index db0d0b84..665c6387 100644
+index db0d0b84..2ae1666b 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
 @@ -12,6 +12,12 @@ export type TravailViewerResource =
@@ -843,7 +1188,18 @@ index db0d0b84..665c6387 100644
 
    return (
      <div
-@@ -128,7 +147,9 @@ export function TravailViewer(props: {
+@@ -114,6 +133,10 @@ export function TravailViewer(props: {
+       data-viewer-pdf={isPdf ? "1" : "0"}
+       data-viewer-enlarged={props.enlarged ? "1" : "0"}
+       data-focus-banner={props.documentFocusBanner ?? ""}
++      data-proposal-candidate-id={
++        resource.kind === "document" ? resource.proposalCandidateId ?? "" : ""
++      }
++      data-revision-id={resource.kind === "document" ? resource.revisionId ?? "" : ""}
+     >
+       <header className="fig-travail-viewer-head">
+         <div>
+@@ -128,7 +151,9 @@ export function TravailViewer(props: {
                    ? "doc-badge doc-badge-current"
                    : currencyBadge === "PROPOSITION"
                      ? "doc-badge doc-badge-proposal"
@@ -854,7 +1210,7 @@ index db0d0b84..665c6387 100644
                }
                data-testid="travail-viewer-currency"
              >
-@@ -206,6 +227,20 @@ export function TravailViewer(props: {
+@@ -206,6 +231,20 @@ export function TravailViewer(props: {
            <div className="fig-alert" data-testid="document-focus-banner" role="status">
              PROPOSITION NON ENREGISTRÉE · Pas de publication Git automatique
            </div>
@@ -926,21 +1282,312 @@ index b5ebecd9..85a19871 100644
  register(
    "Conserver comme nouvelle version la proposition documentaire préparée.",
    {
+diff --git a/projects/sfia-studio-next/web/tests/e2e/document-revision-lifecycle.spec.ts b/projects/sfia-studio-next/web/tests/e2e/document-revision-lifecycle.spec.ts
+new file mode 100644
+index 00000000..20ccf27d
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/document-revision-lifecycle.spec.ts
+@@ -0,0 +1,283 @@
++import { expect, test, type Page } from "@playwright/test";
++import { mkdir } from "node:fs/promises";
++import path from "node:path";
++import { constituteAndCreateProject, openNewPreparation } from "./helpers/g4-chat-first";
++
++async function projectDocument(page: Page): Promise<{
++  projectId: string;
++  preparationId: string;
++  documentId: string;
++}> {
++  const projectId = new URL(page.url()).pathname.split("/").filter(Boolean)[1] ?? "";
++  const project = (await (await page.request.get(`/api/projects/${projectId}`)).json()) as {
++    preparation?: { id?: string };
++    documents?: Array<{ document?: { id?: string } }>;
++  };
++  const preparationId = project.preparation?.id ?? "";
++  const documentId = project.documents?.[0]?.document?.id ?? "";
++  expect(preparationId).not.toBe("");
++  expect(documentId).not.toBe("");
++  return { projectId, preparationId, documentId };
++}
++
++async function inspectCandidate(page: Page, preparationId: string, candidateId: string) {
++  const res = await page.request.get(
++    `/api/preparations/${preparationId}/document-candidates/${encodeURIComponent(candidateId)}`,
++  );
++  expect(res.ok()).toBeTruthy();
++  const body = (await res.json()) as {
++    status?: string;
++    candidate?: {
++      candidateId?: string;
++      documentId?: string;
++      sourceRevisionId?: string;
++      contentMarkdown?: string;
++      contentSha256?: string;
++    };
++  };
++  expect(body.status).toBe("PENDING");
++  const markdown = body.candidate?.contentMarkdown ?? "";
++  expect(markdown.length).toBeGreaterThan(0);
++  expect(body.candidate?.contentSha256).toMatch(/^[a-f0-9]{64}$/);
++  return body.candidate!;
++}
++
++async function storedRevisions(page: Page, preparationId: string, documentId: string) {
++  const res = await page.request.get(
++    `/api/preparations/${preparationId}/documents/${documentId}`,
++  );
++  expect(res.ok()).toBeTruthy();
++  const body = (await res.json()) as {
++    revisions?: Array<{
++      id: string;
++      revisionNumber: number;
++      contentMarkdown: string;
++      provenanceJson: string;
++    }>;
++  };
++  return body.revisions ?? [];
++}
++
++function sealedSha(revision: { provenanceJson: string }): string {
++  const parsed = JSON.parse(revision.provenanceJson) as { contentSha256?: string };
++  return parsed.contentSha256 ?? "";
++}
++
++/**
++ * Lot 1 — natural V1 → inspected V2 → V3 in one Nora thread.
++ * Fixture Nora (STUDIO_E2E), isolated :3101 / sfia_next_e2e. No provider call.
++ * The second revise utterance exists only in the fixture lane.
++ */
++test("cycle documentaire V1 → V2 inspectée → V3 sans faux historique", async ({ page }) => {
++  test.setTimeout(240_000);
++  const shots = path.resolve(process.cwd(), "../../../.tmp-sfia-review/lot1-captures");
++  await mkdir(shots, { recursive: true });
++
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await openNewPreparation(page);
++  await constituteAndCreateProject(page, {
++    name: `CycleDoc ${Date.now()}`,
++    summary: "v1-v2-v3",
++  });
++  await page.waitForURL("**/projects/**");
++
++  const composer = page.getByTestId("thread-draft");
++  await expect(composer).toBeEnabled({ timeout: 20000 });
++  await composer.fill("Rédige un document de synthèse sur les options A et B");
++  await page.getByTestId("thread-send").click();
++  await expect(page.getByText(/Options A et B/i).first()).toBeVisible({ timeout: 45000 });
++
++  await page.getByTestId("nav-documents").click();
++  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
++  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-open").click();
++  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i, {
++    timeout: 15000,
++  });
++  await page.getByTestId("doc-action-request-revision").click();
++  await expect(page).toHaveURL(/surface=travail/);
++  await expect(composer).toBeEnabled({ timeout: 20000 });
++
++  await composer.fill("Je souhaite clarifier les responsabilités entre les trois centres.");
++  await page.getByTestId("thread-send").click();
++  const viewer = page.getByTestId("travail-viewer");
++  await expect(viewer).toBeVisible({ timeout: 45000 });
++  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i);
++  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/Options A et B/i);
++  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
++  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("PROPOSITION");
++  await expect(viewer).toHaveAttribute("data-revision-id", "");
++  const candidateIdV2 = await viewer.getAttribute("data-proposal-candidate-id");
++  expect(candidateIdV2).toBeTruthy();
++  const ids = await projectDocument(page);
++  const inspectedV2 = await inspectCandidate(page, ids.preparationId, candidateIdV2!);
++  expect(inspectedV2.documentId).toBe(ids.documentId);
++  expect(inspectedV2.contentMarkdown).toContain("coordinateur consolide");
++  const v1Before = await storedRevisions(page, ids.preparationId, ids.documentId);
++  expect(v1Before).toHaveLength(1);
++  expect(inspectedV2.sourceRevisionId).toBe(v1Before[0]?.id);
++  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
++  await page.screenshot({ path: path.join(shots, "01-proposition-v2.png"), fullPage: true });
++
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
++
++  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
++  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
++  await expect(page.getByText(/Version v2 conservée|Nouvelle version disponible\s*:\s*v2/i).first()).toBeVisible({
++    timeout: 45000,
++  });
++  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i, {
++    timeout: 15000,
++  });
++  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
++  await expect(page.getByTestId("document-focus-banner")).toHaveCount(0);
++  await expect(viewer).toHaveAttribute("data-proposal-candidate-id", "");
++  const afterV2 = await storedRevisions(page, ids.preparationId, ids.documentId);
++  expect(afterV2).toHaveLength(2);
++  expect(afterV2[1]?.contentMarkdown).toBe(inspectedV2.contentMarkdown);
++  expect(sealedSha(afterV2[1]!)).toBe(inspectedV2.contentSha256);
++  expect(afterV2[0]?.contentMarkdown).toBe(v1Before[0]?.contentMarkdown);
++  expect(sealedSha(afterV2[0]!)).toBe(sealedSha(v1Before[0]!));
++  await page.screenshot({ path: path.join(shots, "02-v2-courante.png"), fullPage: true });
++
++  await expect(composer).toBeEnabled({ timeout: 20000 });
++  await composer.fill("Je souhaite préciser le suivi entre les centres.");
++  await page.getByTestId("thread-send").click();
++  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
++  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i, {
++    timeout: 45000,
++  });
++  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/coordinateur consolide/i);
++  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
++  await expect(viewer).toHaveAttribute("data-revision-id", "");
++  const candidateIdV3 = await viewer.getAttribute("data-proposal-candidate-id");
++  expect(candidateIdV3).toBeTruthy();
++  expect(candidateIdV3).not.toBe(candidateIdV2);
++  const inspectedV3 = await inspectCandidate(page, ids.preparationId, candidateIdV3!);
++  expect(inspectedV3.sourceRevisionId).toBe(afterV2[1]?.id);
++  expect(inspectedV3.contentMarkdown).toContain("suivi V3 discriminant");
++  expect(inspectedV3.contentMarkdown).not.toBe(inspectedV2.contentMarkdown);
++  await page.screenshot({ path: path.join(shots, "03-proposition-v3.png"), fullPage: true });
++
++  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).last().click();
++  await expect(page.getByText(/Version v3 conservée|Nouvelle version disponible\s*:\s*v3/i).first()).toBeVisible({
++    timeout: 45000,
++  });
++  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
++  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i);
++  const afterV3 = await storedRevisions(page, ids.preparationId, ids.documentId);
++  expect(afterV3).toHaveLength(3);
++  expect(afterV3[2]?.contentMarkdown).toBe(inspectedV3.contentMarkdown);
++  expect(sealedSha(afterV3[2]!)).toBe(inspectedV3.contentSha256);
++  expect(afterV3[0]?.contentMarkdown).toBe(v1Before[0]?.contentMarkdown);
++  expect(sealedSha(afterV3[0]!)).toBe(sealedSha(v1Before[0]!));
++  expect(afterV3[1]?.contentMarkdown).toBe(inspectedV2.contentMarkdown);
++  expect(sealedSha(afterV3[1]!)).toBe(inspectedV2.contentSha256);
++  await page.screenshot({ path: path.join(shots, "04-v3-courante.png"), fullPage: true });
++
++  await page.getByTestId("nav-documents").click();
++  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
++  await expect(page.getByTestId("doc-rev-1")).toContainText(/HISTORIQUE/i);
++  await page.screenshot({ path: path.join(shots, "05-historique-v1-v2-v3.png"), fullPage: true });
++
++  await page.getByTestId("doc-rev-1").click();
++  await page.getByTestId("doc-action-read-version").click();
++  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i);
++  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
++
++  await page.getByTestId("doc-action-history").click();
++  await page.getByTestId("doc-rev-2").click();
++  await page.getByTestId("doc-action-read-version").click();
++  await expect(page.getByTestId("document-read-body")).toContainText(/coordinateur consolide/i);
++  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
++
++  await page.getByTestId("doc-action-history").click();
++  await page.getByTestId("doc-rev-1").click();
++  await page.getByTestId("doc-action-rework-nora").click();
++  await expect(page.getByRole("button", { name: /Repartir de la v1/i })).toBeVisible({
++    timeout: 45000,
++  });
++  await page.screenshot({ path: path.join(shots, "06-revision-historique-gouvernee.png"), fullPage: true });
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
++
++  await page.reload();
++  await page.getByTestId("nav-documents").click();
++  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
++});
++
++test("une conservation tardive ne rouvre pas une visionneuse fermée", async ({ page }) => {
++  test.setTimeout(180_000);
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await openNewPreparation(page);
++  await constituteAndCreateProject(page, {
++    name: `CycleDoc fermeture ${Date.now()}`,
++    summary: "fermeture pendant conservation",
++  });
++  await page.waitForURL("**/projects/**");
++  const composer = page.getByTestId("thread-draft");
++  await expect(composer).toBeEnabled({ timeout: 20000 });
++  await composer.fill("Rédige un document de synthèse sur les options A et B");
++  await page.getByTestId("thread-send").click();
++  await expect(page.getByText(/Options A et B/i).first()).toBeVisible({ timeout: 45000 });
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-open").click();
++  await page.getByTestId("doc-action-request-revision").click();
++  await expect(composer).toBeEnabled({ timeout: 20000 });
++  await composer.fill("Je souhaite clarifier les responsabilités entre les trois centres.");
++  await page.getByTestId("thread-send").click();
++  const viewer = page.getByTestId("travail-viewer");
++  await expect(viewer).toBeVisible({ timeout: 45000 });
++  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("PROPOSITION");
++
++  let release: () => void = () => {};
++  const gate = new Promise<void>((resolve) => {
++    release = resolve;
++  });
++  await page.route("**/api/preparations/*/messages", async (route) => {
++    if (route.request().method() !== "POST") {
++      await route.continue();
++      return;
++    }
++    await gate;
++    await route.continue();
++  });
++  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
++  await page.getByTestId("travail-viewer-close").click();
++  await expect(viewer).toBeHidden();
++  release();
++  await expect(page.getByText(/Version v2 conservée|Nouvelle version disponible\s*:\s*v2/i).first()).toBeVisible({
++    timeout: 45000,
++  });
++  await expect(viewer).toBeHidden();
++  const ids = await projectDocument(page);
++  const revisions = await storedRevisions(page, ids.preparationId, ids.documentId);
++  expect(revisions.map((r) => r.revisionNumber)).toEqual([1, 2]);
++  await page.reload();
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-2")).toContainText(/COURANTE/i);
++  await expect(page.getByTestId("travail-viewer")).toHaveCount(0);
++});
 diff --git a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-index 7c470ab6..c5e22da1 100644
+index 7c470ab6..0dcf8ebc 100644
 --- a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-@@ -1,6 +1,9 @@
+@@ -1,6 +1,11 @@
  import { describe, expect, it } from "vitest";
  import {
++  documentTurnMayApply,
 +  focusAfterAvailableConservation,
    formatPilotFacingProvenance,
++  pendingCandidateRestoreIsCurrent,
 +  resolveTravailDocumentPresentation,
 +  revisionCurrencyFromIdentity,
    revisionCurrencyLabel,
  } from "@/components/figma/DocumentSurfaces";
  import {
-@@ -22,7 +25,135 @@ describe("revisionCurrencyLabel", () => {
+@@ -22,7 +27,220 @@ describe("revisionCurrencyLabel", () => {
    it("marks head as Courante and others Historique", () => {
      expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
      expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
@@ -1057,12 +1704,32 @@ index 7c470ab6..c5e22da1 100644
 +    const candidate = "# V2 candidate\n";
 +    const shown = resolveTravailDocumentPresentation({
 +      proposalActive: true,
++      proposalCandidateId: "cand-2",
++      viewerProposalCandidateId: "cand-2",
++      proposalDocumentId: "doc-1",
++      viewerDocumentId: "doc-1",
 +      proposalMarkdown: candidate,
 +      viewerMarkdown: candidate,
 +      revisionId: null,
 +    });
 +    expect(shown.banner).toBe("proposal");
 +    expect(shown.currency).toBe("Proposition");
++    const sameTextRevision = resolveTravailDocumentPresentation({
++      proposalActive: true,
++      proposalCandidateId: "cand-2",
++      viewerProposalCandidateId: null,
++      proposalDocumentId: "doc-1",
++      viewerDocumentId: "doc-1",
++      proposalMarkdown: candidate,
++      viewerMarkdown: candidate,
++      revisionId: "rev-2",
++      revisionNumber: 2,
++      headRevisionId: "rev-2",
++      headRevisionNumber: 2,
++      knownHeadRevisionId: "rev-2",
++    });
++    expect(sameTextRevision.banner).toBe("other-version");
++    expect(sameTextRevision.currency).toBe("Courante");
 +    const other = resolveTravailDocumentPresentation({
 +      proposalActive: true,
 +      proposalMarkdown: candidate,
@@ -1074,143 +1741,72 @@ index 7c470ab6..c5e22da1 100644
 +    });
 +    expect(other.banner).toBe("other-version");
 +    expect(other.currency).toBe("Courante");
++  });
++});
++
++describe("document turn scope and candidate restore", () => {
++  const base = {
++    turnGen: 2,
++    latestTurnGen: 2,
++    focusDocumentAtSend: "doc-a",
++    focusDocumentNow: "doc-a",
++    viewerClosedByPilot: false,
++    viewerDocumentId: "doc-a",
++    effectDocumentId: "doc-a",
++  };
++
++  it("does not move document B when a late result belongs to document A", () => {
++    const late = documentTurnMayApply({
++      ...base,
++      focusDocumentNow: "doc-b",
++      viewerDocumentId: "doc-b",
++    });
++    expect(late.focus).toBe(false);
++    expect(late.viewer).toBe(false);
++  });
++
++  it("does not reopen a viewer the pilot closed", () => {
++    const closed = documentTurnMayApply({ ...base, viewerClosedByPilot: true });
++    expect(closed.focus).toBe(true);
++    expect(closed.viewer).toBe(false);
++  });
++
++  it("does not apply an older document result after a newer turn", () => {
++    const older = documentTurnMayApply({ ...base, turnGen: 1, latestTurnGen: 2 });
++    expect(older.focus).toBe(false);
++    expect(older.viewer).toBe(false);
++  });
++
++  it("does not restore a candidate over a newer selection", () => {
++    expect(
++      pendingCandidateRestoreIsCurrent({
++        projectIdAtStart: "proj-1",
++        projectIdNow: "proj-1",
++        documentId: "doc-a",
++        candidateId: "cand-a",
++        focusDocumentId: "doc-b",
++        focusCandidateId: "cand-a",
++        requestSeqAtStart: 4,
++        requestSeqNow: 4,
++        candidateDocumentId: "doc-a",
++        candidateMarkdown: "# A",
++      }),
++    ).toBe(false);
++    expect(
++      pendingCandidateRestoreIsCurrent({
++        projectIdAtStart: "proj-1",
++        projectIdNow: "proj-1",
++        documentId: "doc-a",
++        candidateId: "cand-a",
++        focusDocumentId: "doc-a",
++        focusCandidateId: "cand-a",
++        requestSeqAtStart: 4,
++        requestSeqNow: 5,
++        candidateDocumentId: "doc-a",
++        candidateMarkdown: "# A",
++      }),
++    ).toBe(false);
    });
  });
-```
 
-## Annexe B — document-revision-lifecycle.spec.ts
-
-```ts
-import { expect, test } from "@playwright/test";
-import { mkdir } from "node:fs/promises";
-import path from "node:path";
-import { constituteAndCreateProject, openNewPreparation } from "./helpers/g4-chat-first";
-
-/**
- * Lot 1 — natural V1 → inspected V2 → V3 in one Nora thread.
- * Fixture Nora (STUDIO_E2E), isolated :3101 / sfia_next_e2e. No provider call.
- * The second revise utterance exists only in the fixture lane.
- */
-test("cycle documentaire V1 → V2 inspectée → V3 sans faux historique", async ({ page }) => {
-  test.setTimeout(240_000);
-  const shots = path.resolve(process.cwd(), "../../../.tmp-sfia-review/lot1-captures");
-  await mkdir(shots, { recursive: true });
-
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-  await openNewPreparation(page);
-  await constituteAndCreateProject(page, {
-    name: `CycleDoc ${Date.now()}`,
-    summary: "v1-v2-v3",
-  });
-  await page.waitForURL("**/projects/**");
-
-  const composer = page.getByTestId("thread-draft");
-  await expect(composer).toBeEnabled({ timeout: 20000 });
-  await composer.fill("Rédige un document de synthèse sur les options A et B");
-  await page.getByTestId("thread-send").click();
-  await expect(page.getByText(/Options A et B/i).first()).toBeVisible({ timeout: 45000 });
-
-  await page.getByTestId("nav-documents").click();
-  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
-  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-open").click();
-  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i, {
-    timeout: 15000,
-  });
-  await page.getByTestId("doc-action-request-revision").click();
-  await expect(page).toHaveURL(/surface=travail/);
-  await expect(composer).toBeEnabled({ timeout: 20000 });
-
-  await composer.fill("Je souhaite clarifier les responsabilités entre les trois centres.");
-  await page.getByTestId("thread-send").click();
-  const viewer = page.getByTestId("travail-viewer");
-  await expect(viewer).toBeVisible({ timeout: 45000 });
-  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i);
-  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/Options A et B/i);
-  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
-  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("PROPOSITION");
-  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
-  await page.screenshot({ path: path.join(shots, "01-proposition-v2.png"), fullPage: true });
-
-  await page.getByTestId("nav-documents").click();
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
-
-  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
-  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
-  await expect(page.getByText(/Version v2 conservée|Nouvelle version disponible\s*:\s*v2/i).first()).toBeVisible({
-    timeout: 45000,
-  });
-  await expect(page.getByTestId("travail-viewer-body")).toContainText(/coordinateur consolide/i, {
-    timeout: 15000,
-  });
-  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
-  await expect(page.getByTestId("document-focus-banner")).toHaveCount(0);
-  await page.screenshot({ path: path.join(shots, "02-v2-courante.png"), fullPage: true });
-
-  await expect(composer).toBeEnabled({ timeout: 20000 });
-  await composer.fill("Je souhaite préciser le suivi entre les centres.");
-  await page.getByTestId("thread-send").click();
-  await expect(page.getByRole("button", { name: /Repartir de la v/i })).toHaveCount(0);
-  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i, {
-    timeout: 45000,
-  });
-  await expect(page.getByTestId("travail-viewer-body")).not.toContainText(/coordinateur consolide/i);
-  await expect(page.getByTestId("document-focus-banner")).toContainText(/PROPOSITION NON ENREGISTRÉE/i);
-  await page.screenshot({ path: path.join(shots, "03-proposition-v3.png"), fullPage: true });
-
-  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).last().click();
-  await expect(page.getByText(/Version v3 conservée|Nouvelle version disponible\s*:\s*v3/i).first()).toBeVisible({
-    timeout: 45000,
-  });
-  await expect(page.getByTestId("travail-viewer-currency")).toHaveText("COURANTE");
-  await expect(page.getByTestId("travail-viewer-body")).toContainText(/suivi V3 discriminant/i);
-  await page.screenshot({ path: path.join(shots, "04-v3-courante.png"), fullPage: true });
-
-  await page.getByTestId("nav-documents").click();
-  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
-  await expect(page.getByTestId("doc-rev-1")).toContainText(/HISTORIQUE/i);
-  await page.screenshot({ path: path.join(shots, "05-historique-v1-v2-v3.png"), fullPage: true });
-
-  await page.getByTestId("doc-rev-1").click();
-  await page.getByTestId("doc-action-read-version").click();
-  await expect(page.getByTestId("document-read-body")).toContainText(/Options A et B/i);
-  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
-
-  await page.getByTestId("doc-action-history").click();
-  await page.getByTestId("doc-rev-2").click();
-  await page.getByTestId("doc-action-read-version").click();
-  await expect(page.getByTestId("document-read-body")).toContainText(/coordinateur consolide/i);
-  await expect(page.getByTestId("document-read-body")).not.toContainText(/suivi V3 discriminant/i);
-
-  await page.getByTestId("doc-action-history").click();
-  await page.getByTestId("doc-rev-1").click();
-  await page.getByTestId("doc-action-rework-nora").click();
-  await expect(page.getByRole("button", { name: /Repartir de la v1/i })).toBeVisible({
-    timeout: 45000,
-  });
-  await page.screenshot({ path: path.join(shots, "06-revision-historique-gouvernee.png"), fullPage: true });
-  await page.getByTestId("nav-documents").click();
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
-
-  await page.reload();
-  await page.getByTestId("nav-documents").click();
-  await expect(page.locator('[data-testid^="doc-open-"]')).toHaveCount(1);
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-3")).toContainText(/COURANTE/i);
-});
-```
+~~~~
