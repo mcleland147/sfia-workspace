@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.6, revue L2 |
+| Date / version | 28 novembre 2026 — v0.7, sortie technique L2 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -11,8 +11,8 @@
 | Campagne | Equipéo STOPPED BY MORRIS après T09 bis ; T08 DEFERRED, T10–T13 NOT RUN ; 8/13 tours exercés + répétition T09, R00 partiel. MaintiPlan suspendu. |
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
-| Candidat DEV courant | `953a4af445f3d29b730909d0854981ff40065424`, tree `3c7cddb4680fd508156a6557836c3ba403146413` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
-| Gate courant | L1 accepté techniquement avec réserves RECETTE. L2 publié : Cursor READY WITH RESERVES, ChatGPT NOT READY pour sortie technique (complément de cohérence ciblé §11). L3 non engagé ; aucun GO config, LIVE, promotion, PR ou merge. |
+| Candidat DEV courant | `017487581c317f957ef7a96ff2f3d95450fcf9ab`, tree `b398725b2bbef59c295dbc3093f23a767f433994` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
+| Gate courant | L1 accepté techniquement avec réserves RECETTE. L2 : Cursor et ChatGPT READY WITH RESERVES — sortie technique favorable (§12), acceptation Morris distincte. L3 non engagé, GO config/restart/LIVE distincts ; aucun GO promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -27,12 +27,12 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.6 : 1/7 lot accepté techniquement par Morris avec réserves RECETTE ; L2 publié DEV, complément ciblé proposé ; 5 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.7 : 1/7 lot accepté techniquement par Morris avec réserves RECETTE ; L2 revue de sortie technique favorable avec réserves, décision Morris attendue ; 5 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
 
 | Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
 | 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 96c0129f / be036274 ; trois gardes revues, DET PASS ; BROWSER/RECETTE différés §9 |
-| 2 | Fraîcheur des projections projet | Chargement initial du contexte et de la continuité existante, cohérence des surfaces après effets, étape UX de préparation. MP13 ; MP03/04/10/12 au seul périmètre chargement/projections. | PUBLISHED DEV — NOT READY POUR SORTIE | 953a4af4 / cf051915 ; nominal positif, complément cohérence/erreurs §11 |
+| 2 | Fraîcheur des projections projet | Chargement initial du contexte et de la continuité existante, cohérence des surfaces après effets, étape UX de préparation. MP13 ; MP03/04/10/12 au seul périmètre chargement/projections. | REVIEWED — READY WITH RESERVES (SORTIE TECHNIQUE FAVORABLE) | 01748758 / 30601c08 ; corrections principales revues ; limites et PROJ-REC §12 |
 | 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | NOT STARTED — GO CONFIG DISTINCT | Diagnostic §4 ; variables absentes en RECETTE |
 | 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | NOT STARTED | Diagnostic §5 ; arbitrer confirmations et états |
 | 5 | Corrélation et fiabilité FinOps | Rattachement des mesures aux travaux, compteurs, coûts et inconnues intelligibles. MP16, support MP14. | NOT STARTED | Diagnostic §6 ; cause d'écriture du lien à localiser |
@@ -130,7 +130,9 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 
 | 28/11/2026 10:29 +01 | L2 — candidat DEV publié et revue | 953a4af4 / cf051915 ; Cursor READY WITH RESERVES, ChatGPT NOT READY pour sortie | Complément ciblé à arbitrer ; pas de L3 |
 
-**Prochaine action :** GO Morris pour complément L2 ciblé : cohérence de toutes les relectures pertinentes, erreurs de rafraîchissement indépendantes des effets durables, alignement UX SAS06. Pas de reprise générale ni constitution cognitive. Pas de mutation RECETTE, PR/merge, clôture de MP ou adoption.
+| 28/11/2026 10:48 +01 | L2 — complément publié et revue | 01748758 / 30601c08 ; Cursor et ChatGPT READY WITH RESERVES, sortie technique favorable §12 | Arbitrage Morris L2 et GO borné L3 attendus |
+
+**Prochaine action :** décision Morris de sortie technique L2 avec réserves, puis mandat L3 — admission cognitive RECETTE (MP15), avec gates distincts configuration, redémarrage, qualification LIVE et promotion. Pas de troisième reprise générale L2 recommandée, aucune mutation RECETTE ni clôture MP implicite.
 
 ## 7. Revue indépendante L1 — 28 novembre 2026
 
@@ -293,3 +295,31 @@ Les reports suivants ne sont pas PASS et restent requis avant acceptation Livrai
 **Verdict ChatGPT : NOT READY pour sortie L2, candidat DEV publié, résultat nominal positif.** Les réserves portent sur des chemins de code concrets du contrat du lot, pas sur l'absence de preuve navigateur d'un projet riche. Proposer un seul complément borné : coordination des relectures et séparation erreurs/effets, alignement SAS06. Qualification DEV proportionnée et report des scénarios difficiles en RECETTE. Ne pas engager L3, Capacité 2, nouveaux moteurs, migration ni correction hors lot. GO Morris requis. Aucun MP clos, Livraison 1 non acceptée.
 
 Actualisation D1 du fichier unique à partir de `b14aff6eaece52b7d382944447a0622e4a6584a9`, branche `docs/next-openai-studio-convergence-20261126`, sous mandat de suivi Morris. Aucun changement de code, main, handoff, configuration ou norme.
+
+## 12. Revue indépendante de sortie technique L2 — 28 novembre 2026
+
+### 12.1 Identité et preuves
+
+- [Candidat DEV](https://github.com/mcleland147/sfia-workspace/commit/017487581c317f957ef7a96ff2f3d95450fcf9ab), base `953a4af445f3d29b730909d0854981ff40065424`, tree `b398725b2bbef59c295dbc3093f23a767f433994`, HEAD distant vérifiés. Comparaison : 1 commit en avance/0 retard, 11 fichiers autorisés (+565/-184), aucune création. Main `997897fd7cf914771e7d08e8030dc7123fab7d25` inchangé ; API Actions total_count=0 sur ce SHA. Aucune route API, service propriétaire, migration ou workflow modifié.
+- [Handoff Full](https://github.com/mcleland147/sfia-workspace/blob/30601c08510f929eb0df09041b03a6b26859b70e/sfia-review-handoff/latest-chatgpt-review.md), blob `6ebccc6e183d44dfece95d9c2cb843fa3c562f40`, 1400 lignes, mono-fichier, SHA produit présent ; les 11 chemins du diff sont couverts (écart précédent corrigé). Rapport 10:48+01, pack 10:50+01, léger décalage d'horodatage sans incohérence de candidat. Cursor READY WITH RESERVES.
+- Revue ChatGPT directe : fonctions et intégrations dans page projet, gardes, projections, préparation, composants Journal/Projet/SAS06, assertions DET et BROWSER ; SEF, Roadmaps main/candidate, P2/P3/F2, SEM, R4, ENV-01 relus aux sections applicables. Sources obligatoires non toutes attestées dans le pack Cursor : réserve de processus. Tests, captures, état local et PG non vérifiés indépendamment.
+- 16 tests unitaires PASS rapportés (project-projection-sync, durable-refresh-guard), build isolé STUDIO_E2E=1 PASS (types applicatifs), 1 Playwright substitué project-context-load.spec.ts PASS 13,7 s sur :3101 / sfia_next_e2e, diff --check PASS. Lint ciblé non attesté ; tsc global et Webpack non revendiqués. Pas de nouveau PG ni rejeu des gardes L1. DEV :3100 PID 55011 et RECETTE :3200 PID 77113 inchangés selon Cursor. LIVE NOT RUN.
+
+### 12.2 Corrections et limites de leur preuve
+
+| Intention | Appréciation |
+| --- | --- |
+| Coordination | page.tsx L1831–1910 et L1985–2018 : openProjectionRead réserve une génération, compare à projectionReadGenRef et projectIdRef ; Journal L595–665 a sa propre séquence ; revalidateOwnedProjections coordonne les deux. Relecture Journal après reprise, qualification et navigation. Préserve séparation knowledge/Journal. DET des règles de garde, intégration statique vérifiée. |
+| Effet vs lecture | refreshDurablePilotage et refreshJournalContinuity absorbent HTTP/réseau/parsing ; send L3422–3490 traite la relecture après la restitution métier, préserve les choix et les cas UNKNOWN/INTERRUPTED déjà traités. Pas de nouveau pending du fait de l'échec de ces GET. Test DET de la règle et intégration statique, pas de test BROWSER d'un POST acquitté suivi d'un GET en échec. |
+| États des surfaces | ProjectOverview L63–80 distingue snapshot absent, loading, stale et unavailable ; Journal L642–663 et L717+ affiche indisponibilité, décisions non confirmées et bouton Relire. |
+| SAS06 | Figma 1022:164 lu par Cursor ; code width 702, height 823, padding clamp(16px, calc((100vh - 823px)/2), 240px), position théorique 73,5 à 1680×970 ; titre/lead de la référence. contextPreloadVerdict contrôle identité et présence des deux agrégats, distingue prélecture et hydratation ; preparationAnnouncement conditionne l'annonce de fin à ready + PROPOSED + dwell. Pas de statut absent converti en PROPOSED. Test BROWSER nominal 1280×900 : repère done puis CTA et Journal ; test géométrique desktop/court adapté mais non exécuté (helper dépend d'un ancien badge). F2 NOT PROVEN. |
+
+**Limites statiques résiduelles (pas de garantie universelle de concurrence)** : les chemins secondaires de reprise/qualification (page.tsx L2545–2564 et L2632–2652) capturent la génération de lecture sans en réserver une propre ; le poll de qualification peut avoir des requêtes simultanées et n'applique pas tous les champs du GET. Le load initial L2172–2285 possède un garde d'annulation mais ne partage pas entièrement la génération des relectures. refreshProjectThreadSnapshot L1985–2018 retourne [] sur échec sans marquer explicitement la fraîcheur ; le GET Journal utilise des tableaux vides par défaut pour les champs omis. Ne pas prétendre que chaque lecture est désormais uniforme. SAS06 contextPreloadVerdict contrôle la présence, pas une validation exhaustive du schéma ; le libellé général de context partial reste « contexte en chargement », alors que son repère indique incomplet. Ces limites de couverture/coordination sont à vérifier précisément en PROJ-REC-02/03, et les défauts effectivement observés à corriger avant acceptation finale. Aucun écrasement métier ni fuite inter-projets démontrés par les preuves disponibles ; pas de changement propriétaire. Le risque de relecture provoquant un faux ACK perdu sur le chemin principal est traité. Recommandation proportionnée : pas de nouveau cycle général L2 à ce stade, sans assimiler ces limites à des PASS.
+
+### 12.3 Réserves et gate
+
+PROJ-REC-01/02/03 de §11.4 restent DEFERRED TO RECETTE, bloquants pour acceptation finale Livraison 1, non bloquants pour la poursuite technique recommandée. Préciser PROJ-REC-02 : chevauchement qualification/reprise/lecture de surface, échec de relecture partielle, état de fraîcheur et réconciliation du résultat confirmé ; observer ordre et identité des réponses, données propriétaires, absence de faux pending. PROJ-REC-03 : contexte partiel/indisponible, statut qualification absent, géométrie appariée desktop et viewport court, CTA au clavier ; réparer le helper de test géométrique lors de la qualification UX si nécessaire, aucun F2 acquis. Six DOC-REC L1 inchangés. Réserves d'outillage Webpack/TypeScript à réconcilier avant intégration/CI ; ne pas engager de chantier hors lot.
+
+**ChatGPT : READY WITH RESERVES — sortie technique L2 favorable.** Les trois intentions principales sont implémentées et revues, le build et les preuves proportionnées permettent de recommander le passage au L3 sous GO Morris. Cette recommandation n'est pas une acceptation Morris, ni une promotion RECETTE, ni une qualification fonctionnelle définitive, ni une clôture MP. L3 vise MP15, alignement de la politique cognitive RECETTE ; distinguer préparation, configuration, redémarrage et LIVE sous autorisations distinctes. Les statuts programme restent inchangés.
+
+Actualisation D1 du fichier unique à partir de `72293b82dcf762eedb44312826b6af834bc08c79`, branche `docs/next-openai-studio-convergence-20261126`, sous mandat de suivi Morris. Aucun changement de code, main, handoff, configuration ou norme.
