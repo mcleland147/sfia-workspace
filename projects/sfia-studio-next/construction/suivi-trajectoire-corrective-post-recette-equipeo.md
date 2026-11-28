@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.10, revue activation L3 |
+| Date / version | 28 novembre 2026 — v0.11, GO L4 |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. Changement de portée, doctrine, contrats normatifs et gates : GO distinct. |
@@ -12,7 +12,7 @@
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
 | Candidat DEV courant | `017487581c317f957ef7a96ff2f3d95450fcf9ab`, tree `b398725b2bbef59c295dbc3093f23a767f433994` — PUBLISHED DEV, CI distante NOT RUN. RECETTE reste au candidat d'entrée. |
-| Gate courant | L1 et L2 acceptés techniquement avec réserves RECETTE. L3 configuration activée et redémarrage réalisés, résolution DET conforme ; Cursor et ChatGPT READY WITH RESERVES — sortie technique favorable (§15), acceptation Morris distincte. COG-REC-01 différé. L4 non engagé. Aucun GO LIVE, promotion, PR ou merge. |
+| Gate courant | L1 à L3 acceptés techniquement par Morris avec réserves RECETTE. L4 autorisé — activité et restitution Nora (§16), en attente d'exécution. COG-REC-01 et dix contrôles cumulés restent ouverts. Aucun GO LIVE, promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -27,14 +27,14 @@ Fiabiliser la Livraison 1 après les constats de la campagne Equipéo, en prése
 
 ## 2. Tableau de bord des sept lots
 
-Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.10 : 2/7 lots acceptés techniquement avec réserves RECETTE ; L3 activation réalisée et revue de sortie technique favorable avec réserve LIVE, décision Morris attendue ; 4 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
+Ordre approuvé par Morris le 28/11. Les détails de mise en œuvre, scopes précis et preuves restent qualifiés dans chaque mandat. Les identifiants L1–L7 sont de suivi uniquement, jamais des noms de composants produit. Les statuts sont opérationnels : PREPARATION / AUTHORIZED / IN PROGRESS / READY FOR REVIEW / READY WITH RESERVES / NOT READY / REVIEWED / BLOCKED / ACCEPTED BY MORRIS. Distinguer construction, preuves DET/PG/BROWSER, preuve LIVE et acceptation ; aucune clôture implicite de MP. À la v0.11 : 3/7 lots acceptés techniquement par Morris avec réserves RECETTE ; L4 autorisé, 3 lots suivants non engagés. Aucune acceptation fonctionnelle définitive.
 
 | Ordre | Lot | Résultat et références | Statut courant | Dernière preuve / gate |
 | --- | --- | --- | --- | --- |
 | 1 | Intégrité du cycle documentaire | V1→V2→V3, brouillon inspectable, head correcte, historique et identité fiables. DOC-A/B/C, D/E si bornés ; MP08/10/11/13 au périmètre. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 96c0129f / be036274 ; trois gardes revues, DET PASS ; BROWSER/RECETTE différés §9 |
 | 2 | Fraîcheur des projections projet | Chargement initial du contexte et de la continuité existante, cohérence des surfaces après effets, étape UX de préparation. MP13 ; MP03/04/10/12 au seul périmètre chargement/projections. | ACCEPTED BY MORRIS — DEV WITH RECETTE RESERVES | 01748758 / 30601c08 ; limites et PROJ-REC §12 maintenues |
-| 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | REVIEWED — READY WITH RESERVES (SORTIE TECHNIQUE FAVORABLE) | 8445752f ; activation et résolution DET conformes ; COG-REC-01 différé §15 |
-| 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | NOT STARTED | Diagnostic §5 ; arbitrer confirmations et états |
+| 3 | Admission cognitive RECETTE | Politique adaptative explicitement admise et configuration prouvée, rollback. MP15 ; prérequis MP14. | ACCEPTED BY MORRIS — TECHNIQUE WITH RECETTE RESERVES | 8445752f ; activation et résolution DET conformes ; COG-REC-01 différé §15 |
+| 4 | Activité et restitution Nora | Activité contextualisée, historique fiable, conversation métier non parasitée. MP11, DOC-F (comparaison). | AUTHORIZED — EN ATTENTE EXÉCUTION | GO Morris ; séparation activité/conversation confirmée §16 |
 | 5 | Corrélation et fiabilité FinOps | Rattachement des mesures aux travaux, compteurs, coûts et inconnues intelligibles. MP16, support MP14. | NOT STARTED | Diagnostic §6 ; cause d'écriture du lien à localiser |
 | 6 | Qualification et correction de la dictée | Diagnostic LIVE court, puis dictée et onde réellement fonctionnelles. MP06/07, MP01/02 associés. | NOT STARTED — GO LIVE DISTINCT | Diagnostic §8 ; cause fournisseur NOT OBSERVED |
 | 7 | Convergence UX résiduelle | Cohérence visuelle et navigation, animation, repères, provenance et libellés, Markdown. MP02/04/05/08/10/12/17 et DOC résiduels. | NOT STARTED | Diagnostic §9 ; Figma/DOM à états appariés |
@@ -139,7 +139,9 @@ Pour chaque lot : pré-check Git/SEF/Roadmap/décisions, contrat SFIA v2.6 depui
 | 28/11/2026 | Morris autorise configuration, redémarrage et rollback si échec, sans LIVE | Deux clés uniquement, même SHA/BUILD, §14–15 | Exécuté, rollback non nécessaire |
 | 28/11/2026 11:12 CET | L3 — activation et revue | 8445752f ; Cursor et ChatGPT READY WITH RESERVES, sortie technique favorable | Acceptation Morris L3 et GO L4 attendus |
 
-**Prochaine action :** décision Morris de sortie technique L3 avec réserve COG-REC-01, puis cadrage borné L4 — Activité et restitution Nora. Pas de cutover, LIVE, clôture MP ou L4 implicites.
+| 28/11/2026 | Morris accepte la sortie technique L3 et engage L4 | 8445752f ; COG-REC-01 maintenu ; séparation activité/conversation confirmée | Mandat L4 §16 |
+
+**Prochaine action :** exécuter L4 sur 01748758, publier candidat DEV et handoff, revue avant L5. Pas de cutover, LIVE, clôture MP ou adoption.
 
 ## 7. Revue indépendante L1 — 28 novembre 2026
 
@@ -389,3 +391,23 @@ Au prochain cutover, conserver et vérifier les deux paramètres versionnés, la
 **Verdict ChatGPT : READY WITH RESERVES — sortie technique L3 favorable.** Cause de configuration MP15 traitée ; qualification comportementale et clôture fonctionnelle non acquises. Recommander acceptation technique Morris et engagement L4 sous GO distinct ; aucune promotion. Dix contrôles différés (six DOC-REC, trois PROJ-REC, un COG-REC). R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / 17 MP OPEN / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.
 
 Actualisation D1 du fichier unique à partir de `5feed44045726aca333d63dfa8c7700d94056087`, branche `docs/next-openai-studio-convergence-20261126`. Aucun changement produit, configuration, main, handoff ou norme par ChatGPT.
+
+## 16. Arbitrage Morris et mandat L4 — 28 novembre 2026
+
+**Décisions explicites en conversation :** acceptation de la sortie technique L3 avec réserve COG-REC-01 ; GO L4. Morris confirme l'activité compréhensible pendant l'exécution (objectif, sources mobilisées, opérations réalisées, progression et résultats observables), et demande de déplacer les informations d'activité hors du texte conversationnel vers le suivi puis l'historique d'activité. Le problème est la répartition des informations déjà disponibles autant que leur construction. Les détails de mise en œuvre ci-dessous sont une proposition de réalisation de cet arbitrage, non un nouveau contrat normatif.
+
+### 16.1 Résultat et frontières
+
+- MP11 et DOC-F au périmètre comparaison : activité contextualisée proportionnée au travail, détail durable par tour, conservation de la paire exacte de révisions et du résultat de comparaison réellement observé ; pas de refonte de visionneuse. Conversation : analyse, résultat significatif, recommandation, décision/clarification ; une confirmation concise si action explicitement demandée, pas de répétition automatique pour chaque effet de capitalisation. Ne jamais cacher un échec bloquant, un résultat partiel/UNKNOWN pertinent ou une action restant à faire ; préserver proposition non conservée et commandes autorisées. Tous les effets utiles, y compris les refus et limites, restent lisibles dans l'activité avec identité et preuve propriétaire. Aucune réécriture rétroactive des messages.
+- Activité et historique = deux restitutions du même journal D3 par tour ; utiliser événements et résultats propriétaires existants, pas de second moteur, pas de raisonnement privé, pas d'invention de progression, ni de nouvel appel IA. Distinguer annonce, constat, issue terminale, source identifiée/consultée/partielle/inaccessible, résultat métier et preuve D8. Objectif issu de qualification structurée existante lorsqu'effectivement disponible ; attente générique honnête sinon.
+- OUT : Capacité 2, allocation, FinOps L5 (préserver corrélations), dictée, UX globale L7, DOC-D/E, streaming de texte imposé, nouvelle persistance/migration, changement d'autorité, LIVE, promotion. Les dix contrôles différés L1–L3 restent ouverts. DEV `017487581c317f957ef7a96ff2f3d95450fcf9ab` / tree b398725b2bbef59c295dbc3093f23a767f433994 ; RECETTE historique `0ae9e1f7` / BUILD p0S18hfVdGrMjGeNMGlbV, PID 58965 rapporté, policy v0.2/admit versionné activés en configuration (§15), effectif LIVE non prouvé.
+
+### 16.2 Pré-check Git et points de réalisation
+
+- [Diagnostic 515561e7 §5](https://github.com/mcleland147/sfia-workspace/blob/515561e7e5bf395907bf4ec0f4c9990a36dc4aa7/sfia-review-handoff/latest-chatgpt-review.md) et PV Equipéo §9.4 MP11 : événements spécialisés persistés, résumé terminal générique, répétition déterministe. `activity-projection.ts` (d288a5b0…) utilise nora_activity_events, sequence et ownership ; `activity-labels.ts` (4593288b…) hiérarchie, état de groupe agrégé sur tous événements (risque d'ancien RUNNING dominant après COMPLETED), titre objectif générique, résultat comparaison et détails sources. `NoraLiveActivity.tsx` (b36c2c44…) état idle déduit des groupes, risque de fausse suspension ; utiliser état réel du tour et opérations corrélées, sans supprimer les échecs historiques.
+- `NoraConversation.tsx` L272–279 : historique réduit au résumé de turnProjection ; L361+ dernier bloc activité alimenté par événements en mémoire. `turn-projection.ts` (a8af8deb…) porte messageId/turnCommandId ; GET activité existant pour sas et projet ; polling projet/sas en mémoire. Prévoir lecture finale et détail à la demande du tour exact après navigation/reload, dédoublonnage par identité/sequence, isolation et absence de polling inutile. [Route projet](https://github.com/mcleland147/sfia-workspace/blob/017487581c317f957ef7a96ff2f3d95450fcf9ab/projects/sfia-studio-next/web/src/app/api/projects/%5BprojectId%5D/turns/%5BturnCommandId%5D/activity/route.ts) ignore projectId et contrôle uniquement ownerPilotId dans listActivityEvents : corriger/qualifier frontière projet→préparation→conversation→tour avant d'élargir historique (même Pilote autre projet, autre Pilote), réutiliser les contrôles du sas ; pas de nouvelle permission.
+- `service.ts` (71c84c01…) L1606+ et L1804+ annonce/fermeture orientation générique ; L5009–5045 compose pilotage/connaissance/publication puis acks document/mission dans assistantBody ; L5080+ resultPayload conserve effets propriétaires et projection ; L5200+ commit terminal sous fencing. Recomposer les confirmations depuis les résultats déjà confirmés et leurs identités, conserver les résultats métier et la vérité de l'état terminal ; aucune suppression par regex générale ou écriture parallèle à l'autorité. Projection historique peut dériver les effets du résultat durable existant, sans les écrire une seconde fois si déjà disponibles. Vérifier également restitution sas, D7 et reprise aux frontières pertinentes, sans modifier moteur d'exécution.
+- Contrat UX/technique Travail avec Nora §7 CT-04/M2 et conception UX-009, as-built activité hiérarchisée 25/11 : groupes adaptatifs, détails à la demande, réponse finale V1 acceptable. Figma page 05 node 700:38 et variantes activité référencées par composant 12.01/12.10 ; Figma non réinspecté directement pour ce lot, extraire contrat visuel applicable avant édition. Exemples chat non maquettes Figma validées.
+- Exit proposé : scénario simple et complexe avec sources et comparaison, effets multiples et un résultat partiel/échec, historique exact après reload et reprise, conversation épurée sans perte de résultat/choix, contrôle accès projet/Pilote, DET + PG ciblé + BROWSER raisonnable, report RECETTE explicite selon §9.1. Publication DEV et handoff Full. L5 ensuite sous GO distinct.
+
+Actualisation D1 du fichier unique à partir de `cbff05354acf0d6cd80f28d47f6d8c8840077a4b`, branche `docs/next-openai-studio-convergence-20261126`. Aucun code, Figma, config, main ou norme modifiés par ChatGPT.
