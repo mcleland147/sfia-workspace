@@ -3,6 +3,7 @@
  * Runs on the isolated e2e database. Historical DEV projects are not used.
  */
 import { readFileSync } from "node:fs";
+import postgres from "postgres";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
 config({ path: ".env.local" });
@@ -622,23 +623,57 @@ describe("permanent space deletion (PG)", () => {
     await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${lockedPrep}, ${pilotA}, 'OPEN')`;
     await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${lockedProject}, ${pilotA}, ${`m6-space-held-${stamp}`})`;
     await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${lockedPrep}, ${lockedProject})`;
+    const inserter = postgres(process.env.DATABASE_URL!, {
+      max: 1,
+      connection: { application_name: "m6_lock_probe" },
+    });
+    let release = () => {};
+    const releaseGate = new Promise<void>((resolve) => { release = resolve; });
     let entered!: () => void;
     const enteredGate = new Promise<void>((resolve) => { entered = resolve; });
-    let release!: () => void;
-    const releaseGate = new Promise<void>((resolve) => { release = resolve; });
+    let insertResult: { ok: true } | { ok: false; error: { code?: string } } | undefined;
     pauseNextSpaceDeletionAfterLocksForTests(entered, releaseGate);
     const pending = deleteOwnedSpace(pilotA, "project", lockedProject);
-    await enteredGate;
-    const insert = sql`
-      INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
-      VALUES (${id("held_conv")}, ${lockedPrep}, ${lockedProject}, ${pilotA})
-    `;
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    release();
-    await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: lockedProject });
-    await expect(insert).rejects.toThrow();
-    const leftover = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM conversations WHERE id = ${id("held_conv")}`;
-    expect(leftover[0]?.n).toBe(0);
+    try {
+      await enteredGate;
+      const query = inserter`
+        INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
+        VALUES (${id("held_conv")}, ${lockedPrep}, ${lockedProject}, ${pilotA})
+      `;
+      void query.then(
+        () => { insertResult = { ok: true }; },
+        (error: { code?: string }) => { insertResult = { ok: false, error }; },
+      );
+      let waiting = 0;
+      const deadline = Date.now() + 5000;
+      while (Date.now() < deadline) {
+        const rows = await sql<{ n: number }[]>`
+          SELECT count(*)::int AS n
+          FROM pg_stat_activity activity
+          JOIN pg_locks lock ON lock.pid = activity.pid
+          WHERE activity.application_name = 'm6_lock_probe'
+            AND activity.wait_event_type = 'Lock'
+            AND lock.granted = false
+        `;
+        waiting = rows[0]?.n ?? 0;
+        if (waiting > 0) break;
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+      expect(waiting).toBeGreaterThan(0);
+      release();
+      await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: lockedProject });
+      const settledAt = Date.now() + 5000;
+      while (!insertResult && Date.now() < settledAt) {
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+      expect(insertResult?.ok).toBe(false);
+      if (insertResult && !insertResult.ok) expect(insertResult.error.code).toBe("23503");
+      const leftover = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM conversations WHERE id = ${id("held_conv")}`;
+      expect(leftover[0]?.n).toBe(0);
+    } finally {
+      release();
+      await inserter.end({ timeout: 1 });
+    }
   });
 
   it("does not admit a new external step after the project is gone", async () => {
@@ -662,6 +697,118 @@ describe("permanent space deletion (PG)", () => {
     expect(provider.resolveGitHubProvider).not.toHaveBeenCalled();
     const attempts = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM effect_attempts WHERE id = ${id("late_attempt")}`;
     expect(attempts[0]?.n).toBe(0);
+  });
+
+  it("refuses an external work whose project is null", async () => {
+    const target = id("null_project");
+    const targetPrep = id("null_prep");
+    const outsidePrep = id("null_outside_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN'), (${outsidePrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-null-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("null_conv")}, ${targetPrep}, ${target}, ${pilotA})`;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, conversation_id, status, objective)
+      VALUES (${id("null_work")}, ${pilotA}, ${targetPrep}, ${target}, ${id("null_conv")}, 'COMPLETE', 'cible')
+    `;
+    await sql`
+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, status, objective, parent_work_id)
+      VALUES (${id("null_outside_work")}, ${pilotA}, ${outsidePrep}, 'COMPLETE', 'extérieur', ${id("null_work")})
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      code: "CONFLICT",
+      message: "Un travail d'un autre espace référence encore cet espace.",
+    });
+    const kept = await sql<{ projects: number; target_work: number; outside_work: number; parent_work_id: string }[]>`
+      SELECT
+        (SELECT count(*)::int FROM projects WHERE id = ${target}) AS projects,
+        (SELECT count(*)::int FROM cognitive_works WHERE id = ${id("null_work")}) AS target_work,
+        (SELECT count(*)::int FROM cognitive_works WHERE id = ${id("null_outside_work")}) AS outside_work,
+        (SELECT parent_work_id FROM cognitive_works WHERE id = ${id("null_outside_work")}) AS parent_work_id
+    `;
+    expect(kept[0]).toEqual({
+      projects: 1,
+      target_work: 1,
+      outside_work: 1,
+      parent_work_id: id("null_work"),
+    });
+    await sql`UPDATE cognitive_works SET parent_work_id = NULL WHERE id = ${id("null_outside_work")}`;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).resolves.toEqual({
+      deleted: true,
+      spaceType: "project",
+      spaceId: target,
+    });
+    const outside = await sql<{ n: number; parent_work_id: string | null }[]>`
+      SELECT count(*)::int AS n, max(parent_work_id) AS parent_work_id
+      FROM cognitive_works WHERE id = ${id("null_outside_work")}
+    `;
+    expect(outside[0]).toEqual({ n: 1, parent_work_id: null });
+    await deleteOwnedSpace(pilotA, "preparation", outsidePrep);
+  });
+
+  it("refuses an observation owned by another pilot and one without an owner", async () => {
+    const target = id("owner_project");
+    const targetPrep = id("owner_prep");
+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN')`;
+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-owner-${stamp}`})`;
+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
+    await sql`
+      INSERT INTO provider_usage_observations (
+        id, owner_pilot_id, project_id, tariff_version, estimated_cost_usd, cost_coverage, status,
+        granularity, idempotency_key, input_tokens
+      ) VALUES (
+        ${crypto.randomUUID()}::uuid, ${pilotB}, ${target}, 'v-test', 3.25, 'ESTIMATED', 'COMPLETE',
+        'REQUEST', ${id("foreign_owner_usage")}, 18
+      )
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      code: "CONFLICT",
+      message: "Une observation de cet espace appartient à un autre Pilote.",
+    });
+    const foreign = await sql<{ owner_pilot_id: string; tokens: string; cost: string; key: string; projects: number }[]>`
+      SELECT owner_pilot_id, input_tokens::text AS tokens, estimated_cost_usd::text AS cost,
+        idempotency_key AS key,
+        (SELECT count(*)::int FROM projects WHERE id = ${target}) AS projects
+      FROM provider_usage_observations WHERE idempotency_key = ${id("foreign_owner_usage")}
+    `;
+    expect(foreign[0]).toEqual({
+      owner_pilot_id: pilotB,
+      tokens: "18",
+      cost: "3.2500000000",
+      key: id("foreign_owner_usage"),
+      projects: 1,
+    });
+    await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("foreign_owner_usage")}`;
+    await sql`
+      INSERT INTO provider_usage_observations (
+        id, project_id, tariff_version, estimated_cost_usd, cost_coverage, status, granularity, idempotency_key, input_tokens
+      ) VALUES (
+        ${crypto.randomUUID()}::uuid, ${target}, 'v-test', 1, 'ESTIMATED', 'COMPLETE', 'REQUEST', ${id("null_owner_usage")}, 4
+      )
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
+      message: "Une observation rattachée à cet espace n'a pas de propriétaire exclusif.",
+    });
+    const unowned = await sql<{ owner_pilot_id: string | null; tokens: string }[]>`
+      SELECT owner_pilot_id, input_tokens::text AS tokens
+      FROM provider_usage_observations WHERE idempotency_key = ${id("null_owner_usage")}
+    `;
+    expect(unowned[0]).toEqual({ owner_pilot_id: null, tokens: "4" });
+    await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("null_owner_usage")}`;
+    await sql`
+      INSERT INTO provider_usage_observations (
+        id, owner_pilot_id, project_id, tariff_version, cost_coverage, status, granularity, idempotency_key, input_tokens
+      ) VALUES (
+        ${crypto.randomUUID()}::uuid, ${pilotA}, ${target}, 'v-test', 'ESTIMATED', 'COMPLETE', 'REQUEST', ${id("owned_usage")}, 5
+      )
+    `;
+    await expect(deleteOwnedSpace(pilotA, "project", target)).resolves.toEqual({
+      deleted: true,
+      spaceType: "project",
+      spaceId: target,
+    });
+    const owned = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM provider_usage_observations WHERE idempotency_key = ${id("owned_usage")}`;
+    expect(owned[0]?.n).toBe(0);
   });
 
   it("keeps an observation that points at the target from another preparation", async () => {

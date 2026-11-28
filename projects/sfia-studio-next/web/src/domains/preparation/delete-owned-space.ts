@@ -163,6 +163,7 @@ export async function deleteOwnedSpace(
       WHERE (project_id = ${projectId} OR preparation_id = ANY(${scope}))
         AND (project_id IS NULL OR project_id = ${projectId})
         AND (preparation_id IS NULL OR preparation_id = ANY(${scope}))
+        AND owner_pilot_id = ${ownerPilotId}
     `;
     await tx`
       DELETE FROM cognitive_work_checkpoints
@@ -295,6 +296,27 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
   if ((foreignObservation[0]?.n ?? 0) > 0) {
     blocked("Une observation d'un autre espace référence encore cet espace.");
   }
+  const foreignObservationOwner = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM provider_usage_observations
+    WHERE (project_id = ${projectId} OR preparation_id = ANY(${preps}))
+      AND (project_id IS NULL OR project_id = ${projectId})
+      AND (preparation_id IS NULL OR preparation_id = ANY(${preps}))
+      AND owner_pilot_id IS NOT NULL
+      AND owner_pilot_id <> ${ownerPilotId}
+  `;
+  if ((foreignObservationOwner[0]?.n ?? 0) > 0) {
+    blocked("Une observation de cet espace appartient à un autre Pilote.");
+  }
+  const unownedObservation = await tx<{ n: number }[]>`
+    SELECT count(*)::int AS n FROM provider_usage_observations
+    WHERE (project_id = ${projectId} OR preparation_id = ANY(${preps}))
+      AND (project_id IS NULL OR project_id = ${projectId})
+      AND (preparation_id IS NULL OR preparation_id = ANY(${preps}))
+      AND owner_pilot_id IS NULL
+  `;
+  if ((unownedObservation[0]?.n ?? 0) > 0) {
+    blocked("Une observation rattachée à cet espace n'a pas de propriétaire exclusif.");
+  }
   const outsideRevision = await tx<{ n: number }[]>`
     SELECT count(*)::int AS n FROM document_revisions other
     WHERE other.base_revision_id IN (
@@ -316,7 +338,8 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
       SELECT id FROM cognitive_works
       WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
     )
-    AND NOT (other.preparation_id = ANY(${preps}) OR other.project_id = ${projectId})
+    AND (other.preparation_id IS NULL OR NOT (other.preparation_id = ANY(${preps})))
+    AND (other.project_id IS NULL OR other.project_id <> ${projectId})
   `;
   if ((outsideWork[0]?.n ?? 0) > 0) {
     blocked("Un travail d'un autre espace référence encore cet espace.");

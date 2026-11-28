@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-RESIDUAL-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — correctif résiduel d'intégrité de la suppression définitive
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `ca6f47a17427218f6b01effdda570cdd78e8d901`
+- **commit**: `fix(studio-next): close deletion integrity gaps`
+- **schema_revision**: inchangé, `029`
+- **scope**: référence inverse d'un travail sans projet ; observation d'un autre Pilote ou sans propriétaire ; preuve d'attente réelle sous verrou
+- **classe**: NO RELEASE · compatible évolutive · LIVE NOT RUN · CI NOT RUN · push produit non inclus
+- **reserves**: F2 non mesuré ; les réserves des mandats 1 à 5 sont transportées
+
 ## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-CORRECTIVE-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)
