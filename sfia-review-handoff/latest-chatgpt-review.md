@@ -1,360 +1,134 @@
-# Review Pack FULL — Correctif résiduel M6 — Intégrité de la suppression
+# Review Pack FULL — Qualification intégrée et préparation RECETTE
 
-- date et heure : 2026-11-28 19:52 Europe/Paris
-- cycle : 08 — Delivery / implémentation
+- date et heure : 2026-11-28 20:15 Europe/Paris
+- cycle : 09 — QA / validation
 - profil : Critical
 - typologie : EVOL
-- Review Pack : FULL, mono-cycle, correctif résiduel uniquement
-- autorisation : GO Morris 28/11/2026, dernier correctif M6
-- décision fonctionnelle conservée : SUPPRIMER = SUPPRIMER DÉFINITIVEMENT ; aucun état métier ne bloque
-- commit : 785253fd7003b95af631248da6bdff6279b2e541
+- Review Pack : FULL, mono-cycle
+- autorisation : Morris, préparation de mise à disposition après réception des mandats 1 à 6
+- candidat : 785253fd7003b95af631248da6bdff6279b2e541
 - parent : ca6f47a17427218f6b01effdda570cdd78e8d901
 - tree : 6f22ebae5e8a2780ee20d12bf30b747918096997
-- message : fix(studio-next): close deletion integrity gaps
-- avance : 5 ; retard : 0 ; origine produit : 87a25c5eed65a1b30c6f608dcccb57f0c5992eff
-- push produit : non
+- origine produit : 87a25c5eed65a1b30c6f608dcccb57f0c5992eff
+- avance : 5 ; retard : 0 ; fast-forward possible
+- main et merge-base : 997897fd7cf914771e7d08e8030dc7123fab7d25
+- RECETTE servie : 0ae9e1f7aaee3658eb3e9a135523e83a72631b31, ancêtre du candidat, 26 commits en amont
+- push produit : non exécuté
+- cutover : non exécuté
+- code produit : aucune modification
 
 ## Local Git Truth Check
 
-Correspondance avant édition. Branche sfia/next-ml5-integrated-delivery-20261123. HEAD ca6f47a17427218f6b01effdda570cdd78e8d901. Parent 081d39d0d221bf0a027b3351d41f672fdc9e7236. Tree acd58221f695d8e6b32eb7baf71be6992ca1e8d8. Origine de branche 87a25c5eed65a1b30c6f608dcccb57f0c5992eff. origin/main et merge-base 997897fd7cf914771e7d08e8030dc7123fab7d25. Avance 4, retard 0. Index propre. Non suivis limités à .tmp-sfia-review. Aucun reset, amend ou rebase. Les quatre commits locaux précédents sont conservés. Après le commit : avance 5.
+Correspondance avant qualification. Branche sfia/next-ml5-integrated-delivery-20261123. Remote origin unique. Worktree produit distinct du worktree RECETTE servi et du worktree de handoff. Index propre. Non suivis limités à .tmp-sfia-review. Aucun reset, amend ou rebase.
 
-## Sources lues pour ce correctif
+Les cinq commits locaux, du plus ancien au plus récent : unification du compositeur Nora, fiabilisation FinOps, suppression définitive, complément sans veto métier, fermeture des trois écarts d'intégrité. Delta de ces cinq commits : 19 fichiers, +2039/−276. Delta cumulé depuis la RECETTE servie : 102 fichiers, +11787/−1270. Aucune pull request ouverte sur la branche. Les workflows lus ne se déclenchent que sur une pull request vers main ou un push de main. Le push FF prévu de cette branche ne lance pas ces workflows. Un merge ultérieur vers main le ferait.
 
-- Suivi v0.34, commit e833003c906123572d28542600996cf990d34555, blob c5e1e1b8d778fda5323011651297fe8704ffd0bd, §39 lu intégralement.
-- delete-owned-space.ts et space-deletion.pg.test.ts au HEAD d'entrée.
-- usage-accounting.ts : ownerPilotId absent est enregistré null. Ce null n'est pas un autre Pilote.
-- postgres/src/query.js : la requête taguée ne part qu'à then, catch, finally ou execute.
-- Contrats déjà établis au commit 6fc186bc : fonctionnel v0.4 blob 45c70440, technique v0.5 blob 6bf4c8a5, UX v0.5 blob 32661149. Non modifiés.
-- Handoff précédent 408657d6f786f9b4a336074106140145aa062357, blob c3de10c86bfc9377c9b753d9cd411ac8ea013ab5, relu comme base distante avant publication.
+## Sources lues
 
-## R-M6-01 — avant / après
+- Suivi v0.35, commit b895ea1ea3277ce7b8f7495c445a068dc1c394e1, blob 9066376729a88efae6cf583a82660fd6dfa7b6fd, notamment §13 à 15, §18, §20, §26 et §34 à 40.
+- Routing 3315bbae, template f4fdb488, ENV-01 14b61f0d, versioning 8bc93e0f, migrations 028 ebdfd166 et 029 28134eba.
+- Contrats portefeuille au commit 6fc186bc, non modifiés. Handoff M6 e9ad33e8, blob 257246bd.
+- Manifeste et preuves E5, cahier de recette intégrée, runner db-migrate.sh, start-recette-ml5.sh, LaunchAgent, politique cognitive et ses tests.
+- Le manifeste e8e6e069 est historique. Le runtime servi est 0ae9e1f7 / p0S18hfVdGrMjGeNMGlbV.
 
-Avant : outsideWork excluait une ligne par `NOT (preparation_id = ANY(preps) OR project_id = projectId)`. Pour une autre préparation dont project_id est NULL, la comparaison vaut UNKNOWN et la référence parent_work_id échappait au contrôle.
+## Identités vérifiées
 
-Après : la ligne extérieure est retenue si sa préparation n'est pas dans le périmètre, y compris quand elle est NULL, et si son projet est NULL ou différent de la cible. Le périmètre effacé n'est pas élargi.
+DEV : http://127.0.0.1:3100, PID 95074, HEAD 785253fd, BUILD ocqwE2XKIzLKTSuHGRNxf, PostgreSQL 5433, sfia_next_dev, schéma 029. Inchangé après la qualification.
 
-Preuve PostgreSQL : projet cible avec un travail ; préparation autonome extérieure ; travail extérieur à project_id NULL dont parent_work_id vise le travail cible. Refus CONFLICT « Un travail d'un autre espace référence encore cet espace. » Projet, travail cible et travail extérieur conservés, pointeur inchangé. Après remise du pointeur à NULL, la suppression du projet réussit et le travail extérieur reste, sans parent. La préparation extérieure est ensuite retirée par sa propre suppression.
+RECETTE : http://127.0.0.1:3200, PID 58965, parent LaunchAgent 58938, worktree sfia-workspace-next-ml5-recette-build-0ae9e1f7aaee, BUILD p0S18hfVdGrMjGeNMGlbV, PostgreSQL 5434, sfia_next_recette_ml4, schéma 027. Aucune colonne titre, aucune table de portefeuille. Inchangée.
 
-## R-M6-02 — avant / après
+Build de qualification isolé, distinct des deux runtimes : STUDIO_E2E=1, répertoire .next-e2e, BUILD_ID 2jZbA_dNRduVxKfMGtma2. Empreinte du fichier BUILD_ID 8fb4a81c4d28da26ac80e50fafe37561333647e2c04db2977ead1db35675af98. Ce n'est pas le futur BUILD_ID RECETTE. Le serveur temporaire :3101 a été arrêté. Aucun BUILD RECETTE futur n'est inventé.
 
-Avant : le contrôle de propriétaire couvrait six tables. provider_usage_observations était effacé sur le seul rattachement à l'espace.
+## Qualification intégrée
 
-Après : avant toute mutation destructive, une observation du périmètre dont owner_pilot_id est un autre Pilote non nul est refusée. Une observation du périmètre dont owner_pilot_id est NULL est refusée séparément, sans être qualifiée d'appartenance étrangère. Le DELETE n'enlève que les observations dont owner_pilot_id est exactement le Pilote de session. Une observation globale, hors prédicat de périmètre, n'est pas sélectionnée. Tarifs, coûts, attribution, projections, facturation et schéma sont inchangés.
+292 tests PASS sur 18 fichiers, base sfia_next_e2e uniquement. Ils couvrent la politique cognitive (38), le portefeuille, la suppression définitive (15, dont NULL SQL, propriétaire FinOps et attente réelle de verrou), l'identité documentaire, l'activité et l'attribution FinOps. git diff --check propre. next lint : sortie 0, avertissements historiques. tsc --noEmit : 16 diagnostics, tous dans des tests, aucun dans src. Build de production isolé réussi.
 
-Preuve PostgreSQL : projet du Pilote A, observation du projet appartenant au Pilote B. Refus « Une observation de cet espace appartient à un autre Pilote. » Projet conservé. Propriétaire, 18 jetons, coût 3.2500000000 et idempotency_key inchangés. Observation sans propriétaire : refus distinct, propriétaire NULL et 4 jetons conservés. Observation du Pilote A : suppression nominale, ligne absente ensuite.
+Navigateur contrôlé sur :3101 et sfia_next_e2e, sans émission Nora ni GitHub. Le portefeuille affiche 2 projets, 33 préparations et 1 favori, la reprise, les filtres, le tri et les vues. Les archives répondent « Aucune archive. » La page de consommation distingue explicitement une mesure absente d'une consommation nulle. F2 NOT PROVEN. Aucune conformité visuelle globale n'est déclarée.
 
-## R-M6-03 — attente réelle
+Les projets historiques DEV et RECETTE n'ont pas été ouverts ni supprimés. Equipéo et MaintiPlan n'ont pas été utilisés.
 
-Avant : `const insert = sql\`...\`` créait une requête postgres-js non déclenchée. Elle n'était attendue qu'après la libération du verrou. Le délai de 200 ms ne prouvait rien.
+## Réserves transportées
 
-Après : la suppression démarre, le seam confirme les verrous, une seconde connexion nommée m6_lock_probe exécute réellement l'insertion par then(). pg_stat_activity joint à pg_locks observe wait_event_type Lock et granted false, avec une borne de 5 secondes. Le seam est alors libéré. Le commit réussit. L'insertion échoue en 23503. Aucune conversation orpheline. finally libère le seam et ferme la connexion.
+Aucune n'est requalifiée PASS. Défauts statiques connus et acceptés : R-M3-DOC-TITLE, R-M3-RECENT-IDENTITY, R-M3-PROOF-FOCUS, R-M2-PF34-REREAD. Preuves manquantes : F2, parcours navigateur naturel complet, COG-REC-01. Limites FinOps : FIN-REC-01 (une écriture commencée après la grâce peut rester non attribuée ; la course contradictoire n'est pas une preuve universelle), FIN-REC-02. Contrôles RECETTE ouverts : DOC-REC-01 à 06, PROJ-REC-01 à 03, COG-REC-01, ACT-01 à 05, FIN-REC-01 et 02. Dix-sept MP ouverts. L6 différé, Capacité 2 OUT, T08 différé. R-E5-PG-HIST reste une réserve d'outillage, pas une exemption. Aucun échec nouveau d'intégrité n'est apparu dans la campagne proportionnée. Les trois écarts M6 sont clos dans le candidat et couverts par la suite rejouée.
 
-Le test a réussi dans la suite de 909 ms. L'assertion d'attente a donc été satisfaite avant l'échéance, et non par un simple délai. La stratégie de verrouillage n'est pas modifiée.
+## Migration 028 puis 029
 
-## Résultats
+Le runner db-migrate.sh n'a pas été utilisé : il applique 001 à 029 et vise DEV. RECETTE réelle non modifiée.
 
-- space-deletion.pg.test.ts : 15 tests PASS, dont les trois preuves et la suite existante, base sfia_next_e2e, port 5433.
-- portfolio-organization.test.ts : 4 tests PASS.
-- eslint ciblé : 0.
-- tsc --noEmit : 16 diagnostics historiques, aucun dans les fichiers du correctif.
-- git diff --check : propre.
-- build production : réussi. BUILD_ID ocqwE2XKIzLKTSuHGRNxf.
-- smoke : /login, /portfolio, /settings/consumption en 200 ; DELETE sans session en 401 SESSION_INVALID.
-- build d'entrée conservé : /tmp/sfia-next-dev-build-ca6f47a1, BUILD_ID 4Ffjc9gLKXGXlUk14Q61L.
-- DEV : http://127.0.0.1:3100, PID 95074, lane DEV, base sfia_next_dev, schéma 029 non migré.
-- RECETTE : port 3200, PID 58965, inchangé.
-- F2 : NOT PROVEN, réserve transportée. Aucune nouvelle campagne navigateur. Le composant UX n'est pas modifié.
+Dump personnalisé en lecture seule, 1,6 Mo, empreinte 3ce0a525a15d5946f58afd38c794bbae5586362b9146e33c896bf5122f0e2ee9, hors Git. Restauration vers une base isolée, distincte de sfia_next_dev, sfia_next_e2e et sfia_next_recette_ml4. Aucune application n'y a été connectée. La copie reproduisait exactement les comptages et les empreintes d'identité de RECETTE : 33 projets, 212 préparations, 212 conversations, 860 messages, 125 documents, 198 révisions, 14 décisions, 35 travaux, 20 liens Git, 207 observations, 170 pilotes. Equipéo et MaintiPlan présents. Empreinte projets bac5af69512c0b8ae991e0ce0cef0675. Empreinte observations ca43de331061c4f5501ee37ab1d13f58.
 
-## Limites
+028 puis 029 appliqués dans une seule transaction. Après commit : tables de portefeuille présentes, colonne titre présente, 0 titre renseigné, 0 title_source différent de NONE, 0 name_revision différent de 0, empreintes projets et observations inchangées. Une altération volontairement annulée dans une transaction n'a laissé aucune colonne. La base a ensuite été détruite et restaurée depuis le même dump : schéma revenu à 027, empreinte et Equipéo rétablis. La base d'essai a été supprimée. RECETTE réelle relue ensuite : toujours 027, même empreinte, 33 projets.
 
-Aucune migration. Aucun veto métier rétabli. assertIdle reste absent. La suppression malgré une activité ou une restriction ACTIVE reste couverte par la suite existante, non réécrite. 403 et 503 ne sont pas produits. L'accusé perdu n'est pas injecté dans le navigateur. Un appel externe déjà engagé n'est pas annulé. WEB LIVE OUT. Pas de push produit, de CI distante, de PR, de release.
+Le dump reste un artefact local hors Git. Il ne doit ni être commité ni recopié dans le handoff.
 
-## Diff utile
+## Politique cognitive
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-index 71dcfb84..81fe88ec 100644
---- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-+++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-@@ -4,7 +4,7 @@
+Fichier RECETTE ~/.config/sfia-studio-next/recette/.env.local, mode 0600, 45 clés, aucun doublon. Valeurs uniques : SFIA_COG_PROVISIONAL_POLICY=v0.2 et SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.2. Le mode d'admission est absent, donc operational. Plafonds lus : 120 segments, et les enveloppes déjà en place. WEB LIVE 0, collecte Admin absente de la surcharge, lane fichier RECETTE.
 
- Le titre d'une préparation est une donnée propre. Sans titre, le portefeuille affiche « Nouvelle préparation ». Le premier titre accepté vient de la qualification structurée déjà produite par Nora, après un tour terminé, et une seule fois. Le renommage manuel du Pilote devient la valeur durable. Une suggestion ultérieure ne la remplace pas.
- Le nom officiel reste `projects.name`. Le créer et le renommer réutilisent la même unicité et le même verrou. Le titre de la préparation ne devient pas ce nom. Une préparation rattachée n'est plus renommable comme espace autonome et disparaît de la projection autonome.
--Le dialogue de renommage reprend le cadre déjà utilisé par le portefeuille. Préparation : « Renommer la préparation », source `1420:2539`. Projet : « Renommer le projet », source `1421:4659`, avec la précision que le dépôt Git n'est pas modifié. Le cadre `1422:4336` confirme un titre déjà proposé ; il n'ajoute pas un second dialogue, le premier titre restant appliqué par le propriétaire. La suppression reprend ce même cadre de confirmation. Le texte dit que les données de l'espace sont effacées définitivement. Aucun état métier ni restriction active ne bloque cette confirmation. Une préparation rattachée ne se supprime pas seule : elle disparaît avec son projet. Un conflit technique d'intégrité refuse toute la transaction sans effacer une donnée extérieure. La géométrie du menu, de la synthèse, de la reprise, des lignes et des tuiles n'est pas reprise dans ce chantier.
-+Le dialogue de renommage reprend le cadre déjà utilisé par le portefeuille. Préparation : « Renommer la préparation », source `1420:2539`. Projet : « Renommer le projet », source `1421:4659`, avec la précision que le dépôt Git n'est pas modifié. Le cadre `1422:4336` confirme un titre déjà proposé ; il n'ajoute pas un second dialogue, le premier titre restant appliqué par le propriétaire. La suppression reprend ce même cadre de confirmation. Le texte dit que les données de l'espace sont effacées définitivement. Aucun état métier ni restriction active ne bloque cette confirmation. Une préparation rattachée ne se supprime pas seule : elle disparaît avec son projet. Un conflit technique d'intégrité refuse toute la transaction sans effacer une donnée extérieure. Un travail extérieur sans projet, une observation d'un autre Pilote et une observation sans propriétaire exclusif restent en place. La géométrie du menu, de la synthèse, de la reprise, des lignes et des tuiles n'est pas reprise dans ce chantier.
- La migration `029_preparation_title_and_project_name` ajoute les colonnes. Elle ne réécrit aucun titre ni aucun nom déjà présent.
- Le premier titre n'est enregistré que si la commande de tour existe, est terminée, appartient au même Pilote, à la même conversation et à la même préparation, et si le titre normalisé est celui attesté dans la qualification durable. Une suggestion absente, non textuelle ou trop longue est ignorée sans invalider le reste de la qualification. Le schéma de sortie Nora reste un objet Zod simple.
- Le dialogue compare le libellé demandé à l'accusé et à la relecture. Un refus ou un conflit le laisse ouvert, conserve la saisie et, après conflit, présente la valeur relue. Une confirmation ultérieure est une nouvelle intention. Confirmer le titre déjà affiché par Nora le place sous la source manuelle. Seule la dernière clé d'intention est mémorisée : un rejeu plus ancien ne réécrit pas un nom plus récent. Les courses de création et de renommage restent sous le verrou de nom déjà partagé. La page historique des préparations expose aussi le titre canonique ; les libellés d'aperçu ne sont pas remplacés. SAS06 n'est pas modifié : ses quatre repères et l'arrêt de l'animation en mouvement réduit étaient déjà en place.
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index f86cea6a..cf93955c 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1,3 +1,15 @@
-+## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-RESIDUAL-DEV
-+
-+- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — correctif résiduel d'intégrité de la suppression définitive
-+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `ca6f47a17427218f6b01effdda570cdd78e8d901`
-+- **commit**: `fix(studio-next): close deletion integrity gaps`
-+- **schema_revision**: inchangé, `029`
-+- **scope**: référence inverse d'un travail sans projet ; observation d'un autre Pilote ou sans propriétaire ; preuve d'attente réelle sous verrou
-+- **classe**: NO RELEASE · compatible évolutive · LIVE NOT RUN · CI NOT RUN · push produit non inclus
-+- **reserves**: F2 non mesuré ; les réserves des mandats 1 à 5 sont transportées
-+
- ## delivery_id: DELIV-2026-11-28-ML5-SPACE-DELETION-CORRECTIVE-DEV
+Le LaunchAgent n'injecte que PATH. Le start script source le fichier puis force STUDIO_LANE=RECETTE, le port 3200, WEB LIVE à 0, l'auto-session DEV retirée, et SFIA_SOURCE_SHA=0ae9e1f7. Il ne surcharge pas la politique. Le fichier contient encore SFIA_SOURCE_SHA=e8e6e069 ; le script l'écrase pour le processus. Cette divergence doit être alignée au futur cutover, pas maintenant.
 
- - **date_local**: 2026-11-28 (Europe/Paris)
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/delete-owned-space.ts b/projects/sfia-studio-next/web/src/domains/preparation/delete-owned-space.ts
-index 0a8430c1..89c12cea 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/delete-owned-space.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/delete-owned-space.ts
-@@ -163,6 +163,7 @@ export async function deleteOwnedSpace(
-       WHERE (project_id = ${projectId} OR preparation_id = ANY(${scope}))
-         AND (project_id IS NULL OR project_id = ${projectId})
-         AND (preparation_id IS NULL OR preparation_id = ANY(${scope}))
-+        AND owner_pilot_id = ${ownerPilotId}
-     `;
-     await tx`
-       DELETE FROM cognitive_work_checkpoints
-@@ -295,6 +296,27 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
-   if ((foreignObservation[0]?.n ?? 0) > 0) {
-     blocked("Une observation d'un autre espace référence encore cet espace.");
-   }
-+  const foreignObservationOwner = await tx<{ n: number }[]>`
-+    SELECT count(*)::int AS n FROM provider_usage_observations
-+    WHERE (project_id = ${projectId} OR preparation_id = ANY(${preps}))
-+      AND (project_id IS NULL OR project_id = ${projectId})
-+      AND (preparation_id IS NULL OR preparation_id = ANY(${preps}))
-+      AND owner_pilot_id IS NOT NULL
-+      AND owner_pilot_id <> ${ownerPilotId}
-+  `;
-+  if ((foreignObservationOwner[0]?.n ?? 0) > 0) {
-+    blocked("Une observation de cet espace appartient à un autre Pilote.");
-+  }
-+  const unownedObservation = await tx<{ n: number }[]>`
-+    SELECT count(*)::int AS n FROM provider_usage_observations
-+    WHERE (project_id = ${projectId} OR preparation_id = ANY(${preps}))
-+      AND (project_id IS NULL OR project_id = ${projectId})
-+      AND (preparation_id IS NULL OR preparation_id = ANY(${preps}))
-+      AND owner_pilot_id IS NULL
-+  `;
-+  if ((unownedObservation[0]?.n ?? 0) > 0) {
-+    blocked("Une observation rattachée à cet espace n'a pas de propriétaire exclusif.");
-+  }
-   const outsideRevision = await tx<{ n: number }[]>`
-     SELECT count(*)::int AS n FROM document_revisions other
-     WHERE other.base_revision_id IN (
-@@ -316,7 +338,8 @@ async function assertExclusive(tx: typeof sql, preps: string[], projectId: strin
-       SELECT id FROM cognitive_works
-       WHERE preparation_id = ANY(${preps}) OR project_id = ${projectId}
-     )
--    AND NOT (other.preparation_id = ANY(${preps}) OR other.project_id = ${projectId})
-+    AND (other.preparation_id IS NULL OR NOT (other.preparation_id = ANY(${preps})))
-+    AND (other.project_id IS NULL OR other.project_id <> ${projectId})
-   `;
-   if ((outsideWork[0]?.n ?? 0) > 0) {
-     blocked("Un travail d'un autre espace référence encore cet espace.");
-diff --git a/projects/sfia-studio-next/web/tests/integration/space-deletion.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/space-deletion.pg.test.ts
-index f698d009..2b6777e4 100644
---- a/projects/sfia-studio-next/web/tests/integration/space-deletion.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/space-deletion.pg.test.ts
-@@ -3,6 +3,7 @@
-  * Runs on the isolated e2e database. Historical DEV projects are not used.
-  */
- import { readFileSync } from "node:fs";
-+import postgres from "postgres";
- import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
- import { config } from "dotenv";
- config({ path: ".env.local" });
-@@ -622,23 +623,57 @@ describe("permanent space deletion (PG)", () => {
-     await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${lockedPrep}, ${pilotA}, 'OPEN')`;
-     await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${lockedProject}, ${pilotA}, ${`m6-space-held-${stamp}`})`;
-     await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${lockedPrep}, ${lockedProject})`;
-+    const inserter = postgres(process.env.DATABASE_URL!, {
-+      max: 1,
-+      connection: { application_name: "m6_lock_probe" },
-+    });
-+    let release = () => {};
-+    const releaseGate = new Promise<void>((resolve) => { release = resolve; });
-     let entered!: () => void;
-     const enteredGate = new Promise<void>((resolve) => { entered = resolve; });
--    let release!: () => void;
--    const releaseGate = new Promise<void>((resolve) => { release = resolve; });
-+    let insertResult: { ok: true } | { ok: false; error: { code?: string } } | undefined;
-     pauseNextSpaceDeletionAfterLocksForTests(entered, releaseGate);
-     const pending = deleteOwnedSpace(pilotA, "project", lockedProject);
--    await enteredGate;
--    const insert = sql`
--      INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
--      VALUES (${id("held_conv")}, ${lockedPrep}, ${lockedProject}, ${pilotA})
--    `;
--    await new Promise((resolve) => setTimeout(resolve, 200));
--    release();
--    await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: lockedProject });
--    await expect(insert).rejects.toThrow();
--    const leftover = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM conversations WHERE id = ${id("held_conv")}`;
--    expect(leftover[0]?.n).toBe(0);
-+    try {
-+      await enteredGate;
-+      const query = inserter`
-+        INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id)
-+        VALUES (${id("held_conv")}, ${lockedPrep}, ${lockedProject}, ${pilotA})
-+      `;
-+      void query.then(
-+        () => { insertResult = { ok: true }; },
-+        (error: { code?: string }) => { insertResult = { ok: false, error }; },
-+      );
-+      let waiting = 0;
-+      const deadline = Date.now() + 5000;
-+      while (Date.now() < deadline) {
-+        const rows = await sql<{ n: number }[]>`
-+          SELECT count(*)::int AS n
-+          FROM pg_stat_activity activity
-+          JOIN pg_locks lock ON lock.pid = activity.pid
-+          WHERE activity.application_name = 'm6_lock_probe'
-+            AND activity.wait_event_type = 'Lock'
-+            AND lock.granted = false
-+        `;
-+        waiting = rows[0]?.n ?? 0;
-+        if (waiting > 0) break;
-+        await new Promise((resolve) => setTimeout(resolve, 50));
-+      }
-+      expect(waiting).toBeGreaterThan(0);
-+      release();
-+      await expect(pending).resolves.toEqual({ deleted: true, spaceType: "project", spaceId: lockedProject });
-+      const settledAt = Date.now() + 5000;
-+      while (!insertResult && Date.now() < settledAt) {
-+        await new Promise((resolve) => setTimeout(resolve, 50));
-+      }
-+      expect(insertResult?.ok).toBe(false);
-+      if (insertResult && !insertResult.ok) expect(insertResult.error.code).toBe("23503");
-+      const leftover = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM conversations WHERE id = ${id("held_conv")}`;
-+      expect(leftover[0]?.n).toBe(0);
-+    } finally {
-+      release();
-+      await inserter.end({ timeout: 1 });
-+    }
-   });
+Résolution déterministe rejouée par les tests existants, sans fournisseur. v0.2 active donne Terra medium par défaut. Luna low et medium sont admis, Sol low, medium et high aussi. Terra high et Luna high ne le sont pas. Le jeton bare qualified est refusé. Une mauvaise version est refusée. L'absence de politique ou un refus de lane retombe explicitement sur legacy_sol.
 
-   it("does not admit a new external step after the project is gone", async () => {
-@@ -664,6 +699,118 @@ describe("permanent space deletion (PG)", () => {
-     expect(attempts[0]?.n).toBe(0);
-   });
+CONFIGURED : vérifié dans le fichier. LAUNCH CHAIN VERIFIED : agent, script, fichier, une seule occurrence des deux clés. POLICY RESOLUTION DET PROVEN. EFFECTIVE PROCESS ENV de la politique dans le PID 58965 : NON OBSERVED. LIVE EXERCISED : non. USER QUALIFIED : non. COG-REC-01 reste ouvert.
 
-+  it("refuses an external work whose project is null", async () => {
-+    const target = id("null_project");
-+    const targetPrep = id("null_prep");
-+    const outsidePrep = id("null_outside_prep");
-+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN'), (${outsidePrep}, ${pilotA}, 'OPEN')`;
-+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-null-${stamp}`})`;
-+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
-+    await sql`INSERT INTO conversations (id, preparation_id, project_id, owner_pilot_id) VALUES (${id("null_conv")}, ${targetPrep}, ${target}, ${pilotA})`;
-+    await sql`
-+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, project_id, conversation_id, status, objective)
-+      VALUES (${id("null_work")}, ${pilotA}, ${targetPrep}, ${target}, ${id("null_conv")}, 'COMPLETE', 'cible')
-+    `;
-+    await sql`
-+      INSERT INTO cognitive_works (id, owner_pilot_id, preparation_id, status, objective, parent_work_id)
-+      VALUES (${id("null_outside_work")}, ${pilotA}, ${outsidePrep}, 'COMPLETE', 'extérieur', ${id("null_work")})
-+    `;
-+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
-+      code: "CONFLICT",
-+      message: "Un travail d'un autre espace référence encore cet espace.",
-+    });
-+    const kept = await sql<{ projects: number; target_work: number; outside_work: number; parent_work_id: string }[]>`
-+      SELECT
-+        (SELECT count(*)::int FROM projects WHERE id = ${target}) AS projects,
-+        (SELECT count(*)::int FROM cognitive_works WHERE id = ${id("null_work")}) AS target_work,
-+        (SELECT count(*)::int FROM cognitive_works WHERE id = ${id("null_outside_work")}) AS outside_work,
-+        (SELECT parent_work_id FROM cognitive_works WHERE id = ${id("null_outside_work")}) AS parent_work_id
-+    `;
-+    expect(kept[0]).toEqual({
-+      projects: 1,
-+      target_work: 1,
-+      outside_work: 1,
-+      parent_work_id: id("null_work"),
-+    });
-+    await sql`UPDATE cognitive_works SET parent_work_id = NULL WHERE id = ${id("null_outside_work")}`;
-+    await expect(deleteOwnedSpace(pilotA, "project", target)).resolves.toEqual({
-+      deleted: true,
-+      spaceType: "project",
-+      spaceId: target,
-+    });
-+    const outside = await sql<{ n: number; parent_work_id: string | null }[]>`
-+      SELECT count(*)::int AS n, max(parent_work_id) AS parent_work_id
-+      FROM cognitive_works WHERE id = ${id("null_outside_work")}
-+    `;
-+    expect(outside[0]).toEqual({ n: 1, parent_work_id: null });
-+    await deleteOwnedSpace(pilotA, "preparation", outsidePrep);
-+  });
-+
-+  it("refuses an observation owned by another pilot and one without an owner", async () => {
-+    const target = id("owner_project");
-+    const targetPrep = id("owner_prep");
-+    await sql`INSERT INTO preparations (id, owner_pilot_id, status) VALUES (${targetPrep}, ${pilotA}, 'OPEN')`;
-+    await sql`INSERT INTO projects (id, owner_pilot_id, name) VALUES (${target}, ${pilotA}, ${`m6-space-owner-${stamp}`})`;
-+    await sql`INSERT INTO preparation_project_links (preparation_id, project_id) VALUES (${targetPrep}, ${target})`;
-+    await sql`
-+      INSERT INTO provider_usage_observations (
-+        id, owner_pilot_id, project_id, tariff_version, estimated_cost_usd, cost_coverage, status,
-+        granularity, idempotency_key, input_tokens
-+      ) VALUES (
-+        ${crypto.randomUUID()}::uuid, ${pilotB}, ${target}, 'v-test', 3.25, 'ESTIMATED', 'COMPLETE',
-+        'REQUEST', ${id("foreign_owner_usage")}, 18
-+      )
-+    `;
-+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
-+      code: "CONFLICT",
-+      message: "Une observation de cet espace appartient à un autre Pilote.",
-+    });
-+    const foreign = await sql<{ owner_pilot_id: string; tokens: string; cost: string; key: string; projects: number }[]>`
-+      SELECT owner_pilot_id, input_tokens::text AS tokens, estimated_cost_usd::text AS cost,
-+        idempotency_key AS key,
-+        (SELECT count(*)::int FROM projects WHERE id = ${target}) AS projects
-+      FROM provider_usage_observations WHERE idempotency_key = ${id("foreign_owner_usage")}
-+    `;
-+    expect(foreign[0]).toEqual({
-+      owner_pilot_id: pilotB,
-+      tokens: "18",
-+      cost: "3.2500000000",
-+      key: id("foreign_owner_usage"),
-+      projects: 1,
-+    });
-+    await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("foreign_owner_usage")}`;
-+    await sql`
-+      INSERT INTO provider_usage_observations (
-+        id, project_id, tariff_version, estimated_cost_usd, cost_coverage, status, granularity, idempotency_key, input_tokens
-+      ) VALUES (
-+        ${crypto.randomUUID()}::uuid, ${target}, 'v-test', 1, 'ESTIMATED', 'COMPLETE', 'REQUEST', ${id("null_owner_usage")}, 4
-+      )
-+    `;
-+    await expect(deleteOwnedSpace(pilotA, "project", target)).rejects.toMatchObject({
-+      message: "Une observation rattachée à cet espace n'a pas de propriétaire exclusif.",
-+    });
-+    const unowned = await sql<{ owner_pilot_id: string | null; tokens: string }[]>`
-+      SELECT owner_pilot_id, input_tokens::text AS tokens
-+      FROM provider_usage_observations WHERE idempotency_key = ${id("null_owner_usage")}
-+    `;
-+    expect(unowned[0]).toEqual({ owner_pilot_id: null, tokens: "4" });
-+    await sql`DELETE FROM provider_usage_observations WHERE idempotency_key = ${id("null_owner_usage")}`;
-+    await sql`
-+      INSERT INTO provider_usage_observations (
-+        id, owner_pilot_id, project_id, tariff_version, cost_coverage, status, granularity, idempotency_key, input_tokens
-+      ) VALUES (
-+        ${crypto.randomUUID()}::uuid, ${pilotA}, ${target}, 'v-test', 'ESTIMATED', 'COMPLETE', 'REQUEST', ${id("owned_usage")}, 5
-+      )
-+    `;
-+    await expect(deleteOwnedSpace(pilotA, "project", target)).resolves.toEqual({
-+      deleted: true,
-+      spaceType: "project",
-+      spaceId: target,
-+    });
-+    const owned = await sql<{ n: number }[]>`SELECT count(*)::int AS n FROM provider_usage_observations WHERE idempotency_key = ${id("owned_usage")}`;
-+    expect(owned[0]?.n).toBe(0);
-+  });
-+
-   it("keeps an observation that points at the target from another preparation", async () => {
-     const target = id("obs_project");
-     const targetPrep = id("obs_prep");
-```
+## Plan de publication et de basculement
+
+Cycle 11 seulement, après GO Morris lié au SHA 785253fd7003b95af631248da6bdff6279b2e541.
+
+1. Publier la branche en fast-forward, de 87a25c5e vers 785253fd. Vérifier le SHA et le tree distants. Ne pas ouvrir de pull request dans le même geste si la CI de main doit rester inactive.
+2. Créer un worktree RECETTE neuf à ce SHA. Conserver intact le worktree 0ae9e1f7 et son build p0S18hfVdGrMjGeNMGlbV.
+3. Installer les dépendances verrouillées et produire un build immuable. Son BUILD_ID n'existe qu'après cette construction.
+4. Mettre à jour uniquement le script de démarrage : répertoire, SHA source et identité de build. Conserver les flags opérationnels. Ne pas copier la configuration DEV. Aligner SFIA_SOURCE_SHA du fichier RECETTE sur le SHA publié, sans retirer les deux clés cognitives et sans restaurer un ancien mot de passe.
+5. Contrôler la quiescence. Lecture actuelle : 394 tours COMPLETE, 1 FAILED, 31 UNKNOWN, aucun RUNNING. Travaux : 25 COMPLETE, 7 OPEN, 3 SUSPENDED. Effets : 4 COMPLETED, 5 PREPARED, aucun modifié depuis deux jours. Aucun DISPATCHED observé. Le redémarrage ne doit pas être précédé d'un travail en cours.
+6. Nouveau dump immédiatement avant migration. Appliquer seulement 028 puis 029, dans une transaction, sur sfia_next_recette_ml4. Vérifier les empreintes et le fait qu'aucun titre ni nom historique n'est réécrit.
+7. Rejouer le contrôle de politique v0.2 / qualified-v0.2, lane RECETTE, mode operational, et le refus du fallback legacy_sol.
+8. Basculer seulement le LaunchAgent com.sfia.studio.next.recette.ml4d-ux004.
+9. Smoke GET sans émission. Vérifier données, PID, BUILD réel et DEV inchangé.
+10. Les émissions fournisseur, la dictée, GitHub et T08 restent sous leurs GO distincts.
+
+## Rollback
+
+- Applicatif : ramener le LaunchAgent et le script vers le worktree 0ae9e1f7 et le build p0S18hfVdGrMjGeNMGlbV. Non exécuté ici. Compatible en principe avec un schéma 029 additif, mais cette combinaison n'a pas été démarrée.
+- Configuration : retirer seulement les changements de chemin et de SHA. Conserver v0.2, qualified-v0.2 et le mot de passe PostgreSQL actuel. Ne pas réimporter un ancien fichier d'environnement.
+- Données : restaurer le dump pris juste avant la migration. Cette restauration a été démontrée sur la copie, jusqu'au retour du schéma 027 et des empreintes. Elle efface aussi les écritures faites après le dump. Elle n'a pas été exécutée sur la base réelle.
+
+## Recette métier à préparer
+
+Réutiliser le cahier existant et la matrice des 17 contrôles. Ne pas créer un référentiel concurrent. Nouveau projet synthétique, distinct d'Equipéo et de MaintiPlan. Parcours : portefeuille, sas, création, travail Nora, connaissance, pilotage, documents V1/V2/V3, préparation de réalisation, exécution autorisée, résultat, preuves, bilan, reprise. Transverses : allocation, activité, FinOps, droits, UX, persistance. Un échange à la fois. Ne pas injecter les identifiants MP dans les demandes Nora. Aucun PASS n'est attribué par déduction.
+
+## Manifeste du candidat
+
+| Champ | Valeur |
+|---|---|
+| Dépôt | mcleland147/sfia-workspace |
+| Branche | sfia/next-ml5-integrated-delivery-20261123 |
+| Base main | 997897fd7cf914771e7d08e8030dc7123fab7d25 |
+| SHA | 785253fd7003b95af631248da6bdff6279b2e541 |
+| Tree | 6f22ebae5e8a2780ee20d12bf30b747918096997 |
+| Build de qualification | 2jZbA_dNRduVxKfMGtma2, isolé, non servi |
+| Futur BUILD RECETTE | inexistant avant construction |
+| Lane future | RECETTE, http://127.0.0.1:3200 |
+| Schéma | actuel 027, cible 029 |
+| Dataset à préserver | 33 projets, 860 messages, 125 documents, Equipéo et MaintiPlan |
+| Politique | v0.2, admission qualified-v0.2, mode operational |
+| Classe | NO RELEASE, STABLE NOT AVAILABLE, 0.0.0-dev conservé |
+| Preuves | 292 tests, migration rejouée, rollback de copie démontré |
+| Réserves | F2, COG-REC-01, FIN-REC-01/02, 17 MP, 17 contrôles RECETTE, L6, T08 |
+
+## Décision Morris demandée
+
+Autoriser ensemble, pour le SHA exact : la publication fast-forward, les migrations 028 puis 029 sur la seule base RECETTE après dump frais, le basculement du LaunchAgent, et le rollback décrit en cas d'échec. Ne pas inclure dans ce GO les émissions LIVE. Ne pas exécuter ce basculement dans le présent cycle.
+
+## Gates
+
+A. Intégrité Git : PASS. Candidat identifiable, ancêtre vérifié, fast-forward possible.
+B. Qualification intégrée : PASS proportionné, réserves de preuve transportées.
+C. Isolation : PASS. Les deux runtimes servis sont restés les mêmes. La première tentative :3101 a été arrêtée avant toute requête parce que la réécriture d'URL avait visé une autre occurrence du nom de base. La seconde utilisait uniquement sfia_next_e2e.
+D. Migration : PASS sur copie. Base réelle non migrée. Restauration démontrée.
+E. Politique cognitive : CONFIGURED et résolution DET. Mémoire du processus NON OBSERVED. COG-REC-01 ouvert.
+F. Rollback : procédure vérifiée sur copie, non exécutée en réel.
+G. Recette métier : préparée, non exécutée.
+
+TECHNICAL CANDIDATE GATE — PASS.
+
+Ce PASS ne signifie pas que la recette métier est faite, ni que le candidat est READY FOR REAL.
