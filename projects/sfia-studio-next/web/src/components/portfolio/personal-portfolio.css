@@ -203,7 +203,10 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
 .personal-portfolio input:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .personal-portfolio-library { margin-top: 12px; }
-.personal-portfolio-group h3 { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; font-size: 14px; }
+.personal-portfolio-collection { margin-top: 12px; }
+.personal-portfolio-collection > p { margin: 0; }
+.personal-portfolio-group h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-size: 14px; }
+.personal-portfolio-group + .personal-portfolio-group { margin-top: 12px; }
 .personal-portfolio-library h2 { margin: 0 0 8px; font-size: 20px; line-height: 28px; }
 
 .personal-portfolio-row,
@@ -244,8 +247,9 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
   font-size: 12px;
   font-weight: 600;
 }
-.personal-portfolio-menu p { margin: 0; font-weight: 600; }
-.personal-portfolio-menu small { color: var(--pf-muted); }
+.personal-portfolio-menu p { margin: 0; font-size: 15px; line-height: 21px; font-weight: 600; }
+.personal-portfolio-menu small { color: var(--pf-muted); font-size: 12px; line-height: 17px; }
+.personal-portfolio-menu-rule { width: 270px; height: 1px; flex: 0 0 1px; background: var(--pf-border); }
 
 .personal-portfolio-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .personal-portfolio-monogram {

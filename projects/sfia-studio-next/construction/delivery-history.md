@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-FINISH-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — finitions résiduelles du portefeuille personnel
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `df5d83be04100e41b03808800144a576552def73`
+- **commit**: `fix(next): separate the portfolio library and prove each reread`
+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
+- **scope**: écart de 12 px sous la barre, séparateur de menu, confrontation des valeurs relues, navigation clavier du menu
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+
 ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-RESIDUAL-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

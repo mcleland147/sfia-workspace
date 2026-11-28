@@ -27,7 +27,20 @@ export type PortfolioIntention = {
   view?: string;
   sort?: string;
   knownVersion: number;
+  knownPosition?: number | null;
 };
+
+export type OwnerSpaceRecord = {
+  spaceType: string;
+  id: string;
+  eligible: boolean;
+  favorite: boolean;
+  archived: boolean;
+  rowVersion: number;
+  customPosition: number | null;
+};
+
+export type OwnerEffect = "confirmed" | "current" | "absent" | "unchanged" | "unproven";
 
 /** An acknowledgement counts only for the route that was called. A 5xx stays unknown. */
 export function classifyPortfolioResponse(
@@ -46,30 +59,136 @@ export function classifyPortfolioResponse(
     if (kind === "archive") {
       return typeof body.archived === "boolean" && typeof body.rowVersion === "number" ? "confirmed" : "unknown";
     }
-    if (kind === "preference" || kind === "order") {
-      return typeof body.version === "number" ? "confirmed" : "unknown";
+    if (kind === "preference") return typeof body.version === "number" ? "confirmed" : "unknown";
+    if (kind === "order") {
+      return typeof body.version === "number" && typeof body.moved === "boolean" ? "confirmed" : "unknown";
     }
   }
   return "unknown";
 }
 
-/** Reading the owner record is enough to look again. It does not prove the previous intention. */
-/** A status alone is not a reread. The record must name the expected space. */
+/** A status alone is not a reread. The record must name the expected space and return its values. */
 export function pertinentSpaceRecord(
   body: unknown,
   expected: { spaceType: string; id: string },
 ): boolean {
-  if (!body || typeof body !== "object") return false;
+  return ownerSpaceRecord(body, expected) !== null;
+}
+
+export function ownerSpaceRecord(
+  body: unknown,
+  expected: { spaceType: string; id: string },
+): OwnerSpaceRecord | null {
+  if (!body || typeof body !== "object") return null;
   const record = body as Record<string, unknown>;
-  return (
-    record.spaceType === expected.spaceType &&
-    record.id === expected.id &&
-    typeof record.eligible === "boolean" &&
-    typeof record.favorite === "boolean" &&
-    typeof record.archived === "boolean" &&
-    typeof record.rowVersion === "number" &&
-    (record.customPosition === null || typeof record.customPosition === "number")
-  );
+  if (
+    record.spaceType !== expected.spaceType ||
+    record.id !== expected.id ||
+    typeof record.eligible !== "boolean" ||
+    typeof record.favorite !== "boolean" ||
+    typeof record.archived !== "boolean" ||
+    typeof record.rowVersion !== "number" ||
+    !(record.customPosition === null || typeof record.customPosition === "number")
+  ) {
+    return null;
+  }
+  return {
+    spaceType: expected.spaceType,
+    id: expected.id,
+    eligible: record.eligible,
+    favorite: record.favorite,
+    archived: record.archived,
+    rowVersion: record.rowVersion,
+    customPosition: record.customPosition,
+  };
+}
+
+/** The acknowledgement must answer this intention, not merely carry a newer version. */
+export function correlatedAcknowledgement(
+  intention: PortfolioIntention,
+  body: Record<string, unknown> | null,
+): boolean {
+  if (!body) return false;
+  if (intention.kind === "favorite") {
+    return body.favorite === intention.desired && body.rowVersion === intention.knownVersion + 1;
+  }
+  if (intention.kind === "archive") {
+    return body.archived === intention.desired
+      && typeof body.rowVersion === "number"
+      && (body.rowVersion === intention.knownVersion || body.rowVersion === intention.knownVersion + 1);
+  }
+  if (intention.kind === "preference") return body.version === intention.knownVersion + 1;
+  if (intention.kind === "order") {
+    return body.version === intention.knownVersion + 1 && typeof body.moved === "boolean";
+  }
+  return false;
+}
+
+function shownAgrees(
+  board: { items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition">> } | null,
+  record: OwnerSpaceRecord,
+): boolean {
+  const item = board?.items.find((entry) => entry.spaceType === record.spaceType && entry.id === record.id);
+  if (!item) return true;
+  return item.favorite === record.favorite
+    && item.archived === record.archived
+    && item.rowVersion === record.rowVersion
+    && item.customPosition === record.customPosition;
+}
+
+/**
+ * Separates a correlated acknowledgement, a usable reread, and proof that the
+ * requested effect is the one now shown. A missing space is not a success.
+ */
+export function reconcileOwnerEffect(input: {
+  intention: PortfolioIntention;
+  outcome: PortfolioMutationOutcome;
+  acknowledgement: Record<string, unknown> | null;
+  records: Array<OwnerSpaceRecord | "absent">;
+  board: {
+    preferences: { view: string; sort: string; version: number };
+    items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition">>;
+  } | null;
+}): OwnerEffect {
+  const { intention, outcome, acknowledgement, records, board } = input;
+  if (!board) return "unproven";
+  if (intention.kind === "preference") {
+    if (outcome !== "confirmed" || !correlatedAcknowledgement(intention, acknowledgement) || !acknowledgement) return "current";
+    if (board.preferences.version !== acknowledgement.version) return "current";
+    if (intention.view && board.preferences.view !== intention.view) return "current";
+    if (intention.sort && board.preferences.sort !== intention.sort) return "current";
+    return "confirmed";
+  }
+  const primary = records[0];
+  if (!primary) return "unproven";
+  if (primary === "absent") return "absent";
+  if (!shownAgrees(board, primary)) return "unproven";
+  if (!primary.eligible) return "current";
+  if (outcome !== "confirmed" || !correlatedAcknowledgement(intention, acknowledgement) || !acknowledgement) return "current";
+  if (intention.kind === "favorite") {
+    return primary.favorite === intention.desired && primary.rowVersion === acknowledgement.rowVersion ? "confirmed" : "current";
+  }
+  if (intention.kind === "archive") {
+    return primary.archived === intention.desired && primary.rowVersion === acknowledgement.rowVersion ? "confirmed" : "current";
+  }
+  if (intention.kind === "order") {
+    if (acknowledgement.moved !== true) return "unchanged";
+    if (board.preferences.version !== acknowledgement.version) return "current";
+    const target = records[1];
+    if (target && target !== "absent") {
+      if (!shownAgrees(board, target)) return "unproven";
+      if (primary.customPosition == null || target.customPosition == null) return "current";
+      const difference = primary.customPosition - target.customPosition;
+      const placed = intention.direction === "down" ? difference === 1 : difference === -1;
+      return placed ? "confirmed" : "current";
+    }
+    if (typeof intention.knownPosition === "number" && primary.customPosition != null) {
+      const expected = intention.direction === "down" ? intention.knownPosition + 1 : intention.knownPosition - 1;
+      return primary.customPosition === expected ? "confirmed" : "current";
+    }
+    return "current";
+  }
+  return "unproven";
 }
 
 /**
@@ -161,7 +280,10 @@ export function PersonalPortfolio() {
   const [menu, setMenu] = useState<string | null>(null);
   const [menuBox, setMenuBox] = useState<{ top: number; left: number } | null>(null);
   const menuTrigger = useRef<HTMLButtonElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const outcomeRef = useRef<PortfolioMutationOutcome>("unknown");
+  const acknowledgementRef = useRef<Record<string, unknown> | null>(null);
   const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
   const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
   const requestSeq = useRef(0);
@@ -205,6 +327,11 @@ export function PersonalPortfolio() {
       previous?.focus();
     };
   }, [confirm, confirmRestore]);
+
+  useEffect(() => {
+    if (!menu) return;
+    menuRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([disabled])')?.focus();
+  }, [menu]);
 
   const load = useCallback(async (cursor?: string | null, issuedId?: number) => {
     const requestId = issuedId ?? ++requestSeq.current;
@@ -279,6 +406,7 @@ export function PersonalPortfolio() {
   function settleMutation(
     outcome: PortfolioMutationOutcome,
     reread: PortfolioReread,
+    effect: OwnerEffect,
     knownMessage: string,
   ) {
     const follow = portfolioMutationFollowUp({ outcome, reread });
@@ -299,38 +427,69 @@ export function PersonalPortfolio() {
       setNotice(knownMessage);
       return;
     }
-    if (outcome === "confirmed" && settledKind === "order") {
-      setNotice("Ordre enregistré.");
+    if (outcome === "conflict") {
+      setNotice(knownMessage);
       return;
     }
-    if (outcome === "unknown") {
-      setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
+    if (effect === "absent") {
+      setNotice("Cet espace n'est plus accessible. La modification n'est pas confirmée.");
+      return;
     }
+    if (effect === "unchanged") {
+      setNotice("L'espace n'a pas changé de place.");
+      return;
+    }
+    if (outcome === "confirmed" && effect === "confirmed") {
+      setNotice(settledKind === "order" ? "Ordre enregistré." : "");
+      return;
+    }
+    if (outcome === "confirmed") {
+      setNotice("L'état relu diffère de la modification demandée.");
+      return;
+    }
+    setNotice("L'état a été relu. L'effet de la modification n'est pas confirmé.");
   }
 
-  async function readTargetedRecord(type: PersonalSpace["spaceType"], id: string): Promise<boolean> {
+  async function readTargetedRecord(
+    type: PersonalSpace["spaceType"],
+    id: string,
+  ): Promise<OwnerSpaceRecord | "absent" | null> {
     const response = await fetch(`/api/portfolio/spaces/${type}/${id}`);
-    if (response.status === 404) return true;
-    if (!response.ok) return false;
+    if (response.status === 404) return "absent";
+    if (!response.ok) return null;
     const body = await response.json().catch(() => null);
-    return pertinentSpaceRecord(body, { spaceType: type, id });
+    return ownerSpaceRecord(body, { spaceType: type, id });
   }
 
-  async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
+  async function probeIntention(
+    intention: PortfolioIntention,
+    outcome: PortfolioMutationOutcome,
+    acknowledgement: Record<string, unknown> | null,
+  ): Promise<{ reread: PortfolioReread; effect: OwnerEffect }> {
     try {
       const ids = [
         { type: intention.spaceType, id: intention.spaceId },
         { type: intention.beforeSpaceType, id: intention.beforeSpaceId },
       ].filter((item): item is { type: PersonalSpace["spaceType"]; id: string } => Boolean(item.type && item.id));
+      let records: Array<OwnerSpaceRecord | "absent"> = [];
       if (intention.kind !== "preference") {
-        if (ids.length === 0) return "failed";
+        if (ids.length === 0) return { reread: "failed", effect: "unproven" };
         const reads = await Promise.all(ids.map((item) => readTargetedRecord(item.type, item.id)));
-        if (reads.some((ok) => !ok)) return "failed";
+        if (reads.some((item) => item === null)) return { reread: "failed", effect: "unproven" };
+        records = reads.filter((item): item is OwnerSpaceRecord | "absent" => item !== null);
       }
       const refreshed = await loadRef.current();
-      return refreshed ? "reviewed" : "failed";
+      if (!refreshed) return { reread: "failed", effect: "unproven" };
+      const effect = reconcileOwnerEffect({
+        intention,
+        outcome,
+        acknowledgement,
+        records,
+        board: refreshed,
+      });
+      return { reread: effect === "unproven" ? "failed" : "reviewed", effect };
     } catch {
-      return "failed";
+      return { reread: "failed", effect: "unproven" };
     }
   }
 
@@ -348,24 +507,33 @@ export function PersonalPortfolio() {
         body: JSON.stringify(payload),
       });
       const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
-      const outcome = classifyPortfolioResponse(response.status, body, intention.kind);
+      let outcome = classifyPortfolioResponse(response.status, body, intention.kind);
+      if (outcome === "confirmed" && !correlatedAcknowledgement(intention, body)) outcome = "unknown";
+      outcomeRef.current = outcome;
+      acknowledgementRef.current = body;
       if (outcome === "refused") {
-        settleMutation("refused", "not-attempted", "");
+        settleMutation("refused", "not-attempted", "current", "");
         setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
         return;
       }
-      const reread = await probeIntention(intention);
-      if (outcome === "confirmed" && reread === "reviewed") notifyPortfolioChanged();
+      const probed = await probeIntention(intention, outcome, body);
+      if (outcome === "confirmed" && probed.effect === "confirmed") notifyPortfolioChanged();
       settleMutation(
         outcome,
-        reread,
+        probed.reread,
+        probed.effect,
         outcome === "conflict"
           ? (typeof body.message === "string" ? body.message : "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.")
           : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
       );
     } catch {
-      const reread = intentionRef.current ? await probeIntention(intentionRef.current) : "failed";
-      settleMutation("unknown", reread, "");
+      outcomeRef.current = "unknown";
+      acknowledgementRef.current = null;
+      const current = intentionRef.current;
+      const probed = current
+        ? await probeIntention(current, "unknown", null)
+        : { reread: "failed" as const, effect: "unproven" as const };
+      settleMutation("unknown", probed.reread, probed.effect, "");
     } finally {
       busy.current = false;
       setPending("");
@@ -376,9 +544,16 @@ export function PersonalPortfolio() {
 
   async function rereadHeld() {
     const intention = intentionRef.current;
-    const reread = intention ? await probeIntention(intention) : "failed";
     if (!intention) return;
-    settleMutation("unknown", reread, "");
+    const probed = await probeIntention(intention, outcomeRef.current, acknowledgementRef.current);
+    settleMutation(
+      outcomeRef.current,
+      probed.reread,
+      probed.effect,
+      outcomeRef.current === "conflict"
+        ? "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer."
+        : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
+    );
   }
 
   async function startPreparation() {
@@ -481,6 +656,7 @@ export function PersonalPortfolio() {
             beforeSpaceType: space.spaceType,
             beforeSpaceId: space.id,
             knownVersion: board!.preferences.version,
+            knownPosition: board!.items.find((item) => item.spaceType === spaceType && item.id === spaceId)?.customPosition,
           });
         }}
         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
@@ -512,30 +688,40 @@ export function PersonalPortfolio() {
         )}
         {menu === space.id && menuBox ? (
           <div
+            ref={menuRef}
             className="personal-portfolio-menu"
             role="menu"
             style={{ top: menuBox.top, left: menuBox.left }}
             onKeyDown={(event) => {
-              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]')];
-              const index = items.indexOf(document.activeElement as HTMLElement);
+              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])')];
               if (event.key === "Escape") {
+                event.preventDefault();
                 setMenu(null);
                 setMenuBox(null);
                 menuTrigger.current?.focus();
-              } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-                event.preventDefault();
-                const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
-                items[next]?.focus();
+                return;
               }
+              if (event.key === "Tab") {
+                setMenu(null);
+                setMenuBox(null);
+                return;
+              }
+              if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+              event.preventDefault();
+              if (items.length === 0) return;
+              const index = items.indexOf(document.activeElement as HTMLElement);
+              const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
+              items[next]?.focus();
             }}
           >
             <p>{space.label}</p>
             <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
+            <div className="personal-portfolio-menu-rule" role="separator" />
             <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
             <button type="button" role="menuitem" disabled title="Le renommage arrive avec le parcours de préparation."><Mark name="edit" />Renommer</button>
             <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
-            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}><Mark name="grip" />Monter</button>
-            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}><Mark name="grip" />Descendre</button>
+            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) - 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Monter</button>
+            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) + 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Descendre</button>
             <button type="button" role="menuitem" disabled={locked} onClick={() => { if (scope === "archive") setConfirmRestore(space); else setConfirm(space); }}><Mark name="archive" />{scope === "archive" ? "Restaurer" : "Archiver"}</button>
             <button type="button" role="menuitem" disabled title="La suppression n'est pas disponible."><Mark name="trash" />Supprimer</button>
           </div>
@@ -666,6 +852,7 @@ export function PersonalPortfolio() {
         </div>
         </div>
       </div>
+        <div className="personal-portfolio-collection">
       {scope === "archive" ? (
         <p className="personal-portfolio-status"><button type="button" onClick={() => setScope("current")}>Retour aux espaces</button></p>
       ) : null}
@@ -696,6 +883,7 @@ export function PersonalPortfolio() {
         {expanded && board.nextCursor ? (
           <button type="button" data-testid="portfolio-load-more" onClick={() => void load(board.nextCursor)}>Charger la suite</button>
         ) : null}
+        </div>
       </section>
 
       {confirm ? (

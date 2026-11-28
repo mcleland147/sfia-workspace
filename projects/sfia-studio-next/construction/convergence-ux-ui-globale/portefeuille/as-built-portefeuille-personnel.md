@@ -1,5 +1,12 @@
 # As-built — Portefeuille personnel et navigation
 
+## Finitions après revue visuelle
+
+Source relue, sans modification : menu projet `1420:2138`, barre `1420:285`. Le filet du menu est un enfant de 270×1 px dans un empilement dont l'écart est de 5 px. Le nom fait 15/21 et le type 12/17.
+La bibliothèque descend de 12 px sous la barre, par une seule marge commune aux trois vues. Le titre de groupe ne rajoute pas cet écart.
+Le menu s'ouvre sur la première action disponible. Les flèches sautent les actions indisponibles. Échap rend le focus au déclencheur.
+Une réponse n'est corrélée que si elle répond à l'intention, y compris `moved` pour l'ordre. La valeur relue est comparée à cet accusé et à la collection affichée. Un espace absent, un déplacement sans effet ou une version seulement plus récente ne sont pas annoncés comme un succès.
+
 ## Dernier correctif — proportions v0.3
 
 Contrat UX v0.3, ref documentaire 5008d51d. Synthèse 160 px, reprise 180 px, ligne 60 px, écart 12 px. Le séparateur est entre la synthèse et la reprise. Le pied se rejoint en défilement.

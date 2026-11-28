@@ -2,8 +2,12 @@ import { describe, expect, it } from "vitest";
 import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/domains/identity/portfolio-organization";
 import {
   classifyPortfolioResponse,
+  correlatedAcknowledgement,
+  ownerSpaceRecord,
   portfolioMutationFollowUp,
   pertinentSpaceRecord,
+  reconcileOwnerEffect,
+  type PortfolioIntention,
 } from "@/components/portfolio/PersonalPortfolio";
 
 describe("portfolio organization rules", () => {
@@ -31,7 +35,9 @@ describe("portfolio organization rules", () => {
     expect(classifyPortfolioResponse(503, { message: "unavailable" }, "favorite")).toBe("unknown");
     expect(classifyPortfolioResponse(200, { version: 4 }, "favorite")).toBe("unknown");
     expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true }, "favorite")).toBe("confirmed");
-    expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("confirmed");
+    expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("unknown");
+    expect(classifyPortfolioResponse(200, { version: 3, moved: true }, "order")).toBe("confirmed");
+    expect(classifyPortfolioResponse(200, { version: 3, moved: false }, "order")).toBe("confirmed");
     expect(classifyPortfolioResponse(409, { message: "conflict" }, "preference")).toBe("conflict");
     const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: false, archived: false, rowVersion: 3, customPosition: null };
     expect(pertinentSpaceRecord(record, { spaceType: "project", id: "prj_1" })).toBe(true);
@@ -55,5 +61,92 @@ describe("portfolio organization rules", () => {
     });
     expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" }).blockFurtherMutations).toBe(true);
     expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).retry).toBe(false);
+  });
+
+  it("compares the reread values with the acknowledgement instead of trusting a status", () => {
+    const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: true, archived: false, rowVersion: 4, customPosition: 2 };
+    const board = {
+      preferences: { view: "list", sort: "custom", version: 8 },
+      items: [{ spaceType: "project" as const, id: "prj_1", favorite: true, archived: false, rowVersion: 4, customPosition: 2 }],
+    };
+    const favorite: PortfolioIntention = { kind: "favorite", spaceType: "project", spaceId: "prj_1", desired: true, knownVersion: 3 };
+    expect(ownerSpaceRecord(record, { spaceType: "project", id: "prj_1" })?.favorite).toBe(true);
+    expect(ownerSpaceRecord({ ok: true }, { spaceType: "project", id: "prj_1" })).toBeNull();
+    expect(correlatedAcknowledgement(favorite, { favorite: true, rowVersion: 4 })).toBe(true);
+    expect(correlatedAcknowledgement(favorite, { favorite: true, rowVersion: 9 })).toBe(false);
+    expect(reconcileOwnerEffect({
+      intention: favorite,
+      outcome: "confirmed",
+      acknowledgement: { favorite: true, rowVersion: 4 },
+      records: [record],
+      board,
+    })).toBe("confirmed");
+    expect(reconcileOwnerEffect({
+      intention: favorite,
+      outcome: "confirmed",
+      acknowledgement: { favorite: true, rowVersion: 4 },
+      records: [{ ...record, favorite: false }],
+      board: { ...board, items: [{ ...board.items[0], favorite: false }] },
+    })).toBe("current");
+    expect(reconcileOwnerEffect({
+      intention: favorite,
+      outcome: "confirmed",
+      acknowledgement: { favorite: true, rowVersion: 4 },
+      records: ["absent"],
+      board,
+    })).toBe("absent");
+    expect(reconcileOwnerEffect({
+      intention: favorite,
+      outcome: "unknown",
+      acknowledgement: null,
+      records: [record],
+      board,
+    })).toBe("current");
+    const order: PortfolioIntention = {
+      kind: "order",
+      spaceType: "project",
+      spaceId: "prj_1",
+      beforeSpaceType: "project",
+      beforeSpaceId: "prj_2",
+      direction: "up",
+      knownVersion: 7,
+      knownPosition: 3,
+    };
+    const neighbor = { spaceType: "project", id: "prj_2", eligible: true, favorite: false, archived: false, rowVersion: 1, customPosition: 3 };
+    expect(reconcileOwnerEffect({
+      intention: order,
+      outcome: "confirmed",
+      acknowledgement: { version: 8, moved: false },
+      records: [record, neighbor],
+      board,
+    })).toBe("unchanged");
+    expect(reconcileOwnerEffect({
+      intention: order,
+      outcome: "confirmed",
+      acknowledgement: { version: 8, moved: true },
+      records: [record, neighbor],
+      board,
+    })).toBe("confirmed");
+    expect(reconcileOwnerEffect({
+      intention: order,
+      outcome: "confirmed",
+      acknowledgement: { version: 8, moved: true },
+      records: [record, { ...neighbor, customPosition: 8 }],
+      board,
+    })).toBe("current");
+    expect(reconcileOwnerEffect({
+      intention: { kind: "preference", view: "grid", knownVersion: 7 },
+      outcome: "confirmed",
+      acknowledgement: { version: 8 },
+      records: [],
+      board: { ...board, preferences: { ...board.preferences, view: "list", version: 8 } },
+    })).toBe("current");
+    expect(reconcileOwnerEffect({
+      intention: { kind: "preference", view: "grid", knownVersion: 7 },
+      outcome: "conflict",
+      acknowledgement: null,
+      records: [],
+      board: { ...board, preferences: { ...board.preferences, view: "grouped", version: 9 } },
+    })).toBe("current");
   });
 });
