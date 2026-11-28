@@ -1,476 +1,461 @@
-# Review Pack — Lot 1, ajustement du contexte documentaire
+# Review Pack — Lot 2 — Chargement et fraîcheur des projections projet
 
-Cycle 08 — Delivery. Profil Critical. Revue Full. Mono-cycle.
-Ce pack remplace le pack précédent. Il ne l'étend pas.
-Cycle précédent, immuable : handoff `c186d99932b15402af01704748e0dd613ae378ac`, blob `8609af4367f33d283f0252fd5ae8f792eff159f6`.
-
-Date du pack : 2026-11-28T10:05+01:00.
+Mono-cycle. Full. Candidat produit distant = source de revue du code.
 
 ## 1. Identité et mandat
 
-Projet : SFIA Studio Next. Racine : `projects/sfia-studio-next/`.
-Mandat : trois ajustements du contexte documentaire, sans reprendre le cycle V1 → V2 → V3.
-Morris autorise le correctif, les validations proportionnées, le commit, le push DEV et ce handoff.
-Aucun autre lot. Aucune recette. Aucun LIVE.
-
-Programme inchangé : R5 IN PROGRESS, ML5 OPEN, LIVRAISON 1 NOT ACCEPTED, 17 MP OPEN, R6 NOT STARTED, NO RELEASE, STABLE NOT AVAILABLE, NOT ADOPTED.
-
-Arbitrage de qualification retenu : les règles techniques sont prouvées en déterministe. Les courses navigateur difficiles à reproduire sans harness nouveau sont qualifiées DEFERRED TO RECETTE. Ce report n'est pas un PASS.
+- Date : 2026-11-28T10:29+01:00
+- Projet : SFIA Studio Next
+- Cycle : 08 Delivery / implémentation
+- Profil : Critical
+- Typologie : EVOL, correctif et évolution UX bornée
+- Jalon : R5 / ML5 — fiabilisation Livraison 1
+- Identifiant : DELIV-2026-11-28-ML5-PROJECT-CONTEXT-DEV
+- Mandat : charger le contexte et la continuité déjà persistés à l'ouverture, actualiser les mêmes projections après effet, ajouter un repère réel de chargement dans l'écran de préparation existant
+- Hors mandat : constitution cognitive, Capacité 2, lot 3, migration, nouvel appel IA, nouvelle persistance
+- Statuts maintenus : R5 IN PROGRESS, ML5 OPEN, LIVRAISON 1 NOT ACCEPTED, 17 MP OPEN, R6 NOT STARTED, NO RELEASE, STABLE NOT AVAILABLE, NOT ADOPTED
+- Cycle précédent, immuable : 96c0129f6dce61cd1f545d1b07821ea6d6e67e9b, handoff be0362745860f38760b3934e4b09d7966b2fe4d1
 
 ## 2. Git Truth Check
 
-Repository : `mcleland147/sfia-workspace`.
-Worktree : `/Users/morris/Projects/sfia-wt-next-ml5-20261123`.
-Branche : `sfia/next-ml5-integrated-delivery-20261123`.
+Entrée vérifiée avant modification :
 
-Entrée : HEAD local = origin = `30d598515766781d987f8dba3348f6fa9e659a80`.
-Tree d'entrée : `29f61e767b37a44c54c3e75818b96496fd1b6624`.
-`origin/main` : `997897fd7cf914771e7d08e8030dc7123fab7d25`. Merge-base = cette main.
-Branche documentaire après fetch : `1e49602a4ad8eba5079ad9240b3b2fba5e7af348`.
-Suivi blob : `8cc5dc70203ee9a56c960d533533cc4c6c32061a`.
-État produit à l'entrée : aucun changement non committé. Seuls les dossiers temporaires de revue étaient présents.
+- dépôt mcleland147/sfia-workspace
+- branche sfia/next-ml5-integrated-delivery-20261123
+- HEAD = origin = 96c0129f6dce61cd1f545d1b07821ea6d6e67e9b
+- tree 8b320ccaa383fa14cf296e7e3b0255eb9254397b
+- origin/main 997897fd7cf914771e7d08e8030dc7123fab7d25
+- merge-base = origin/main
+- docs b14aff6eaece52b7d382944447a0622e4a6584a9, suivi blob b53aa2382b4f902b22df862602f04d639589d745
+- statut produit propre, seuls .tmp-sfia-review/ et web/.tmp-sfia-review/ non suivis
+- ports : 3100 PID 55011, 3200 PID 77113, 3101 libre puis utilisé pour la preuve isolée et arrêté
 
 Sortie :
 
-- Commit : `96c0129f6dce61cd1f545d1b07821ea6d6e67e9b`
-- Message : `fix(next): guard stale documentary context updates`
-- Tree : `8b320ccaa383fa14cf296e7e3b0255eb9254397b`
-- Push fast-forward : `30d59851..96c0129f`
-- HEAD local = HEAD distant
-- URL : https://github.com/mcleland147/sfia-workspace/commit/96c0129f6dce61cd1f545d1b07821ea6d6e67e9b
-- Diff : 5 fichiers, 175 insertions, 10 suppressions
-- `gh run list` pour ce SHA : aucune exécution
-- Statut CI : REMOTE CI NOT RUN — DEV REVIEW SNAPSHOT
+- HEAD local = origin = 953a4af445f3d29b730909d0854981ff40065424
+- tree 3c7cddb4680fd508156a6557836c3ba403146413
+- push fast-forward 96c0129f..953a4af4
+- URL : https://github.com/mcleland147/sfia-workspace/commit/953a4af445f3d29b730909d0854981ff40065424
+- CI distante : aucune exécution pour ce SHA
+- worktree produit : seuls les dossiers temporaires de revue restent non suivis
 
-RECETTE : processus 77113 toujours sur le port 3200. DEV métier : processus 55011 sur le port 3100. Port 3101 libre. Aucun redémarrage.
+## 3. Sources lues pour ce lot
 
-## 3. Sources lues
+- Suivi v0.5 au blob b53aa238, contrat du lot 2 et mandat Morris, sans modifier ce fichier
+- page.tsx : chargement initial, effet Journal, refreshDurablePilotage, relecture après tour
+- durable-refresh-guard.ts
+- project-activity-projection.ts
+- SasCreateProgressPopup.tsx et son branchement dans preparations/[preparationId]/page.tsx
+- ProjectUnavailable.tsx, ProjectOverview.tsx, ProjectJournal.tsx
+- GET projet et GET journal déjà en place, non modifiés
+- Ensemble 07, section ajoutée 10.3 seulement
+- delivery-history.md, entrée ajoutée seulement
 
-Dans ce cycle :
+Les contrats fonctionnels historiques et le PV Equipéo n'ont pas été réouverts ligne à ligne dans ce passage. Le pré-check technique du mandat a été confirmé dans le code avant édition.
 
-- Routage Next, `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.0b, ref `997897fd`. Priorité Next, ENV-01 et versioning obligatoires, pas de template concurrent.
-- Template v2.6, ancres §2.0.H, §7.10–§7.11 et §9.1, même ref. Publication publish-in-cycle, mono-fichier.
-- `scripts/sfia/README.md`, blob `e0c5894b`, présence du publisher canonique.
-- SEF v0.2, blob `ef85ba1e`, en-tête et primauté Morris. Non modifié.
-- Roadmap sur main, en-tête du 22 novembre 2026 : Ensemble 08, NO RELEASE, ML5 non ouvert par cette page. Le mandat Morris de ce cycle porte le lot 1. La roadmap n'a pas été modifiée.
-- ENV-01 v0.1, blob `14b61f0d`. Lanes DEV 3100 et RECETTE 3200. STABLE NOT AVAILABLE.
-- Versioning v1.0, blob `8bc93e0f`. NO RELEASE. Cinq objets distincts : version, SHA, build, schéma, environnement.
-- Nomenclature, blob `9cdd253d`. Vision cible, blob `3854bf75`, en-tête seulement. Aucun changement de nom ni de parcours.
-- Suivi v0.3 §8.3, ref `1e49602a`, blob `8cc5dc70`. Les trois réserves y sont formulées.
-- Handoff précédent `c186d999`, blob `8609af43`, comme cycle immuable.
-- Code publié `30d59851` : restauration L2225–2303, `focusAfterAvailableConservation`, `resumeNoraWithDocumentRevision`.
-- Contrat de réponse D4 : `documentSave.revisionNumber` est optionnel dans le type de `service.ts`. Le chemin AVAILABLE nominal le renseigne quand la révision est écrite. Le client ne doit pas le déduire.
+## 4. Cartographie avant modification
 
-Non relus en entier : décisions R4, P2 et SEM, contrats documentaires historiques, PV Equipéo. Ils ne sont pas modifiés et ne portent pas ces trois branches.
+- getOwnedProjectContext et GET /api/projects/[projectId] assemblent déjà projet, préparation, messages, documents, connaissance, qualification, pilotage et activité
+- setProjectActivity n'était appelé qu'au chargement initial
+- après un tour Nora, un GET projet mettait à jour documents et connaissance, puis refreshDurablePilotage refaisait un GET et ne mettait à jour que pilotage et messages
+- le Journal n'était chargé qu'à l'entrée de sa surface, et son payload remplaçait la connaissance projet
+- la pop-up de préparation avait trois étapes, avec un temps minimum d'affichage
+- ProjectUnavailable disait seulement « Chargement du projet… »
 
-## 4. Constats
+## 5. Causes confirmées
 
-Confirmé. Les branches HTTP, candidat non PENDING et `catch` de la restauration appelaient `setPendingProposal(null)` sans la garde utilisée par le succès. Une erreur ancienne pouvait effacer une proposition plus récente et poser un statut de tête sur le nouveau contexte.
+- MP13 : l'activité propriétaire n'était pas réappliquée après l'effet
+- le Journal dépendait d'une première visite
+- le GET Journal écrasait des champs de la connaissance projet, dont les titres courts
+- un compteur absent était affiché comme zéro
+- la préparation n'avait pas de lecture réelle du contexte projet
 
-Confirmé. `focusAfterAvailableConservation` recopié `focus.sourceRevisionNumber` quand `save.revisionNumber` est absent, puis l'associait au nouvel identifiant.
+## 6. Contrat retenu
 
-Confirmé. `resumeNoraWithDocumentRevision` attend la tête, puis remplace le focus, ouvre la visionneuse et, pour une base historique, envoie la demande de confirmation. Aucune génération n'était vérifiée au retour. Une sélection plus récente, un changement de projet ou une fermeture pouvaient être écrasés. La demande historique partait aussi pour une sélection abandonnée.
+Pas de nouveau propriétaire, pas de second store, pas de nouvel appel IA.
 
-Le service D4 n'a pas été modifié. Les gardes serveur restent celles du candidat `30d59851`.
+À l'ouverture :
 
-## 5. Corrections
+- GET projet : identité, messages, documents, connaissance, activité, pilotage, qualification
+- GET journal, en parallèle, sans attendre l'onglet : décisions, restrictions, sources, contradictions
+- la connaissance projet n'est pas remplacée par le payload Journal
 
-`pendingCandidateRestoreOwnsContext` exige le même projet, la même génération de visionneuse, le même document et le même candidat. Les retours d'erreur et l'exception l'utilisent avant toute modification. Si le contexte a changé, la proposition, le focus, la visionneuse et le statut restent intacts. Si l'erreur concerne encore le candidat actif, la proposition est retirée et le message de tête déplacée n'est posé que dans ce cas.
+Après un effet confirmé :
 
-`pendingCandidateRestoreIsCurrent` réutilise cette garde, puis exige le corps et le document renvoyés par le serveur. Le succès n'affiche toujours pas un candidat sans contenu.
+- un seul GET projet, dans refreshDurablePilotage, applique pilotage, messages, documents, connaissance et activité si la génération et le projet sont encore ceux de la demande
+- puis un GET journal pour la continuité propre au Journal
+- une réponse ancienne ou d'un autre projet est ignorée avant toute mutation
+- un GET en échec conserve la dernière activité du même projet et marque la fraîcheur comme non confirmée
+- un premier échec ne fabrique pas un snapshot à zéro
 
-`focusAfterAvailableConservation` n'écrit un numéro que si D4 le fournit. Sinon le numéro de source et le numéro de tête observée restent inconnus. L'identifiant de la révision écrite est conservé. Aucun ancien numéro n'est réutilisé.
+À la demande : corps historiques, révisions, sources volumineuses de consultation. Ce lot ne les précharge pas.
 
-`resumeNoraWithDocumentRevision` réserve une génération avant l'attente de la tête. Au retour, `documentSelectionResolveIsCurrent` refuse l'application si le projet a changé, si une sélection ou une fermeture plus récente a avancé la génération, ou si la visionneuse ouverte au départ a été fermée. Dans ce cas, ni le focus, ni la visionneuse, ni la demande de confirmation historique ne sont émis. La sélection encore courante conserve le comportement nominal, y compris la demande historique quand la base n'est pas la tête.
+Préparation :
 
-## 6. Fichiers
+- 01 Projet créé : fait dès que le projet durable existe
+- 02 Contexte : suit le GET /api/projects/{id} lancé à l'ouverture de la pop-up
+- 03 Cycles et 04 première réponse : suivent le statut réel de la qualification initiale
+- ces états sont indépendants
+- « Accéder au projet » reste disponible
+- la réouverture d'un projet existant change le texte de chargement et ne rejoue pas la pop-up
 
-Modifiés, aucun fichier créé :
+## 7. Fichiers
 
-- `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
-- `projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx`
-- `projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts`
-- `projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md`
-- `projects/sfia-studio-next/construction/delivery-history.md`
+Créés :
 
-Le diff complet depuis `30d59851` est l'annexe. Le commit distant est la source de revue du code.
+- projects/sfia-studio-next/web/src/lib/project-projection-sync.ts
+- projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts
+- projects/sfia-studio-next/web/tests/e2e/project-context-load.spec.ts
 
-## 7. Validations
+Modifiés :
 
-| Contrôle | Résultat |
-| --- | --- |
-| Unitaires `documents-surfaces-projection` | 25 passed, dont les trois règles nouvelles et le cas nominal de rebasement avec numéro |
-| Lint des fichiers modifiés | exit 0. Avertissements préexistants de `page.tsx` seulement |
-| `next build` isolé `.next-e2e` | exit 0. Compilation et contrôle de types du build passés |
-| PostgreSQL | non rejoué. `service.ts` et les gardes D4 sont inchangés depuis les 10 PASS du candidat `30d59851`. Ce n'est pas une nouvelle exécution |
-| Playwright | non rejoué. La spec existante n'est pas modifiée. Sa preuve reste attachée à `30d59851` |
-| `git diff --check` | propre |
-| Webpack `/login` 500 et `tsc --noEmit` hors lot | réserves d'outillage inchangées, non retraitées |
-| CI distante | aucune exécution |
+- projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+- projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+- projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
+- projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
+- projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
+- projects/sfia-studio-next/web/src/components/figma/ProjectUnavailable.tsx
+- projects/sfia-studio-next/web/tests/e2e/sas06-responsive-viewports.spec.ts
+- projects/sfia-studio-next/construction/delivery-history.md
+- projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md
 
-## 8. Preuves déterministes
+Non modifiés, et c'est voulu : routes API projet et journal, services D3/D4/D5/D6, schéma, suivi des sept lots.
 
-1. Erreur de restauration dont le document ou le candidat n'est plus sélectionné : `pendingCandidateRestoreOwnsContext` retourne faux. Le code client retourne avant `setPendingProposal`, `applyDocumentFocus` et `setStatusHint`.
-2. Erreur encore applicable : même projet, même document, même candidat, même génération : la garde retourne vrai. Le code retire alors cette proposition et peut poser le statut de tête déplacée.
-3. Conservation AVAILABLE sans `revisionNumber` : nouvel identifiant conservé, les deux numéros restent `undefined`.
-4. Résolution dont la génération a avancé, ou dont la visionneuse a été fermée : `documentSelectionResolveIsCurrent` retourne faux. Le code retourne avant focus, visionneuse et `sendMessage` historique.
-5. Génération inchangée, même projet, visionneuse non fermée : la garde autorise le chemin nominal.
+## 8. Contenu complet des créations
 
-Ces fonctions sont importées et appelées par `page.tsx`.
+### project-projection-sync.ts
 
-## 9. DEFERRED TO RECETTE
+```ts
+/**
+ * Lot 2 — apply owner projections without a second métier store.
+ * A failed re-read keeps the last snapshot of the same project.
+ * Journal provenance is not a replacement for the project knowledge shape.
+ */
 
-Ce ne sont pas des PASS. Les défauts de code cités au §4 sont corrigés. Les contrôles ci-dessous qualifient le comportement visible.
+export type ActivityFreshness = "loading" | "ready" | "stale" | "unavailable";
 
-### Erreur de restauration après un autre choix
+export type ActivitySnapshot = {
+  openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
+  applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
+  documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
+  openPointsCount: number;
+} | null;
 
-Raison : reproduire le rechargement, la requête candidat retardée et un changement de sélection exige un harness de session que ce mandat interdit de créer.
-Conditions : projet RECETTE avec une proposition en attente, rechargement, puis sélection d'un autre document avant l'échec de l'ancienne requête. Réseau ralenti ou requête candidat interrompue.
-Résultat attendu : la proposition, le focus, la visionneuse et le statut du nouveau contexte restent. Si l'erreur concerne encore le candidat affiché, la proposition est retirée et le message de requalification peut apparaître.
-Preuve : capture du fil et journal réseau. Contrôle manuel.
-Bloquant pour l'acceptation finale de Livraison 1 : oui, comme observation de non-régression. Non bloquant pour la sortie technique de ce candidat DEV, la règle étant démontrée et branchée.
+export function activityAfterProjectRead(input: {
+  previous: ActivitySnapshot;
+  incoming: ActivitySnapshot | undefined;
+  httpOk: boolean;
+}): { activity: ActivitySnapshot; freshness: ActivityFreshness } {
+  if (!input.httpOk) {
+    return {
+      activity: input.previous,
+      freshness: input.previous ? "stale" : "unavailable",
+    };
+  }
+  return { activity: input.incoming ?? null, freshness: "ready" };
+}
 
-### Sélection A puis B pendant la résolution de tête
+/** Journal GET carries richer provenance. It must not replace project knowledge. */
+export function journalMayReplaceProjectKnowledge(): false {
+  return false;
+}
 
-Raison : le retard de `loadDocHistory` n'est pas injectable sans nouvel outillage.
-Conditions : historique ouvert, réseau ralenti, demande Nora sur une révision puis immédiatement sur une autre révision ou un autre document, puis fermeture de la visionneuse avant la première réponse.
-Résultat attendu : seul le dernier contexte reste. Aucune demande « confirme la base » pour la sélection abandonnée. Une visionneuse fermée reste fermée.
-Preuve : capture de conversation et chronologie réseau. Contrôle manuel.
-Même classification : observation requise avant acceptation finale, non bloquante pour ce candidat technique.
+export type PrepMark = "pending" | "running" | "done" | "incomplete" | "failed";
 
-### Reports déjà ouverts
+export type ContextLoadState = "loading" | "ready" | "failed";
 
-Accusé de conservation perdu, anciens liens exacts de conversation, Nora LIVE, et transitions navigateur A→B non couvertes par la spec existante. Ils restent à qualifier en RECETTE, manuellement pour les courses et avec Nora réelle seulement sous un GO LIVE distinct. Ils ne sont pas requalifiés PASS. Ils ne sont pas des défauts laissés sans correctif dans ce mandat : les gardes correspondantes du candidat précédent demeurent.
+/**
+ * Four preparation markers. Context load and trajectory qualification are
+ * independent: one finishing does not mark the other done.
+ */
+export function preparationContinuityMarks(input: {
+  projectCreated: boolean;
+  context: ContextLoadState;
+  qualificationStatus: string | null;
+}): { project: PrepMark; context: PrepMark; cycles: PrepMark; reply: PrepMark } {
+  const q = input.qualificationStatus;
+  const proposed = q === "PROPOSED";
+  const clarification = q === "CLARIFICATION";
+  const failed = q === "FAILED";
+  const terminal = proposed || clarification || failed;
+  return {
+    project: input.projectCreated ? "done" : "pending",
+    context:
+      input.context === "ready" ? "done" : input.context === "failed" ? "failed" : "running",
+    cycles: !input.projectCreated
+      ? "pending"
+      : failed
+        ? "failed"
+        : clarification
+          ? "incomplete"
+          : proposed
+            ? "done"
+            : "running",
+    reply: !terminal ? "pending" : failed ? "failed" : clarification ? "incomplete" : "done",
+  };
+}
+```
 
-## 10. Fake / Real
+### project-projection-sync.test.ts
 
-DET : les trois règles et le nominal de rebasement. Prouvé sur ce diff.
-PG : non rejoué, service inchangé. Preuve historique du `30d59851`, non présentée comme nouvelle.
-BROWSER : non rejoué. Preuve historique du parcours nominal, non présentée comme nouvelle.
-LIVE : NOT RUN.
+Contenu intégral ci-dessous.
 
-Claims tenus : IMPLEMENTED pour les trois gardes, COVERAGE VERIFIED en déterministe.
-Claims refusés : END-TO-END REAL PROVEN, READY FOR REAL, MP CLOSED, LIVRAISON 1 ACCEPTED, ADOPTED.
+### project-context-load.spec.ts
 
-## 11. Réserves
+Contenu intégral ci-dessous.
 
-1. Les deux courses du §9 ne sont pas exercées dans le navigateur DEV.
-2. Les 10 tests PostgreSQL et les 2 tests Playwright du candidat précédent ne sont pas rejoués ici.
-3. Webpack canonique et `tsc --noEmit` hors lot restent des réserves d'outillage.
-4. DOC-D et DOC-E restent au lot 7.
-5. Le SHA `96c0129f` est dans ce pack. Il n'est pas recopié dans `delivery-history.md`.
+## 9. Sections modifiées
 
-Aucun défaut des trois chemins n'est laissé sans correction.
+- page.tsx : refreshJournalContinuity au changement de projet, sans setKnowledge depuis le Journal. refreshDurablePilotage applique documents, connaissance et activité sous shouldApplyDurableRefresh. Le tour Nora n'a plus qu'un GET projet, suivi du GET journal. L'échec initial ne pose pas une activité zéro.
+- preparations/page.tsx : GET projet dès que la pop-up a un projectId, état createContextLoad.
+- SasCreateProgressPopup : quatre repères indépendants, hauteur 816. Écart assumé avec la carte Figma 726.
+- ProjectOverview : un compteur non chargé affiche « — » et « Compteur non chargé. » Une fraîcheur stale conserve les derniers chiffres et le dit.
+- ProjectJournal : structure vide distinguée du chargement et de l'indisponibilité.
+- ProjectUnavailable : texte de récupération du contexte pour un projet déjà existant.
+- sas06-responsive-viewports.spec.ts : hauteur attendue 816, fidélité F2 726 retirée.
+- delivery-history.md : DELIV-2026-11-28-ML5-PROJECT-CONTEXT-DEV
+- Ensemble 07 §10.3 : trace de l'arbitrage Morris, sans réécrire les sections historiques
 
-## 12. Verdict Cursor
+## 10. Preuves
 
-READY WITH RESERVES.
+- Unitaires : project-projection-sync, project-activity-projection, durable-refresh-guard. 17 tests, PASS, 2026-11-28.
+- Build de production isolé STUDIO_E2E=1 : PASS. Next.js 15.5.29, compilation et contrôle de types de l'application. Le distDir .next-e2e a ensuite été effacé pour démarrer le serveur de preuve.
+- Navigateur : Playwright sur :3101 / sfia_next_e2e, Turbopack, Nora substituée, OPENAI_API_KEY vide. Login HTTP 200. project-context-load.spec.ts PASS en 11,4 s. Le serveur 3101 a été arrêté. 3100 PID 55011 et 3200 PID 77113 inchangés.
+- git diff --check : PASS
+- CI distante : aucune exécution. Ce n'est pas un CI PASS.
 
-Les trois corrections sont dans le candidat publié et couvertes par des tests déterministes branchés au client. Les invariants D4 ne sont pas touchés. La qualification visible des deux courses est explicitement reportée en RECETTE, selon l'arbitrage Morris. PUBLISHED DEV n'est ni REVIEWED, ni ACCEPTED, ni PROMOTED.
+## 11. Reports RECETTE
 
-## Annexe — diff utile
+DEFERRED TO RECETTE — scénario B, actualisation visible d'un compteur après un effet métier dans un projet déjà peuplé.
 
-Diff complet `30d598515766781d987f8dba3348f6fa9e659a80..96c0129f6dce61cd1f545d1b07821ea6d6e67e9b`. Aucun fichier créé. Toutes les sections modifiées sont dans ce diff.
+- Raison : la lane fixture isolée a produit une clarification et un projet sans sujet, acquis, point ouvert ni document. Fabriquer un effet durable de capitalisation demanderait un harnais de fixture nouveau, hors de ce lot.
+- Reproduction : ouvrir un projet RECETTE qui a déjà des sujets et des documents, produire un effet métier confirmé avec Nora, rester sur place, comparer les compteurs Projet et l'arborescence Journal au GET propriétaire.
+- Résultat attendu : les compteurs et exemples changent sans rechargement du navigateur. Une identité documentaire à plusieurs révisions reste un seul document.
+- Preuve à recueillir : avant/après des trois cartes d'activité et du Journal, sans F5.
+- Bloquant pour l'acceptation finale de Livraison 1 : oui, comme les autres réserves RECETTE déjà ouvertes. Non bloquant pour la sortie technique de ce lot : le chemin de réapplication est branché et couvert par les tests unitaires.
 
-~~~~diff
-diff --git a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
-index 2809b940..c4a128e6 100644
---- a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
-+++ b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-documents-20261120.md
-@@ -40,3 +40,4 @@ Section factuelle du candidat de finalisation. Elle ne remplace pas les preuves
- 4. Un résultat documentaire tardif ne met à jour que le document encore sélectionné par ce tour. Il ne remplace pas le focus ou la visionneuse d'un autre document, et ne rouvre pas une visionneuse fermée par le Pilote. Les messages, le pilotage et les autres effets du tour restent appliqués. Une restauration de candidat abandonne si le projet, le document, le candidat ou la génération de visionneuse ont changé. Une conservation dont l'identifiant de révision manque, ou dont l'accusé est perdu, ne choisit pas une tête.
- 5. Une vraie base historique continue d'exiger la confirmation serveur. `BASE_STALE`, le conflit de tête et l'idempotence de conservation ne sont pas assouplis.
- 6. Le titre métier n'est pas réécrit, et Equipéo n'est pas renommé. Une proposition déjà consommée n'a pas de nouvel état durable : le libellé générique « propositions expirées » des choix non actionnables reste hors de ce lot.
-+7. Complément du 28 novembre, après le candidat `30d59851`. Une restauration de candidat en erreur ou en exception ne modifie la proposition, le focus et le statut que si elle vise encore le même projet, le même document et le même candidat. Une conservation sans numéro de révision conserve l'identifiant écrit et laisse le numéro inconnu. Une résolution de tête arrivée après une autre sélection, un autre projet ou une fermeture ne remplace pas le contexte le plus récent et n'envoie pas la demande de confirmation historique.
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index fc2106ae..3464e2d6 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -5575,4 +5575,5 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- - **Limites** : pas de fournisseur réel ; pas de promotion RECETTE ; DOC-D et DOC-E reportés au lot 7 ; lots 2 à 7 non engagés
- - **Versioning** : NO RELEASE · STABLE NOT AVAILABLE · aucune version sémantique officielle
- - **Statut** : DEV PUBLIÉ POUR REVUE — NOT ACCEPTED — NOT ADOPTED
-+- **Complément** : gardes de contexte documentaire. Une erreur de restauration obsolète ne retire plus la proposition active. Un numéro de révision absent n'hérite plus de l'ancien numéro. Une tête résolue après un changement de sélection n'écrase plus le focus. Le SHA de ce complément est reporté dans le Review Pack, pas dans un second commit destiné à l'y inscrire.
+Les six DOC-REC et les réserves navigateur du lot 1 restent ouvertes. Elles ne sont pas des PASS.
 
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 05228281..14d6593c 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -34,10 +34,12 @@ import {
-   DocumentCompareSurface,
-   DocumentHistorySurface,
-   DocumentReadSurface,
-+  documentSelectionResolveIsCurrent,
-   documentTurnMayApply,
-   focusAfterAvailableConservation,
-   formatPilotFacingProvenance,
-   pendingCandidateRestoreIsCurrent,
-+  pendingCandidateRestoreOwnsContext,
-   resolveTravailDocumentPresentation,
-   type DocumentComparePayload,
-   type RevisionRow,
-@@ -1617,7 +1619,18 @@ export default function ProjectPage() {
-   }) {
-     const prepId = preparationIdRef.current;
-     if (!prepId) return;
-+    const projectIdAtStart = params.projectId;
-+    const selectionSeq = ++viewerRequestSeqRef.current;
-+    const viewerOpenAtStart = viewerOpenRef.current;
-     const head = await resolveObservedHead(prepId, input.doc.document.id);
-+    const selectionStillCurrent = documentSelectionResolveIsCurrent({
-+      projectIdAtStart,
-+      projectIdNow: projectIdRef.current,
-+      requestSeqAtStart: selectionSeq,
-+      requestSeqNow: viewerRequestSeqRef.current,
-+      viewerClosedDuringResolve: viewerOpenAtStart && !viewerOpenRef.current,
-+    });
-+    if (!selectionStillCurrent) return;
-     if (!head) {
-       setStatusHint("Aucune révision courante AVAILABLE — reprise Nora impossible.");
-       return;
-@@ -1639,8 +1652,7 @@ export default function ProjectPage() {
-       pendingCandidateId: undefined,
-       pendingCandidateContentSha256: undefined,
-     });
--    const projectIdAtStart = params.projectId;
--    const seq = ++viewerRequestSeqRef.current;
-+    const seq = selectionSeq;
-     viewerOpenRef.current = true;
-     selectSurface("travail");
-     commitViewer({
-@@ -2224,8 +2236,24 @@ export default function ProjectPage() {
-                     };
-                   };
-                   if (!cres.ok || cj.status !== "PENDING" || !cj.candidate?.contentMarkdown) {
--                    // SUPERSEDED / denied / missing — clear pending UI, keep focus identities for requalify.
--                    setPendingProposal(null);
-+                    // An older error must not clear a newer proposal or its status.
-+                    if (
-+                      !pendingCandidateRestoreOwnsContext({
-+                        projectIdAtStart: projectIdAtRestore,
-+                        projectIdNow: projectIdRef.current,
-+                        documentId: restored.documentId,
-+                        candidateId: restored.pendingCandidateId!,
-+                        focusDocumentId: documentFocusRef.current?.documentId ?? null,
-+                        focusCandidateId: documentFocusRef.current?.pendingCandidateId,
-+                        requestSeqAtStart: restoreSeq,
-+                        requestSeqNow: viewerRequestSeqRef.current,
-+                      })
-+                    ) {
-+                      return;
-+                    }
-+                    setPendingProposal((prev) =>
-+                      !prev || prev.candidateId === restored.pendingCandidateId ? null : prev,
-+                    );
-                     const curFocus = documentFocusRef.current;
-                     if (
-                       curFocus &&
-@@ -2299,7 +2327,23 @@ export default function ProjectPage() {
-                     conserveProposal: false,
-                   });
-                 } catch {
--                  setPendingProposal(null);
-+                  if (
-+                    !pendingCandidateRestoreOwnsContext({
-+                      projectIdAtStart: projectIdAtRestore,
-+                      projectIdNow: projectIdRef.current,
-+                      documentId: restored.documentId,
-+                      candidateId: restored.pendingCandidateId!,
-+                      focusDocumentId: documentFocusRef.current?.documentId ?? null,
-+                      focusCandidateId: documentFocusRef.current?.pendingCandidateId,
-+                      requestSeqAtStart: restoreSeq,
-+                      requestSeqNow: viewerRequestSeqRef.current,
-+                    })
-+                  ) {
-+                    return;
-+                  }
-+                  setPendingProposal((prev) =>
-+                    !prev || prev.candidateId === restored.pendingCandidateId ? null : prev,
-+                  );
-                 }
-               })();
-             }
-diff --git a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
-index 0c91a4dd..66b581ae 100644
---- a/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
-@@ -99,8 +99,9 @@ export function focusAfterAvailableConservation<T extends WorkingDocumentFocus>(
-   if (save.status !== "AVAILABLE") return { focus, rebased: false };
-   if (!save.documentId || !save.revisionId) return { focus, rebased: false };
-   if (focus.documentId !== save.documentId) return { focus, rebased: false };
-+  // A missing owner number stays unknown. Never label the new revision with the previous number.
-   const revisionNumber =
--    typeof save.revisionNumber === "number" ? save.revisionNumber : focus.sourceRevisionNumber;
-+    typeof save.revisionNumber === "number" ? save.revisionNumber : undefined;
-   return {
-     rebased: true,
-     focus: {
-@@ -194,6 +195,44 @@ export function documentTurnMayApply(input: {
-   return { focus, viewer };
- }
+## 12. Réserves
 
-+/**
-+ * An in-flight candidate restore may change pending state, focus or status
-+ * only while it still refers to the selected project, document and candidate.
-+ */
-+export function pendingCandidateRestoreOwnsContext(input: {
-+  projectIdAtStart: string;
-+  projectIdNow: string | null;
-+  documentId: string;
-+  candidateId: string;
-+  focusDocumentId: string | null;
-+  focusCandidateId: string | null | undefined;
-+  requestSeqAtStart: number;
-+  requestSeqNow: number;
-+}): boolean {
-+  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
-+  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
-+  if (input.focusDocumentId !== input.documentId) return false;
-+  if (input.focusCandidateId !== input.candidateId) return false;
-+  return true;
-+}
-+
-+/**
-+ * A head resolved for one revision may be applied only if that selection
-+ * is still the latest one, in the same project, and the pilot did not close it.
-+ */
-+export function documentSelectionResolveIsCurrent(input: {
-+  projectIdAtStart: string;
-+  projectIdNow: string | null;
-+  requestSeqAtStart: number;
-+  requestSeqNow: number;
-+  viewerClosedDuringResolve: boolean;
-+}): boolean {
-+  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
-+  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
-+  if (input.viewerClosedDuringResolve) return false;
-+  return true;
-+}
-+
- /**
-  * A restored candidate is shown only if the project, document, candidate and
-  * viewer generation are still the ones captured before the request returned.
-@@ -210,10 +249,20 @@ export function pendingCandidateRestoreIsCurrent(input: {
-   candidateDocumentId: string | null;
-   candidateMarkdown: string | null;
- }): boolean {
--  if (!input.projectIdNow || input.projectIdNow !== input.projectIdAtStart) return false;
--  if (input.requestSeqNow !== input.requestSeqAtStart) return false;
--  if (input.focusDocumentId !== input.documentId) return false;
--  if (input.focusCandidateId !== input.candidateId) return false;
-+  if (
-+    !pendingCandidateRestoreOwnsContext({
-+      projectIdAtStart: input.projectIdAtStart,
-+      projectIdNow: input.projectIdNow,
-+      documentId: input.documentId,
-+      candidateId: input.candidateId,
-+      focusDocumentId: input.focusDocumentId,
-+      focusCandidateId: input.focusCandidateId,
-+      requestSeqAtStart: input.requestSeqAtStart,
-+      requestSeqNow: input.requestSeqNow,
-+    })
-+  ) {
-+    return false;
-+  }
-   if (!input.candidateDocumentId || input.candidateDocumentId !== input.documentId) return false;
-   return typeof input.candidateMarkdown === "string" && input.candidateMarkdown.length > 0;
- }
-diff --git a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-index 0dcf8ebc..08b4e0b7 100644
---- a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-@@ -1,9 +1,11 @@
- import { describe, expect, it } from "vitest";
- import {
-+  documentSelectionResolveIsCurrent,
-   documentTurnMayApply,
-   focusAfterAvailableConservation,
-   formatPilotFacingProvenance,
-   pendingCandidateRestoreIsCurrent,
-+  pendingCandidateRestoreOwnsContext,
-   resolveTravailDocumentPresentation,
-   revisionCurrencyFromIdentity,
-   revisionCurrencyLabel,
-@@ -100,6 +102,19 @@ describe("documentary focus after conservation", () => {
-       }).rebased,
-     ).toBe(false);
-   });
-+
-+  it("does not attach the previous revision number when D4 omits the new one", () => {
-+    const next = focusAfterAvailableConservation(stale, {
-+      status: "AVAILABLE",
-+      documentId: "doc-1",
-+      revisionId: "rev-2",
-+    });
-+    expect(next.rebased).toBe(true);
-+    expect(next.focus?.sourceRevisionId).toBe("rev-2");
-+    expect(next.focus?.observedHeadRevisionId).toBe("rev-2");
-+    expect(next.focus?.sourceRevisionNumber).toBeUndefined();
-+    expect(next.focus?.observedHeadRevisionNumber).toBeUndefined();
-+  });
- });
+- Webpack du webServer Playwright canonique : non réexécuté. La preuve a utilisé Turbopack sur le même port et la même base. Réserve d'outillage préexistante.
+- tsc --noEmit global : non exécuté comme verdict. Le build Next a contrôlé les types de l'application.
+- LIVE : NOT RUN
+- Pas de preuve navigateur d'un projet déjà riche, ni d'un changement de projet en cours de réponse tardive, ni d'une version documentaire supplémentaire. Les gardes de génération et de projet sont testées unitairement.
+- La hauteur 816 est un écart UX autorisé. Pas de verdict F2 sur la carte à trois étapes.
+- Aucune acceptation produit, aucune fermeture de MP, aucune promotion RECETTE.
 
- describe("viewer currency is not inferred from exact resolution", () => {
-@@ -242,6 +257,61 @@ describe("document turn scope and candidate restore", () => {
-       }),
-     ).toBe(false);
-   });
-+
-+  it("lets a stale restore error leave a newer candidate untouched", () => {
-+    const newer = {
-+      projectIdAtStart: "proj-1",
-+      projectIdNow: "proj-1",
-+      documentId: "doc-a",
-+      candidateId: "cand-old",
-+      focusDocumentId: "doc-b",
-+      focusCandidateId: "cand-new",
-+      requestSeqAtStart: 4,
-+      requestSeqNow: 6,
-+    };
-+    expect(pendingCandidateRestoreOwnsContext(newer)).toBe(false);
-+    expect(
-+      pendingCandidateRestoreOwnsContext({
-+        ...newer,
-+        documentId: "doc-b",
-+        candidateId: "cand-new",
-+        focusDocumentId: "doc-b",
-+        focusCandidateId: "cand-new",
-+        requestSeqAtStart: 6,
-+        requestSeqNow: 6,
-+      }),
-+    ).toBe(true);
-+  });
-+
-+  it("drops a head resolved after the pilot selected another revision", () => {
-+    expect(
-+      documentSelectionResolveIsCurrent({
-+        projectIdAtStart: "proj-1",
-+        projectIdNow: "proj-1",
-+        requestSeqAtStart: 3,
-+        requestSeqNow: 4,
-+        viewerClosedDuringResolve: false,
-+      }),
-+    ).toBe(false);
-+    expect(
-+      documentSelectionResolveIsCurrent({
-+        projectIdAtStart: "proj-1",
-+        projectIdNow: "proj-1",
-+        requestSeqAtStart: 4,
-+        requestSeqNow: 4,
-+        viewerClosedDuringResolve: true,
-+      }),
-+    ).toBe(false);
-+    expect(
-+      documentSelectionResolveIsCurrent({
-+        projectIdAtStart: "proj-1",
-+        projectIdNow: "proj-1",
-+        requestSeqAtStart: 4,
-+        requestSeqNow: 4,
-+        viewerClosedDuringResolve: false,
-+      }),
-+    ).toBe(true);
-+  });
- });
+## 13. Fake/Real
 
- describe("R1/F1 resolveReviseTarget — client markdown never authoritative", () => {
-~~~~
+- Lectures et règles de projection : services et fonctions réelles, tests déterministes
+- Effet Nora du navigateur : fixture substituée, pas une qualité cognitive LIVE
+- Contexte PostgreSQL de la preuve : sfia_next_e2e, schéma 027, base recréée pour la lane isolée
+- RECETTE : non mutée
+
+## 14. Content coverage
+
+Tous les fichiers du commit 953a4af4 sont couverts ci-dessus. Aucun fichier modifié n'est laissé en N/A.
+
+## 15. Verdict
+
+READY WITH RESERVES
+
+Le chargement initial, le refus d'écrasement Journal, la réapplication de l'activité après effet et le quatrième repère lié à un GET réel sont construits, publiés et prouvés au niveau technique retenu. La vérification RECETTE d'un projet déjà peuplé reste ouverte.
+
+### projects/sfia-studio-next/web/tests/unit/project-projection-sync.test.ts
+
+```ts
+import { describe, expect, it } from "vitest";
+import { countProjectLibraryDocuments } from "@/domains/preparation/project-activity-projection";
+import {
+  activityAfterProjectRead,
+  journalMayReplaceProjectKnowledge,
+  preparationContinuityMarks,
+} from "@/lib/project-projection-sync";
+import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+
+const activity = {
+  openSubjects: { count: 2, examples: [{ id: "s1", title: "Sujet" }] },
+  applicableDecisions: { count: 1, examples: [{ id: "d1", statement: "Décision" }] },
+  documentsInProgress: { count: 1, examples: [{ id: "doc", title: "Note" }] },
+  openPointsCount: 3,
+};
+
+describe("project projection sync", () => {
+  it("keeps the last activity when a re-read fails", () => {
+    const next = activityAfterProjectRead({
+      previous: activity,
+      incoming: undefined,
+      httpOk: false,
+    });
+    expect(next.activity).toBe(activity);
+    expect(next.freshness).toBe("stale");
+  });
+
+  it("does not turn a failed first read into a zero snapshot", () => {
+    const next = activityAfterProjectRead({
+      previous: null,
+      incoming: {
+        openSubjects: { count: 0, examples: [] },
+        applicableDecisions: { count: 0, examples: [] },
+        documentsInProgress: { count: 0, examples: [] },
+        openPointsCount: 0,
+      },
+      httpOk: false,
+    });
+    expect(next.activity).toBeNull();
+    expect(next.freshness).toBe("unavailable");
+  });
+
+  it("applies a confirmed owner snapshot, including a real empty project", () => {
+    const empty = {
+      openSubjects: { count: 0, examples: [] },
+      applicableDecisions: { count: 0, examples: [] },
+      documentsInProgress: { count: 0, examples: [] },
+      openPointsCount: 0,
+    };
+    const next = activityAfterProjectRead({
+      previous: activity,
+      incoming: empty,
+      httpOk: true,
+    });
+    expect(next.activity).toEqual(empty);
+    expect(next.freshness).toBe("ready");
+  });
+
+  it("does not let the journal payload replace project knowledge", () => {
+    expect(journalMayReplaceProjectKnowledge()).toBe(false);
+  });
+
+  it("counts one document identity across revisions", () => {
+    expect(
+      countProjectLibraryDocuments([
+        { document: { id: "doc-1", title: "Note" } },
+        { document: { id: "doc-1", title: "Note" } },
+      ]),
+    ).toBe(1);
+  });
+
+  it("rejects a response from another project or an older generation", () => {
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 1, projectId: "p1" },
+        currentGeneration: 2,
+        currentProjectId: "p1",
+      }),
+    ).toBe(false);
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 2, projectId: "p1" },
+        currentGeneration: 2,
+        currentProjectId: "p2",
+      }),
+    ).toBe(false);
+  });
+
+  it("keeps context load independent from trajectory qualification", () => {
+    const running = preparationContinuityMarks({
+      projectCreated: true,
+      context: "loading",
+      qualificationStatus: "PROPOSED",
+    });
+    expect(running.project).toBe("done");
+    expect(running.context).toBe("running");
+    expect(running.cycles).toBe("done");
+    expect(running.reply).toBe("done");
+
+    const contextOnly = preparationContinuityMarks({
+      projectCreated: true,
+      context: "ready",
+      qualificationStatus: "RUNNING",
+    });
+    expect(contextOnly.context).toBe("done");
+    expect(contextOnly.cycles).toBe("running");
+    expect(contextOnly.reply).toBe("pending");
+
+    const failedContext = preparationContinuityMarks({
+      projectCreated: true,
+      context: "failed",
+      qualificationStatus: "CLARIFICATION",
+    });
+    expect(failedContext.context).toBe("failed");
+    expect(failedContext.cycles).toBe("incomplete");
+    expect(failedContext.reply).toBe("incomplete");
+  });
+});
+```
+
+### projects/sfia-studio-next/web/tests/e2e/project-context-load.spec.ts
+
+```ts
+import { uniqueProjectName } from "./helpers/g4-chat-first";
+import { test, expect } from "@playwright/test";
+
+test("preparation context step follows the project read and does not block access", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await page.getByTestId("portfolio-new-prep").click();
+  await page.waitForURL("**/preparations/**");
+  const seed = "Je prépare un espace de travail isolé pour le chargement du contexte.";
+  const draft = page.getByTestId("prep-draft");
+  const send = page.getByTestId("prep-send");
+  await draft.fill(seed);
+  await expect(send).toBeEnabled();
+  await send.click();
+  await expect(draft).toHaveValue("", { timeout: 60000 });
+  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
+  const preparationId = page.url().split("/preparations/")[1]?.split(/[?#]/)[0];
+  expect(preparationId).toBeTruthy();
+  let seeded = false;
+  let lastPatch = "";
+  for (let attempt = 0; attempt < 3 && !seeded; attempt += 1) {
+    const getRes = await page.request.get(`/api/preparations/${preparationId}`);
+    expect(getRes.ok()).toBeTruthy();
+    const prep = (await getRes.json()) as {
+      creationRevision?: number;
+      preparation?: { creationRevision?: number };
+    };
+    const rev = Number(prep.creationRevision ?? prep.preparation?.creationRevision);
+    const patchRes = await page.request.patch(`/api/preparations/${preparationId}`, {
+      data: {
+        previewName: uniqueProjectName("Contexte"),
+        previewSummary: "Lecture du contexte projet",
+        expectedCreationRevision: rev,
+      },
+    });
+    lastPatch = `${patchRes.status()} ${await patchRes.text()}`;
+    seeded = patchRes.ok();
+  }
+  expect(seeded, lastPatch).toBeTruthy();
+  await page.reload();
+  await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
+  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
+  await page.getByTestId("prep-create-project").click();
+
+  const popup = page.getByTestId("sas-create-progress-popup");
+  await expect(popup).toBeVisible({ timeout: 30000 });
+  const contextStep = page.getByTestId("sas-create-step-2");
+  await expect(contextStep).toContainText("Chargement du contexte");
+  await expect(contextStep).toHaveAttribute("data-mark", "done", { timeout: 20000 });
+  await expect(page.getByTestId("sas-create-step-1")).toHaveAttribute("data-mark", "done");
+  const dismiss = page.getByTestId("sas-create-progress-dismiss");
+  await expect(dismiss).toBeEnabled();
+  await dismiss.scrollIntoViewIfNeeded();
+  await dismiss.click();
+
+  await page.waitForURL("**/projects/**", { timeout: 30000 });
+  await expect(page.getByTestId("project-unavailable")).toHaveCount(0, { timeout: 20000 });
+  await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+  const empty = page.getByTestId("journal-empty-structure");
+  await expect(page.getByText("Chargement de la continuité du projet.")).toHaveCount(0, {
+    timeout: 20000,
+  });
+  if (await empty.count()) {
+    await expect(empty).toContainText("Aucun thème capitalisé");
+  }
+});
+```
