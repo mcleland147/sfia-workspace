@@ -1,3 +1,14 @@
+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — mandat 1, portefeuille personnel et navigation
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `d215a5272025b2d1c7aa8391dd14f6442ea512fe`
+- **commit**: `feat(next): add personal portfolio and navigation`
+- **schema_revision**: `028_pilot_portfolio_organization` — additive, after 027 on E2E then DEV
+- **scope**: tableau de bord, reprise, trois vues, recherche, tri, favoris, archive personnelle, signal d'ouverture
+- **classe**: NO RELEASE · compatible additive · LIVE NOT RUN · CI NOT RUN
+
 ## delivery_id: DELIV-2026-11-28-ML5-DICTATION-GA-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

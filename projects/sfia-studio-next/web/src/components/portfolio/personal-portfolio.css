@@ -1,0 +1,155 @@
+.personal-portfolio {
+  --pf-ink: #f2f4fc;
+  --pf-muted: #a5b1c5;
+  --pf-panel: #151d2c;
+  --pf-border: #273248;
+  --pf-bg: #0d1220;
+  color: var(--pf-ink);
+  min-width: 0;
+}
+.personal-portfolio-header,
+.personal-portfolio-synthesis,
+.personal-portfolio-resume,
+.personal-portfolio-tools,
+.personal-portfolio-library {
+  margin: 0 40px;
+}
+.personal-portfolio-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  min-height: 92px;
+  padding-top: 24px;
+}
+.personal-portfolio-kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--pf-muted);
+}
+.personal-portfolio-title {
+  margin: 5px 0 0;
+  font-size: 34px;
+  line-height: 46px;
+  font-weight: 600;
+}
+.personal-portfolio-sub {
+  margin: 4px 0 0;
+  color: var(--pf-muted);
+  font-size: 15px;
+  line-height: 21px;
+}
+.personal-portfolio-grow { flex: 1; }
+.personal-portfolio-synthesis {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  align-items: center;
+  height: 136px;
+  margin-top: 8px;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-border);
+  border-radius: 12px;
+}
+.personal-portfolio-stat { padding: 14px 16px 14px 24px; }
+.personal-portfolio-stat span { display: block; color: var(--pf-muted); font-size: 15px; line-height: 21px; }
+.personal-portfolio-stat strong {
+  font-size: 46px;
+  line-height: 63px;
+  font-weight: 600;
+  margin-right: 12px;
+}
+.personal-portfolio-stat em { font-style: normal; color: var(--pf-muted); font-size: 13px; }
+.personal-portfolio-rule { background: var(--pf-border); height: 92px; }
+.personal-portfolio-resume {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 158px;
+  margin-top: 8px;
+  padding: 0 25px;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-border);
+  border-radius: 12px;
+}
+.personal-portfolio-resume h2 { margin: 0; font-size: 26px; line-height: 36px; }
+.personal-portfolio-resume p { margin: 6px 0 0; color: var(--pf-muted); }
+.personal-portfolio-tools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 40px;
+  margin-top: 8px;
+}
+.personal-portfolio-filters, .personal-portfolio-views { display: flex; gap: 2px; }
+.personal-portfolio-filters button,
+.personal-portfolio-views button,
+.personal-portfolio-tools select,
+.personal-portfolio-tools input,
+.personal-portfolio button.btn {
+  border: 1px solid var(--pf-border);
+  background: transparent;
+  color: var(--pf-ink);
+  border-radius: 8px;
+  min-height: 35px;
+}
+.personal-portfolio-filters button[aria-pressed="true"],
+.personal-portfolio-views button[aria-pressed="true"] {
+  background: #243044;
+}
+.personal-portfolio-tools input { width: 236px; padding: 0 12px; }
+.personal-portfolio-library { margin-top: 8px; }
+.personal-portfolio-row, .personal-portfolio-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 158px 170px 120px;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  border-bottom: 1px solid var(--pf-border);
+}
+.personal-portfolio-columns { min-height: 30px; color: var(--pf-muted); font-size: 11px; letter-spacing: 0.06em; }
+.personal-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+.personal-portfolio-card {
+  min-height: 120px;
+  padding: 16px;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-border);
+  border-radius: 12px;
+}
+.personal-portfolio-group h3 { margin: 12px 0 4px; font-size: 14px; color: var(--pf-muted); }
+.personal-portfolio-menu {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  min-width: 220px;
+  padding: 8px;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-border);
+  border-radius: 10px;
+}
+.personal-portfolio-dialog {
+  margin-top: 8px;
+  padding: 16px;
+  border: 1px solid var(--pf-border);
+  border-radius: 12px;
+  background: var(--pf-panel);
+}
+@media (max-width: 1279px) {
+  .personal-portfolio-header,
+  .personal-portfolio-synthesis,
+  .personal-portfolio-resume,
+  .personal-portfolio-tools,
+  .personal-portfolio-library { margin-left: 16px; margin-right: 16px; }
+  .personal-portfolio-tools { flex-wrap: wrap; }
+  .personal-portfolio-synthesis { height: auto; grid-template-columns: 1fr; }
+  .personal-portfolio-rule { display: none; }
+}
+@media (max-width: 390px) {
+  .personal-portfolio-columns, .personal-portfolio-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .personal-portfolio-columns span:nth-child(2),
+  .personal-portfolio-columns span:nth-child(3),
+  .personal-portfolio-row .personal-portfolio-meta { display: none; }
+}

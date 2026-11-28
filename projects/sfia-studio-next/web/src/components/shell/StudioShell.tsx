@@ -25,6 +25,7 @@ import {
   SETTINGS_INTEGRATIONS_HREF,
 } from "./PersonalRailSettingsMenu";
 import "./studio-shell.css";
+import { PersonalRailFavorites } from "@/components/portfolio/PersonalRailFavorites";
 
 /** Figma 652:* rail glyphs — decorative, paired with visible labels. */
 function railNavGlyph(key: string): string {
@@ -326,6 +327,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                 {prepNotice}
               </p>
             ) : null}
+            {personalSpace && !projectId ? <PersonalRailFavorites /> : null}
 
             {projectId && projectSpaceReady ? (
               <div className="mt-1 space-y-0.5" data-testid="rail-acces-directs">

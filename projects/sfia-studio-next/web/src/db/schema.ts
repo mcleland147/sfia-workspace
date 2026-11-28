@@ -1228,4 +1228,37 @@ export const providerAdminUsageSnapshots = pgTable(
   ],
 );
 
-export const schemaRevision = "026_admin_collector_ops_and_password_null";
+/** Personal portfolio preferences. Absent row means unset, not a stored default. */
+export const pilotPortfolioPreferences = pgTable("pilot_portfolio_preferences", {
+  ownerPilotId: text("owner_pilot_id")
+    .primaryKey()
+    .references(() => pilots.id),
+  view: text("view").notNull().default("list"),
+  sortMode: text("sort_mode"),
+  organizationVersion: integer("organization_version").notNull().default(0),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Personal organization of an existing project or preparation. Not a business entity. */
+export const pilotSpaceOrganization = pgTable(
+  "pilot_space_organization",
+  {
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    spaceType: text("space_type").notNull(),
+    spaceId: text("space_id").notNull(),
+    favorite: boolean("favorite").notNull().default(false),
+    archivedAt: timestamp("archived_at", { withTimezone: true }),
+    lastOpenedAt: timestamp("last_opened_at", { withTimezone: true }),
+    navigationKey: text("navigation_key"),
+    customPosition: integer("custom_position"),
+    rowVersion: integer("row_version").notNull().default(0),
+  },
+  (t) => [
+    uniqueIndex("pilot_space_organization_pk").on(t.ownerPilotId, t.spaceType, t.spaceId),
+    index("pilot_space_organization_owner_idx").on(t.ownerPilotId),
+  ],
+);
+
+export const schemaRevision = "028_pilot_portfolio_organization";

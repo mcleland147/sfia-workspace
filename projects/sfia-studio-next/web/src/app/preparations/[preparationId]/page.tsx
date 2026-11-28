@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PreparationConversation } from "@/components/figma/PreparationConversation";
+import { PersonalSpaceOpenSignal } from "@/components/portfolio/PersonalSpaceOpenSignal";
 import { PreparationProposal } from "@/components/figma/PreparationProposal";
 import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
 import { contextPreloadVerdict } from "@/lib/project-projection-sync";
@@ -1082,6 +1083,7 @@ export default function PreparationPage() {
       data-sas-resume={isResumedPrep ? "1" : "0"}
       data-testid="sas-page"
     >
+      <PersonalSpaceOpenSignal spaceType="preparation" spaceId={preparationId} admitted />
       <header className="sas-stage">
         <p className="sas-stage-kicker" data-testid="sas-stage-kicker">
           {presentation.kicker}

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
+import { PersonalSpaceOpenSignal } from "@/components/portfolio/PersonalSpaceOpenSignal";
 import { NoraConversation } from "@/components/figma/NoraConversation";
 import { CursorRealizationSurface } from "@/components/figma/CursorRealizationSurface";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
@@ -3664,6 +3665,11 @@ export default function ProjectPage() {
       documentHero={documentHero}
       travailHero={travailHero}
     >
+      <PersonalSpaceOpenSignal
+        spaceType="project"
+        spaceId={params.projectId}
+        admitted={projectLoadState === "ready"}
+      />
       {surface === "projet" ? (
         <ProjectOverview
           projectId={params.projectId}
