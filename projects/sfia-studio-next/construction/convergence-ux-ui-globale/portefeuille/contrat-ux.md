@@ -1,11 +1,11 @@
 # SFIA Studio Next — Portefeuille personnel · Contrat UX/UI
 
-**Date :** 28 novembre 2026 · **Périmètre :** R5 / ML4D, complément de convergence du portefeuille personnel (ensemble 02 historique), sans réouverture automatique des autres ensembles.
-**Base distante :** `mcleland147/sfia-workspace` · `main@997897fd7cf914771e7d08e8030dc7123fab7d25` (E08 intégré, CI post-merge rapportée, Gate C OPEN, NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED). Git local et runtime : NON OBSERVÉS.
-**Mandat :** Morris a validé les orientations, les trois modes, la persistance individuelle et la dernière composition Figma, puis demandé explicitement la création des trois documents sur Git. Publication documentaire candidate bornée à ce dossier, branche `docs/next-portfolio-contracts-20261128` ; aucune modification de décision, Roadmap, code, migration, CI, PR, merge ou GO Delivery. Les détails nouveaux ci-dessous restent candidats à revue ; pas de promotion normative implicite.
+**Date :** 28 novembre 2026 · **Périmètre :** R5 / ML5, convergence de l'expérience Pilote (Portefeuille personnel et L7), capitalisation de ML4D sans réouverture de la baseline intégrée ni nouveau jalon.
+**Réconciliation 28/11/2026 :** main reste `997897fd7cf914771e7d08e8030dc7123fab7d25` (baseline intégrée E08) ; base produit de préparation `sfia/next-ml5-integrated-delivery-20261123@d215a5272025b2d1c7aa8391dd14f6442ea512fe`, tree `c5bab24132c7c745d6ddff0ba76dc8d5424ea13c`. [Suivi post-Equipéo v0.20 §25](https://github.com/mcleland147/sfia-workspace/blob/6a65f25f19eb14fbd0d44a4fa2f8bad40285d8eb/projects/sfia-studio-next/construction/suivi-trajectoire-corrective-post-recette-equipeo.md) ; les refs documentaires restent candidates. L1–L5 acceptés techniquement avec réserves, L6 différé NOT READY, 17 MP et 17 contrôles RECETTE ouverts. Git local, DB et runtime NON OBSERVÉS directement.
+**Mandat :** Morris a reçu la composition Figma et validé A1–A5, les volets Portefeuille/L7/commun, les frontières OUT et la continuité méthodologique ; GO explicite du 28/11 pour actualiser les trois contrats et le suivi post-Equipéo sur leurs branches documentaires respectives. Publication limitée aux quatre fichiers ; la trajectoire de mandats ciblés demeure PROPOSED, à valider ensemble. Aucun GO Cursor, code, migration, Figma, PR, merge, LIVE, promotion, release ou adoption.
 **Sources communes :** [SEF v0.2](../../../governance/SEF.md), [Roadmap](../../../governance/roadmap.md), [noms produit](../../../governance/product-naming-conventions.md), [P1–P3/F1–F2](../../../governance/decisions/2026-11-07-convergence-ux-parcours-fondations-fidelite.md), [ML4C/ML4D](../../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md), [registre central](../registre-central-revues.md), [contrat parcours intégré](../../convergence-ux-parcours-pilote-nora/contrat-acceptation.md), [vision fondatrice](../../../cadrage/vision-cible/README.md) (README lu ; PNG non réinspectés), [Figma page 14](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP/?node-id=1417-6). Git prévaut sur interprétation graphique et sur mémoire.
 
-**Statut :** composition page 14 reçue par Morris (« parfait, rien à rajouter ») après ajustement tableau de bord/reprise ; référence visuelle retenue pour préparer l'implémentation. DOCUMENTED, détails non maquettés et G2 incomplets, runtime NOT PROVEN. [Fonctionnel](contrat-fonctionnel.md) · [Technique](contrat-technique.md).
+**Statut :** v0.2 — composition page 14 validée par Morris après ajustement tableau de bord/reprise ; comportements A1–A5 reçus en conception, écarts des états source recensés ci-dessous. DOCUMENTED, G2 PARTIAL, runtime NOT PROVEN. [Fonctionnel](contrat-fonctionnel.md) · [Technique](contrat-technique.md).
 Méthode : [Figma ↔ Cursor v1.1](../../../ux-ui/methodologie-contrat-figma-cursor.md), [transposition](../../../ux-ui/contrat-transposition-figma-code.md), [protocole F2](../../../ux-ui/protocole-fidelite-figma-runtime.md). Pas de nouveau template.
 
 ## 1. Direction artistique et composition
@@ -48,10 +48,10 @@ Route /portfolio pour tous (Archives = sous-vue de portefeuille, route définiti
 | 14.09 | 1420:2171 | Menu préparation |
 | 14.10 | 1420:2539 | Renommage préparation |
 | 14.11 | 1420:2892 | Ordre personnalisé |
-| 14.12 | 1420:3227 | Archivage à confirmer |
-| 14.13 | 1420:3576 | Archives et restauration |
+| 14.12 | 1420:3227 | Archivage personnel à confirmer : texte à réconcilier A4 |
+| 14.13 | 1420:3576 | Archives personnelles, accès et restauration ; aucun mode lecture seule |
 | 14.14 | 1420:3702 | Suppression projet à qualifier, action désactivée |
-| 14.15 | 1420:4054 | Suppression préparation |
+| 14.15 | 1420:4054 | Suppression préparation — gate A5 ; texte récupération à compléter |
 | 14.16 | 1420:4403 | Résultat incertain, vérifier l'état |
 | 14.17 | 1420:4752 | Chargement, compteurs inconnus |
 | 14.18 | 1420:4876 | Erreur lecture, réessayer |
@@ -62,7 +62,7 @@ Route /portfolio pour tous (Archives = sous-vue de portefeuille, route définiti
 | 14.23 | 1421:4659 | Renommage projet |
 | 14.24 | 1421:4769 | Suppression bloquée |
 | 14.25 | 1421:4879 | Mutation en cours, commandes indisponibles |
-| 14.26 | 1422:4132 | Confirmation suppression projet, qualification positive hypothétique |
+| 14.26 | 1422:4132 | Confirmation suppression logique projet, qualification positive hypothétique — gate A5 |
 | 14.27 | 1422:4242 | Tri et préférences |
 | 14.28 | 1422:4336 | Titre proposé par Nora |
 | 14.29 | 1422:4446 | Restauration à confirmer |
@@ -92,12 +92,26 @@ Variables liées page 10 : ui/base VariableID:1074:1040, ui/rail :1041, ui/panel
 
 - Titre/CTA nouveau projet, rail, clic indicateur, filtres, recherche, tri, sélecteur de vue, ouverture ligne/tuile et reprise suivent PF-10–26. Le menu ne déclenche pas la navigation ; choix de tri indique actif ; sélection persiste. Clic Voir tous/Réduire préserve filtre, tri, contexte et scroll raisonnable. La grille ne change pas la donnée.
 - Menus projet/préparation contextuels : ouvrir/reprendre, renommer, ajouter/retirer favori, monter/descendre, archiver, supprimer. Actions impossibles expliquées/disabled. Réorganisation uniquement mode personnalisé, alternative clavier. Le titre 14.28 est une proposition Nora, non une HumanDecision de création. Le CTA renommage ne modifie pas le futur nom par effet collatéral.
-- Modales : overlay intentionnel absolu, fond obscurci, focus initial et piégé, Escape/Annuler si avant effet, retour focus au déclencheur ; Fermer pendant/UNKNOWN ne promet pas d'annuler. Destructif différencié par texte et couleur ; confirmation explicite, qualification bloquante 14.14/24, 14.26 seulement si les contrôles propriétaires sont positifs. Restauration conserve même ID.
+- Modales : overlay intentionnel absolu, fond obscurci, focus initial/piégé, Escape/Annuler avant effet, retour focus ; Fermer pendant/UNKNOWN ne promet pas d'annuler. Archive personnelle : expliciter « Retirer du portefeuille courant ; accessible dans Archives, sans interruption du travail » ; ne pas annoncer mise en lecture seule. Supprimer : différencier texte et couleur, expliquer « Retiré de votre espace ; récupérable ; données conservées », aucun effet Git ni purge ; 14.14/24 blocage, 14.26 seulement si gate A5 qualifié. Aucun contrôle actif si capacité non livrée, raison intelligible. Restauration même ID.
 - États vides distincts, loading skeleton et compteurs tirets, erreur/retry GET, refus sans données, pending sans double-clic, UNKNOWN avec relecture. Ne pas afficher succès optimiste non confirmé. A11y : navigation tab, focus visible, aria-label des icônes fonctionnelles, décoratives masquées, annonces live non intrusives, contraste, texte intégral accessible.
 - Source complémentaire manquante : hover/focus/disabled exhaustifs, conflit 409, archive vide, filtre avec recherche > page, dernier espace absent/retiré, long titre, menu ancré aux contrôles déplacés et recherche rapide ouverte. Spécifier par composant, produire variantes ciblées si nécessaires avant code ; pas de libre interprétation de source critique. Prototype Figma non exhaustivement lié : aucune preuve métier.
 - Organisation de la source : Auto Layout natif sur flux ; menus/modales/fonds/tiroir intentionnellement absolus. Ne pas introduire position:absolute pour simuler les gaps. Réutiliser shell partagé, pas de duplication par état. Les 34 frames ne sont pas 34 pages React.
 
+## 5.1. Delta d'alignement A1–A5 et ML5 (28/11)
+
+La composition, les géométries, les 34 références L0 et les fondations F1/F2 sont conservées. Aucune mutation Figma ni nouvelle extraction native dans cette actualisation documentaire. G2 devra matérialiser et figer les seuls compléments applicables au mandat concerné ; pas de nouveau chantier de DA.
+
+| Sujet | Comportement cible | Source / complément |
+|---|---|---|
+| A1 | Dernière ouverture effective, date création libellée si absence de signal ; reprise absente si aucun dernier espace courant | 14.01–07/20–22/31–34 ; libellé ACTIVITÉ à préciser et état reprise absente |
+| A2 | Titre initial neutre, premier titre Nora puis contrôle manuel ; pas de confusion avec nom officiel | 14.10/23/28 ; états conflit et valeur longue |
+| A3 | Trois vues, tri et ordre durables ; drag + clavier ; aucun faux succès | 14.11/25/27/33/34 ; tests conflit/inter-session, pas d'imposition de rangs |
+| A4 | Archives personnelles accessibles et ouvrables selon droits existants ; favoris/ordre restaurés ; aucune mise en lecture seule | 14.12/13/29 ; état archive vide, CTA ouvrir et restaurer, libellé confirmation ; pas de bandeau read-only à concevoir |
+| A5 | Suppression logique récupérable, données conservées, blocage explicite avant gate | 14.14/15/16/24/25/26 ; sous-vue Supprimés, métadonnées seules et récupération à concevoir/valider au gate ; si report autorisé, contrôle non disponible et états A5 différés, pas de simulation |
+
+Le shell ML5 et ses destinations existantes restent la base ; ne pas importer un shell parallèle de Figma. Les consultations récentes internes au projet (MP08) ne sont pas la liste des espaces du portefeuille ; ne pas modifier leur identité au nom d'A1. Volet L7 : sources existantes des surfaces concernées, notamment Travail avec Nora et FinOps, à extraire selon méthode ; pas de changement cognitif Capacité 2 ou dictée.
+
 ## 6. Protocole de réception UX
 
 G2 avant code : inventaire exhaustif par état, metadata + design_context si disponible + propriétés natives de tous les descendants contractuels, parents, bounds locaux/résolus, layout/sizing/padding/gap, variantes, tokens, overrides, typo, assets. PNG natif de chaque frame et SHA-256, date/version, manifeste avec empreinte sidecar, fixture DEV isolée, mapping node→composant→DOM/test-id→assertion. Ne pas importer le code illustratif MCP comme code produit. Sources critiques non résolues = STOP. Référence mutable : les IDs ici ne figent pas les octets. L0 et mesures ciblées observés ; L2 exhaustif et snapshots/hash non acquis.
-G5 : 34/34 états de référence réellement exercés, plus cas complémentaires contractés ; même état/données/viewport/locale FR/Inter/DPR/zoom/navigateur. F2 x/y/w/h cible 0, max 2 CSS px uniquement rectangles stables contractés ; exactitude structure, ordre, styles calculés, asset, visibilité, contenus et actions. Captures PNG Figma et browser + diff régional, aucun seuil pixel-image global arbitraire. Responsive 1680,1280,390,320, zoom 200 %, clavier et menus, pas de troncature/collision. Prouver séparément effets, droits et persistance ; fixture ≠ LIVE. Chaque écart : cause, mesure, propriétaire, exit, arbitrage Morris. Recette utilisateur après preuves ; référence reçue ≠ runtime accepté. Tous tests NOT RUN ; aucun G2/G5 déclaré PASS.
+G5 : exercer les 34 états de référence et compléments contractés au fil des mandats qui portent leur capacité ; matrice de couverture cumulative, puis parcours intégrés. Si A5 reporté sur GO Morris, ses états restent DEFERRED/NOT RUN avec exit explicite, jamais 34/34 PASS par déduction. Même état/données/viewport/locale FR/Inter/DPR/zoom/navigateur ; F2 x/y/w/h cible 0, max 2 CSS px uniquement rectangles stables contractés ; structure, styles, assets, contenus et actions, PNG et diff régional, aucun seuil pixel global. 1680/1280/390/320, zoom 200 %, clavier, pas de collision. Prouver séparément effets, droits et persistance ; fixture ≠ LIVE. Chaque écart : cause, mesure, propriétaire, exit, arbitrage. UAT distincte ; tous tests NOT RUN pour la cible, G2/G5 non PASS.
