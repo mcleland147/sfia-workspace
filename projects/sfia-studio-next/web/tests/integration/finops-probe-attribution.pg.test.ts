@@ -21,6 +21,9 @@ import { createProjectCommand } from "@/domains/preparation/create-project";
 import {
   attributeConsumedProbeUsage,
   buildIdempotencyKey,
+  failNextProbeClaimReadForTests,
+  PROBE_CLAIM_GRACE_MS,
+  probeUsageClaimHeld,
   recordNoraProviderUsageWithHttpCorrelation,
   recordProviderUsageObservation,
 } from "@/domains/conversation/usage-accounting";
@@ -419,5 +422,268 @@ describe("FinOps probe attribution (PG)", () => {
     });
     expect(otherModel.hasObservations).toBe(false);
     expect(otherWorks.items).toHaveLength(0);
+  });
+
+  it("drops a claim when no observation arrives, and still attaches a write that starts inside the grace", async () => {
+    const absent = newId("gen");
+    const missing = await attributeConsumedProbeUsage({
+      generationId: absent,
+      ownerPilotId: pilotId,
+      preparationId,
+      projectId: projectA,
+      cognitiveWorkId: workComplete,
+    });
+    expect(missing).toEqual({ updated: 0, refused: false });
+    expect(probeUsageClaimHeld(absent)).toBe(true);
+    await new Promise((resolve) => setTimeout(resolve, PROBE_CLAIM_GRACE_MS + 250));
+    expect(probeUsageClaimHeld(absent)).toBe(false);
+
+    const lateId = newId("gen");
+    const lateKey = `late-${lateId}`;
+    const claimed = attributeConsumedProbeUsage({
+      generationId: lateId,
+      ownerPilotId: pilotId,
+      preparationId,
+      projectId: projectA,
+      cognitiveWorkId: workComplete,
+    });
+    const attached = await claimed;
+    expect(attached).toEqual({ updated: 0, refused: false });
+    expect(probeUsageClaimHeld(lateId)).toBe(true);
+    const late = await recordProviderUsageObservation({
+      ownerPilotId: pilotId,
+      preparationId,
+      projectId: projectA,
+      generationId: lateId,
+      operation: "nora.generate_reply",
+      attemptId: "attempt-late",
+      cognitiveWorkId: null,
+      modelRequested: "gpt-test",
+      modelApplied: "UNVERIFIED",
+      totalTokens: 17,
+      providerRequests: 1,
+      estimatedCostUsd: 0.07,
+      costCoverage: "KNOWN",
+      status: "succeeded",
+      granularity: "REQUEST",
+      idempotencyKey: lateKey,
+      lane: "DEV",
+    });
+    expect(late.inserted).toBe(true);
+    await remember(lateId);
+    const row = (
+      await db
+        .select()
+        .from(providerUsageObservations)
+        .where(eq(providerUsageObservations.generationId, lateId))
+    )[0]!;
+    expect(row.cognitiveWorkId).toBe(workComplete);
+    expect(row.totalTokens).toBe(17);
+    expect(Number(row.estimatedCostUsd)).toBeCloseTo(0.07);
+    expect(row.idempotencyKey).toBe(lateKey);
+    const replay = await recordProviderUsageObservation({
+      ownerPilotId: pilotId,
+      preparationId,
+      projectId: projectA,
+      generationId: lateId,
+      operation: "nora.generate_reply",
+      attemptId: "attempt-late",
+      cognitiveWorkId: workComplete,
+      totalTokens: 999,
+      estimatedCostUsd: 9,
+      costCoverage: "KNOWN",
+      status: "succeeded",
+      granularity: "REQUEST",
+      idempotencyKey: lateKey,
+      lane: "DEV",
+    });
+    expect(replay.inserted).toBe(false);
+    const still = (
+      await db
+        .select()
+        .from(providerUsageObservations)
+        .where(eq(providerUsageObservations.generationId, lateId))
+    )[0]!;
+    expect(still.totalTokens).toBe(17);
+    expect(still.cognitiveWorkId).toBe(workComplete);
+    await new Promise((resolve) => setTimeout(resolve, PROBE_CLAIM_GRACE_MS + 250));
+    expect(probeUsageClaimHeld(lateId)).toBe(false);
+  });
+
+  it("releases a claim after a read failure without deleting it while the grace is open", async () => {
+    const generationId = newId("gen");
+    failNextProbeClaimReadForTests(new Error("probe read failed"));
+    await expect(
+      attributeConsumedProbeUsage({
+        generationId,
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        cognitiveWorkId: workComplete,
+      }),
+    ).rejects.toThrow("probe read failed");
+    expect(probeUsageClaimHeld(generationId)).toBe(true);
+    await new Promise((resolve) => setTimeout(resolve, PROBE_CLAIM_GRACE_MS + 250));
+    expect(probeUsageClaimHeld(generationId)).toBe(false);
+    expect(await remember(generationId)).toBe(0);
+  });
+
+  it("lists only works that have a billable observation on the same filters", async () => {
+    const workCompanion = newId("cgw");
+    const workMixed = newId("cgw");
+    const workUnknown = newId("cgw");
+    await db.insert(cognitiveWorks).values([
+      {
+        id: workCompanion,
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        status: "COMPLETE",
+        objective: "companion only",
+        revision: 1,
+      },
+      {
+        id: workMixed,
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        status: "COMPLETE",
+        objective: "mixed observations",
+        revision: 1,
+      },
+      {
+        id: workUnknown,
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        status: "OPEN",
+        interruptCause: "AWAIT_PILOT",
+        objective: "coût non calculable",
+        revision: 1,
+      },
+    ]);
+    try {
+      const companionGen = newId("gen");
+      await recordProviderUsageObservation({
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        generationId: companionGen,
+        operation: "nora.generate_reply",
+        attemptId: "http-only",
+        cognitiveWorkId: workCompanion,
+        modelRequested: "gpt-test",
+        modelApplied: "UNVERIFIED",
+        inputTokens: null,
+        outputTokens: null,
+        totalTokens: null,
+        providerRequests: null,
+        estimatedCostUsd: null,
+        costCoverage: "PARTIAL",
+        status: "succeeded",
+        granularity: "REQUEST",
+        idempotencyKey: `companion-${companionGen}`,
+        limits: ["HTTP_ATTEMPT_CORRELATION_ONLY"],
+        lane: "DEV",
+      });
+      await remember(companionGen);
+
+      const mixedGen = newId("gen");
+      const mixedKey = `mixed-${mixedGen}`;
+      await recordProviderUsageObservation({
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        generationId: mixedGen,
+        operation: "nora.generate_reply",
+        attemptId: "attempt-mixed",
+        cognitiveWorkId: workMixed,
+        modelRequested: "gpt-test",
+        modelApplied: "UNVERIFIED",
+        inputTokens: 30,
+        outputTokens: 10,
+        totalTokens: 40,
+        providerRequests: 1,
+        estimatedCostUsd: 0.11,
+        costCoverage: "KNOWN",
+        status: "succeeded",
+        granularity: "REQUEST",
+        idempotencyKey: mixedKey,
+        lane: "DEV",
+      });
+      await recordProviderUsageObservation({
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        generationId: mixedGen,
+        operation: "nora.generate_reply",
+        attemptId: "http-mixed",
+        cognitiveWorkId: workMixed,
+        modelRequested: "gpt-test",
+        modelApplied: "UNVERIFIED",
+        totalTokens: null,
+        providerRequests: null,
+        estimatedCostUsd: null,
+        costCoverage: "PARTIAL",
+        status: "succeeded",
+        granularity: "REQUEST",
+        idempotencyKey: `${mixedKey}:http`,
+        limits: ["HTTP_ATTEMPT_CORRELATION_ONLY"],
+        lane: "DEV",
+      });
+      expect(await remember(mixedGen)).toBe(2);
+
+      const unknownGen = newId("gen");
+      await recordProviderUsageObservation({
+        ownerPilotId: pilotId,
+        preparationId,
+        projectId: projectA,
+        generationId: unknownGen,
+        operation: "nora.generate_reply",
+        attemptId: "attempt-unknown",
+        cognitiveWorkId: workUnknown,
+        modelRequested: "gpt-test",
+        modelApplied: "UNVERIFIED",
+        inputTokens: 8,
+        outputTokens: 2,
+        totalTokens: 10,
+        providerRequests: 1,
+        estimatedCostUsd: null,
+        costCoverage: "UNKNOWN",
+        status: "succeeded",
+        granularity: "REQUEST",
+        idempotencyKey: `unknown-${unknownGen}`,
+        lane: "DEV",
+      });
+      await remember(unknownGen);
+
+      const filter = { period: "30", projectId: projectA, model: "gpt-test" };
+      const summary = await loadFinOpsSummary(pilotId, filter);
+      const works = await loadFinOpsWorks(pilotId, filter);
+      const ids = works.items.map((item) => item.cognitiveWorkId);
+      expect(ids).not.toContain(workCompanion);
+      expect(ids).toContain(workMixed);
+      expect(ids).toContain(workUnknown);
+      expect(ids.filter((id) => id === workMixed)).toHaveLength(1);
+      const mixed = works.items.find((item) => item.cognitiveWorkId === workMixed)!;
+      expect(mixed.tokens).toEqual({ kind: "known", value: 40 });
+      expect(mixed.estimatedCostUsd.kind).toBe("partial");
+      if (mixed.estimatedCostUsd.kind === "partial") {
+        expect(mixed.estimatedCostUsd.value).toBeCloseTo(0.11);
+      }
+      const unknown = works.items.find((item) => item.cognitiveWorkId === workUnknown)!;
+      expect(unknown.estimatedCostUsd.kind).toBe("unknown");
+      expect(unknown.tokens).toEqual({ kind: "known", value: 10 });
+      expect(summary.hasObservations).toBe(true);
+      expect(summary.kpis.estimatedCostUsd.kind === "empty").toBe(false);
+      const stored = await db
+        .select()
+        .from(providerUsageObservations)
+        .where(eq(providerUsageObservations.generationId, mixedGen));
+      expect(stored).toHaveLength(2);
+    } finally {
+      await pgSql`DELETE FROM provider_usage_observations WHERE cognitive_work_id = ANY(${[workCompanion, workMixed, workUnknown]})`;
+      await pgSql`DELETE FROM cognitive_works WHERE id = ANY(${[workCompanion, workMixed, workUnknown]})`;
+    }
   });
 });

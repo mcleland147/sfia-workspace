@@ -361,6 +361,14 @@
   text-decoration: none;
 }
 
+button.finops-1306-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 .finops-1306-link:hover {
   text-decoration: underline;
 }

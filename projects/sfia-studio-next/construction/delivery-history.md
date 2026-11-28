@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-FINOPS-PROJECTION-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — fiabilité des projections de consommation
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `fff5ebd9db873c186b71469c4d6957f18831c3cb`
+- **commit**: `fix(studio-next): harden consumption attribution and projections`
+- **schema_revision**: inchangé, `029`
+- **scope**: cycle de vie borné des claims de rattachement ; liste des travaux alignée sur les observations facturables ; réponses de filtre périmées ignorées ; erreur de liste distincte d'une liste vide
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · push produit non inclus
+- **reserves**: FIN-REC-01 et FIN-REC-02 ouverts ; F2 non mesuré ; grâce mémoire de 500 ms, pas un registre durable ; réserves des mandats 1 à 4 transportées
+
 ## delivery_id: DELIV-2026-11-28-ML5-SHARED-COMPOSER-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

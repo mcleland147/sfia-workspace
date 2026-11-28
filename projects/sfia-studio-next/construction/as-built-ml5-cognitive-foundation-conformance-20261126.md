@@ -29,6 +29,7 @@ Classe : **NO RELEASE** · Lane : **DEV** · Cutover RECETTE : **NON APPLIQUÉ**
 - Couverture / complétude restent relatives à l'ensemble d'**observations recensées**.
 - Sans recensement d'émissions HTTP indépendant → `kind: "partial"` (pas de 100 % « known » trompeur).
 - Source unique : `provider_usage_observations`.
+- 2026-11-28, mandat 5 : la liste des travaux utilise la même population facturable que les indicateurs (`filterBillableFinOpsRows`). Une observation companion reste persistée et ne crée pas un travail facturable. Un claim de rattachement n'est plus conservé sans limite : il suit l'écriture en cours, puis une grâce de 500 ms, puis il est retiré. L'écran Consommation n'applique que la réponse du dernier filtre et distingue une liste vide d'un échec de chargement.
 
 ## S5 — Autorité WEB D6
 

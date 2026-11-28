@@ -708,7 +708,7 @@ export async function loadFinOpsWorks(
   };
   const rows = await loadObservations(pilotId, input);
   const byWork = new Map<string, ObservationRow[]>();
-  for (const r of rows) {
+  for (const r of filterBillableFinOpsRows(rows)) {
     if (!r.cognitiveWorkId) continue;
     const list = byWork.get(r.cognitiveWorkId) ?? [];
     list.push(r);

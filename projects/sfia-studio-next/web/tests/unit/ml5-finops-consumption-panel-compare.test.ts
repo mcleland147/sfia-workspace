@@ -19,6 +19,21 @@ describe("FinOpsConsumptionPanel cost comparison transpose", () => {
     expect(src).not.toMatch(/ownership/i);
   });
 
+  it("ignores a stale filter response and keeps a works failure distinct from an empty list", () => {
+    expect(src).toContain("requestSeq");
+    expect(src).toContain("if (seq !== requestSeq.current) return;");
+    expect(src).toContain("if (seq === requestSeq.current) setLoading(false);");
+    expect(src).toContain('data-testid="finops-works-error"');
+    expect(src).toContain('data-testid="finops-works-empty"');
+    expect(src).toContain("La liste des travaux n’a pas pu être chargée.");
+    expect(src).not.toContain("setWorks([]);\n      }");
+    const empty = src.indexOf('data-testid="finops-works-empty"');
+    const failure = src.indexOf('data-testid="finops-works-error"');
+    expect(empty).toBeGreaterThan(-1);
+    expect(failure).toBeGreaterThan(-1);
+    expect(failure).not.toBe(empty);
+  });
+
   it("places CostComparisonBanner between KPIs and charts in JSX", () => {
     const kpis = src.indexOf('data-testid="finops-kpis"');
     const call = src.indexOf("<CostComparisonBanner");

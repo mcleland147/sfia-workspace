@@ -297,6 +297,55 @@ export type ProbeUsageClaim = {
 
 const probeClaims = new Map<string, ProbeUsageClaim>();
 const usageWriteInflight = new Map<string, Promise<void>>();
+const probeClaimReleases = new Map<string, ReturnType<typeof setTimeout>>();
+let probeClaimReadFailure: Error | null = null;
+
+/** One-shot test seam. Throws after the claim is registered and before the observation read. */
+export function failNextProbeClaimReadForTests(error: Error | null) {
+  probeClaimReadFailure = error;
+}
+
+/**
+ * A claim is only a handoff for a write that has not landed yet.
+ * It is not a durable register. Once the lookup finds nothing and no write
+ * is in flight, the claim stays only for this grace so a write that starts
+ * immediately afterwards can still read it, then it is dropped.
+ */
+export const PROBE_CLAIM_GRACE_MS = 500;
+
+export function probeUsageClaimHeld(generationId: string): boolean {
+  return probeClaims.has(generationId.trim());
+}
+
+function dropProbeClaim(generationId: string, claim: ProbeUsageClaim) {
+  const pending = probeClaimReleases.get(generationId);
+  if (pending) {
+    clearTimeout(pending);
+    probeClaimReleases.delete(generationId);
+  }
+  if (probeClaims.get(generationId) === claim) probeClaims.delete(generationId);
+}
+
+function releaseProbeClaimWhenIdle(generationId: string, claim: ProbeUsageClaim) {
+  const pending = probeClaimReleases.get(generationId);
+  if (pending) clearTimeout(pending);
+  const timer = setTimeout(() => {
+    probeClaimReleases.delete(generationId);
+    void (async () => {
+      const inflight = usageWriteInflight.get(generationId);
+      if (inflight) await inflight;
+      if (usageWriteInflight.has(generationId)) {
+        if (probeClaims.get(generationId) === claim) {
+          releaseProbeClaimWhenIdle(generationId, claim);
+        }
+        return;
+      }
+      if (probeClaims.get(generationId) === claim) probeClaims.delete(generationId);
+    })();
+  }, PROBE_CLAIM_GRACE_MS);
+  timer.unref?.();
+  probeClaimReleases.set(generationId, timer);
+}
 
 function textOrEmpty(value: string | null | undefined): string {
   return value?.trim() ?? "";
@@ -379,71 +428,92 @@ export async function attributeConsumedProbeUsage(
     return { updated: 0, refused: true };
   }
   probeClaims.set(generationId, normalized);
-  const inflight = usageWriteInflight.get(generationId);
-  if (inflight) await inflight;
-
-  const lane = process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
-  const found = await db
-    .select({
-      id: providerUsageObservations.id,
-      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
-      projectId: providerUsageObservations.projectId,
-      conversationId: providerUsageObservations.conversationId,
-      turnId: providerUsageObservations.turnId,
-    })
-    .from(providerUsageObservations)
-    .where(
-      and(
-        eq(providerUsageObservations.generationId, generationId),
-        eq(providerUsageObservations.ownerPilotId, ownerPilotId),
-        eq(providerUsageObservations.preparationId, preparationId),
-        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
-      ),
-    );
-  if (found.length === 0) return { updated: 0, refused: false };
-
-  const conflicts = found.some((row) => {
-    if (row.cognitiveWorkId && row.cognitiveWorkId !== cognitiveWorkId) return true;
-    if (row.projectId && work.projectId && row.projectId !== work.projectId) return true;
-    if (
-      normalized.projectId &&
-      row.projectId &&
-      row.projectId !== normalized.projectId
-    ) {
-      return true;
+  try {
+    if (probeClaimReadFailure) {
+      const error = probeClaimReadFailure;
+      probeClaimReadFailure = null;
+      throw error;
     }
-    if (normalized.turnId && row.turnId && row.turnId !== normalized.turnId) return true;
-    if (
-      normalized.conversationId &&
-      row.conversationId &&
-      row.conversationId !== normalized.conversationId
-    ) {
-      return true;
+    const lane = process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
+    const readRows = () =>
+      db
+        .select({
+          id: providerUsageObservations.id,
+          cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
+          projectId: providerUsageObservations.projectId,
+          conversationId: providerUsageObservations.conversationId,
+          turnId: providerUsageObservations.turnId,
+        })
+        .from(providerUsageObservations)
+        .where(
+          and(
+            eq(providerUsageObservations.generationId, generationId),
+            eq(providerUsageObservations.ownerPilotId, ownerPilotId),
+            eq(providerUsageObservations.preparationId, preparationId),
+            sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
+          ),
+        );
+    const inflight = usageWriteInflight.get(generationId);
+    if (inflight) await inflight;
+    let found = await readRows();
+    if (found.length === 0) {
+      const late = usageWriteInflight.get(generationId);
+      if (late && late !== inflight) {
+        await late;
+        found = await readRows();
+      }
     }
-    return false;
-  });
-  if (conflicts) {
-    probeClaims.delete(generationId);
-    return { updated: 0, refused: true };
-  }
+    if (found.length === 0) {
+      releaseProbeClaimWhenIdle(generationId, normalized);
+      return { updated: 0, refused: false };
+    }
 
-  let updated = 0;
-  for (const row of found) {
-    if (row.cognitiveWorkId) continue;
-    const written = await db
-      .update(providerUsageObservations)
-      .set({ cognitiveWorkId })
-      .where(
-        and(
-          eq(providerUsageObservations.id, row.id),
-          isNull(providerUsageObservations.cognitiveWorkId),
-        ),
-      )
-      .returning({ id: providerUsageObservations.id });
-    updated += written.length;
+    const conflicts = found.some((row) => {
+      if (row.cognitiveWorkId && row.cognitiveWorkId !== cognitiveWorkId) return true;
+      if (row.projectId && work.projectId && row.projectId !== work.projectId) return true;
+      if (
+        normalized.projectId &&
+        row.projectId &&
+        row.projectId !== normalized.projectId
+      ) {
+        return true;
+      }
+      if (normalized.turnId && row.turnId && row.turnId !== normalized.turnId) return true;
+      if (
+        normalized.conversationId &&
+        row.conversationId &&
+        row.conversationId !== normalized.conversationId
+      ) {
+        return true;
+      }
+      return false;
+    });
+    if (conflicts) {
+      dropProbeClaim(generationId, normalized);
+      return { updated: 0, refused: true };
+    }
+
+    let updated = 0;
+    for (const row of found) {
+      if (row.cognitiveWorkId) continue;
+      const written = await db
+        .update(providerUsageObservations)
+        .set({ cognitiveWorkId })
+        .where(
+          and(
+            eq(providerUsageObservations.id, row.id),
+            isNull(providerUsageObservations.cognitiveWorkId),
+          ),
+        )
+        .returning({ id: providerUsageObservations.id });
+      updated += written.length;
+    }
+    dropProbeClaim(generationId, normalized);
+    return { updated, refused: false };
+  } catch (error) {
+    releaseProbeClaimWhenIdle(generationId, normalized);
+    throw error;
   }
-  probeClaims.delete(generationId);
-  return { updated, refused: false };
 }
 
 /** Insert one durable observation; duplicate idempotency_key is a no-op. */

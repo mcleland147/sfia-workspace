@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type {
   FinOpsProviderReconciliationDto,
   FinOpsSummaryDto,
@@ -87,9 +87,11 @@ export function FinOpsConsumptionPanel() {
   const [model, setModel] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [worksError, setWorksError] = useState<string | null>(null);
   const [summary, setSummary] = useState<FinOpsSummaryDto | null>(null);
   const [filterOptions, setFilterOptions] = useState<FilterOptions | null>(null);
   const [works, setWorks] = useState<FinOpsWorkListItem[]>([]);
+  const requestSeq = useRef(0);
 
   const query = useMemo(() => {
     const p = new URLSearchParams();
@@ -100,33 +102,42 @@ export function FinOpsConsumptionPanel() {
   }, [period, projectId, model]);
 
   const refresh = useCallback(async () => {
+    const seq = ++requestSeq.current;
     setLoading(true);
     setError(null);
+    setWorksError(null);
     try {
       const [sumRes, worksRes] = await Promise.all([
         fetch(`/api/finops/summary?${query}`),
         fetch(`/api/finops/works?${query}`),
       ]);
+      if (seq !== requestSeq.current) return;
       if (!sumRes.ok) {
         const j = await sumRes.json().catch(() => ({}));
         throw new Error(j.message ?? "Chargement impossible");
       }
       const sumBody = (await sumRes.json()) as SummaryResponse;
+      if (seq !== requestSeq.current) return;
       setSummary(sumBody.summary);
       setFilterOptions(sumBody.filterOptions);
 
       if (worksRes.ok) {
         const w = (await worksRes.json()) as { items: FinOpsWorkListItem[] };
+        if (seq !== requestSeq.current) return;
         setWorks(w.items ?? []);
+        setWorksError(null);
       } else {
         setWorks([]);
+        setWorksError("La liste des travaux n’a pas pu être chargée.");
       }
     } catch (e) {
+      if (seq !== requestSeq.current) return;
       setError(e instanceof Error ? e.message : "Erreur de chargement");
       setSummary(null);
       setWorks([]);
+      setWorksError(null);
     } finally {
-      setLoading(false);
+      if (seq === requestSeq.current) setLoading(false);
     }
   }, [query]);
 
@@ -219,7 +230,19 @@ export function FinOpsConsumptionPanel() {
 
         {error ? (
           <p className="finops-1306-state" role="alert" data-testid="finops-error">
-            {error}
+            {error}{" "}
+            <button type="button" className="finops-1306-link" onClick={() => void refresh()}>
+              Réessayer
+            </button>
+          </p>
+        ) : null}
+
+        {!loading && !error && worksError ? (
+          <p className="finops-1306-state" role="alert" data-testid="finops-works-error">
+            {worksError}{" "}
+            <button type="button" className="finops-1306-link" onClick={() => void refresh()}>
+              Réessayer
+            </button>
           </p>
         ) : null}
 
@@ -341,7 +364,7 @@ export function FinOpsConsumptionPanel() {
               </section>
             </div>
 
-            <WorksTable works={works} />
+            {worksError ? null : <WorksTable works={works} />}
           </>
         ) : null}
       </div>
@@ -427,7 +450,9 @@ function WorksTable({ works }: { works: FinOpsWorkListItem[] }) {
     <div className="finops-1306-table-wrap" data-testid="finops-works-table">
       <h2 className="finops-1306-table-title">Travaux récents</h2>
       {works.length === 0 ? (
-        <p className="finops-1306-state">Aucun travail cognitif lié sur la période.</p>
+        <p className="finops-1306-state" data-testid="finops-works-empty">
+          Aucun travail cognitif lié sur la période.
+        </p>
       ) : (
         <table className="finops-1306-table">
           <thead>
