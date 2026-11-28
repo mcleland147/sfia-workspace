@@ -1,994 +1,1038 @@
-# Review Pack — finalisation du complement A
+# Review Pack — complement B
 
-Date : 2026-11-28 14:30 CET.
-Cycle : 08 Delivery / implementation. Profil Standard. Typologie INC.
-Perimetre : garanties residuelles du portefeuille personnel, suivi v0.23 §28.2 a §28.4.
-Verdict propose : READY WITH RESERVES — COMPLEMENT A.
+Date : 2026-11-28 14:52 CET.
+Cycle : 08 Delivery. Profil Standard. Typologie EVOL, correctif R-PF34-UI integre.
+Verdict technique propose : READY WITH RESERVES — COMPLEMENT B.
+Verdict visuel : REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
 
 ## Identite Git
 
-- Depot : mcleland147/sfia-workspace. Racine : /Users/morris/Projects/sfia-wt-next-ml5-20261123.
 - Branche : sfia/next-ml5-integrated-delivery-20261123.
-- Entree : 561b7277703aeea46f15f1b642efb4d8f57ed285. Tree 1f18ed384324792d62cf748602b21485e0cdf839. Parent c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e.
-- Sortie : 1eedfba8ea09163a1ba780fbeb16563034895379. Tree cd4581040b14531676250a737a098e960456b4b8. Parent 561b7277703aeea46f15f1b642efb4d8f57ed285.
-- origin/main et merge-base : 997897fd7cf914771e7d08e8030dc7123fab7d25. Inchanges.
-- Push fast-forward : 561b7277..1eedfba8. Aucune PR ouverte. Aucun run GitHub Actions observe sur la branche avant et apres le push.
-- Arbre de travail : seuls .tmp-sfia-review/ et web/.tmp-sfia-review/ restent non suivis. Non commits.
+- Entree : 1eedfba8ea09163a1ba780fbeb16563034895379. Tree cd4581040b14531676250a737a098e960456b4b8. Parent 561b7277.
+- Sortie : 26698494ceed32af53d71b3e2e2248bab903de73. Tree b4c97114d6578dce0106614e86ba1600f4efab95. Parent 1eedfba8.
+- origin/main et merge-base : 997897fd7cf914771e7d08e8030dc7123fab7d25.
+- Push fast-forward 1eedfba8..26698494. Aucune PR ouverte. Aucun run Actions observe avant ni apres.
 
-## Sources lues
+## Sources
 
-- Suivi v0.23 §28, commit c7243948fd31d583427854eacfe21bfb5c0a7ef9, lu sans merge.
-- Contrats portefeuille 46215293, non merges. PF-11, PF-24, PF-32, PF-34 conserves par le comportement.
-- Handoff precedent 22dbdea7f6842d3b6b9fa58dcfdd8737b079f93a, blob 137047c926036dd41070871bdd65f5caee153efc. Preuves reutilisees, verdict non repris comme preuve.
-- create-project.ts, verrou de ligne preparations FOR UPDATE, lu sans modification.
-- Consommateurs de l'ancienne projection : aucun composant produit ne lit portfolio.projects. Les tests a1 appellent loadPortfolio directement. ux004 simule la reponse.
+- Suivi v0.24 §29, commit 7e316e5dd2bea83c8a1df70791b575770afee43e, lu sans merge.
+- Figma itgvCulInEnFY6DvgIegvP, session 08f27608-2154-46c8-bf52-574c69ea189a, lecture seule.
+- Nœuds extraits avec contexte et capture : 1420:269 reprise, 1420:250 synthese, 1420:129 ligne, 1420:1803 menu, 1420:3227 archivage.
+- Icones SVG telechargees : fleche, etoile, poignee, points. La fleche est inlined. Les autres restent des references d'extraction, non servies comme URL temporaires.
+- Handoff A 45140594. Reserves R-A04-WINDOW, R-A06-ATTACH et R-E2E-WEBPACK non rouvertes.
 
-## Corrections
+## G2
 
-F-01. Apres le verrou Pilote, chaque ecriture verrouille la ligne du projet ou de la preparation, puis revérifie l'eligibilite. Le deplacement verrouille aussi les preparations ouvertes, par identifiant. La creation de projet n'est pas modifiee. Une preparation rattachee pendant l'attente n'est plus accusee comme favorite.
+Reprise : fond #242c4b, bordure #7880ef, rayon 12, padding 24, ecart 20, repere 64 px rayon 14 fond #151d2c, titre 26/36, action 218x38 fond #292d58 bordure #656fe1 rayon 9.
+Synthese : panneau #151d2c, bordure #273248, rayon 12, hauteur 136, separateurs 92 px, chiffres 46/63.
+Ligne : hauteur 50, monogramme 36, colonnes type 158 et activite 170.
+Menu : ancre a droite, renommer et supprimer presents dans la source. Le contrat A4 prime : l'archive ne met pas le travail en pause. Renommer et supprimer restent indisponibles.
+Les 22 autres frames du perimetre n'ont pas recu une extraction L2 individuelle. Elles partagent ces composants. Cette couverture est derivee, pas une extraction exhaustive.
 
-F-02. Une lecture en echec reseau, HTTP ou JSON ne remplace pas le tableau par une liste vide. Un accuse perdu laisse le resultat inconnu et bloque les modifications jusqu'a une relecture reussie. Un refus confirme ne bloque pas. Une relecture reussie reconcilie l'etat affiche et ne declare pas le succes de l'intention. L'intention n'est jamais renvoyee. Le bouton Relire ne refait que la lecture, avec les criteres courants.
+## G3 et transposition
 
-F-03. last_opened_at prend clock_timestamp au point d'effet et ne recule pas, via GREATEST. Les huit dernieres cles sont conservees dans la colonne existante. Une cle deja vue est ignoree, y compris apres une cle d'un autre onglet. Aucune migration.
+Un seul ecran porte les etats. Le shell existant est conserve. Le tiroir mobile est limite a l'espace personnel. Les largeurs projet 246, conversation 240 et inspection 244 ne sont pas modifiees.
+Bureau compact : marge 28 px sous 1434 px. Mobile : marge 16 px, synthese en trois colonnes, reprise verticale, lignes compactes, tiroir.
 
-F-04. Les lectures d'une reponse partagent une transaction REPEATABLE READ. Le tri et le curseur departagent type et identifiant. Un curseur invalide repond 400. La restauration deja effective ne decale pas les positions. Un changement d'archive incremente la version d'organisation, et une intention d'ordre perimee repond 409. Le deplacement exige le tri personnalise enregistre. GET /api/portfolio ne renvoie plus de listes vides fictives. L'ancienne lecture reste servie seulement si preparationsCursor est demande.
+## R-PF34-UI
 
-F-05. Le rattachement naturel par le conducteur du sas n'a pas ete rejoue. Le parcours demande le document et la creation de projet existants, sans simulation cognitive ajoutee. Reserve R-A06-ATTACH, DEFERRED TO RECETTE. Le test concurrent F-01 couvre la frontiere technique. L'identite d'archive du parcours navigateur precedent reste applicable pour l'identifiant visible. La monotonie et l'idempotence de restauration sont prouvees en PostgreSQL. Webpack non ouvert. Turbopack non relance.
+classifyPortfolioResponse : 400/401/403/404/422 refus, 409 conflit, 500/503 et 2xx sans accuse inconnus, 2xx avec version ou etat confirme.
+Une relecture de favori interroge /api/portfolio/favorites. Une relecture d'archive interroge le perimetre archive ou courant. Une preference ou un ordre exige la version superieure et la valeur attendue.
+Si la relecture echoue ou ne montre pas l'espace concerne, les commandes incompatibles restent disabled. L'intention n'est pas renvoyee. Le bouton Relire ne refait pas la mutation.
+Preuve : tests/unit/portfolio-organization.test.ts, 3 tests PASS, dont 500/503, accuse absent, relecture non pertinente et relecture pertinente. Le composant appelle ces fonctions dans mutate et probeIntention. Injection navigateur non rejouee.
 
-## Tests executes
+## Tests et runtime
 
-npx vitest run tests/unit/portfolio-organization.test.ts tests/integration/portfolio-organization.pg.test.ts
-11 tests PASS, 2 fichiers, base sfia_next_e2e. Duree 1,05 s.
+tsc --noEmit : 34 diagnostics, identiques a l'entree.
+Build production : Compiled successfully. BUILD_ID 84oyNXYfCUkG4NvIF6jX-.
+DEV :3100 PID 43847. Login 200. GET /api/portfolio 200, compteurs presents.
+RECETTE :3200 PID 58965 inchange. Table 028 absente.
+Parcours navigateur A de 31,4 s non rejoue. Il reste applicable pour les vues, l'ordre, les favoris, la pagination et l'isolation, sous reserve des libelles de bouton conserves.
 
-- Favori concurrent contre un rattachement qui tient le verrou de ligne : 404, aucune ligne d'organisation, preparation absente du tableau, aucun favori.
-- Horodatage place deux heures dans le futur, puis ouverture d'un autre onglet : la date ne recule pas. Rejeu de la premiere cle : ignore, date inchangee.
-- Restauration repetee : positions inchangees. Deplacement avec l'ancienne version : 409. Curseur not-a-cursor : 400.
-- Deplacement sans tri personnalise enregistre : 409. Cible absente une fois le tri enregistre : 409.
-- Effectifs de groupe et total filtre egaux sur la meme reponse.
-- Decision client : accuse perdu et relecture echouee restent incertains et bloques, sans retry. Relecture reussie debloque. Refus confirme n'est pas incertain.
+## Matrice B
 
-tsc --noEmit : 34 diagnostics, identiques a /tmp/sfia-tsc-entry.txt. Aucune erreur nouvelle. Les erreurs historiques hors perimetre ne sont pas corrigees.
-
-Build production : Compiled successfully. BUILD_ID RsolSmQEI0ns4fj-kuCWD.
-Runtime DEV : 127.0.0.1:3100, PID 26402, next start, arbre 1eedfba8. POST /api/dev/login pilote A : 200. GET /api/portfolio : 200, cles board et session, pas de cle portfolio, compteurs presents.
-RECETTE : 127.0.0.1:3200, PID 58965 inchange. pilot_portfolio_preferences absent (schema 027). Aucune ecriture.
-
-## Preuves anterieures reutilisees
-
-Handoff 22dbdea7. Le parcours navigateur de 31,4 s sur Turbopack :3101 n'a pas ete rejoue. Il reste applicable pour les trois vues, la recherche perimee, l'ordre clavier et drag, le favori du rail, la pagination de 26 preparations, l'isolation du pilote B et la persistance de la vue Groupes dans un second contexte. Le code de ces comportements n'est pas le delta, sauf le favori et l'archive qui passent maintenant par le verrou de ligne. Leur contrat visible reste le meme. Le message d'incertitude du parcours precedent n'est plus l'oracle : une relecture reussie reconcilie desormais l'etat.
-
-## Matrice F-01 a F-05
-
-| Ensemble | Correction | Preuve | Verdict | Reserve |
+| Ensemble | Implementation | Preuve | Verdict | Reserve |
 | --- | --- | --- | --- | --- |
-| F-01 | verrou de ligne puis recontrole | test PG concurrent | PROVEN | aucune |
-| F-02 | etat honnete, blocage, pas de retry | decision unitaire branchee a l'ecran | PROVEN au niveau de la decision | injection navigateur non rejouee |
-| F-03 | horodatage monotone, huit cles | test PG | PROVEN dans la fenetre | R-A04-WINDOW |
-| F-04 | snapshot, curseur, version, tri serveur, API | tests PG et lecture du code | PROVEN | aucune |
-| F-05 | preuve reutilisee et differee | parcours precedent non rejoue | DEFERRED pour le rattachement naturel | R-A06-ATTACH |
+| B-01 | 5 nœuds extraits, composants partages | captures Figma des 5 nœuds | PARTIEL | extraction L2 des 22 autres frames derivee |
+| B-02 | reprise, synthese, bibliotheque | code et CSS | IMPLEMENTED | F2 non mesure |
+| B-03 | tiroir personnel | code shell | IMPLEMENTED | parcours mobile non exerce |
+| B-04 | menus, modales, PF34 | test unitaire de la decision | IMPLEMENTED | injection navigateur non rejouee |
+| B-05 | marges 28 et 16, trois colonnes | CSS | IMPLEMENTED | captures 1680/1280/390/320 absentes |
 
-## Matrice A-01 a A-06
+## 27 etats
 
-Les acquis du candidat 561b7277 sont conserves. Ce cycle ne reouvre pas les axes.
+Tous sont portes par le meme ecran. Statut commun : IMPLEMENTED, capture runtime NOT PROVEN, F2 NOT RUN.
+14.01 liste, 14.02 grille, 14.03 groupes, 14.04 vide, 14.05 preparations, 14.06 recherche vide, 14.07 favoris, 14.08 menu projet, 14.09 menu preparation, 14.11 ordre, 14.12 archive, 14.13 archives, 14.16 incertain, 14.17 chargement, 14.18 erreur, 14.19 acces non confirme par redirection 401, 14.20 mobile 390, 14.21 mobile 320, 14.22 bureau 1280, 14.25 mutation, 14.27 tri, 14.29 restauration, 14.30 tiroir, 14.31 projets, 14.32 aucun favori, 14.33 ordre enregistre, 14.34 liste deployee.
+Hors perimetre : 14.10, 14.23, 14.28, 14.14, 14.15, 14.24, 14.26.
 
-| Axe | Etat cumule |
-| --- | --- |
-| A-01 | projection SQL conservee, snapshot intra-reponse ajoute |
-| A-02 | verrou Pilote conserve, verrou de ligne ajoute, course de rattachement prouvee |
-| A-03 | ordre garde conserve, version d'archive et tri enregistre ajoutes |
-| A-04 | deduplication conservee, monotonie et fenetre de huit cles ajoutees |
-| A-05 | single-flight conserve, incertitude maintenue jusqu'a relecture reussie |
-| A-06 | parcours navigateur precedent reutilise, rattachement naturel differe |
+## P01 a P10
 
-## Matrice P01 a P10
-
-Identifiants stables. Aucun n'est receptionne : la qualification visuelle reste au complement B.
-
-| ID | Libelle | Delta de ce cycle | Preuve | Suite |
-| --- | --- | --- | --- | --- |
-| P01 | Tableau de bord | coherence intra-reponse | PG effectifs | visuel B |
-| P02 | Reprise du travail | horodatage monotone | PG | pertinence RECETTE, pas une preuve de race |
-| P03 | Trois modes | inchange | parcours precedent | visuel B |
-| P04 | Bibliotheque | curseur type/id | PG curseur invalide | visuel B |
-| P05 | Recherche et filtres | inchange | parcours precedent | visuel B |
-| P06 | Tri et reorganisation | tri enregistre et version | PG 409 | visuel B |
-| P07 | Favoris | refus apres rattachement | PG concurrent | R-A06-ATTACH |
-| P08 | Persistance | preferences conservees | parcours precedent et PG | visuel B |
-| P09 | Archivage | restauration idempotente | PG | identite navigateur precedente |
-| P10 | Navigation et robustesse | UNKNOWN bloque | decision unitaire | injection navigateur non rejouee |
+Le fonctionnement du complement A est conserve. Le delta B est la presentation et PF34. Aucune reception visuelle. P01 synthese, P02 reprise accentuee, P03 trois vues, P04 bibliotheque, P05 recherche, P06 ordre, P07 favoris, P08 preferences, P09 modale d'archive, P10 etats et blocage.
 
 ## Reserves
 
-R-A04-WINDOW. Limite technique. La colonne navigation_key conserve huit cles. Une cle plus ancienne peut encore etre acceptee. Impact : un indicateur personnel peut avancer sur un rejeu tres ancien. Preuve disponible : rejeu dans la fenetre refuse, horodatage non regressif. Sortie : si Morris veut une garantie illimitee, une nouvelle persistance est necessaire et n'a pas ete faite. Environnement : decision Morris. Gate Morris : non donnee.
-
-R-A06-ATTACH. Preuve manquante non bloquante. Comportement : une preparation favorite rattachee par le conducteur disparait du tableau et ne laisse pas de favori. Preuve disponible : le test concurrent sur le verrou de ligne. Motif du report : le parcours navigateur exige le document et la creation de projet, sans fixture artificielle. Risque : faible, la projection exclut deja une preparation rattachee et le test refuse l'ecriture tardive. Scenario RECETTE : preparation favorite, creation de projet par le conducteur existant, meme contexte, preparation autonome absente, favori absent. Responsable : Morris, en recette. Gate Morris : non donnee. Statut : NOT RUN / DEFERRED TO RECETTE.
-
-R-E2E-WEBPACK. Dette d'outillage. Le runner webpack nominal n'est pas retabli. Aucun claim webpack PASS. Sortie : un besoin d'outillage ulterieur, sans modification produit dans ce cycle.
-
-## Fake / Real
-
-Transactions PostgreSQL reelles sur sfia_next_e2e. Routes non rejouees dans un navigateur pour ce delta. Build et runtime DEV identifies. Login DEV substitue. Aucun appel fournisseur. Claims : IMPLEMENTED, COVERAGE VERIFIED, DETERMINISTIC PROVEN, PG BEHAVIOR PROVEN sur les tests cites. Claims interdits non utilises : READY FOR REAL, F2 PASS, G2 PASS, mandat 1 accepte, livraison 1 acceptee, ADOPTED.
-
-## Garde-fous
-
-Schema 028 inchange. Aucun fichier de migration, schema.ts ou service D2 modifie. Aucune donnee historique DEV ou RECETTE modifiee pour une preuve. Les tests creent leurs propres pilotes dans sfia_next_e2e. Complement B non engage. Mandat 2 non engage. NO RELEASE. STABLE NOT AVAILABLE. NOT ADOPTED.
+R-B-F2. Preuve visuelle manquante. Aucune capture runtime appariee, aucun ecart mesure. Sortie : revue Morris sur le candidat 26698494, build 84oyNXYfCUkG4NvIF6jX-, puis mesures F2 si l'outillage le permet. Ne vaut pas F2 PASS.
+R-B-PF34-BROWSER. La decision est prouvee et branchee au composant. Le navigateur n'a pas injecte un 500 ni un accuse perdu. Sortie : un parcours cible sur E2E Turbopack, sans chantier webpack.
+R-A04-WINDOW, R-A06-ATTACH, R-E2E-WEBPACK : conservees, non rouvertes.
 
 ## Decisions Morris
 
-- Accepter ou non la fenetre de huit cles, R-A04-WINDOW.
-- Accepter ou non le report du rattachement naturel, R-A06-ATTACH.
-- Ne pas engager le complement B avant cette revue.
+- Recevoir ou non la sortie technique du complement B avec les reserves de preuve.
+- Decider si le verdict visuel inconclusif appelle une revue manuelle en recette ou une campagne de mesures.
+- Ne pas engager le mandat 2 dans ce cycle.
 
-## Fichiers
+Schema 028 inchange. Aucune modification Figma. Aucun appel fournisseur.
 
-Aucune creation. Sept fichiers modifies, +456 / -67.
+## Diff
 
 ```
 diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-index a1e5f44b..67a87a68 100644
+index 67a87a68..262a4148 100644
 --- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
 +++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-@@ -1,8 +1,24 @@
+@@ -1,6 +1,25 @@
  # As-built — Portefeuille personnel et navigation
 
--Date : 28 novembre 2026. Mandat 1, complément A. Classe NO RELEASE.
-+Date : 28 novembre 2026. Mandat 1, finalisation du complément A. Classe NO RELEASE.
+-Date : 28 novembre 2026. Mandat 1, finalisation du complément A. Classe NO RELEASE.
++Date : 28 novembre 2026. Mandat 1, complément B. Classe NO RELEASE.
++
++## Complément B — composition
++
++Source lue : fichier Figma `itgvCulInEnFY6DvgIegvP`, page 14 `1417:6`.
++Nœuds extraits : reprise `1420:269`, synthèse `1420:250`, ligne `1420:129`, menu `1420:1803`, archivage `1420:3227`.
++La reprise utilise le fond `#242c4b`, la bordure `#7880ef`, le repère 64 px et l'action 218×38.
++La synthèse reste en trois colonnes, y compris sous 768 px, avec une typographie réduite.
++Le bureau compact (jusqu'à 1433 px) utilise 28 px de marge. Le mobile utilise 16 px.
++L'archivage et la restauration passent par une modale. Le texte suit l'archive personnelle : l'espace reste accessible, le travail n'est pas interrompu.
++Le menu laisse le renommage et la suppression indisponibles.
++Le tiroir personnel s'ouvre depuis le bandeau mobile et se ferme par Échap, le fond ou Fermer. Les largeurs des autres variantes du rail ne changent pas.
++
++Une lecture réussie ne lève plus le blocage d'une mutation incertaine. Un 500 ou un 503 reste inconnu. Un succès exige un accusé exploitable. La relecture d'un favori interroge les favoris du Pilote. La relecture d'une archive interroge le périmètre correspondant. Si l'espace n'y figure pas, le résultat reste incertain et les commandes incompatibles restent désactivées. L'intention n'est pas renvoyée.
++
++Les 27 états applicables sont portés par le même écran, selon les données et le viewport. Aucune mesure F2 appariée n'a été produite dans ce cycle. Le verdict visuel est REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
++
++## Complément A
++
++Date de la finalisation fonctionnelle. Classe NO RELEASE.
  Schéma 028 inchangé. Aucune migration 029. Complément B non engagé.
 
-+## Finalisation — garanties résiduelles
-+
-+Les lectures du tableau partagent une transaction REPEATABLE READ. Les compteurs, les effectifs, le total, la page et la reprise d'une même réponse voient le même instant. La collection peut encore changer entre deux pages.
-+
-+Le curseur et le tri départagent l'identité type et identifiant. Un curseur mal formé répond 400.
-+
-+Une écriture personnelle verrouille d'abord le Pilote, puis la ligne du projet ou de la préparation, puis revérifie l'éligibilité. Le déplacement verrouille aussi les préparations ouvertes du Pilote, par identifiant. La création de projet conserve ses propres verrous. Une préparation rattachée avant l'effet n'est plus favorite et n'apparaît plus comme espace autonome.
-+
-+L'ordre n'est modifié que si le tri enregistré est le tri personnalisé. L'archivage et la restauration qui changent l'état incrémentent la version d'organisation. Une restauration déjà effective ne décale pas les positions.
-+
-+Le signal d'ouverture prend l'heure du serveur au moment de l'effet et ne recule jamais. Les huit dernières clés sont retenues dans la clé existante. Une clé déjà vue, y compris après l'ouverture d'un autre onglet, ne compte pas comme une nouvelle ouverture. Une clé plus ancienne que cette fenêtre peut encore être acceptée : la colonne unique ne conserve pas un journal illimité.
-+
-+Une lecture en échec ne remplace pas le tableau par une liste vide. Un accusé perdu laisse le résultat inconnu et bloque les modifications suivantes jusqu'à une relecture réussie. L'intention n'est pas renvoyée. Le bouton Relire ne refait que la lecture.
-+
-+La réponse GET du portefeuille ne renvoie plus une ancienne projection vide. Le tableau est le contrat servi. L'ancienne lecture reste disponible seulement lorsqu'un curseur de préparations est demandé.
-+
- ## Complément A — lectures et écritures
-
- La lecture du tableau ne charge plus la collection entière en mémoire.
-@@ -10,8 +26,8 @@ Le filtre, la recherche, le tri et la page sont exécutés par PostgreSQL sur l'
- Les compteurs portent sur les espaces courants. Les effectifs de groupe et le total filtré portent sur le résultat complet, pas sur la page.
- L'aperçu reste à 5. La collection déployée reste à 25. Le curseur est lié au tri, au filtre, à la recherche et au périmètre. Un curseur d'une autre lecture est refusé.
-
--Les écritures D1 prennent un verrou transactionnel par Pilote, distinct des verrous D2.
--La première écriture et les écritures suivantes se sérialisent ainsi. Une version périmée répond 409. L'éligibilité propriétaire est revérifiée dans le verrou.
-+Les écritures D1 prennent un verrou transactionnel par Pilote, distinct des verrous D2, puis le verrou de ligne décrit ci-dessus.
-+La première écriture et les écritures suivantes se sérialisent ainsi. Une version périmée répond 409. L'éligibilité propriétaire est revérifiée après l'attente.
-
- L'ordre personnalisé n'est accepté que sur la collection courante, filtre Tout, sans recherche.
- Le déplacement se fait avant la cible, dans les deux sens. Une cible absente ne réussit pas.
-@@ -21,12 +37,12 @@ Le signal d'ouverture n'utilise plus l'origine de performance du document comme
- Une note d'entrée est posée avant la navigation depuis le portefeuille ou un favori.
- Le même onglet ignore une clé déjà envoyée ou une séquence plus ancienne.
- Un remontage du même document sans nouvelle note ne crée pas une seconde ouverture.
--Un autre onglet peut encore faire avancer l'horodatage selon l'ordre d'arrivée : la table ne conserve que la dernière clé.
-+La fenêtre des huit dernières clés et l'horodatage monotone sont décrits ci-dessus. Une clé plus ancienne que cette fenêtre reste une limite du schéma 028.
- Un rechargement sans note, un échec HTTP et un espace archivé ne changent pas la date. La navigation n'est pas bloquée.
-
- Le rail relit les favoris quand le tableau change, et ignore une réponse plus ancienne.
- Les compteurs filtrent la collection. La recherche du rail interroge les espaces du Pilote. Le lien Archives ouvre le périmètre archivé.
--Une mutation en cours n'est pas relancée. Un 409 déclenche une relecture. Un échec réseau laisse le résultat inconnu et ne renvoie pas l'intention.
-+Une mutation en cours n'est pas relancée. Un 409 déclenche une relecture. Un échec réseau laisse le résultat inconnu, bloque les modifications suivantes tant que la relecture échoue, et ne renvoie pas l'intention.
-
- ## G2
-
+ ## Finalisation — garanties résiduelles
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 54bfcfd5..ac65cdeb 100644
+index ac65cdeb..aab475cc 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -1,3 +1,14 @@
-+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-GUARANTEES-DEV
++## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-DEV
 +
 +- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — finalisation ciblée du complément A
++- **lane**: DEV only — complément B, transposition du portefeuille personnel
 +- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `561b7277703aeea46f15f1b642efb4d8f57ed285`
-+- **commit**: `fix(next): close the remaining personal portfolio guarantees`
++- **HEAD_base**: `1eedfba8ea09163a1ba780fbeb16563034895379`
++- **commit**: `feat(next): present the personal portfolio from the studio composition`
 +- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
-+- **scope**: linéarisation D1/D2, résultat incertain, horodatage monotone, cohérence de lecture et version d'ordre
-+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · complément B non engagé
++- **scope**: composition page 14, navigation personnelle mobile, états sincères, réconciliation d'une mutation incertaine
++- **classe**: NO RELEASE · évolution compatible · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
 +
- ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-RELIABILITY-DEV
+ ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-GUARANTEES-DEV
 
  - **date_local**: 2026-11-28 (Europe/Paris)
-diff --git a/projects/sfia-studio-next/web/src/app/api/portfolio/route.ts b/projects/sfia-studio-next/web/src/app/api/portfolio/route.ts
-index 03389df2..c7b469a3 100644
---- a/projects/sfia-studio-next/web/src/app/api/portfolio/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/portfolio/route.ts
-@@ -27,19 +27,14 @@ export async function GET(req: Request) {
-     });
-     const portfolio = preparationsCursor
-       ? await loadPortfolio(session.pilotId, { preparationsCursor })
--      : {
--          kind: board.counters.projects + board.counters.preparations === 0 ? "empty" : "ready",
--          projects: [],
--          openPreparations: board.counters.preparations,
--          preparations: { items: [], nextCursor: null },
--        };
-+      : null;
-     return json({
-       session: {
-         pilotId: session.pilotId,
-         displayName: session.displayName,
-         authMode: session.authMode,
-       },
--      portfolio,
-+      ...(portfolio ? { portfolio } : {}),
-       board,
-     });
-   } catch (e) {
 diff --git a/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx b/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
-index 87cbd813..11a0f8c0 100644
+index 11a0f8c0..c09e3a19 100644
 --- a/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
 +++ b/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
-@@ -13,6 +13,27 @@ type BoardResponse = {
+@@ -13,18 +13,74 @@ type BoardResponse = {
    error?: string;
  };
 
-+/**
-+ * A refusal is settled. Any other outcome stays blocked until a reread returns
-+ * the owner state. A lost acknowledgement stays unknown, and is never sent again.
-+ */
-+export function portfolioMutationFollowUp(input: {
-+  outcome: "confirmed" | "refused" | "conflict" | "unknown";
-+  reread: "succeeded" | "failed" | "not-attempted";
-+}): { uncertain: boolean; retry: false; blockFurtherMutations: boolean } {
-+  if (input.outcome === "refused") {
-+    return { uncertain: false, retry: false, blockFurtherMutations: false };
++export type PortfolioMutationOutcome = "confirmed" | "refused" | "conflict" | "unknown";
++export type PortfolioReread = "matched" | "unverified" | "failed" | "not-attempted";
++
++export type PortfolioIntention = {
++  kind: "favorite" | "archive" | "preference" | "order";
++  spaceType?: PersonalSpace["spaceType"];
++  spaceId?: string;
++  desired?: boolean;
++  view?: string;
++  sort?: string;
++  knownVersion: number;
++};
++
++/** Confirmed refusals are the route contract. A 5xx or a 2xx without an acknowledgement stays unknown. */
++export function classifyPortfolioResponse(status: number, body: Record<string, unknown> | null): PortfolioMutationOutcome {
++  if (status === 409) return "conflict";
++  if (status === 400 || status === 401 || status === 403 || status === 404 || status === 422) return "refused";
++  if (status >= 500 || status <= 0) return "unknown";
++  if (status >= 200 && status < 300) {
++    if (!body) return "unknown";
++    const acknowledged =
++      typeof body.rowVersion === "number" ||
++      typeof body.version === "number" ||
++      typeof body.favorite === "boolean" ||
++      typeof body.archived === "boolean" ||
++      typeof body.applied === "boolean";
++    return acknowledged ? "confirmed" : "unknown";
 +  }
-+  if (input.reread === "succeeded") {
-+    return { uncertain: false, retry: false, blockFurtherMutations: false };
-+  }
-+  return {
-+    uncertain: input.outcome === "unknown",
-+    retry: false,
-+    blockFurtherMutations: true,
-+  };
++  return "unknown";
 +}
 +
- function formatCount(value: number | null): string {
-   if (value === null) return "…";
-   return value < 10 ? String(value).padStart(2, "0") : String(value);
-@@ -35,12 +56,14 @@ export function PersonalPortfolio() {
-   const router = useRouter();
-   const params = useSearchParams();
-   const busy = useRef(false);
-+  const blocked = useRef(false);
-   const draggedSpace = useRef("");
-   const [board, setBoard] = useState<PersonalBoard | null>(null);
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState("");
-   const [notice, setNotice] = useState("");
-   const [uncertain, setUncertain] = useState("");
-+  const [held, setHeld] = useState(false);
-   const [creating, setCreating] = useState(false);
-   const [pending, setPending] = useState("");
-   const [query, setQuery] = useState("");
-@@ -62,28 +85,44 @@ export function PersonalPortfolio() {
-     if (query.trim()) params.set("q", query.trim());
-     if (expanded) params.set("expanded", "1");
-     if (cursor) params.set("cursor", cursor);
--    const response = await fetch(`/api/portfolio?${params.toString()}`);
--    if (requestId !== requestSeq.current) return;
--    const body = (await response.json()) as BoardResponse;
--    if (requestId !== requestSeq.current) return;
--    if (response.status === 401) {
--      router.push("/login");
--      return;
--    }
--    if (!response.ok || !body.board) {
--      setError(body.error || "Lecture du portefeuille impossible.");
-+    try {
-+      const response = await fetch(`/api/portfolio?${params.toString()}`);
-+      if (requestId !== requestSeq.current) return false;
-+      let body: BoardResponse = {};
-+      try {
-+        body = (await response.json()) as BoardResponse;
-+      } catch {
-+        body = {};
-+      }
-+      if (requestId !== requestSeq.current) return false;
-+      if (response.status === 401) {
-+        router.push("/login");
-+        return false;
-+      }
-+      if (!response.ok || !body.board) {
-+        setError(body.error || "Lecture du portefeuille impossible.");
-+        setLoading(false);
-+        return false;
-+      }
-+      setBoard((prev) => {
-+        if (!cursor || !prev) return body.board!;
-+        const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
-+        const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
-+        return { ...body.board!, items: [...prev.items, ...extra] };
-+      });
-+      notifyPortfolioChanged();
-+      setError("");
-+      blocked.current = false;
-+      setHeld(false);
-+      setUncertain("");
-       setLoading(false);
--      return;
-+      return true;
-+    } catch {
-+      if (requestId !== requestSeq.current) return false;
-+      setError("Lecture du portefeuille impossible.");
-+      setLoading(false);
-+      return false;
-     }
--    setBoard((prev) => {
--      if (!cursor || !prev) return body.board!;
--      const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
--      const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
--      return { ...body.board!, items: [...prev.items, ...extra] };
--    });
--    notifyPortfolioChanged();
--    setError("");
--    setLoading(false);
-   }, [expanded, filter, query, router, scope]);
-
-   useEffect(() => {
-@@ -105,8 +144,37 @@ export function PersonalPortfolio() {
-     return () => clearTimeout(handle);
-   }, [load]);
-
-+  const loadRef = useRef(load);
-+  loadRef.current = load;
++/** A successful read counts only when it shows the state the intention was about. */
++export function intentionMatchesBoard(
++  intention: PortfolioIntention,
++  board: {
++    items: Array<{ spaceType: string; id: string; favorite: boolean; archived: boolean }>;
++    preferences: { view: string; sort: string; version: number };
++  },
++): boolean {
++  if (intention.kind === "preference") {
++    const viewOk = !intention.view || board.preferences.view === intention.view;
++    const sortOk = !intention.sort || board.preferences.sort === intention.sort;
++    return viewOk && sortOk && board.preferences.version > intention.knownVersion;
++  }
++  if (intention.kind === "order") {
++    return board.preferences.sort === "custom" && board.preferences.version > intention.knownVersion;
++  }
++  const item = board.items.find((entry) => entry.spaceType === intention.spaceType && entry.id === intention.spaceId);
++  if (!item) return false;
++  if (intention.kind === "favorite") return item.favorite === intention.desired;
++  return item.archived === intention.desired;
++}
 +
-+  function settleMutation(
-+    outcome: "confirmed" | "refused" | "conflict" | "unknown",
-+    reread: "succeeded" | "failed" | "not-attempted",
-+    knownMessage: string,
-+  ) {
-+    const follow = portfolioMutationFollowUp({ outcome, reread });
-+    blocked.current = follow.blockFurtherMutations;
-+    setHeld(follow.blockFurtherMutations);
-+    if (follow.uncertain) {
-+      setUncertain(
-+        reread === "failed"
-+          ? "Résultat incertain. La relecture a échoué et l'action n'a pas été relancée."
-+          : "Résultat incertain. L'action n'est pas relancée.",
-+      );
-+      return;
-+    }
-+    setUncertain("");
-+    if (follow.blockFurtherMutations) {
-+      setNotice(knownMessage);
-+      return;
-+    }
-+    if (outcome === "unknown") {
-+      setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
+ /**
+- * A refusal is settled. Any other outcome stays blocked until a reread returns
+- * the owner state. A lost acknowledgement stays unknown, and is never sent again.
++ * A refusal is settled. Any other outcome stays blocked until a reread shows
++ * the relevant owner state. A lost acknowledgement is never sent again.
+  */
+ export function portfolioMutationFollowUp(input: {
+-  outcome: "confirmed" | "refused" | "conflict" | "unknown";
+-  reread: "succeeded" | "failed" | "not-attempted";
++  outcome: PortfolioMutationOutcome;
++  reread: PortfolioReread;
+ }): { uncertain: boolean; retry: false; blockFurtherMutations: boolean } {
+   if (input.outcome === "refused") {
+     return { uncertain: false, retry: false, blockFurtherMutations: false };
+   }
+-  if (input.reread === "succeeded") {
++  if (input.reread === "matched" && (input.outcome === "confirmed" || input.outcome === "conflict")) {
++    return { uncertain: false, retry: false, blockFurtherMutations: false };
++  }
++  if (input.outcome === "unknown" && input.reread === "matched") {
+     return { uncertain: false, retry: false, blockFurtherMutations: false };
+   }
+   return {
+@@ -104,19 +160,17 @@ export function PersonalPortfolio() {
+         setLoading(false);
+         return false;
+       }
++      const nextBoard = body.board;
+       setBoard((prev) => {
+-        if (!cursor || !prev) return body.board!;
++        if (!cursor || !prev) return nextBoard;
+         const seen = new Set(prev.items.map((item) => `${item.spaceType}:${item.id}`));
+-        const extra = body.board!.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
+-        return { ...body.board!, items: [...prev.items, ...extra] };
++        const extra = nextBoard.items.filter((item) => !seen.has(`${item.spaceType}:${item.id}`));
++        return { ...nextBoard, items: [...prev.items, ...extra] };
+       });
+       notifyPortfolioChanged();
+       setError("");
+-      blocked.current = false;
+-      setHeld(false);
+-      setUncertain("");
+       setLoading(false);
+-      return true;
++      return nextBoard;
+     } catch {
+       if (requestId !== requestSeq.current) return false;
+       setError("Lecture du portefeuille impossible.");
+@@ -147,19 +201,24 @@ export function PersonalPortfolio() {
+   const loadRef = useRef(load);
+   loadRef.current = load;
+
++  const intentionRef = useRef<PortfolioIntention | null>(null);
++
+   function settleMutation(
+-    outcome: "confirmed" | "refused" | "conflict" | "unknown",
+-    reread: "succeeded" | "failed" | "not-attempted",
++    outcome: PortfolioMutationOutcome,
++    reread: PortfolioReread,
+     knownMessage: string,
+   ) {
+     const follow = portfolioMutationFollowUp({ outcome, reread });
+     blocked.current = follow.blockFurtherMutations;
+     setHeld(follow.blockFurtherMutations);
++    if (!follow.blockFurtherMutations) intentionRef.current = null;
+     if (follow.uncertain) {
+       setUncertain(
+         reread === "failed"
+           ? "Résultat incertain. La relecture a échoué et l'action n'a pas été relancée."
+-          : "Résultat incertain. L'action n'est pas relancée.",
++          : reread === "unverified"
++            ? "Résultat incertain. La relecture ne confirme pas l'espace concerné."
++            : "Résultat incertain. L'action n'est pas relancée.",
+       );
+       return;
+     }
+@@ -173,9 +232,35 @@ export function PersonalPortfolio() {
+     }
+   }
+
+-  async function mutate(path: string, method: string, payload: unknown) {
++  async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
++    try {
++      if (intention.kind === "favorite") {
++        const response = await fetch("/api/portfolio/favorites");
++        if (!response.ok) return "failed";
++        const body = (await response.json()) as { favorites?: PersonalSpace[] };
++        const found = Boolean(body.favorites?.some((item) => item.spaceType === intention.spaceType && item.id === intention.spaceId));
++        return found === intention.desired ? "matched" : "unverified";
++      }
++      if (intention.kind === "archive") {
++        const scopeName = intention.desired ? "archive" : "current";
++        const response = await fetch(`/api/portfolio?scope=${scopeName}&expanded=1`);
++        if (!response.ok) return "failed";
++        const body = (await response.json()) as BoardResponse;
++        if (!body.board) return "failed";
++        return intentionMatchesBoard(intention, body.board) ? "matched" : "unverified";
++      }
++      const board = await loadRef.current();
++      if (!board) return "failed";
++      return intentionMatchesBoard(intention, board) ? "matched" : "unverified";
++    } catch {
++      return "failed";
 +    }
 +  }
 +
-   async function mutate(path: string, method: string, payload: unknown) {
--    if (busy.current) return;
-+    if (busy.current || blocked.current) return;
++  async function mutate(path: string, method: string, payload: Record<string, unknown>, intention: PortfolioIntention) {
+     if (busy.current || blocked.current) return;
      busy.current = true;
++    intentionRef.current = intention;
      setPending(path);
      setUncertain("");
-@@ -119,23 +187,34 @@ export function PersonalPortfolio() {
+     setNotice("");
+@@ -185,36 +270,26 @@ export function PersonalPortfolio() {
+         headers: { "content-type": "application/json" },
+         body: JSON.stringify(payload),
        });
-       const body = (await response.json().catch(() => ({}))) as { error?: string; message?: string };
-       if (response.status === 409) {
--        setNotice(body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.");
--        await load();
-+        const reread = await loadRef.current();
-+        settleMutation(
-+          "conflict",
-+          reread ? "succeeded" : "failed",
-+          body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.",
-+        );
+-      const body = (await response.json().catch(() => ({}))) as { error?: string; message?: string };
+-      if (response.status === 409) {
+-        const reread = await loadRef.current();
+-        settleMutation(
+-          "conflict",
+-          reread ? "succeeded" : "failed",
+-          body.message || "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.",
+-        );
+-        return;
+-      }
+-      if (!response.ok) {
++      const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
++      const outcome = classifyPortfolioResponse(response.status, body);
++      if (outcome === "refused") {
+         settleMutation("refused", "not-attempted", "");
+-        setNotice(body.message || body.error || "La modification n'a pas abouti.");
++        setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
          return;
        }
-       if (!response.ok) {
-+        settleMutation("refused", "not-attempted", "");
-         setNotice(body.message || body.error || "La modification n'a pas abouti.");
-         return;
-       }
-       notifyPortfolioChanged();
--      await load();
-+      const reread = await loadRef.current();
-+      settleMutation(
-+        "confirmed",
-+        reread ? "succeeded" : "failed",
-+        "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
-+      );
+-      notifyPortfolioChanged();
+-      const reread = await loadRef.current();
++      const reread = await probeIntention(intention);
++      if (outcome === "confirmed") notifyPortfolioChanged();
++      await loadRef.current();
+       settleMutation(
+-        "confirmed",
+-        reread ? "succeeded" : "failed",
+-        "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
++        outcome,
++        reread,
++        outcome === "conflict"
++          ? (typeof body.message === "string" ? body.message : "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.")
++          : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
+       );
      } catch {
--      setUncertain("Résultat incertain. L'action n'est pas relancée.");
-+      let reread = false;
-       try {
--        await load();
-+        reread = await loadRef.current();
-       } catch {
--        setUncertain("Résultat incertain. La relecture a échoué et l'action n'a pas été relancée.");
-+        reread = false;
-       }
-+      settleMutation("unknown", reread ? "succeeded" : "failed", "");
+-      let reread = false;
+-      try {
+-        reread = await loadRef.current();
+-      } catch {
+-        reread = false;
+-      }
+-      settleMutation("unknown", reread ? "succeeded" : "failed", "");
++      const reread = intentionRef.current ? await probeIntention(intentionRef.current) : "failed";
++      settleMutation("unknown", reread, "");
      } finally {
        busy.current = false;
        setPending("");
-@@ -168,7 +247,7 @@ export function PersonalPortfolio() {
+@@ -223,6 +298,14 @@ export function PersonalPortfolio() {
+     }
+   }
+
++  async function rereadHeld() {
++    const intention = intentionRef.current;
++    const reread = intention ? await probeIntention(intention) : "failed";
++    await loadRef.current();
++    if (!intention) return;
++    settleMutation("unknown", reread, "");
++  }
++
+   async function startPreparation() {
+     setUncertain("");
+     const outcome = await runOpenPreparation(async (result) => {
+@@ -241,7 +324,12 @@ export function PersonalPortfolio() {
+   }
+
+   if (loading && !board) {
+-    return <div className="personal-portfolio" data-testid="portfolio-loading">Chargement du portefeuille…</div>;
++    return (
++      <div className="personal-portfolio" data-testid="portfolio-loading" aria-busy="true">
++        <p>Chargement du portefeuille…</p>
++        <div className="personal-portfolio-skeleton" />
++      </div>
++    );
+   }
+   if (error && !board) {
      return (
-       <div className="personal-portfolio" role="alert" data-testid="portfolio-page">
-         <p>Portefeuille indisponible.</p>
--        <button type="button" onClick={() => void load()}>Réessayer</button>
-+        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>Réessayer</button>
-       </div>
+@@ -252,6 +340,7 @@ export function PersonalPortfolio() {
      );
    }
-@@ -274,6 +353,11 @@ export function PersonalPortfolio() {
-       {error ? <p role="alert">{error}</p> : null}
+   if (!board) return null;
++  const locked = held || Boolean(pending);
+   const canReorder =
+     board.preferences.sort === "custom" && filter === "all" && !query.trim() && scope === "current";
+   const orderContext = { filter, query: query.trim(), scope };
+@@ -270,7 +359,7 @@ export function PersonalPortfolio() {
+       <article
+         key={`${space.spaceType}-${space.id}`}
+         className={board!.preferences.view === "grid" ? "personal-portfolio-card" : "personal-portfolio-row"}
+-        draggable={canReorder}
++        draggable={canReorder && !locked}
+         onDragStart={(event) => {
+           const token = `${space.spaceType}:${space.id}`;
+           draggedSpace.current = token;
+@@ -281,7 +370,7 @@ export function PersonalPortfolio() {
+           if (canReorder) event.preventDefault();
+         }}
+         onDrop={(event) => {
+-          if (!canReorder) return;
++          if (!canReorder || locked) return;
+           event.preventDefault();
+           const raw = event.dataTransfer.getData("text/plain") || draggedSpace.current;
+           draggedSpace.current = "";
+@@ -294,7 +383,7 @@ export function PersonalPortfolio() {
+             beforeSpaceId: space.id,
+             expectedVersion: board!.preferences.version,
+             context: orderContext,
+-          });
++          }, { kind: "order", knownVersion: board!.preferences.version });
+         }}
+         data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
+       >
+@@ -305,27 +394,28 @@ export function PersonalPortfolio() {
+           <button
+             type="button"
+             aria-pressed={space.favorite}
++            disabled={locked}
+             aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+             onClick={() =>
+               void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", {
+                 favorite: !space.favorite,
+                 expectedVersion: space.rowVersion,
+-              })
++              }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })
+             }
+           >
+             {space.favorite ? "★" : "☆"}
+           </button>
+           {canReorder ? (
+             <>
+-              <button type="button" aria-label="Monter" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext })}>↑</button>
+-              <button type="button" aria-label="Descendre" onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext })}>↓</button>
++              <button type="button" aria-label="Monter" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↑</button>
++              <button type="button" aria-label="Descendre" disabled={locked} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", knownVersion: board!.preferences.version })}>↓</button>
+             </>
+           ) : null}
+           <button type="button" aria-label="Actions de l'espace" onClick={() => setMenu(menu === space.id ? null : space.id)}>…</button>
+           {menu === space.id ? (
+             <div className="personal-portfolio-menu" role="menu">
+               <button type="button" disabled aria-disabled="true" title="Le renommage n'est pas disponible dans cette version.">Renommer — indisponible</button>
+-              <button type="button" onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>
++              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>
+                 {scope === "archive" ? "Restaurer" : "Archiver"}
+               </button>
+               <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible dans cette version.">Supprimer — indisponible</button>
+@@ -354,7 +444,7 @@ export function PersonalPortfolio() {
        {notice ? <p role="status" data-testid="portfolio-conflict">{notice}</p> : null}
        {uncertain ? <p role="status" data-testid="portfolio-creation-uncertainty">{uncertain}</p> : null}
-+      {held ? (
-+        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>
-+          Relire le portefeuille
-+        </button>
-+      ) : null}
-       {pending ? <p role="status">Modification en cours…</p> : null}
+       {held ? (
+-        <button type="button" data-testid="portfolio-reread" onClick={() => void load()}>
++        <button type="button" data-testid="portfolio-reread" onClick={() => void rereadHeld()}>
+           Relire le portefeuille
+         </button>
+       ) : null}
+@@ -370,13 +460,18 @@ export function PersonalPortfolio() {
 
-       <section className="personal-portfolio-synthesis" aria-label="Synthèse du portefeuille">
-diff --git a/projects/sfia-studio-next/web/src/domains/identity/portfolio-organization.ts b/projects/sfia-studio-next/web/src/domains/identity/portfolio-organization.ts
-index 392a212d..5ac953d4 100644
---- a/projects/sfia-studio-next/web/src/domains/identity/portfolio-organization.ts
-+++ b/projects/sfia-studio-next/web/src/domains/identity/portfolio-organization.ts
-@@ -84,15 +84,39 @@ export function destinationIndex(length: number, from: number, before: number):
-   return from < before ? before - 1 : before;
+       {board.resume && scope === "current" ? (
+         <section className="personal-portfolio-resume" data-testid="portfolio-resume">
++          <div className="personal-portfolio-mark" aria-hidden="true">
++            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
++              <path d="M4.16667 10H15.8333M10 15.8333L15.8333 10L10 4.16667" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinecap="round" strokeLinejoin="round" />
++            </svg>
++          </div>
+           <div>
+             <p className="personal-portfolio-kicker">REPRENDRE LE TRAVAIL</p>
+             <h2>{board.resume.label}</h2>
+             <p>{board.resume.activityLabel} · {formatWhen(board.resume.lastOpenedAt || board.resume.createdAt)}</p>
+           </div>
+           <div className="personal-portfolio-grow" />
+-          <a className="btn" href={hrefFor(board.resume)} onClick={() => notePersonalSpaceEntry(board.resume!.spaceType, board.resume!.id)}>Continuer</a>
++          <a className="personal-portfolio-primary" href={hrefFor(board.resume)} onClick={() => notePersonalSpaceEntry(board.resume!.spaceType, board.resume!.id)}>Continuer avec Nora</a>
+         </section>
+       ) : null}
+
+@@ -400,12 +495,13 @@ export function PersonalPortfolio() {
+         <input aria-label="Filtrer les espaces" placeholder="Filtrer les espaces…" value={query} onChange={(event) => setQuery(event.target.value)} data-testid="portfolio-search" />
+         <select
+           aria-label="Tri"
++          disabled={locked}
+           value={board.preferences.sort}
+           onChange={(event) =>
+             void mutate("/api/portfolio/preferences", "PATCH", {
+               sort: event.target.value as PortfolioSort,
+               expectedVersion: board.preferences.version,
+-            })
++            }, { kind: "preference", sort: event.target.value, knownVersion: board.preferences.version })
+           }
+         >
+           <option value="recent">Activité récente</option>
+@@ -423,12 +519,13 @@ export function PersonalPortfolio() {
+               key={key}
+               type="button"
+               aria-pressed={board.preferences.view === key}
++              disabled={locked}
+               aria-label={label}
+               onClick={() =>
+                 void mutate("/api/portfolio/preferences", "PATCH", {
+                   view: key as PortfolioView,
+                   expectedVersion: board.preferences.version,
+-                })
++                }, { kind: "preference", view: key, knownVersion: board.preferences.version })
+               }
+             >
+               {label}
+@@ -470,17 +567,27 @@ export function PersonalPortfolio() {
+       </section>
+
+       {confirm ? (
+-        <div className="personal-portfolio-dialog" role="dialog" aria-label="Confirmer l'archivage">
+-          <p>Archiver « {confirm.label} » retire cet espace de l’accueil. Le projet, ses documents et ses droits restent inchangés.</p>
+-          <button type="button" onClick={() => void mutate(`/api/portfolio/spaces/${confirm.spaceType}/${confirm.id}/archive`, "PUT", { archived: true, confirm: true, expectedVersion: confirm.rowVersion })}>Archiver</button>
+-          <button type="button" onClick={() => setConfirm(null)}>Annuler</button>
++        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirm(null); }}>
++          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirm(null); }}>
++            <h2>Retirer {confirm.label} du portefeuille courant ?</h2>
++            <p>L’espace reste accessible dans Archives et par ses liens. Le travail n’est pas interrompu.</p>
++            <div className="personal-portfolio-modal-actions">
++              <button type="button" onClick={() => setConfirm(null)}>Annuler</button>
++              <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirm.spaceType}/${confirm.id}/archive`, "PUT", { archived: true, confirm: true, expectedVersion: confirm.rowVersion }, { kind: "archive", spaceType: confirm.spaceType, spaceId: confirm.id, desired: true, knownVersion: confirm.rowVersion })}>Archiver</button>
++            </div>
++          </div>
+         </div>
+       ) : null}
+       {confirmRestore ? (
+-        <div className="personal-portfolio-dialog" role="dialog" aria-label="Confirmer la restauration">
+-          <p>Restaurer « {confirmRestore.label} » le replace dans le portefeuille courant, avec le même identifiant.</p>
+-          <button type="button" onClick={() => void mutate(`/api/portfolio/spaces/${confirmRestore.spaceType}/${confirmRestore.id}/archive`, "PUT", { archived: false, confirm: true, expectedVersion: confirmRestore.rowVersion })}>Restaurer</button>
+-          <button type="button" onClick={() => setConfirmRestore(null)}>Annuler</button>
++        <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirmRestore(null); }}>
++          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirmRestore(null); }}>
++            <h2>Restaurer {confirmRestore.label} ?</h2>
++            <p>Le même espace revient dans le portefeuille courant, avec son organisation personnelle.</p>
++            <div className="personal-portfolio-modal-actions">
++              <button type="button" onClick={() => setConfirmRestore(null)}>Annuler</button>
++              <button type="button" className="personal-portfolio-primary" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${confirmRestore.spaceType}/${confirmRestore.id}/archive`, "PUT", { archived: false, confirm: true, expectedVersion: confirmRestore.rowVersion }, { kind: "archive", spaceType: confirmRestore.spaceType, spaceId: confirmRestore.id, desired: false, knownVersion: confirmRestore.rowVersion })}>Restaurer</button>
++            </div>
++          </div>
+         </div>
+       ) : null}
+     </div>
+diff --git a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
+index 278b5c44..3660c010 100644
+--- a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
++++ b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
+@@ -3,17 +3,26 @@
+   --pf-muted: #a5b1c5;
+   --pf-panel: #151d2c;
+   --pf-border: #273248;
+-  --pf-bg: #0d1220;
++  --pf-base: #0a0e18;
++  --pf-accent: #7880ef;
++  --pf-accent-bg: #242c4b;
++  --pf-kicker: #b8b1ff;
++  --pf-action: #292d58;
++  --pf-action-line: #656fe1;
+   color: var(--pf-ink);
+   min-width: 0;
++  padding-bottom: 24px;
  }
-
-+const REMEMBERED_NAVIGATION_KEYS = 8;
 +
-+function rememberedNavigationKeys(stored: string | null): string[] {
-+  if (!stored) return [];
-+  return stored
-+    .split(",")
-+    .map((item) => item.trim())
-+    .filter(Boolean)
-+    .slice(-REMEMBERED_NAVIGATION_KEYS);
+ .personal-portfolio-header,
+ .personal-portfolio-synthesis,
+ .personal-portfolio-resume,
+ .personal-portfolio-tools,
+-.personal-portfolio-library {
++.personal-portfolio-library,
++.personal-portfolio-status {
+   margin: 0 40px;
+ }
++
+ .personal-portfolio-header {
+   display: flex;
+   align-items: flex-end;
+@@ -21,28 +30,49 @@
+   min-height: 92px;
+   padding-top: 24px;
+ }
++
+ .personal-portfolio-kicker {
+   margin: 0;
+-  font-size: 11px;
++  font-size: 12px;
++  line-height: 17px;
+   letter-spacing: 0.08em;
+-  color: var(--pf-muted);
++  font-weight: 600;
++  color: var(--pf-kicker);
+ }
++
+ .personal-portfolio-title {
+-  margin: 5px 0 0;
++  margin: 4px 0 0;
+   font-size: 34px;
+-  line-height: 46px;
++  line-height: 40px;
+   font-weight: 600;
+ }
++
+ .personal-portfolio-sub {
+   margin: 4px 0 0;
+   color: var(--pf-muted);
+   font-size: 15px;
+   line-height: 21px;
+ }
++
+ .personal-portfolio-grow { flex: 1; }
++
++.personal-portfolio-primary {
++  width: 218px;
++  height: 38px;
++  border: 1px solid var(--pf-action-line);
++  background: var(--pf-action);
++  color: #f4f6fc;
++  border-radius: 9px;
++  font-size: 12px;
++  font-weight: 600;
++  line-height: 18px;
 +}
 +
-+/** Accept a new opening, and reject a key already seen or an older key from the same tab. */
- export function acceptNavigationKey(stored: string | null, incoming: string): boolean {
-   const key = incoming.trim();
--  if (!key || stored === key) return false;
-+  if (!key) return false;
-+  const remembered = rememberedNavigationKeys(stored);
-+  if (remembered.includes(key)) return false;
-   const next = parseNavigationKey(key);
--  const previous = stored ? parseNavigationKey(stored) : null;
--  if (next && previous && next.tab === previous.tab && next.seq <= previous.seq) return false;
-+  if (!next) return !remembered.includes(key);
-+  const sameTab = remembered
-+    .map(parseNavigationKey)
-+    .filter((item): item is { tab: string; seq: number } => item?.tab === next.tab);
-+  if (sameTab.some((item) => item.seq >= next.seq)) return false;
-   return true;
++.personal-portfolio-primary:disabled { opacity: 0.45; cursor: not-allowed; }
++
+ .personal-portfolio-synthesis {
+   display: grid;
+-  grid-template-columns: 1fr 1px 1fr 1px 1fr;
++  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
+   align-items: center;
+   height: 136px;
+   margin-top: 8px;
+@@ -50,37 +80,68 @@
+   border: 1px solid var(--pf-border);
+   border-radius: 12px;
  }
-
-+export function rememberNavigationKey(stored: string | null, incoming: string): string {
-+  const key = incoming.trim();
-+  const remembered = rememberedNavigationKeys(stored).filter((item) => item !== key);
-+  remembered.push(key);
-+  return remembered.slice(-REMEMBERED_NAVIGATION_KEYS).join(",");
+-.personal-portfolio-stat { padding: 14px 16px 14px 24px; }
+-button.personal-portfolio-stat { text-align: left; background: transparent; color: inherit; border: 0; cursor: pointer; }
+-.personal-portfolio-stat span { display: block; color: var(--pf-muted); font-size: 15px; line-height: 21px; }
++
++.personal-portfolio-stat { padding: 14px 16px 14px 24px; min-width: 0; }
++button.personal-portfolio-stat {
++  text-align: left;
++  background: transparent;
++  color: inherit;
++  border: 0;
++  cursor: pointer;
++  font: inherit;
++}
++button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
++.personal-portfolio-stat span { display: block; color: var(--pf-muted); font-size: 15px; line-height: 21px; font-weight: 500; }
+ .personal-portfolio-stat strong {
+   font-size: 46px;
+   line-height: 63px;
+   font-weight: 600;
+   margin-right: 12px;
+ }
+-.personal-portfolio-stat em { font-style: normal; color: var(--pf-muted); font-size: 13px; }
++.personal-portfolio-stat em { font-style: normal; color: var(--pf-muted); font-size: 13px; line-height: 18px; }
+ .personal-portfolio-rule { background: var(--pf-border); height: 92px; }
++
+ .personal-portfolio-resume {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   height: 158px;
+   margin-top: 8px;
+-  padding: 0 25px;
+-  background: var(--pf-panel);
+-  border: 1px solid var(--pf-border);
++  padding: 0 24px;
++  background: var(--pf-accent-bg);
++  border: 1px solid var(--pf-accent);
+   border-radius: 12px;
+ }
+-.personal-portfolio-resume h2 { margin: 0; font-size: 26px; line-height: 36px; }
+-.personal-portfolio-resume p { margin: 6px 0 0; color: var(--pf-muted); }
++
++.personal-portfolio-mark {
++  width: 64px;
++  height: 64px;
++  border-radius: 14px;
++  background: var(--pf-panel);
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  flex: 0 0 64px;
 +}
 +
- function parseNavigationKey(value: string): { tab: string; seq: number } | null {
-   const match = /^([0-9a-f-]{8,}):(\d+)$/i.exec(value);
-   if (!match) return null;
-@@ -165,15 +189,15 @@ function collectionSql(pilotId: string) {
- }
-
- function orderSql(sort: PortfolioSort) {
--  if (sort === "name") return sql`label ASC, id ASC`;
--  if (sort === "custom") return sql`custom_position ASC NULLS LAST, created_at DESC, id DESC`;
--  if (sort === "recent") return sql`activity_at DESC, id DESC`;
--  return sql`created_at DESC, id DESC`;
-+  if (sort === "name") return sql`label ASC, space_type ASC, id ASC`;
-+  if (sort === "custom") return sql`custom_position ASC NULLS LAST, created_at DESC, space_type ASC, id DESC`;
-+  if (sort === "recent") return sql`activity_at DESC, space_type ASC, id DESC`;
-+  return sql`created_at DESC, space_type ASC, id DESC`;
- }
-
- function keysetSql(cursor: ReadCursor) {
-   if (cursor.sort === "name") {
--    return sql`AND (label, id) > (${cursor.label}, ${cursor.id})`;
-+    return sql`AND (label, space_type, id) > (${cursor.label}, ${cursor.spaceType}, ${cursor.id})`;
-   }
-   if (cursor.sort === "custom") {
-     const position = cursor.position ?? 2147483647;
-@@ -181,14 +205,14 @@ function keysetSql(cursor: ReadCursor) {
-       COALESCE(custom_position, 2147483647) > ${position}
-       OR (
-         COALESCE(custom_position, 2147483647) = ${position}
--        AND (created_at, id) < (${cursor.createdAt}::timestamptz, ${cursor.id})
-+        AND (created_at, space_type, id) < (${cursor.createdAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})
-       )
-     )`;
-   }
-   if (cursor.sort === "recent") {
--    return sql`AND (activity_at, id) < (${cursor.activityAt}::timestamptz, ${cursor.id})`;
-+    return sql`AND (activity_at, space_type, id) < (${cursor.activityAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})`;
-   }
--  return sql`AND (created_at, id) < (${cursor.createdAt}::timestamptz, ${cursor.id})`;
-+  return sql`AND (created_at, space_type, id) < (${cursor.createdAt}::timestamptz, ${cursor.spaceType}, ${cursor.id})`;
- }
-
- export async function loadPersonalBoard(
-@@ -211,7 +235,9 @@ export async function loadPersonalBoard(
-   const limit = preview ? PORTFOLIO_PREVIEW_LIMIT : PORTFOLIO_PAGE_SIZE;
-   const needle = query ? `%${query.replace(/[\\%_]/g, (char) => `\\${char}`)}%` : null;
-
--  const pref = await sql<
-+  return sql.begin(async (tx) => {
-+  await tx`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ`;
-+  const pref = await tx<
-     { view: string; sort_mode: string | null; organization_version: number }[]
-   >`
-     SELECT view, sort_mode, organization_version
-@@ -220,7 +246,7 @@ export async function loadPersonalBoard(
-   `;
-   const storedSort = pref[0]?.sort_mode ?? null;
-   const sortExplicit = storedSort !== null && SORTS.has(storedSort as PortfolioSort);
--  const signal = await sql<{ present: boolean }[]>`
-+  const signal = await tx<{ present: boolean }[]>`
-     SELECT EXISTS (
-       SELECT 1 FROM (${collectionSql(pilotId)}) spaces
-       WHERE archived_at IS NULL AND last_opened_at IS NOT NULL
-@@ -232,7 +258,7 @@ export async function loadPersonalBoard(
-       ? "recent"
-       : "created";
-
--  const counts = await sql<
-+  const counts = await tx<
-     { projects: number; preparations: number; favorites: number }[]
-   >`
-     SELECT
-@@ -261,18 +287,18 @@ export async function loadPersonalBoard(
-       httpStatus: 400,
-     });
-   }
--  const grouped = await sql<{ space_type: SpaceType; n: number }[]>`
-+  const grouped = await tx<{ space_type: SpaceType; n: number }[]>`
-     SELECT space_type, count(*)::int AS n
-     FROM (${collectionSql(pilotId)}) spaces
-     WHERE ${scopeSql} ${filterSql} ${searchSql}
-     GROUP BY space_type
-   `;
--  const filtered = await sql<{ n: number }[]>`
-+  const filtered = await tx<{ n: number }[]>`
-     SELECT count(*)::int AS n
-     FROM (${collectionSql(pilotId)}) spaces
-     WHERE ${scopeSql} ${filterSql} ${searchSql}
-   `;
--  const page = await sql<Row[]>`
-+  const page = await tx<Row[]>`
-     SELECT
-       space_type, id, label,
-       created_text AS created_at,
-@@ -287,7 +313,7 @@ export async function loadPersonalBoard(
-   `;
-   const resumeRows =
-     scope === "current"
--      ? await sql<Row[]>`
-+      ? await tx<Row[]>`
-           SELECT
-             space_type, id, label,
-             created_text AS created_at,
-@@ -341,6 +367,7 @@ export async function loadPersonalBoard(
-     filter,
-     query,
-   };
-+  });
- }
-
- function encodeCursor(value: ReadCursor): string {
-@@ -353,6 +380,9 @@ function decodeCursor(raw: string): ReadCursor {
-     if (!parsed.sort || !parsed.filter || !parsed.scope || !parsed.spaceType || !parsed.id || !parsed.createdAt) {
-       throw new Error("shape");
-     }
-+    if (parsed.spaceType !== "project" && parsed.spaceType !== "preparation") throw new Error("shape");
-+    if (!isPortfolioTimestamp(parsed.createdAt)) throw new Error("shape");
-+    if (parsed.activityAt && !isPortfolioTimestamp(parsed.activityAt)) throw new Error("shape");
-     return {
-       sort: parsed.sort,
-       filter: parsed.filter,
-@@ -370,10 +400,62 @@ function decodeCursor(raw: string): ReadCursor {
-   }
- }
-
-+function isPortfolioTimestamp(value: string): boolean {
-+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && !Number.isNaN(Date.parse(value));
++.personal-portfolio-resume h2 { margin: 0; font-size: 26px; line-height: 36px; font-weight: 600; }
++.personal-portfolio-resume p { margin: 7px 0 0; color: var(--pf-muted); font-size: 14px; line-height: 19px; }
++.personal-portfolio-resume a.personal-portfolio-primary {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  text-decoration: none;
 +}
 +
- async function lockPilot(tx: typeof sql, pilotId: string) {
-   await tx`SELECT pg_advisory_xact_lock(hashtext(${pilotId}), hashtext(${PILOT_LOCK}))`;
+ .personal-portfolio-tools {
+   display: flex;
+   gap: 12px;
+   align-items: center;
+   min-height: 40px;
+-  margin-top: 8px;
++  margin-top: 16px;
++  flex-wrap: wrap;
+ }
++
+ .personal-portfolio-filters, .personal-portfolio-views { display: flex; gap: 2px; }
+ .personal-portfolio-filters button,
+ .personal-portfolio-views button,
+@@ -94,63 +155,153 @@ button.personal-portfolio-stat { text-align: left; background: transparent; colo
+   min-height: 35px;
+ }
+ .personal-portfolio-filters button[aria-pressed="true"],
+-.personal-portfolio-views button[aria-pressed="true"] {
+-  background: #243044;
+-}
++.personal-portfolio-views button[aria-pressed="true"] { background: #243044; }
+ .personal-portfolio-tools input { width: 236px; padding: 0 12px; }
+-.personal-portfolio-library { margin-top: 8px; }
+-.personal-portfolio-row, .personal-portfolio-columns {
++.personal-portfolio button:disabled,
++.personal-portfolio select:disabled,
++.personal-portfolio input:disabled { opacity: 0.45; cursor: not-allowed; }
++
++.personal-portfolio-library { margin-top: 12px; }
++.personal-portfolio-library h2 { margin: 0 0 8px; font-size: 20px; line-height: 28px; }
++
++.personal-portfolio-row,
++.personal-portfolio-columns {
+   display: grid;
+-  grid-template-columns: minmax(0, 1fr) 158px 170px 120px;
++  grid-template-columns: minmax(0, 1fr) 158px 170px 36px;
+   align-items: center;
+   gap: 8px;
+   min-height: 50px;
++  padding: 0 12px;
+   border-bottom: 1px solid var(--pf-border);
++  background: var(--pf-base);
++  position: relative;
++}
++
++.personal-portfolio-columns {
++  min-height: 30px;
++  color: var(--pf-muted);
++  font-size: 11px;
++  letter-spacing: 0.06em;
++  background: transparent;
+ }
+-.personal-portfolio-columns { min-height: 30px; color: var(--pf-muted); font-size: 11px; letter-spacing: 0.06em; }
++
++.personal-portfolio-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
++.personal-portfolio-monogram {
++  width: 36px;
++  height: 36px;
++  border-radius: 8px;
++  background: var(--pf-accent-bg);
++  color: var(--pf-kicker);
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  font-weight: 600;
++  flex: 0 0 36px;
++}
++.personal-portfolio-identity a { color: inherit; font-weight: 600; font-size: 15px; line-height: 21px; text-decoration: none; }
++.personal-portfolio-identity small { display: block; color: var(--pf-muted); font-size: 12px; line-height: 17px; }
++.personal-portfolio-meta { color: var(--pf-muted); font-size: 14px; }
++.personal-portfolio-actions { display: flex; justify-content: flex-end; gap: 4px; }
++
+ .personal-portfolio-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+   gap: 8px;
+ }
+ .personal-portfolio-card {
+-  min-height: 120px;
++  min-height: 116px;
+   padding: 16px;
+   background: var(--pf-panel);
+   border: 1px solid var(--pf-border);
+   border-radius: 12px;
++  position: relative;
+ }
+-.personal-portfolio-group h3 { margin: 12px 0 4px; font-size: 14px; color: var(--pf-muted); }
++
+ .personal-portfolio-menu {
+   position: absolute;
+-  right: 0;
+-  z-index: 2;
++  right: 12px;
++  top: 42px;
++  z-index: 5;
+   min-width: 220px;
+   padding: 8px;
+-  background: var(--pf-panel);
++  background: #121826;
+   border: 1px solid var(--pf-border);
+   border-radius: 10px;
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
+ }
+-.personal-portfolio-dialog {
+-  margin-top: 8px;
++.personal-portfolio-menu button {
++  text-align: left;
++  background: transparent;
++  color: var(--pf-ink);
++  border: 0;
++  border-radius: 6px;
++  min-height: 32px;
++  padding: 0 8px;
++}
++.personal-portfolio-menu button:disabled { color: var(--pf-muted); }
++
++.personal-portfolio-overlay {
++  position: fixed;
++  inset: 0;
++  z-index: 40;
++  background: rgba(6, 8, 14, 0.72);
++  display: flex;
++  align-items: center;
++  justify-content: center;
+   padding: 16px;
++}
++.personal-portfolio-modal {
++  width: min(460px, 100%);
++  background: #151b2b;
+   border: 1px solid var(--pf-border);
++  border-radius: 14px;
++  padding: 20px;
++  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
++}
++.personal-portfolio-modal h2 { margin: 0 0 8px; font-size: 18px; }
++.personal-portfolio-modal p { margin: 0 0 16px; color: var(--pf-muted); }
++.personal-portfolio-modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
++
++.personal-portfolio-skeleton {
++  height: 136px;
++  margin: 8px 40px 0;
+   border-radius: 12px;
+-  background: var(--pf-panel);
++  background: linear-gradient(90deg, #151d2c 0%, #1c2638 50%, #151d2c 100%);
+ }
+-@media (max-width: 1279px) {
++
++@media (max-width: 1433px) {
+   .personal-portfolio-header,
+   .personal-portfolio-synthesis,
+   .personal-portfolio-resume,
+   .personal-portfolio-tools,
+-  .personal-portfolio-library { margin-left: 16px; margin-right: 16px; }
+-  .personal-portfolio-tools { flex-wrap: wrap; }
+-  .personal-portfolio-synthesis { height: auto; grid-template-columns: 1fr; }
+-  .personal-portfolio-rule { display: none; }
++  .personal-portfolio-library,
++  .personal-portfolio-status,
++  .personal-portfolio-skeleton { margin-left: 28px; margin-right: 28px; }
+ }
+-@media (max-width: 390px) {
+-  .personal-portfolio-columns, .personal-portfolio-row { grid-template-columns: minmax(0, 1fr) auto; }
++
++@media (max-width: 767px) {
++  .personal-portfolio-header,
++  .personal-portfolio-synthesis,
++  .personal-portfolio-resume,
++  .personal-portfolio-tools,
++  .personal-portfolio-library,
++  .personal-portfolio-status,
++  .personal-portfolio-skeleton { margin-left: 16px; margin-right: 16px; }
++  .personal-portfolio-header { align-items: flex-start; flex-direction: column; }
++  .personal-portfolio-primary { width: 100%; }
++  .personal-portfolio-synthesis { height: auto; }
++  .personal-portfolio-stat strong { font-size: 28px; line-height: 36px; }
++  .personal-portfolio-rule { height: 48px; }
++  .personal-portfolio-resume { height: auto; min-height: 158px; flex-direction: column; align-items: flex-start; padding: 16px; }
++  .personal-portfolio-columns,
++  .personal-portfolio-row { grid-template-columns: minmax(0, 1fr) 36px; }
+   .personal-portfolio-columns span:nth-child(2),
+   .personal-portfolio-columns span:nth-child(3),
+   .personal-portfolio-row .personal-portfolio-meta { display: none; }
+ }
++
++@media (prefers-reduced-motion: reduce) {
++  .personal-portfolio-skeleton { background: #151d2c; }
++}
+diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+index 38450a53..f6b4487f 100644
+--- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
++++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+@@ -86,6 +86,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
+   const onSasVisual = pathname.startsWith("/dev/sas-visual/");
+   const onSasPreparation = Boolean(preparationId) || onSasVisual;
+   const [openingPrep, setOpeningPrep] = useState(false);
++  const [personalNavOpen, setPersonalNavOpen] = useState(false);
+   const [prepNotice, setPrepNotice] = useState("");
+   const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
+   const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
+@@ -418,6 +419,9 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
+             data-testid="studio-shell-topbar"
+           >
+             <div className="flex items-center gap-3 min-w-0 md:hidden">
++              <button type="button" className="md:hidden" data-testid="personal-nav-open" aria-expanded={personalNavOpen} aria-controls="personal-nav-drawer" onClick={() => setPersonalNavOpen(true)}>
++                Menu
++              </button>
+               <span
+                 aria-hidden
+                 className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[8px] text-sm font-bold"
+@@ -525,6 +529,17 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
+           {children}
+         </main>
+
++        {personalSpace && personalNavOpen ? (
++          <div className="studio-personal-drawer md:hidden" onClick={() => setPersonalNavOpen(false)}>
++            <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
++              <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
++              <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
++              <Link href="/portfolio?scope=archive" onClick={() => setPersonalNavOpen(false)}>Archives</Link>
++              <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
++              <PersonalRailFavorites />
++            </div>
++          </div>
++        ) : null}
+         {personalSpace ? (
+           <nav
+             className="studio-shell-bottom-nav md:hidden"
+diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+index c4b691d3..a8cbedf4 100644
+--- a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
++++ b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+@@ -243,6 +243,34 @@ html.studio-shell-lock body {
+   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
  }
 
-+/** Same preparation row lock used by project creation, taken after the personal lock. */
-+async function lockSpace(tx: typeof sql, pilotId: string, spaceType: SpaceType, spaceId: string) {
-+  if (spaceType === "project") {
-+    await tx`
-+      SELECT id FROM projects
-+      WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
-+      FOR UPDATE
-+    `;
-+    return;
-+  }
-+  await tx`
-+    SELECT id FROM preparations
-+    WHERE id = ${spaceId} AND owner_pilot_id = ${pilotId}
-+    FOR UPDATE
-+  `;
++.studio-personal-drawer {
++  position: fixed;
++  inset: 0;
++  z-index: 30;
++  background: rgba(6, 8, 14, 0.72);
++}
++.studio-personal-drawer-panel {
++  width: min(246px, 100%);
++  height: 100%;
++  background: #0d1220;
++  border-right: 1px solid #273248;
++  padding: 16px;
++  overflow: auto;
++}
++.studio-personal-drawer-panel a,
++.studio-personal-drawer-panel button {
++  display: block;
++  width: 100%;
++  text-align: left;
++  color: #f2f4fc;
++  background: transparent;
++  border: 0;
++  min-height: 40px;
++  text-decoration: none;
++  font: inherit;
++  cursor: pointer;
 +}
 +
-+async function lockOpenPreparations(tx: typeof sql, pilotId: string) {
-+  await tx`
-+    SELECT id FROM preparations
-+    WHERE owner_pilot_id = ${pilotId} AND status = 'OPEN'
-+    ORDER BY id
-+    FOR UPDATE
-+  `;
-+}
-+
-+async function bumpOrganizationVersion(tx: typeof sql, pilotId: string) {
-+  const current = await tx<{ organization_version: number }[]>`
-+    SELECT organization_version FROM pilot_portfolio_preferences
-+    WHERE owner_pilot_id = ${pilotId}
-+    FOR UPDATE
-+  `;
-+  const next = (current[0]?.organization_version ?? 0) + 1;
-+  if (!current[0]) {
-+    await tx`
-+      INSERT INTO pilot_portfolio_preferences (owner_pilot_id, organization_version)
-+      VALUES (${pilotId}, ${next})
-+    `;
-+  } else {
-+    await tx`
-+      UPDATE pilot_portfolio_preferences
-+      SET organization_version = ${next}, updated_at = clock_timestamp()
-+      WHERE owner_pilot_id = ${pilotId}
-+    `;
-+  }
-+  return next;
-+}
-+
- async function assertEligible(tx: typeof sql, pilotId: string, spaceType: SpaceType, spaceId: string) {
-   if (spaceType === "project") {
-     const rows = await tx<{ id: string }[]>`
-@@ -445,6 +527,7 @@ export async function setSpaceFavorite(
- ) {
-   return sql.begin(async (tx) => {
-     await lockPilot(tx, pilotId);
-+    await lockSpace(tx, pilotId, spaceType, spaceId);
-     await assertEligible(tx, pilotId, spaceType, spaceId);
-     const current = await tx<{ row_version: number }[]>`
-       SELECT row_version FROM pilot_space_organization
-@@ -479,9 +562,10 @@ export async function setSpaceArchive(
-   }
-   return sql.begin(async (tx) => {
-     await lockPilot(tx, pilotId);
-+    await lockSpace(tx, pilotId, spaceType, spaceId);
-     await assertEligible(tx, pilotId, spaceType, spaceId);
--    const current = await tx<{ row_version: number; custom_position: number | null }[]>`
--      SELECT row_version, custom_position FROM pilot_space_organization
-+    const current = await tx<{ row_version: number; custom_position: number | null; archived_at: string | null }[]>`
-+      SELECT row_version, custom_position, archived_at FROM pilot_space_organization
-       WHERE owner_pilot_id = ${pilotId} AND space_type = ${spaceType} AND space_id = ${spaceId}
-       FOR UPDATE
-     `;
-@@ -489,6 +573,9 @@ export async function setSpaceArchive(
-     if (version !== input.expectedVersion) {
-       throw new StudioError("CONFLICT", "L'organisation de cet espace a changé.", { httpStatus: 409 });
-     }
-+    if (current[0] && Boolean(current[0].archived_at) === input.archived) {
-+      return { rowVersion: version, archived: input.archived };
-+    }
-     const next = version + 1;
-     if (!input.archived && current[0]?.custom_position != null) {
-       await tx`
-@@ -512,9 +599,10 @@ export async function setSpaceArchive(
-       )
-       ON CONFLICT (owner_pilot_id, space_type, space_id)
-       DO UPDATE SET
--        archived_at = CASE WHEN ${input.archived} THEN now() ELSE NULL END,
-+        archived_at = CASE WHEN ${input.archived} THEN clock_timestamp() ELSE NULL END,
-         row_version = ${next}
-     `;
-+    await bumpOrganizationVersion(tx, pilotId);
-     return { rowVersion: next, archived: input.archived };
-   });
+ .studio-shell-mobile-strip {
+   display: none;
  }
-@@ -529,6 +617,7 @@ export async function recordSpaceOpened(
-   if (!key) throw new StudioError("INVALID_REQUEST", "Clé de navigation absente.", { httpStatus: 400 });
-   return sql.begin(async (tx) => {
-     await lockPilot(tx, pilotId);
-+    await lockSpace(tx, pilotId, spaceType, spaceId);
-     await assertEligible(tx, pilotId, spaceType, spaceId);
-     const current = await tx<{ archived_at: string | null; navigation_key: string | null }[]>`
-       SELECT archived_at, navigation_key FROM pilot_space_organization
-@@ -539,13 +628,19 @@ export async function recordSpaceOpened(
-     if (!acceptNavigationKey(current[0]?.navigation_key ?? null, key)) {
-       return { applied: false, reason: "duplicate" };
-     }
-+    const remembered = rememberNavigationKey(current[0]?.navigation_key ?? null, key);
-     await tx`
-       INSERT INTO pilot_space_organization (
-         owner_pilot_id, space_type, space_id, last_opened_at, navigation_key
-       )
--      VALUES (${pilotId}, ${spaceType}, ${spaceId}, now(), ${key})
-+      VALUES (${pilotId}, ${spaceType}, ${spaceId}, clock_timestamp(), ${remembered})
-       ON CONFLICT (owner_pilot_id, space_type, space_id)
--      DO UPDATE SET last_opened_at = now(), navigation_key = ${key}
-+      DO UPDATE SET
-+        last_opened_at = GREATEST(
-+          COALESCE(pilot_space_organization.last_opened_at, clock_timestamp()),
-+          clock_timestamp()
-+        ),
-+        navigation_key = ${remembered}
-       WHERE pilot_space_organization.archived_at IS NULL
-     `;
-     return { applied: true };
-@@ -574,9 +669,11 @@ export async function movePersonalSpace(
-   }
-   return sql.begin(async (tx) => {
-     await lockPilot(tx, pilotId);
-+    await lockSpace(tx, pilotId, input.spaceType, input.spaceId);
-+    await lockOpenPreparations(tx, pilotId);
-     await assertEligible(tx, pilotId, input.spaceType, input.spaceId);
--    const pref = await tx<{ organization_version: number }[]>`
--      SELECT organization_version FROM pilot_portfolio_preferences
-+    const pref = await tx<{ organization_version: number; sort_mode: string | null }[]>`
-+      SELECT organization_version, sort_mode FROM pilot_portfolio_preferences
-       WHERE owner_pilot_id = ${pilotId}
-       FOR UPDATE
-     `;
-@@ -584,6 +681,11 @@ export async function movePersonalSpace(
-     if (version !== input.expectedVersion) {
-       throw new StudioError("CONFLICT", "L'ordre a changé. Relisez le portefeuille.", { httpStatus: 409 });
-     }
-+    if (pref[0]?.sort_mode !== "custom") {
-+      throw new StudioError("CONFLICT", "L'ordre personnalisé n'est pas le tri enregistré.", {
-+        httpStatus: 409,
-+      });
-+    }
-     const rows = await tx<Row[]>`
-       SELECT space_type, id, label, created_text AS created_at, opened_text AS last_opened_at,
-              activity_text AS activity_at, favorite, archived_at, custom_position, row_version
-diff --git a/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-index 53ae18c2..50554458 100644
---- a/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-@@ -121,10 +121,11 @@ describe("personal portfolio organization (PG)", () => {
-       { id: first, ownerPilotId: owner, name: "Alpha" },
-       { id: second, ownerPilotId: owner, name: "Bravo" },
-     ]);
-+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
-     const moved = await movePersonalSpace(owner, {
-       spaceType: "project",
-       spaceId: second,
--      expectedVersion: 0,
-+      expectedVersion: prefs.version,
-       direction: "up",
-       context: { filter: "all", query: "", scope: "current" },
-     });
-@@ -218,6 +219,16 @@ describe("personal portfolio organization (PG)", () => {
-         spaceType: "project",
-         spaceId: bravo,
-         expectedVersion: 0,
-+        direction: "up",
-+        context: { filter: "all", query: "", scope: "current" },
-+      }),
-+    ).rejects.toMatchObject({ httpStatus: 409 });
-+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
-+    await expect(
-+      movePersonalSpace(owner, {
-+        spaceType: "project",
-+        spaceId: bravo,
-+        expectedVersion: prefs.version,
-         beforeSpaceId: "missing",
-         beforeSpaceType: "project",
-         context: { filter: "all", query: "", scope: "current" },
-@@ -227,5 +238,150 @@ describe("personal portfolio organization (PG)", () => {
-     expect(board.groups.project).toBe(2);
-     expect(board.groups.preparation).toBe(1);
-     expect(board.filteredTotal).toBe(3);
-+    expect(board.groups.project + board.groups.preparation).toBe(board.filteredTotal);
-+  });
-+
-+  it("refuses a favorite once the preparation row is attached", async () => {
-+    const owner = await seedPilot("PF-boundary");
-+    const prep = newId("prep");
-+    const projectId = newId("proj");
-+    await db.insert(preparations).values({
-+      id: prep,
-+      ownerPilotId: owner,
-+      status: "OPEN",
-+      previewName: "Bientôt rattachée",
-+      previewSummary: "",
-+    });
-+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Projet issu" });
-+    let releaseHold: () => void = () => undefined;
-+    const hold = new Promise<void>((resolve) => {
-+      releaseHold = resolve;
-+    });
-+    let markReady: () => void = () => undefined;
-+    const ready = new Promise<void>((resolve) => {
-+      markReady = resolve;
-+    });
-+    const attachment = sql.begin(async (tx) => {
-+      await tx`SELECT pg_advisory_xact_lock(hashtext(${owner}), hashtext(${"sfia:d2:project-name"}))`;
-+      await tx`
-+        SELECT id FROM preparations
-+        WHERE id = ${prep} AND owner_pilot_id = ${owner}
-+        FOR UPDATE
-+      `;
-+      markReady();
-+      await hold;
-+      await tx`
-+        INSERT INTO preparation_project_links (preparation_id, project_id)
-+        VALUES (${prep}, ${projectId})
-+      `;
-+    });
-+    await ready;
-+    const favorite = setSpaceFavorite(owner, "preparation", prep, {
-+      favorite: true,
-+      expectedVersion: 0,
-+    });
-+    await new Promise((resolve) => setTimeout(resolve, 150));
-+    releaseHold();
-+    await attachment;
-+    await expect(favorite).rejects.toMatchObject({ httpStatus: 404 });
-+    const stored = await sql<{ n: string }[]>`
-+      SELECT count(*)::text AS n FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner} AND space_id = ${prep}
-+    `;
-+    expect(stored[0]?.n).toBe("0");
-+    const board = await loadPersonalBoard(owner, { preview: false });
-+    expect(board.items.some((item) => item.id === prep)).toBe(false);
-+    expect(board.counters.favorites).toBe(0);
-+  });
-+
-+  it("does not move the opening time backwards and ignores a late replay", async () => {
-+    const owner = await seedPilot("PF-open");
-+    const projectId = newId("proj");
-+    await db.insert(projects).values({ id: projectId, ownerPilotId: owner, name: "Reprise" });
-+    const tab = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
-+    const other = "bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee";
-+    expect((await recordSpaceOpened(owner, "project", projectId, `${tab}:1`)).applied).toBe(true);
-+    await sql`
-+      UPDATE pilot_space_organization
-+      SET last_opened_at = clock_timestamp() + interval '2 hours'
-+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
-+    `;
-+    const ahead = await sql<{ opened: string }[]>`
-+      SELECT last_opened_at::text AS opened FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
-+    `;
-+    expect((await recordSpaceOpened(owner, "project", projectId, `${other}:1`)).applied).toBe(true);
-+    const afterOther = await sql<{ opened: string; navigation_key: string }[]>`
-+      SELECT last_opened_at::text AS opened, navigation_key
-+      FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
-+    `;
-+    expect(afterOther[0]?.opened >= (ahead[0]?.opened || "")).toBe(true);
-+    expect(afterOther[0]?.navigation_key).toContain(`${tab}:1`);
-+    const replay = await recordSpaceOpened(owner, "project", projectId, `${tab}:1`);
-+    expect(replay.applied).toBe(false);
-+    const afterReplay = await sql<{ opened: string }[]>`
-+      SELECT last_opened_at::text AS opened FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner} AND space_id = ${projectId}
-+    `;
-+    expect(afterReplay[0]?.opened).toBe(afterOther[0]?.opened);
-+  });
-+
-+  it("rejects a stale order after a restore and does not shift twice", async () => {
-+    const owner = await seedPilot("PF-restore");
-+    const first = newId("proj");
-+    const second = newId("proj");
-+    await db.insert(projects).values([
-+      { id: first, ownerPilotId: owner, name: "Un" },
-+      { id: second, ownerPilotId: owner, name: "Deux" },
-+    ]);
-+    const prefs = await updatePortfolioPreferences(owner, { sort: "custom", expectedVersion: 0 });
-+    const moved = await movePersonalSpace(owner, {
-+      spaceType: "project",
-+      spaceId: second,
-+      expectedVersion: prefs.version,
-+      direction: "up",
-+      context: { filter: "all", query: "", scope: "current" },
-+    });
-+    const before = await loadPersonalBoard(owner, { preview: false });
-+    const archived = await setSpaceArchive(owner, "project", first, {
-+      archived: true,
-+      expectedVersion: before.items.find((item) => item.id === first)?.rowVersion ?? 0,
-+      confirm: true,
-+    });
-+    const restored = await setSpaceArchive(owner, "project", first, {
-+      archived: false,
-+      expectedVersion: archived.rowVersion,
-+      confirm: true,
-+    });
-+    const positions = await sql<{ id: string; custom_position: number }[]>`
-+      SELECT space_id AS id, custom_position FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner}
-+      ORDER BY custom_position
-+    `;
-+    const repeated = await setSpaceArchive(owner, "project", first, {
-+      archived: false,
-+      expectedVersion: restored.rowVersion,
-+      confirm: true,
-+    });
-+    expect(repeated.rowVersion).toBe(restored.rowVersion);
-+    const again = await sql<{ id: string; custom_position: number }[]>`
-+      SELECT space_id AS id, custom_position FROM pilot_space_organization
-+      WHERE owner_pilot_id = ${owner}
-+      ORDER BY custom_position
-+    `;
-+    expect(again).toEqual(positions);
-+    await expect(
-+      movePersonalSpace(owner, {
-+        spaceType: "project",
-+        spaceId: second,
-+        expectedVersion: moved.version,
-+        direction: "down",
-+        context: { filter: "all", query: "", scope: "current" },
-+      }),
-+    ).rejects.toMatchObject({ httpStatus: 409 });
-+    await expect(loadPersonalBoard(owner, { cursor: "not-a-cursor", preview: false })).rejects.toMatchObject({
-+      httpStatus: 400,
-+    });
-   });
- });
 diff --git a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
-index 291f889d..194a280c 100644
+index 194a280c..aed69179 100644
 --- a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
-@@ -1,5 +1,6 @@
+@@ -1,6 +1,10 @@
  import { describe, expect, it } from "vitest";
--import { acceptNavigationKey, destinationIndex } from "@/domains/identity/portfolio-organization";
-+import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/domains/identity/portfolio-organization";
-+import { portfolioMutationFollowUp } from "@/components/portfolio/PersonalPortfolio";
+ import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/domains/identity/portfolio-organization";
+-import { portfolioMutationFollowUp } from "@/components/portfolio/PersonalPortfolio";
++import {
++  classifyPortfolioResponse,
++  intentionMatchesBoard,
++  portfolioMutationFollowUp,
++} from "@/components/portfolio/PersonalPortfolio";
 
  describe("portfolio organization rules", () => {
    it("places an item before its target in either direction", () => {
-@@ -16,5 +17,29 @@ describe("portfolio organization rules", () => {
-     expect(acceptNavigationKey(`${tab}:2`, `${tab}:1`)).toBe(false);
-     expect(acceptNavigationKey(`${tab}:2`, `${tab}:3`)).toBe(true);
-     expect(acceptNavigationKey(`${tab}:2`, "bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee:1")).toBe(true);
-+    const other = "bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee";
-+    const remembered = rememberNavigationKey(rememberNavigationKey(null, `${tab}:1`), `${other}:1`);
-+    expect(acceptNavigationKey(remembered, `${tab}:1`)).toBe(false);
-+    expect(acceptNavigationKey(remembered, `${other}:2`)).toBe(true);
-+  });
-+
-+  it("keeps an unknown mutation blocked until a reread succeeds, without retrying it", () => {
-+    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "failed" })).toEqual({
+@@ -23,23 +27,36 @@ describe("portfolio organization rules", () => {
+     expect(acceptNavigationKey(remembered, `${other}:2`)).toBe(true);
+   });
+
+-  it("keeps an unknown mutation blocked until a reread succeeds, without retrying it", () => {
++  it("keeps an unknown mutation blocked until the relevant state is reread", () => {
++    expect(classifyPortfolioResponse(503, { message: "unavailable" })).toBe("unknown");
++    expect(classifyPortfolioResponse(500, {})).toBe("unknown");
++    expect(classifyPortfolioResponse(200, {})).toBe("unknown");
++    expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true })).toBe("confirmed");
++    expect(classifyPortfolioResponse(404, { error: "missing" })).toBe("refused");
++    expect(classifyPortfolioResponse(409, { message: "conflict" })).toBe("conflict");
+     expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "failed" })).toEqual({
+       uncertain: true,
+       retry: false,
+       blockFurtherMutations: true,
+     });
+-    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "succeeded" })).toEqual({
+-      uncertain: false,
++    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "unverified" })).toEqual({
 +      uncertain: true,
-+      retry: false,
+       retry: false,
+-      blockFurtherMutations: false,
 +      blockFurtherMutations: true,
-+    });
-+    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "succeeded" })).toEqual({
-+      uncertain: false,
-+      retry: false,
+     });
+-    expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" })).toEqual({
++    expect(portfolioMutationFollowUp({ outcome: "unknown", reread: "matched" })).toEqual({
+       uncertain: false,
+       retry: false,
+-      blockFurtherMutations: true,
 +      blockFurtherMutations: false,
-+    });
-+    expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" })).toEqual({
-+      uncertain: false,
-+      retry: false,
-+      blockFurtherMutations: true,
-+    });
-+    expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).retry).toBe(false);
-+    expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).uncertain).toBe(false);
+     });
+-    expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).retry).toBe(false);
++    expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" }).blockFurtherMutations).toBe(true);
+     expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).uncertain).toBe(false);
++    const board = {
++      items: [{ spaceType: "preparation" as const, id: "prep_1", favorite: false, archived: false }],
++      preferences: { view: "list", sort: "recent", version: 2 },
++    };
++    expect(intentionMatchesBoard({ kind: "favorite", spaceType: "preparation", spaceId: "prep_1", desired: true, knownVersion: 1 }, board)).toBe(false);
++    expect(intentionMatchesBoard({ kind: "favorite", spaceType: "preparation", spaceId: "prep_absent", desired: true, knownVersion: 1 }, board)).toBe(false);
++    expect(intentionMatchesBoard({ kind: "preference", view: "grid", knownVersion: 1 }, { ...board, preferences: { view: "grid", sort: "recent", version: 2 } })).toBe(true);
    });
  });
 ```
