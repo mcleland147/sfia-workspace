@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 28 novembre 2026 — v0.21, arbitrages Portefeuille/L7 reçus ; découpage de mandats proposé (§26) |
+| Date / version | 28 novembre 2026 — v0.22, mandat 1 publié DEV, revue NOT READY et compléments A/B reçus (§27) |
 | Nature | Suivi opérationnel D1, non normatif, branche documentaire candidate ; ne remplace ni Roadmap, ni PV, ni registre de couverture, ni contrats |
 | Mandat Morris | 28/11/2026 : accord sur l'ordre des sept lots proposé après revue du diagnostic ; GO création/publication du présent fichier sur Git sans validation rédactionnelle supplémentaire, suivi à chaque revue ; préparation du premier mandat Cursor |
 | Périmètre Git D1 | Création de ce fichier uniquement sur `docs/next-openai-studio-convergence-20261126`, base `ed38685aa6ee3dd46961a88698d833a88f7a50a0` ; actualisations factuelles de ce fichier sous le mandat de suivi borné aux sept lots, relecture distante et SHA à chaque écriture. GO explicite 28/11 pour actualiser les quatre documents de convergence sur leurs branches respectives (§26) ; changement de portée, doctrine, contrats normatifs et gates hors mandat : GO distinct. |
@@ -11,8 +11,8 @@
 | Campagne | Equipéo STOPPED BY MORRIS après T09 bis ; T08 DEFERRED, T10–T13 NOT RUN ; 8/13 tours exercés + répétition T09, R00 partiel. MaintiPlan suspendu. |
 | Entrée produit | `sfia/next-ml5-integrated-delivery-20261123@0ae9e1f7aaee3658eb3e9a135523e83a72631b31`, tree `842537274c3ad0b2f672c9ebe2e9e0f54c55d968` ; main `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | RECETTE de référence | :3200 BUILD `p0S18hfVdGrMjGeNMGlbV`, PG :5434 schéma 027 ; DEV :3100 PG :5433. États locaux rapportés par Cursor, NON OBSERVÉS indépendamment par ChatGPT ; recontrôler à chaque mandat. WEB LIVE OFF, Admin OFF. |
-| Candidat DEV courant | `d215a5272025b2d1c7aa8391dd14f6442ea512fe`, tree `c5bab24132c7c745d6ddff0ba76dc8d5424ea13c` — PUBLISHED DEV, CI distante NOT RUN rapporté. RECETTE reste au candidat d'entrée, policy v0.2 configurée (§15). |
-| Gate courant | L1 à L5 acceptés techniquement par Morris avec réserves RECETTE ; dette L5 §20 maintenue. L6 essai LIVE §23 consommé, NOT READY — frontière REAL non atteinte, écart d'outillage §24 ; différé par Morris sans clôture (§25). Priorité à la convergence UX L7 + portefeuille ; A1–A5 et volets reçus, contrats synchronisés (§26), découpage de mandats PROPOSED à valider ; G4/Delivery non donné. Dix-sept contrôles différés maintenus. Aucun GO promotion, PR ou merge. |
+| Candidat DEV courant | `c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e`, tree `56aa418960f5565c42d0e3c067cb6dcc4e3beaa1` — PUBLISHED DEV, CI distante 0 run vérifié, schéma 028/build q1Wg2CIGLqtVA7n-qmvbb rapportés. RECETTE inchangée selon rapport (§27). |
+| Gate courant | L1 à L5 acceptés techniquement par Morris avec réserves RECETTE ; dette L5 §20 maintenue. L6 essai LIVE §23 consommé, NOT READY — frontière REAL non atteinte, écart d'outillage §24 ; différé par Morris sans clôture (§25). Priorité à la convergence UX L7 + portefeuille ; A1–A5, volets et découpage reçus (§26) ; GO mandat 1 consommé, candidat publié, revue NOT READY, deux compléments ciblés A/B reçus (§27), mandat 2 non engagé. Dix-sept contrôles différés maintenus. Aucun GO promotion, PR ou merge. |
 
 ## 1. Objet et sources
 
@@ -604,4 +604,60 @@ Morris confirme la continuité méthodologique ML5 : macro-lot orienté résulta
 **Verdict :** orientations et arbitrages validés, contrats réconciliés documentairement ; découpage ci-dessus **PROPOSED — à valider Morris**. Aucun premier mandat préparé ni autorisé, G2/G3 PARTIAL, G4 NON AUTORISÉ, G5 NOT RUN ; STUDIO NEXT WORK NOT QUALIFIED — CONTEXT MISSING pour Delivery complet. Prochaine décision : recevoir séquence et frontières, puis qualifier et proposer GO du mandat 1 avec publication DEV incluse si autorisée. Aucun GO migration, suppression, cutover, LIVE, PR/merge, release, Gate C ou adoption. R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / 17 MP OPEN / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.
 
 Actualisation D1 du fichier unique à partir de `6a65f25f19eb14fbd0d44a4fa2f8bad40285d8eb`, mandat du 28/11 explicite aux quatre documents. Trois contrats déjà publiés séparément sur branche documentaire Portefeuille ; aucune modification de code, Figma, Roadmap, décision normative, main, configuration ou handoff.
+
+## 27. Mandat 1 — Portefeuille personnel : revue indépendante et compléments correctifs (28/11/2026)
+
+**Décisions Morris consommées :** découpage des six mandats §26 validé ; GO Delivery explicite du mandat 1 P01–P10, G2/G3 avant code, migration additive E2E puis DEV après sauvegarde/preflight, build/runtime DEV, commit/push FF ML5 sans CI distante, handoff. Après revue indépendante, Morris répond « ok go » à la proposition de maintenir le mandat 1 ouvert, consigner le verdict et préparer deux compléments ciblés A puis B. Ce GO couvre cette actualisation D1 et la préparation ; il ne constitue pas un nouveau GO technique permanent pour migration, push projet ou promotion. Le périmètre et les autorisations du complément A seront bornés avant exécution ; B et mandat 2 non engagés.
+
+### 27.1. Identités et preuves du candidat
+
+| Élément | Observation |
+| --- | --- |
+| Entrée mandat | d215a5272025b2d1c7aa8391dd14f6442ea512fe |
+| Commits | e8022d5893271907e66783a9ddc7a9da7a25f097 puis c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e ; FF +2/-0 |
+| HEAD/tree DEV distant | c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e / 56aa418960f5565c42d0e3c067cb6dcc4e3beaa1 |
+| Main | 997897fd7cf914771e7d08e8030dc7123fab7d25, inchangé |
+| Handoff | d42a7fb85dc24ef4ad693e389b38c797f64cc2cb, parent af3c65acc71ed35d7ed7067f9dba2eb7aad85e9d, blob 72998592eec99fdc76fd3bef26e9c4f87eec992d, fichier canonique unique, 2329 lignes |
+| Couverture du pack | 22 fichiers dans le diff, 13 créations identiques après trim de fin de fichier, 9 modifications avec diff exploitable ; HANDOFF UPDATED — REMOTE VERIFIED. Aucune PR ouverte, 0 run Actions observé au SHA. |
+| Runtime rapporté | DEV :3100 PID 70994, BUILD_ID q1Wg2CIGLqtVA7n-qmvbb, PG :5433 sfia_next_dev, schéma 028 ; RECETTE :3200 PID 58965 non modifiée ; état local/DB/runtime NON OBSERVÉ directement par ChatGPT. |
+| Migration rapportée | 028 additive, E2E d'abord/rejeu PASS, sauvegarde DEV 2664030 octets, restauration isolée rapportée 233 projets, DEV 233 projets et 265 préparations ; aucune donnée métier supprimée selon rapport. |
+| Preuves rapportées | 5 tests PG PASS, HTTP A 220/32/0 et aperçu 5/252, B 0/0/0, anonyme 401/no-store ; navigateur nominal et filtre favoris vide, build PASS ; tsc erreurs annoncées préexistantes à comparer à l'entrée ; login DEV de test, aucun LIVE. |
+
+Sources distantes : [candidat](https://github.com/mcleland147/sfia-workspace/commit/c0be75b23ce0c2b738b5a6b32efc9ac4494cea5e), [handoff figé](https://github.com/mcleland147/sfia-workspace/blob/d42a7fb85dc24ef4ad693e389b38c797f64cc2cb/sfia-review-handoff/latest-chatgpt-review.md), [contrats](https://github.com/mcleland147/sfia-workspace/tree/46215293c07d81eb75b657d4499cefb0eb73556c/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille). SEF/Roadmap/décisions/F1/F2/ENV-01/versioning/naming, code D1/UI/migration/tests et sources applicables relus ; ref main et branches candidates distinguées. Aucune nouvelle inspection Figma ni exécution indépendante. Aucun PASS runtime déduit de Git.
+
+### 27.2. Verdict indépendant
+
+Cursor propose READY WITH RESERVES ; ChatGPT : **NOT READY — CORRECTIVE COMPLETION REQUIRED**. Morris reçoit cette trajectoire corrective. Socle conservé : deux tables personnelles D1, migration 028, projection owner/OPEN/non attachée, compteurs exacts, recherche au-delà première page, archive sans état métier, shell commun, A2/A5 non activés. Pas de rollback général ni de refonte d'architecture. Les lacunes sont des exigences IN non terminées, pas des réserves de recette acceptées.
+
+| Exigence | Revue | Écart / preuve manquante |
+| --- | --- | --- |
+| P01 | PARTIAL | Compteurs réels prouvés selon rapport, compteurs cliquables absents ; F2. |
+| P02 | PARTIAL | Signal implémenté ; clé basée sur timeOrigin/document, risque de réouverture SPA ignorée et rejeu tardif après autre clé ; parcours réel à reproduire. |
+| P03 | PARTIAL | Trois vues présentes, interactions et cohérence navigateur non qualifiées. |
+| P04 | PARTIAL | Aperçu 5 rapporté ; lecture SQL non bornée, pagination/total par groupe et dedupe incomplets. |
+| P05 | PARTIAL | Recherche globale PG rapportée ; lecture entière en mémoire, double projection historique/nouvelle, réponse obsolète possible pendant debounce, rejet réseau non géré ; recherche rapide rail absente. |
+| P06 | CORRECTION REQUIRED | Monter/Descendre sous filtre/recherche et drag/drop mal gardés ; insertion avant cible erronée si source précède cible ; positions archives réutilisées, restauration à qualifier ; tests réels manquants. |
+| P07 | CORRECTION REQUIRED | PersonalRailFavorites charge une seule fois (useEffect []), pas d'invalidation après favori/archive/restauration ; plafond 12 non contracté et à justifier/traiter. |
+| P08 | CORRECTION REQUIRED | SELECT FOR UPDATE sur ligne inexistante ne sérialise pas première écriture ; upsert concurrent peut écraser ou produire erreur d'unicité ; éligibilité hors transaction et attach concurrent ; tests séquentiels insuffisants. |
+| P09 | PARTIAL | Archive D1 conforme en principe, conservation rang/favori/permissions et parcours actif/restore non suffisamment prouvés. |
+| P10 | INCOMPLETE | Erreurs/UNKNOWN/pending et invalidation des lectures, navigation rail, modale/focus, responsive/zoom et couverture F1/F2 non terminés. |
+
+Sources de constats : web/src/domains/identity/portfolio-organization.ts (L84–284, L286–521), web/src/app/api/portfolio/route.ts, web/src/components/portfolio/{PersonalPortfolio.tsx,PersonalRailFavorites.tsx,PersonalSpaceOpenSignal.tsx,personal-portfolio.css}, StudioShell.tsx, migration 028 et tests/integration/portfolio-organization.pg.test.ts. Les races et parcours non exécutés sont des risques/défauts déduits du code à reproduire, non des incidents utilisateur observés. G2 non satisfait avant UI : deux nœuds Figma lus (1420:176 et 1420:250), 0/27 états mesurés F2, extraction L2/PNG/hash/manifeste non démontrés. Écarts contractuels visibles au code : reprise sans accent/repère, synthèse mobile 1 colonne vs 3, padding 1280, dialogue inline vs modale, loading texte vs skeleton. G3 PARTIAL, G4 IMPLEMENTED WITH GAPS, G5 PARTIAL.
+
+### 27.3. Compléments validés en trajectoire, sans élargissement
+
+**A — Fiabilisation fonctionnelle D1** : corriger les défauts de projection, concurrence, ordre, signal et intégrité des interactions de la cible déjà autorisée. Garder les deux tables 028, pas de nouveau moteur ni changement D2/D3. Répartition ci-dessous = exigences de sortie, pas nouveaux cycles. Profil Standard si correctif compatible ; toute nouvelle migration ou changement structurant STOP avant effet et décision Morris. Le contrat comportemental de la page et du rail est connu ; G2 visuel exhaustif reste le complément B. Aucune nouvelle composition, géométrie, asset ou style arbitraire dans A ; interactions sur composants existants et source applicable, STOP si modification de conception critique. Qualification G3 ciblée, reproduction avant correctif et preuve après, code/tests/as-built ensemble.
+
+| Axe A | Critère discriminant |
+| --- | --- |
+| A-01 Projection (P01/P03–05) | SQL filtrage/tri/page/compteurs et group totals cohérents, 5/25, type+id et précision temps, curseurs invalidés/relecture/dedupe ; >25 préparations OPEN et >99 espaces, timestamps égaux, recherche hors page, groupes et filtre ; compatibilité consommateurs historiques auditée, supprimer double calcul uniquement si sûr. |
+| A-02 Écritures (P06–09) | Atomicité première écriture et CAS sur versions existantes, deux transactions simultanées, un ACK corrélé/un 409 ou no-op défini ; pas de perte de mise à jour ; contrôle owner/éligibilité attach concurrent et absence de favori fantôme ; archive D1 n'interrompt aucune opération. Pas de garde D2–D9. |
+| A-03 Ordre (P06/P09) | Déplacer avant cible dans les deux sens, limites, cible absente/invalide, drag/clavier dans collection non ambiguë, pas de déplacement sous filtre/recherche/archive, ordre commun aux vues, rang restauré sans collision silencieuse ; pas de rangs sophistiqués imposés. |
+| A-04 Ouverture (P02) | Entrée admise effective, sortie/retour/nouvelle ouverture SPA même espace, deep link, refresh, revalidation/surface interne, déduplication et rejeu tardif, absence de faux ACK/horodatage, isolation Pilote ; signal non bloquant. |
+| A-05 Interactions (P01/P05/P07/P10) | Favori/archivage/restauration synchronisent page et rail sans reload complet, aucune donnée d'ancien compte ; compteurs interactifs, contrôle recherche rapide et accès Archives du rail fonctionnels au moyen des composants existants si possible ; pas de nouvelle DA. Rejets réseau, changement de requête pendant debounce, pagination en vol, pending/single flight, 409/UNKNOWN et relecture réelle avant retry. |
+| A-06 Parcours (P03/P08–10) | Browser E2E sur données isolées : trois vues, expansion/pagination, drag/clavier, deux sessions, archive/lien profond/restauration mêmes ID/droits, création volontaire sas/reprise/rattachement selon D2 existant, double-clic/ACK perdu ; comparaison diagnostics tsc entrée/sortie. Tests PG/HTTP/BROWSER et matrice P01–P10 par niveau, pas de F2 PASS déduit. |
+
+**B — Transposition et qualification UX** : acquisition native G2 exhaustive des 27 états du mandat 1 et compléments nécessaires (A2/A5 différés), sources figées PNG/hash/manifeste, transposition conforme DA et composants partagés, modales/menus/focus/tiroir, rail/compteurs/reprise, skeleton/états, responsive 1680/1280/390/320, zoom 200 %, F1/F2 cible 0 max 2 CSS px rectangles stables contractés, styles et diff régional. Corriger les écarts réels, pas une simple passe de captures. Rejouer parcours impactés de A. G2 avant code UI B, STOP si source critique manque, pas de modification Figma implicite. A et B = deux compléments du même mandat 1, non deux nouveaux jalons ; pas de nouveau contrat ou registre parallèle. Revue indépendante et décision Morris après chaque complément, réception mandat 1 uniquement après B, puis mandat 2 sur GO séparé.
+
+**Autorisations et sortie :** précédent GO Delivery consommé par le candidat c0be75b2. Préparer complément A depuis le template SFIA v2.6, scope exact, DEV/E2E seulement, proposition sans DDL supplémentaire, build et publication FF sans CI sous nouveau GO explicite, Review Pack Full et Handoff required/publish-in-cycle. Aucun GO RECETTE/LIVE/PR/merge/release. Les 17 contrôles RECETTE, 17 MP, L6 différé, Capacité 2 OUT, T08 différé, WEB LIVE/Admin OFF restent inchangés. Mandat 1 OPEN — NOT READY, mandat 2 non engagé, R5 IN PROGRESS, ML5 OPEN, Livraison 1 NOT ACCEPTED, Gate C OPEN, R6 NOT STARTED, NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.
 
