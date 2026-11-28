@@ -1,1059 +1,701 @@
-# Review Pack — dernier correctif du portefeuille
+# Review Pack — Finitions du portefeuille personnel
 
-Date : 28 novembre 2026, 16:05 Europe/Paris.
-Cycle : 08 Delivery / INC / Standard. Mono-cycle.
-Branche : sfia/next-ml5-integrated-delivery-20261123.
-Entrée : d79fd252684b0be76b61ab607cc88d00b7fb7232, tree 84bfe3af532edb6efcbbfc8cdde780d0c8abd185, parent 26698494ceed32af53d71b3e2e2248bab903de73.
-Sortie : df5d83be04100e41b03808800144a576552def73, tree 99a6731960e612ba488506306377a037a6df3477.
-Commits : ee6edf34042887576b546753535309ab5b9c55ea puis df5d83be04100e41b03808800144a576552def73.
-Push : d79fd252..df5d83be0410, fast-forward. Aucune PR. Aucun run Actions observé. Workflows déclenchés seulement sur push ou PR vers main.
-BUILD_ID : B3xza2T6NCsJSW1gALwhH. DEV :3100 PID 94417. Base sfia_next_dev, schéma 028.
-RECETTE :3200 PID 58965. Table pilot_portfolio_preferences absente.
-origin/main : 997897fd7cf914771e7d08e8030dc7123fab7d25.
-Aucune migration. Aucune modification Figma. Aucune création de fichier.
+Date : 28 novembre 2026, 16h25 Europe/Paris.
+Cycle : 08 Delivery / implémentation. Profil Standard. Typologie INC.
+Périmètre : écart sous la barre, séparateur du menu, confrontation des valeurs relues, clavier du menu.
+Mono-cycle. Pas de création de fichier.
 
-## Sources
+## Identité Git
 
-Suivi v0.26, 892ba71ee370c215b1d0835a7d1a88e3d74c5c80, §31.
-Contrat UX v0.3, 5008d51d85bb12ffd37f61c1706c36d62afa8e38, blob 5dfae243816e3841cd87051b321ffaf4aa5d4f11, §2, §4, §5.2, §6.
-Figma itgvCulInEnFY6DvgIegvP, session 6d1fa01f-09cf-42f4-bdea-849ce6f87ef8.
-Nœuds extraits : tuile 1420:162, menu 1420:2138. Proportions lues dans le contrat v0.3, issues de la relecture native 160/180/60/12.
+Entrée : branche sfia/next-ml5-integrated-delivery-20261123.
+HEAD df5d83be04100e41b03808800144a576552def73.
+Tree 99a6731960e612ba488506306377a037a6df3477.
+Parent ee6edf34042887576b546753535309ab5b9c55ea.
+origin/main et merge-base 997897fd7cf914771e7d08e8030dc7123fab7d25.
+Handoff d'entrée 33c4267ee91ae9721d2ceac47592aa18193315c3, blob dd4d1130ade66c7ab1f2f6ee5de637307b66de8a.
+
+Sortie : aa04daba2d7591d8d28da1dc04901de142e274a3.
+Tree e46457a96ddbe18ecd35c29f367e9b3b4afcbd40.
+Parent df5d83be04100e41b03808800144a576552def73.
+Push fast-forward df5d83be..aa04daba. Aucune PR. Aucun run Actions observé.
+Les workflows ne se déclenchent que sur main ou une PR vers main.
+
+## Sources lues
+
+Suivi 892ba71ee370c215b1d0835a7d1a88e3d74c5c80, contrat UX v0.3 5008d51d.
+Figma itgvCulInEnFY6DvgIegvP, session 3212f216-86dc-4f99-8245-5719442baaca, lecture seule.
+Nœuds extraits ce cycle : menu projet 1420:2138, barre 1420:285.
+Le menu est une colonne, écart 5 px, padding 14, filet 270×1 entre le type 12/17 et la première action. Nom 15/21. Sept actions 270×35. Cadre 298×359.
+La barre ne contient pas l'écart vers la bibliothèque. Cet écart est le gap de région de 12 px du contrat v0.3.
+
+## G3 et allowlist
+
+Un seul PersonalPortfolio, un seul shell, aucune route ni mutation D1 modifiée. Le champ moved était déjà renvoyé par l'ordre.
+Fichiers modifiés, tous dans l'allowlist : PersonalPortfolio.tsx, personal-portfolio.css, portfolio-organization.test.ts, as-built-portefeuille-personnel.md, delivery-history.md.
+Aucune création. Schéma 028 inchangé. Figma non modifié. RECETTE non touchée.
 
 ## Corrections
 
-UX-R01 : filtres à gauche, recherche/tri/vues à droite, espace flexible, marge horizontale retirée des commandes imbriquées.
-UX-R02 : synthèse 160, reprise 180, ligne 60, écart 12. Séparateur entre synthèse et reprise.
-UX-R03 : grille à trois colonnes, tuile 116 px, écart 12/8, type et activité une seule fois.
-UX-R04 : menu 298 px, actions 270×35, pictogrammes, ancrage fixed au déclencheur, sept entrées.
-UX-R05 : activité non répétée sous le nom, chevron de groupe décoratif, compteur de groupe réel.
-TECH-R01 : pertinentSpaceRecord exige type, id, éligibilité, favori, archive, version et position. Un 200 mal formé ne débloque pas. Le rafraîchissement du portefeuille doit réussir avant réexamen. Ordre enregistré seulement après accusé confirmé.
-TECH-R02 : focus initial, Tab confiné et retour pour les dialogues et le tiroir. Menu fléché et Échap.
-DOC-R01 : les six diffs absents du handoff 700c091c sont repris en annexe, distincte de ce cycle. Le pack historique n'était pas complet.
+UX-R05. Une marge unique de 12 px, .personal-portfolio-collection, sépare la barre du contenu dans les trois vues. Le premier titre de groupe n'ajoute pas une seconde marge. Le suivant garde 12 px.
+Mesure runtime, viewport 1459 : écart outils → colonnes 12 px en liste ; outils → grille 12 px ; outils → premier titre de groupe 12 px. Synthèse 160, reprise 180, ligne 60, tuile hauteur 116. Grille : 3 tuiles puis 2, largeur de tuile 344 parce que le viewport n'est pas 1680.
+
+UX-R04. Filet 270×1, 5 px au-dessus et 5 px au-dessous, cadre mesuré 298×359 pour le projet et la préparation. Pas de débordement. Renommer et Supprimer restent indisponibles. Monter et Descendre restent liés à l'ordre personnalisé.
+
+TECH-R01. classifyPortfolioResponse exige moved booléen pour l'ordre. correlatedAcknowledgement n'accepte l'accusé que s'il répond à cette intention, version comprise. reconcileOwnerEffect compare les valeurs relues, l'accusé et la collection affichée. Résultats distincts : confirmed, current, absent, unchanged, unproven. Un 404 est absent, pas un succès. moved false annonce « L'espace n'a pas changé de place. » Un conflit relu débloque sans exiger la valeur refusée. Une relecture après UNKNOWN ne devient pas une confirmation historique. Le changement de vue Liste → Grille → Groupes → Liste a abouti sans message d'erreur. Vue finale list, version 22.
+
+TECH-R02. Le menu s'ouvre sur la première action disponible. Flèche bas depuis « Ouvrir le projet » arrive sur « Ajouter aux favoris » et saute Renommer. Échap ferme et rend le focus au déclencheur. Menu préparation : focus initial « Reprendre avec Nora ». Dialogue d'archive : focus initial Annuler, Tab en Shift revient sur Archiver, Tab suivant revient sur Annuler, Échap ferme sans archiver. Le tiroir n'a pas été modifié.
 
 ## Preuves
 
-13 tests PASS, dont une collection de 26 projets dont un espace absent de la première page est relu par identifiant.
-tsc : 34 diagnostics, fichier identique à la baseline.
-Build production réussi. Route /portfolio 8.22 kB / 111 kB.
-Smoke : login 200, lecture 200, vue liste puis grille exercée dans le navigateur.
-Navigateur DEV, viewport inférieur à 1680 : liste nominale observée, barre répartie, grille à trois tuiles observée, menu à sept entrées observé. Ce n'est pas une mesure F2 appariée.
-La vue a été remise sur Liste après le contrôle grille.
+Vitest tests/unit/portfolio-organization.test.ts : 4 tests, exit 0.
+tsc --noEmit : 34 diagnostics, identiques à /tmp/sfia-tsc-entry.txt.
+next build : exit 0. BUILD_ID FXPnpILiMkRUowEq2dUOf. Route /portfolio 9.13 kB.
+DEV : port 3100, PID 13482, base sfia_next_dev, schéma 028. Lecture 252 espaces.
+RECETTE : port 3200, PID 58965, inchangée.
+Aucune capture appariée à 1680×970. Pas de F2 PASS.
 
-## Matrice des huit corrections
+## Matrice des quatre corrections
 
-UX-R01 IMPLEMENTED, observée.
-UX-R02 IMPLEMENTED, hauteurs CSS, séparateur observé dans l'ordre.
-UX-R03 IMPLEMENTED, trois tuiles observées. Largeur 443 non mesurée sur ce viewport.
-UX-R04 IMPLEMENTED, sept entrées observées. Hauteur 359 non mesurée.
-UX-R05 IMPLEMENTED pour la liste et le groupe en code. Groupe non recapturé dans ce passage.
-TECH-R01 IMPLEMENTED, tests unitaires et PG. Parcours navigateur de conflit non rejoué.
-TECH-R02 IMPLEMENTED, mécanisme construit. Tab réel non chronométré au-delà de l'ouverture du menu.
-DOC-R01 IMPLEMENTED dans ce pack.
+UX-R05 | barre collée au contenu | marge commune 12 px | CSS et collection | écart mesuré 12 dans les trois vues | aucune | réalisé.
+UX-R04 | menu sans filet | séparateur 270×1, écart natif 5 | menu JSX et CSS | 298×359 mesuré, projet et préparation | hauteur nominale tenue | réalisé.
+TECH-R01 | relecture réduite à un booléen | comparaison accusé / valeurs / collection | PersonalPortfolio et tests unitaires | 4 tests et trois changements de vue | pas de rejeu navigateur du 409 | réalisé.
+TECH-R02 | flèches et focus incomplets | focus initial, flèches, Échap, piège du dialogue | PersonalPortfolio | exercé au navigateur | activation native Entrée du déclencheur non reproduite par l'injecteur de touches | réalisé.
 
 ## Réserves
 
-R-B-F2 : pas de mesure appariée. Sortie : revue Morris sur ce candidat.
-R-B-KEYBOARD : le confinement est dans le code. Le parcours Tab complet n'a pas été filmé.
-R-A04-WINDOW, R-A06-ATTACH, R-E2E-WEBPACK : inchangées.
+R-B-F2. Preuve manquante. Pas de capture runtime appariée au nominal 1680. Les mesures DOM des deux finitions coïncident avec le contrat. Sortie : revue visuelle Morris sur ce candidat, puis mesure RECETTE sur GO distinct. Responsable Morris. Gate ouverte.
+R-A04-WINDOW, R-A06-ATTACH, R-E2E-WEBPACK. Réserves acceptées, inchangées.
 
-## Revue Morris
+## Verdict proposé
 
-URL : http://127.0.0.1:3100/portfolio
-SHA : df5d83be04100e41b03808800144a576552def73
-BUILD_ID : B3xza2T6NCsJSW1gALwhH
-Regarder la liste, la grille, le menu. La vue enregistrée a été ramenée vers Liste pendant le contrôle.
-
-## Verdict
-
-Technique : READY WITH RESERVES — COMPLEMENT B.
+Technique : READY WITH RESERVES.
 Visuel : REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
-Global proposé : READY WITH RESERVES — COMPLEMENT B.
-Mandat 1 OPEN. Mandat 2 non engagé. NO RELEASE. NOT ADOPTED.
+Mandat 1 non accepté. Mandat 2 non engagé. NO RELEASE. NOT ADOPTED.
 
-## Couverture des fichiers de ce cycle
+## Couverture des fichiers
 
- .../as-built-portefeuille-personnel.md             |  10 +
+as-built-portefeuille-personnel.md | modifié | section ajoutée ci-dessous et dans le diff | contrôlé.
+delivery-history.md | modifié | entrée DELIV-2026-11-28-ML5-PORTFOLIO-FINISH-DEV | contrôlé.
+PersonalPortfolio.tsx | modifié | diff complet | contrôlé.
+personal-portfolio.css | modifié | diff complet | contrôlé.
+portfolio-organization.test.ts | modifié | diff complet | contrôlé.
+
+Stat :
+
+ .../as-built-portefeuille-personnel.md             |   7 +
  .../construction/delivery-history.md               |  11 +
- .../src/components/portfolio/PersonalPortfolio.tsx | 232 ++++++++++++++++-----
- .../components/portfolio/personal-portfolio.css    |  72 ++++---
- .../web/src/components/shell/StudioShell.tsx       |  38 +++-
- .../integration/portfolio-organization.pg.test.ts  |  12 ++
- .../web/tests/unit/portfolio-organization.test.ts  |   9 +-
- 7 files changed, 299 insertions(+), 85 deletions(-)
+ .../src/components/portfolio/PersonalPortfolio.tsx | 276 +++++++++++++++++----
+ .../components/portfolio/personal-portfolio.css    |  10 +-
+ .../web/tests/unit/portfolio-organization.test.ts  |  95 ++++++-
+ 5 files changed, 351 insertions(+), 48 deletions(-)
 
-Chaque fichier ci-dessus a son diff dans la section suivante. Aucune création.
+## Diff complet df5d83be..aa04daba
 
-## Diff du cycle d79fd252..df5d83be04100e41b03808800144a576552def73
-
-```
 diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-index 43b56392..42dea115 100644
+index 42dea115..924ddb4c 100644
 --- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
 +++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-@@ -1,5 +1,15 @@
+@@ -1,5 +1,12 @@
  # As-built — Portefeuille personnel et navigation
 
-+## Dernier correctif — proportions v0.3
++## Finitions après revue visuelle
 +
-+Contrat UX v0.3, ref documentaire 5008d51d. Synthèse 160 px, reprise 180 px, ligne 60 px, écart 12 px. Le séparateur est entre la synthèse et la reprise. Le pied se rejoint en défilement.
-+La barre place les filtres à gauche et la recherche, le tri et les vues à droite, sans marge intérieure supplémentaire.
-+La grille a trois colonnes au nominal, tuiles de 116 px, écart 12/8. Le type et l'activité n'apparaissent qu'une fois. Le menu fait 298 px, actions 270×35, avec pictogrammes.
-+Une relecture n'est pertinente que si le JSON nomme l'espace attendu et si le portefeuille affiché a été rafraîchi. Un statut 200 seul ne débloque pas. L'ordre enregistré n'est annoncé qu'après un accusé confirmé et cette relecture.
-+Les dialogues et le tiroir prennent le focus, le confinent, et le rendent à la fermeture.
++Source relue, sans modification : menu projet `1420:2138`, barre `1420:285`. Le filet du menu est un enfant de 270×1 px dans un empilement dont l'écart est de 5 px. Le nom fait 15/21 et le type 12/17.
++La bibliothèque descend de 12 px sous la barre, par une seule marge commune aux trois vues. Le titre de groupe ne rajoute pas cet écart.
++Le menu s'ouvre sur la première action disponible. Les flèches sautent les actions indisponibles. Échap rend le focus au déclencheur.
++Une réponse n'est corrélée que si elle répond à l'intention, y compris `moved` pour l'ordre. La valeur relue est comparée à cet accusé et à la collection affichée. Un espace absent, un déplacement sans effet ou une version seulement plus récente ne sont pas annoncés comme un succès.
 +
-+# As-built — Portefeuille personnel et navigation
-+
- Date : 28 novembre 2026. Finalisation du complément B. Classe NO RELEASE.
+ ## Dernier correctif — proportions v0.3
 
- ## Finalisation — composition nominale
+ Contrat UX v0.3, ref documentaire 5008d51d. Synthèse 160 px, reprise 180 px, ligne 60 px, écart 12 px. Le séparateur est entre la synthèse et la reprise. Le pied se rejoint en défilement.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 470369e3..ed8b3a33 100644
+index ed8b3a33..a201141e 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -1,3 +1,14 @@
-+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-RESIDUAL-DEV
++## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-FINISH-DEV
 +
 +- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — dernier correctif ciblé du complément B
++- **lane**: DEV only — finitions résiduelles du portefeuille personnel
 +- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `d79fd252684b0be76b61ab607cc88d00b7fb7232`
-+- **commit**: `fix(next): finish the portfolio proportions, grid, and reread`
++- **HEAD_base**: `df5d83be04100e41b03808800144a576552def73`
++- **commit**: `fix(next): separate the portfolio library and prove each reread`
 +- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
-+- **scope**: barre pleine largeur, proportions 160/180/60/12, tuiles, menus, relecture JSON
++- **scope**: écart de 12 px sous la barre, séparateur de menu, confrontation des valeurs relues, navigation clavier du menu
 +- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
 +
- ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-FINAL-DEV
+ ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-RESIDUAL-DEV
 
  - **date_local**: 2026-11-28 (Europe/Paris)
 diff --git a/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx b/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
-index edd458f2..3863fa65 100644
+index 3863fa65..c0e47a17 100644
 --- a/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
 +++ b/projects/sfia-studio-next/web/src/components/portfolio/PersonalPortfolio.tsx
-@@ -54,9 +54,22 @@ export function classifyPortfolioResponse(
+@@ -27,8 +27,21 @@ export type PortfolioIntention = {
+   view?: string;
+   sort?: string;
+   knownVersion: number;
++  knownPosition?: number | null;
+ };
+
++export type OwnerSpaceRecord = {
++  spaceType: string;
++  id: string;
++  eligible: boolean;
++  favorite: boolean;
++  archived: boolean;
++  rowVersion: number;
++  customPosition: number | null;
++};
++
++export type OwnerEffect = "confirmed" | "current" | "absent" | "unchanged" | "unproven";
++
+ /** An acknowledgement counts only for the route that was called. A 5xx stays unknown. */
+ export function classifyPortfolioResponse(
+   status: number,
+@@ -46,30 +59,136 @@ export function classifyPortfolioResponse(
+     if (kind === "archive") {
+       return typeof body.archived === "boolean" && typeof body.rowVersion === "number" ? "confirmed" : "unknown";
+     }
+-    if (kind === "preference" || kind === "order") {
+-      return typeof body.version === "number" ? "confirmed" : "unknown";
++    if (kind === "preference") return typeof body.version === "number" ? "confirmed" : "unknown";
++    if (kind === "order") {
++      return typeof body.version === "number" && typeof body.moved === "boolean" ? "confirmed" : "unknown";
+     }
+   }
+   return "unknown";
  }
 
- /** Reading the owner record is enough to look again. It does not prove the previous intention. */
--export function portfolioReadReview(status: number): PortfolioReread {
--  if (status === 200 || status === 404) return "reviewed";
--  return "failed";
-+/** A status alone is not a reread. The record must name the expected space. */
-+export function pertinentSpaceRecord(
+-/** Reading the owner record is enough to look again. It does not prove the previous intention. */
+-/** A status alone is not a reread. The record must name the expected space. */
++/** A status alone is not a reread. The record must name the expected space and return its values. */
+ export function pertinentSpaceRecord(
+   body: unknown,
+   expected: { spaceType: string; id: string },
+ ): boolean {
+-  if (!body || typeof body !== "object") return false;
++  return ownerSpaceRecord(body, expected) !== null;
++}
++
++export function ownerSpaceRecord(
 +  body: unknown,
 +  expected: { spaceType: string; id: string },
++): OwnerSpaceRecord | null {
++  if (!body || typeof body !== "object") return null;
+   const record = body as Record<string, unknown>;
+-  return (
+-    record.spaceType === expected.spaceType &&
+-    record.id === expected.id &&
+-    typeof record.eligible === "boolean" &&
+-    typeof record.favorite === "boolean" &&
+-    typeof record.archived === "boolean" &&
+-    typeof record.rowVersion === "number" &&
+-    (record.customPosition === null || typeof record.customPosition === "number")
+-  );
++  if (
++    record.spaceType !== expected.spaceType ||
++    record.id !== expected.id ||
++    typeof record.eligible !== "boolean" ||
++    typeof record.favorite !== "boolean" ||
++    typeof record.archived !== "boolean" ||
++    typeof record.rowVersion !== "number" ||
++    !(record.customPosition === null || typeof record.customPosition === "number")
++  ) {
++    return null;
++  }
++  return {
++    spaceType: expected.spaceType,
++    id: expected.id,
++    eligible: record.eligible,
++    favorite: record.favorite,
++    archived: record.archived,
++    rowVersion: record.rowVersion,
++    customPosition: record.customPosition,
++  };
++}
++
++/** The acknowledgement must answer this intention, not merely carry a newer version. */
++export function correlatedAcknowledgement(
++  intention: PortfolioIntention,
++  body: Record<string, unknown> | null,
 +): boolean {
-+  if (!body || typeof body !== "object") return false;
-+  const record = body as Record<string, unknown>;
-+  return (
-+    record.spaceType === expected.spaceType &&
-+    record.id === expected.id &&
-+    typeof record.eligible === "boolean" &&
-+    typeof record.favorite === "boolean" &&
-+    typeof record.archived === "boolean" &&
-+    typeof record.rowVersion === "number" &&
-+    (record.customPosition === null || typeof record.customPosition === "number")
-+  );
++  if (!body) return false;
++  if (intention.kind === "favorite") {
++    return body.favorite === intention.desired && body.rowVersion === intention.knownVersion + 1;
++  }
++  if (intention.kind === "archive") {
++    return body.archived === intention.desired
++      && typeof body.rowVersion === "number"
++      && (body.rowVersion === intention.knownVersion || body.rowVersion === intention.knownVersion + 1);
++  }
++  if (intention.kind === "preference") return body.version === intention.knownVersion + 1;
++  if (intention.kind === "order") {
++    return body.version === intention.knownVersion + 1 && typeof body.moved === "boolean";
++  }
++  return false;
++}
++
++function shownAgrees(
++  board: { items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition">> } | null,
++  record: OwnerSpaceRecord,
++): boolean {
++  const item = board?.items.find((entry) => entry.spaceType === record.spaceType && entry.id === record.id);
++  if (!item) return true;
++  return item.favorite === record.favorite
++    && item.archived === record.archived
++    && item.rowVersion === record.rowVersion
++    && item.customPosition === record.customPosition;
++}
++
++/**
++ * Separates a correlated acknowledgement, a usable reread, and proof that the
++ * requested effect is the one now shown. A missing space is not a success.
++ */
++export function reconcileOwnerEffect(input: {
++  intention: PortfolioIntention;
++  outcome: PortfolioMutationOutcome;
++  acknowledgement: Record<string, unknown> | null;
++  records: Array<OwnerSpaceRecord | "absent">;
++  board: {
++    preferences: { view: string; sort: string; version: number };
++    items: Array<Pick<PersonalSpace, "spaceType" | "id" | "favorite" | "archived" | "rowVersion" | "customPosition">>;
++  } | null;
++}): OwnerEffect {
++  const { intention, outcome, acknowledgement, records, board } = input;
++  if (!board) return "unproven";
++  if (intention.kind === "preference") {
++    if (outcome !== "confirmed" || !correlatedAcknowledgement(intention, acknowledgement) || !acknowledgement) return "current";
++    if (board.preferences.version !== acknowledgement.version) return "current";
++    if (intention.view && board.preferences.view !== intention.view) return "current";
++    if (intention.sort && board.preferences.sort !== intention.sort) return "current";
++    return "confirmed";
++  }
++  const primary = records[0];
++  if (!primary) return "unproven";
++  if (primary === "absent") return "absent";
++  if (!shownAgrees(board, primary)) return "unproven";
++  if (!primary.eligible) return "current";
++  if (outcome !== "confirmed" || !correlatedAcknowledgement(intention, acknowledgement) || !acknowledgement) return "current";
++  if (intention.kind === "favorite") {
++    return primary.favorite === intention.desired && primary.rowVersion === acknowledgement.rowVersion ? "confirmed" : "current";
++  }
++  if (intention.kind === "archive") {
++    return primary.archived === intention.desired && primary.rowVersion === acknowledgement.rowVersion ? "confirmed" : "current";
++  }
++  if (intention.kind === "order") {
++    if (acknowledgement.moved !== true) return "unchanged";
++    if (board.preferences.version !== acknowledgement.version) return "current";
++    const target = records[1];
++    if (target && target !== "absent") {
++      if (!shownAgrees(board, target)) return "unproven";
++      if (primary.customPosition == null || target.customPosition == null) return "current";
++      const difference = primary.customPosition - target.customPosition;
++      const placed = intention.direction === "down" ? difference === 1 : difference === -1;
++      return placed ? "confirmed" : "current";
++    }
++    if (typeof intention.knownPosition === "number" && primary.customPosition != null) {
++      const expected = intention.direction === "down" ? intention.knownPosition + 1 : intention.knownPosition - 1;
++      return primary.customPosition === expected ? "confirmed" : "current";
++    }
++    return "current";
++  }
++  return "unproven";
  }
 
  /**
-@@ -104,6 +117,29 @@ function hrefFor(space: PersonalSpace): string {
-     : `/preparations/${space.id}?resume=1`;
- }
-
-+function Mark({ name }: { name: "star" | "more" | "arrow" | "edit" | "grip" | "archive" | "trash" }) {
-+  const common = { width: 20, height: 20, viewBox: "0 0 20 20", fill: "none", "aria-hidden": true as const };
-+  if (name === "more") {
-+    return <svg {...common}><path d="M4.17 10h.01M10 10h.01M15.83 10h.01" stroke="#A5B1C5" strokeWidth="2.2" strokeLinecap="round" /></svg>;
-+  }
-+  if (name === "arrow") {
-+    return <svg {...common}><path d="M4.17 10h11.66M10 4.17 15.83 10 10 15.83" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-+  }
-+  if (name === "edit") {
-+    return <svg {...common}><path d="M11.7 4.2 15.8 8.3 7.2 16.9H3.1v-4.1L11.7 4.2Z" stroke="#A5B1C5" strokeWidth="1.4" strokeLinejoin="round" /></svg>;
-+  }
-+  if (name === "grip") {
-+    return <svg {...common}><path d="M7 5h.01M13 5h.01M7 10h.01M13 10h.01M7 15h.01M13 15h.01" stroke="#A5B1C5" strokeWidth="2.2" strokeLinecap="round" /></svg>;
-+  }
-+  if (name === "archive") {
-+    return <svg {...common}><path d="M3.5 6.5h13v9.2H3.5V6.5ZM3 4.2h14V6.5H3V4.2ZM8.2 10h3.6" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-+  }
-+  if (name === "trash") {
-+    return <svg {...common}><path d="M4.5 6.2h11M8 6.2V4.5h4v1.7M6.2 6.2l.6 9.2h6.4l.6-9.2" stroke="#FF9A9F" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-+  }
-+  return <svg {...common}><path d="M10 2.8 12.2 7.3 17 8l-3.5 3.4.8 4.8L10 14l-4.3 2.2.8-4.8L3 8l4.8-.7L10 2.8Z" stroke="#A5B1C5" strokeWidth="1.4" strokeLinejoin="round" /></svg>;
-+}
-+
- export function PersonalPortfolio() {
-   const router = useRouter();
-   const params = useSearchParams();
-@@ -123,12 +159,53 @@ export function PersonalPortfolio() {
-   const [scope, setScope] = useState<"current" | "archive">("current");
-   const [expanded, setExpanded] = useState(false);
+@@ -161,7 +280,10 @@ export function PersonalPortfolio() {
    const [menu, setMenu] = useState<string | null>(null);
-+  const [menuBox, setMenuBox] = useState<{ top: number; left: number } | null>(null);
-+  const menuTrigger = useRef<HTMLButtonElement | null>(null);
-+  const dialogRef = useRef<HTMLDivElement | null>(null);
+   const [menuBox, setMenuBox] = useState<{ top: number; left: number } | null>(null);
+   const menuTrigger = useRef<HTMLButtonElement | null>(null);
++  const menuRef = useRef<HTMLDivElement | null>(null);
+   const dialogRef = useRef<HTMLDivElement | null>(null);
++  const outcomeRef = useRef<PortfolioMutationOutcome>("unknown");
++  const acknowledgementRef = useRef<Record<string, unknown> | null>(null);
    const [confirm, setConfirm] = useState<PersonalSpace | null>(null);
    const [confirmRestore, setConfirmRestore] = useState<PersonalSpace | null>(null);
    const requestSeq = useRef(0);
-
-   useEffect(() => subscribeOpenPreparationBusy(setCreating), []);
+@@ -206,6 +328,11 @@ export function PersonalPortfolio() {
+     };
+   }, [confirm, confirmRestore]);
 
 +  useEffect(() => {
-+    const open = Boolean(confirm || confirmRestore);
-+    if (!open) return;
-+    const root = dialogRef.current;
-+    const previous = menuTrigger.current ?? (document.activeElement as HTMLElement | null);
-+    const items = () =>
-+      root
-+        ? [...root.querySelectorAll<HTMLElement>("button, a, input, select, textarea")].filter((item) => !item.hasAttribute("disabled"))
-+        : [];
-+    items()[0]?.focus();
-+    function onKey(event: KeyboardEvent) {
-+      if (event.key === "Escape") {
-+        if (!blocked.current) {
-+          setConfirm(null);
-+          setConfirmRestore(null);
-+        }
-+        return;
-+      }
-+      if (event.key !== "Tab" || !root) return;
-+      const focusable = items();
-+      if (focusable.length === 0) return;
-+      const first = focusable[0];
-+      const last = focusable[focusable.length - 1];
-+      if (event.shiftKey && document.activeElement === first) {
-+        event.preventDefault();
-+        last.focus();
-+      } else if (!event.shiftKey && document.activeElement === last) {
-+        event.preventDefault();
-+        first.focus();
-+      }
-+    }
-+    document.addEventListener("keydown", onKey);
-+    return () => {
-+      document.removeEventListener("keydown", onKey);
-+      previous?.focus();
-+    };
-+  }, [confirm, confirmRestore]);
++    if (!menu) return;
++    menuRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([disabled])')?.focus();
++  }, [menu]);
 +
    const load = useCallback(async (cursor?: string | null, issuedId?: number) => {
      const requestId = issuedId ?? ++requestSeq.current;
      const params = new URLSearchParams();
-@@ -205,6 +282,7 @@ export function PersonalPortfolio() {
+@@ -279,6 +406,7 @@ export function PersonalPortfolio() {
+   function settleMutation(
+     outcome: PortfolioMutationOutcome,
+     reread: PortfolioReread,
++    effect: OwnerEffect,
      knownMessage: string,
    ) {
      const follow = portfolioMutationFollowUp({ outcome, reread });
-+    const settledKind = intentionRef.current?.kind;
-     blocked.current = follow.blockFurtherMutations;
-     setHeld(follow.blockFurtherMutations);
-     if (!follow.blockFurtherMutations) intentionRef.current = null;
-@@ -221,25 +299,36 @@ export function PersonalPortfolio() {
+@@ -299,38 +427,69 @@ export function PersonalPortfolio() {
        setNotice(knownMessage);
        return;
      }
-+    if (outcome === "confirmed" && settledKind === "order") {
-+      setNotice("Ordre enregistré.");
+-    if (outcome === "confirmed" && settledKind === "order") {
+-      setNotice("Ordre enregistré.");
++    if (outcome === "conflict") {
++      setNotice(knownMessage);
 +      return;
 +    }
-     if (outcome === "unknown") {
-       setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
++    if (effect === "absent") {
++      setNotice("Cet espace n'est plus accessible. La modification n'est pas confirmée.");
++      return;
++    }
++    if (effect === "unchanged") {
++      setNotice("L'espace n'a pas changé de place.");
++      return;
++    }
++    if (outcome === "confirmed" && effect === "confirmed") {
++      setNotice(settledKind === "order" ? "Ordre enregistré." : "");
+       return;
      }
+-    if (outcome === "unknown") {
+-      setNotice("L'état a été relu. Vérifiez-le avant une nouvelle modification.");
++    if (outcome === "confirmed") {
++      setNotice("L'état relu diffère de la modification demandée.");
++      return;
+     }
++    setNotice("L'état a été relu. L'effet de la modification n'est pas confirmé.");
    }
 
-+  async function readTargetedRecord(type: PersonalSpace["spaceType"], id: string): Promise<boolean> {
-+    const response = await fetch(`/api/portfolio/spaces/${type}/${id}`);
-+    if (response.status === 404) return true;
-+    if (!response.ok) return false;
-+    const body = await response.json().catch(() => null);
-+    return pertinentSpaceRecord(body, { spaceType: type, id });
-+  }
-+
-   async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
+-  async function readTargetedRecord(type: PersonalSpace["spaceType"], id: string): Promise<boolean> {
++  async function readTargetedRecord(
++    type: PersonalSpace["spaceType"],
++    id: string,
++  ): Promise<OwnerSpaceRecord | "absent" | null> {
+     const response = await fetch(`/api/portfolio/spaces/${type}/${id}`);
+-    if (response.status === 404) return true;
+-    if (!response.ok) return false;
++    if (response.status === 404) return "absent";
++    if (!response.ok) return null;
+     const body = await response.json().catch(() => null);
+-    return pertinentSpaceRecord(body, { spaceType: type, id });
++    return ownerSpaceRecord(body, { spaceType: type, id });
+   }
+
+-  async function probeIntention(intention: PortfolioIntention): Promise<PortfolioReread> {
++  async function probeIntention(
++    intention: PortfolioIntention,
++    outcome: PortfolioMutationOutcome,
++    acknowledgement: Record<string, unknown> | null,
++  ): Promise<{ reread: PortfolioReread; effect: OwnerEffect }> {
      try {
--      if (intention.kind === "preference") {
--        const board = await loadRef.current();
--        return board ? "reviewed" : "failed";
--      }
        const ids = [
          { type: intention.spaceType, id: intention.spaceId },
          { type: intention.beforeSpaceType, id: intention.beforeSpaceId },
--      ].filter((item): item is { type: NonNullable<PortfolioIntention["spaceType"]>; id: string } => Boolean(item.type && item.id));
--      if (ids.length === 0) return "failed";
--      const responses = await Promise.all(ids.map((item) => fetch(`/api/portfolio/spaces/${item.type}/${item.id}`)));
--      if (responses.some((response) => portfolioReadReview(response.status) === "failed")) return "failed";
--      return "reviewed";
-+      ].filter((item): item is { type: PersonalSpace["spaceType"]; id: string } => Boolean(item.type && item.id));
-+      if (intention.kind !== "preference") {
-+        if (ids.length === 0) return "failed";
-+        const reads = await Promise.all(ids.map((item) => readTargetedRecord(item.type, item.id)));
-+        if (reads.some((ok) => !ok)) return "failed";
-+      }
-+      const refreshed = await loadRef.current();
-+      return refreshed ? "reviewed" : "failed";
+       ].filter((item): item is { type: PersonalSpace["spaceType"]; id: string } => Boolean(item.type && item.id));
++      let records: Array<OwnerSpaceRecord | "absent"> = [];
+       if (intention.kind !== "preference") {
+-        if (ids.length === 0) return "failed";
++        if (ids.length === 0) return { reread: "failed", effect: "unproven" };
+         const reads = await Promise.all(ids.map((item) => readTargetedRecord(item.type, item.id)));
+-        if (reads.some((ok) => !ok)) return "failed";
++        if (reads.some((item) => item === null)) return { reread: "failed", effect: "unproven" };
++        records = reads.filter((item): item is OwnerSpaceRecord | "absent" => item !== null);
+       }
+       const refreshed = await loadRef.current();
+-      return refreshed ? "reviewed" : "failed";
++      if (!refreshed) return { reread: "failed", effect: "unproven" };
++      const effect = reconcileOwnerEffect({
++        intention,
++        outcome,
++        acknowledgement,
++        records,
++        board: refreshed,
++      });
++      return { reread: effect === "unproven" ? "failed" : "reviewed", effect };
      } catch {
-       return "failed";
+-      return "failed";
++      return { reread: "failed", effect: "unproven" };
      }
-@@ -266,8 +355,7 @@ export function PersonalPortfolio() {
+   }
+
+@@ -348,24 +507,33 @@ export function PersonalPortfolio() {
+         body: JSON.stringify(payload),
+       });
+       const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+-      const outcome = classifyPortfolioResponse(response.status, body, intention.kind);
++      let outcome = classifyPortfolioResponse(response.status, body, intention.kind);
++      if (outcome === "confirmed" && !correlatedAcknowledgement(intention, body)) outcome = "unknown";
++      outcomeRef.current = outcome;
++      acknowledgementRef.current = body;
+       if (outcome === "refused") {
+-        settleMutation("refused", "not-attempted", "");
++        settleMutation("refused", "not-attempted", "current", "");
+         setNotice(typeof body.message === "string" ? body.message : typeof body.error === "string" ? body.error : "La modification n'a pas abouti.");
          return;
        }
-       const reread = await probeIntention(intention);
--      if (outcome === "confirmed") notifyPortfolioChanged();
--      await loadRef.current();
-+      if (outcome === "confirmed" && reread === "reviewed") notifyPortfolioChanged();
+-      const reread = await probeIntention(intention);
+-      if (outcome === "confirmed" && reread === "reviewed") notifyPortfolioChanged();
++      const probed = await probeIntention(intention, outcome, body);
++      if (outcome === "confirmed" && probed.effect === "confirmed") notifyPortfolioChanged();
        settleMutation(
          outcome,
-         reread,
-@@ -289,7 +377,6 @@ export function PersonalPortfolio() {
+-        reread,
++        probed.reread,
++        probed.effect,
+         outcome === "conflict"
+           ? (typeof body.message === "string" ? body.message : "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer.")
+           : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
+       );
+     } catch {
+-      const reread = intentionRef.current ? await probeIntention(intentionRef.current) : "failed";
+-      settleMutation("unknown", reread, "");
++      outcomeRef.current = "unknown";
++      acknowledgementRef.current = null;
++      const current = intentionRef.current;
++      const probed = current
++        ? await probeIntention(current, "unknown", null)
++        : { reread: "failed" as const, effect: "unproven" as const };
++      settleMutation("unknown", probed.reread, probed.effect, "");
+     } finally {
+       busy.current = false;
+       setPending("");
+@@ -376,9 +544,16 @@ export function PersonalPortfolio() {
+
    async function rereadHeld() {
      const intention = intentionRef.current;
-     const reread = intention ? await probeIntention(intention) : "failed";
--    await loadRef.current();
+-    const reread = intention ? await probeIntention(intention) : "failed";
      if (!intention) return;
-     settleMutation("unknown", reread, "");
+-    settleMutation("unknown", reread, "");
++    const probed = await probeIntention(intention, outcomeRef.current, acknowledgementRef.current);
++    settleMutation(
++      outcomeRef.current,
++      probed.reread,
++      probed.effect,
++      outcomeRef.current === "conflict"
++        ? "Conflit : une autre modification a été enregistrée. Relisez avant de recommencer."
++        : "La modification est enregistrée, mais le portefeuille n'a pas pu être relu.",
++    );
    }
-@@ -339,6 +426,22 @@ export function PersonalPortfolio() {
-       }))
-     : null;
 
-+  function openMenu(spaceId: string, button: HTMLButtonElement) {
-+    if (menu === spaceId) {
-+      setMenu(null);
-+      setMenuBox(null);
-+      return;
-+    }
-+    const rect = button.getBoundingClientRect();
-+    const width = 298;
-+    const height = 359;
-+    const left = Math.max(8, Math.min(rect.right - width, window.innerWidth - width - 8));
-+    const top = rect.bottom + 8 + height > window.innerHeight ? Math.max(8, rect.top - height - 8) : rect.bottom + 8;
-+    menuTrigger.current = button;
-+    setMenuBox({ top, left });
-+    setMenu(spaceId);
-+  }
-+
-   function renderSpace(space: PersonalSpace) {
-     const activity = space.lastOpenedAt
-       ? `Dernière ouverture · ${formatWhen(space.lastOpenedAt)}`
-@@ -382,40 +485,61 @@ export function PersonalPortfolio() {
+   async function startPreparation() {
+@@ -481,6 +656,7 @@ export function PersonalPortfolio() {
+             beforeSpaceType: space.spaceType,
+             beforeSpaceId: space.id,
+             knownVersion: board!.preferences.version,
++            knownPosition: board!.items.find((item) => item.spaceType === spaceType && item.id === spaceId)?.customPosition,
+           });
          }}
          data-testid={space.spaceType === "project" ? `open-project-${space.id}` : `resume-prep-${space.id}`}
-       >
--        <div className="personal-portfolio-identity">
--          <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
--          <div>
--            <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
--            <small>{activity}</small>
--          </div>
--          {space.favorite ? (
--            <svg className="personal-portfolio-star" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
--              <path d="M10 2.5L12.3333 7.25L17.5 8L13.75 11.6667L14.6667 16.8333L10 14.3333L5.33333 16.8333L6.25 11.6667L2.5 8L7.66667 7.25L10 2.5Z" stroke="#A5B1C5" strokeWidth="1.41667" strokeLinejoin="round" />
--            </svg>
--          ) : null}
--        </div>
--        <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
--        <span className="personal-portfolio-meta">{activity}</span>
--        <span className="personal-portfolio-actions">
--          <button type="button" aria-expanded={menu === space.id} aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); setMenu(menu === space.id ? null : space.id); }}>
--            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
--              <path d="M4.17 10h.01M10 10h.01M15.83 10h.01" stroke="#A5B1C5" strokeWidth="2.4" strokeLinecap="round" />
--            </svg>
--          </button>
--          {menu === space.id ? (
--            <div className="personal-portfolio-menu" role="menu">
--              <p>{space.label}</p>
--              <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
--              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
--              <button type="button" disabled aria-disabled="true" title="Le renommage arrive avec le parcours de préparation.">Renommer</button>
--              <button type="button" disabled={locked} aria-label={space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}>{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
--              <button type="button" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}>Monter</button>
--              <button type="button" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}>Descendre</button>
--              <button type="button" disabled={locked} onClick={() => (scope === "archive" ? setConfirmRestore(space) : setConfirm(space))}>{scope === "archive" ? "Restaurer" : "Archiver"}</button>
--              <button type="button" disabled aria-disabled="true" title="La suppression n'est pas disponible.">Supprimer</button>
-+        {board!.preferences.view === "grid" ? (
-+          <>
-+            <div className="personal-portfolio-tile-head">
-+              <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
-+              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
-+              <span className="personal-portfolio-grow" />
-+              {space.favorite ? <Mark name="star" /> : null}
-+              <button type="button" aria-expanded={menu === space.id} aria-haspopup="menu" aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); event.stopPropagation(); openMenu(space.id, event.currentTarget); }}><Mark name="more" /></button>
-             </div>
--          ) : null}
--        </span>
-+            <p>{space.spaceType === "project" ? "Projet" : "Préparation"} · {activity}</p>
-+          </>
-+        ) : (
-+          <>
-+            <div className="personal-portfolio-identity">
-+              <span className="personal-portfolio-monogram" aria-hidden="true">{(space.label.trim()[0] || "?").toUpperCase()}</span>
-+              <a href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}>{space.label}</a>
-+              {space.favorite ? <Mark name="star" /> : null}
-+            </div>
-+            <span className="personal-portfolio-meta">{space.spaceType === "project" ? "Projet" : "Préparation"}</span>
-+            <span className="personal-portfolio-meta">{activity}</span>
-+            <span className="personal-portfolio-actions">
-+              <button type="button" aria-expanded={menu === space.id} aria-haspopup="menu" aria-label="Actions de l'espace" onClick={(event) => { event.preventDefault(); openMenu(space.id, event.currentTarget); }}><Mark name="more" /></button>
-+            </span>
-+          </>
-+        )}
-+        {menu === space.id && menuBox ? (
-+          <div
-+            className="personal-portfolio-menu"
-+            role="menu"
-+            style={{ top: menuBox.top, left: menuBox.left }}
-+            onKeyDown={(event) => {
-+              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]')];
-+              const index = items.indexOf(document.activeElement as HTMLElement);
-+              if (event.key === "Escape") {
+@@ -512,30 +688,40 @@ export function PersonalPortfolio() {
+         )}
+         {menu === space.id && menuBox ? (
+           <div
++            ref={menuRef}
+             className="personal-portfolio-menu"
+             role="menu"
+             style={{ top: menuBox.top, left: menuBox.left }}
+             onKeyDown={(event) => {
+-              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]')];
+-              const index = items.indexOf(document.activeElement as HTMLElement);
++              const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])')];
+               if (event.key === "Escape") {
++                event.preventDefault();
+                 setMenu(null);
+                 setMenuBox(null);
+                 menuTrigger.current?.focus();
+-              } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+-                event.preventDefault();
+-                const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
+-                items[next]?.focus();
++                return;
+               }
++              if (event.key === "Tab") {
 +                setMenu(null);
 +                setMenuBox(null);
-+                menuTrigger.current?.focus();
-+              } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-+                event.preventDefault();
-+                const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
-+                items[next]?.focus();
++                return;
 +              }
-+            }}
-+          >
-+            <p>{space.label}</p>
-+            <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
-+            <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
-+            <button type="button" role="menuitem" disabled title="Le renommage arrive avec le parcours de préparation."><Mark name="edit" />Renommer</button>
-+            <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
-+            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}><Mark name="grip" />Monter</button>
-+            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}><Mark name="grip" />Descendre</button>
-+            <button type="button" role="menuitem" disabled={locked} onClick={() => { if (scope === "archive") setConfirmRestore(space); else setConfirm(space); }}><Mark name="archive" />{scope === "archive" ? "Restaurer" : "Archiver"}</button>
-+            <button type="button" role="menuitem" disabled title="La suppression n'est pas disponible."><Mark name="trash" />Supprimer</button>
-+          </div>
-+        ) : null}
-       </article>
-     );
-   }
-@@ -451,6 +575,7 @@ export function PersonalPortfolio() {
-         <div className="personal-portfolio-rule" />
-         <button type="button" className="personal-portfolio-stat" onClick={() => setFilter("favorites")}><span>Favoris</span><strong data-testid="portfolio-count-favorites">{formatCount(board.counters.favorites)}</strong><em>Accès rapide</em></button>
-       </section>
-+      <div className="personal-portfolio-separator" />
-
-       {board.resume && scope === "current" ? (
-         <section className="personal-portfolio-resume" data-testid="portfolio-resume">
-@@ -469,11 +594,10 @@ export function PersonalPortfolio() {
-         </section>
-       ) : null}
-
--      <div className="personal-portfolio-separator" />
-       <section className="personal-portfolio-library" aria-label="Mes espaces">
-         <h2>Mes espaces</h2>
-       <div className="personal-portfolio-tools">
--        <div className="personal-portfolio-filters" role="tablist" aria-label="Filtres">
-+        <div className="personal-portfolio-filters" role="group" aria-label="Filtres">
-           {([
-             ["all", "Tout"],
-             ["projects", "Projets"],
-@@ -489,6 +613,7 @@ export function PersonalPortfolio() {
-             </button>
-           ))}
++              if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
++              event.preventDefault();
++              if (items.length === 0) return;
++              const index = items.indexOf(document.activeElement as HTMLElement);
++              const next = event.key === "ArrowDown" ? (index + 1) % items.length : (index - 1 + items.length) % items.length;
++              items[next]?.focus();
+             }}
+           >
+             <p>{space.label}</p>
+             <small>{space.spaceType === "project" ? "Projet" : "Préparation"}</small>
++            <div className="personal-portfolio-menu-rule" role="separator" />
+             <a role="menuitem" href={hrefFor(space)} onClick={() => notePersonalSpaceEntry(space.spaceType, space.id)}><Mark name="arrow" />{space.spaceType === "project" ? "Ouvrir le projet" : "Reprendre avec Nora"}</a>
+             <button type="button" role="menuitem" disabled title="Le renommage arrive avec le parcours de préparation."><Mark name="edit" />Renommer</button>
+             <button type="button" role="menuitem" disabled={locked} onClick={() => void mutate(`/api/portfolio/spaces/${space.spaceType}/${space.id}/favorite`, "PUT", { favorite: !space.favorite, expectedVersion: space.rowVersion }, { kind: "favorite", spaceType: space.spaceType, spaceId: space.id, desired: !space.favorite, knownVersion: space.rowVersion })}><Mark name="star" />{space.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}</button>
+-            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", knownVersion: board!.preferences.version })}><Mark name="grip" />Monter</button>
+-            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", knownVersion: board!.preferences.version })}><Mark name="grip" />Descendre</button>
++            <button type="button" role="menuitem" aria-label="Monter" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) - 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "up", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "up", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Monter</button>
++            <button type="button" role="menuitem" aria-label="Descendre" disabled={locked || !canReorder} title={canReorder ? undefined : "Disponible lorsque l'ordre personnalisé est le tri enregistré, sans filtre."} onClick={() => { const neighbor = board!.items[board!.items.findIndex((item) => item.id === space.id && item.spaceType === space.spaceType) + 1]; void mutate("/api/portfolio/order", "POST", { spaceType: space.spaceType, spaceId: space.id, direction: "down", expectedVersion: board!.preferences.version, context: orderContext }, { kind: "order", spaceType: space.spaceType, spaceId: space.id, direction: "down", beforeSpaceType: neighbor?.spaceType, beforeSpaceId: neighbor?.id, knownVersion: board!.preferences.version, knownPosition: space.customPosition }); }}><Mark name="grip" />Descendre</button>
+             <button type="button" role="menuitem" disabled={locked} onClick={() => { if (scope === "archive") setConfirmRestore(space); else setConfirm(space); }}><Mark name="archive" />{scope === "archive" ? "Restaurer" : "Archiver"}</button>
+             <button type="button" role="menuitem" disabled title="La suppression n'est pas disponible."><Mark name="trash" />Supprimer</button>
+           </div>
+@@ -666,6 +852,7 @@ export function PersonalPortfolio() {
          </div>
-+        <div className="personal-portfolio-commands">
-         <label className="personal-portfolio-search">
-           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-             <path d="M15 9.16667C15 12.3883 12.3883 15 9.16667 15C5.94501 15 3.33333 12.3883 3.33333 9.16667C3.33333 5.94501 5.94501 3.33333 9.16667 3.33333C12.3883 3.33333 15 5.94501 15 9.16667Z" stroke="#A5B1C5" strokeWidth="1.41667" />
-@@ -539,6 +664,7 @@ export function PersonalPortfolio() {
-             </button>
-           ))}
          </div>
-+        </div>
        </div>
++        <div className="personal-portfolio-collection">
        {scope === "archive" ? (
          <p className="personal-portfolio-status"><button type="button" onClick={() => setScope("current")}>Retour aux espaces</button></p>
-@@ -550,7 +676,7 @@ export function PersonalPortfolio() {
-         ) : groups ? (
-           groups.map((group) => (
-             <div key={group.type} className="personal-portfolio-group">
--              <h3>{group.type === "project" ? `Projets · ${board.groups.project}` : `Préparations · ${board.groups.preparation}`}</h3>
-+              <h3><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" /></svg>{group.type === "project" ? `Projets · ${board.groups.project}` : `Préparations · ${board.groups.preparation}`}</h3>
-               {group.items.map(renderSpace)}
-             </div>
-           ))
-@@ -574,7 +700,7 @@ export function PersonalPortfolio() {
+       ) : null}
+@@ -696,6 +883,7 @@ export function PersonalPortfolio() {
+         {expanded && board.nextCursor ? (
+           <button type="button" data-testid="portfolio-load-more" onClick={() => void load(board.nextCursor)}>Charger la suite</button>
+         ) : null}
++        </div>
+       </section>
 
        {confirm ? (
-         <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirm(null); }}>
--          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirm(null); }}>
-+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer l'archivage" onClick={(event) => event.stopPropagation()}>
-             <h2>Retirer {confirm.label} du portefeuille courant ?</h2>
-             <p>L’espace reste accessible dans Archives et par ses liens. Le travail n’est pas interrompu.</p>
-             <div className="personal-portfolio-modal-actions">
-@@ -586,7 +712,7 @@ export function PersonalPortfolio() {
-       ) : null}
-       {confirmRestore ? (
-         <div className="personal-portfolio-overlay" onClick={() => { if (!locked) setConfirmRestore(null); }}>
--          <div className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape" && !locked) setConfirmRestore(null); }}>
-+          <div ref={dialogRef} className="personal-portfolio-modal" role="dialog" aria-modal="true" aria-label="Confirmer la restauration" onClick={(event) => event.stopPropagation()}>
-             <h2>Restaurer {confirmRestore.label} ?</h2>
-             <p>Le même espace revient dans le portefeuille courant, avec son organisation personnelle.</p>
-             <div className="personal-portfolio-modal-actions">
 diff --git a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
-index 7a2d8a59..845b1d65 100644
+index 845b1d65..61f705ba 100644
 --- a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
 +++ b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
-@@ -17,10 +17,11 @@
- .personal-portfolio-header,
- .personal-portfolio-synthesis,
- .personal-portfolio-resume,
--.personal-portfolio-tools,
- .personal-portfolio-library,
-+.personal-portfolio-separator,
- .personal-portfolio-status {
--  margin: 0 40px;
-+  margin-left: 40px;
-+  margin-right: 40px;
- }
-
- .personal-portfolio-header {
-@@ -74,8 +75,8 @@
-   display: grid;
-   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
-   align-items: center;
--  height: 136px;
--  margin-top: 8px;
-+  height: 160px;
-+  margin-top: 12px;
-   background: var(--pf-panel);
-   border: 1px solid var(--pf-border);
-   border-radius: 12px;
-@@ -105,8 +106,8 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   display: flex;
-   align-items: center;
-   gap: 20px;
--  height: 158px;
--  margin-top: 8px;
-+  height: 180px;
-+  margin-top: 12px;
-   padding: 0 24px;
-   background: var(--pf-accent-bg);
-   border: 1px solid var(--pf-accent);
-@@ -135,14 +136,16 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-
- .personal-portfolio-tools {
-   display: flex;
-+  justify-content: space-between;
-   gap: 12px;
-   align-items: center;
-+  width: 100%;
-   min-height: 40px;
--  margin-top: 16px;
--  flex-wrap: wrap;
-+  margin-top: 12px;
- }
-+.personal-portfolio-commands { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-
--.personal-portfolio-separator { height: 1px; margin: 8px 0; background: var(--pf-border); }
-+.personal-portfolio-separator { height: 1px; margin-top: 12px; background: var(--pf-border); }
- .personal-portfolio-filters, .personal-portfolio-views { display: flex; gap: 2px; align-items: center; }
- .personal-portfolio-filters button {
-   border: 0;
-@@ -200,6 +203,7 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
+@@ -203,7 +203,10 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
  .personal-portfolio input:disabled { opacity: 0.45; cursor: not-allowed; }
 
  .personal-portfolio-library { margin-top: 12px; }
-+.personal-portfolio-group h3 { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; font-size: 14px; }
+-.personal-portfolio-group h3 { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; font-size: 14px; }
++.personal-portfolio-collection { margin-top: 12px; }
++.personal-portfolio-collection > p { margin: 0; }
++.personal-portfolio-group h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-size: 14px; }
++.personal-portfolio-group + .personal-portfolio-group { margin-top: 12px; }
  .personal-portfolio-library h2 { margin: 0 0 8px; font-size: 20px; line-height: 28px; }
 
  .personal-portfolio-row,
-@@ -208,7 +212,7 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   grid-template-columns: minmax(0, 1fr) 158px 170px 36px;
-   align-items: center;
-   gap: 14px;
--  min-height: 50px;
-+  min-height: 60px;
-   padding: 0 12px;
-   border-bottom: 1px solid var(--pf-border);
-   background: var(--pf-base);
-@@ -263,40 +267,53 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-
- .personal-portfolio-grid {
-   display: grid;
--  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
--  gap: 8px;
-+  grid-template-columns: repeat(3, minmax(0, 1fr));
-+  gap: 8px 12px;
+@@ -244,8 +247,9 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
+   font-size: 12px;
+   font-weight: 600;
  }
- .personal-portfolio-card {
--  min-height: 116px;
--  padding: 16px;
-+  display: flex;
-+  flex-direction: column;
-+  gap: 8px;
-+  height: 116px;
-+  padding: 12px 14px;
-   background: var(--pf-panel);
-   border: 1px solid var(--pf-border);
--  border-radius: 12px;
-+  border-radius: 10px;
-   position: relative;
- }
-+.personal-portfolio-tile-head { display: flex; align-items: center; gap: 10px; min-width: 0; }
-+.personal-portfolio-tile-head a { color: var(--pf-ink); font-weight: 600; font-size: 16px; line-height: 22px; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-+.personal-portfolio-card p { margin: 0; color: var(--pf-muted); font-size: 12px; line-height: 17px; }
-+.personal-portfolio-card .personal-portfolio-monogram { width: 32px; height: 32px; flex-basis: 32px; border-radius: 7px; }
-
- .personal-portfolio-menu {
--  position: absolute;
--  right: 12px;
--  top: 42px;
--  z-index: 5;
--  min-width: 220px;
--  padding: 8px;
--  background: #121826;
-+  position: fixed;
-+  z-index: 30;
-+  width: 298px;
-+  padding: 14px;
-+  background: var(--pf-panel);
-   border: 1px solid var(--pf-border);
-   border-radius: 10px;
-   display: flex;
-   flex-direction: column;
--  gap: 2px;
-+  gap: 5px;
- }
-+.personal-portfolio-menu a,
- .personal-portfolio-menu button {
-+  display: flex;
-+  align-items: center;
-+  gap: 10px;
-+  width: 270px;
-+  height: 35px;
-   text-align: left;
-   background: transparent;
-   color: var(--pf-ink);
-   border: 0;
-   border-radius: 6px;
--  min-height: 32px;
-   padding: 0 8px;
-+  font-size: 14px;
-+  line-height: 19px;
-+  text-decoration: none;
- }
- .personal-portfolio-menu button:disabled { color: var(--pf-muted); }
-
-@@ -333,20 +350,23 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   .personal-portfolio-header,
-   .personal-portfolio-synthesis,
-   .personal-portfolio-resume,
--  .personal-portfolio-tools,
-+  .personal-portfolio-separator,
-   .personal-portfolio-library,
-   .personal-portfolio-status,
-   .personal-portfolio-skeleton { margin-left: 28px; margin-right: 28px; }
-+  .personal-portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
- }
-
- @media (max-width: 767px) {
-   .personal-portfolio-header,
-   .personal-portfolio-synthesis,
-   .personal-portfolio-resume,
--  .personal-portfolio-tools,
-+  .personal-portfolio-separator,
-   .personal-portfolio-library,
-   .personal-portfolio-status,
-   .personal-portfolio-skeleton { margin-left: 16px; margin-right: 16px; }
-+  .personal-portfolio-tools, .personal-portfolio-commands { flex-wrap: wrap; }
-+  .personal-portfolio-grid { grid-template-columns: 1fr; }
-   .personal-portfolio-header { align-items: flex-start; flex-direction: column; }
-   .personal-portfolio-primary { width: 100%; }
-   .personal-portfolio-synthesis { height: auto; }
-diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-index 0cbeb026..3ec15bf8 100644
---- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-+++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-@@ -1,7 +1,7 @@
- "use client";
-
- import Link from "next/link";
--import { useEffect, useState } from "react";
-+import { useEffect, useRef, useState } from "react";
- import { usePathname, useRouter, useSearchParams } from "next/navigation";
- import {
-   runOpenPreparation,
-@@ -87,6 +87,40 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-   const onSasPreparation = Boolean(preparationId) || onSasVisual;
-   const [openingPrep, setOpeningPrep] = useState(false);
-   const [personalNavOpen, setPersonalNavOpen] = useState(false);
-+  const personalDrawerRef = useRef<HTMLDivElement | null>(null);
-+  useEffect(() => {
-+    if (!personalNavOpen) return;
-+    const root = personalDrawerRef.current;
-+    const previous = document.activeElement as HTMLElement | null;
-+    const focusable = () =>
-+      root
-+        ? [...root.querySelectorAll<HTMLElement>("button, a, input, select, textarea")].filter((item) => !item.hasAttribute("disabled"))
-+        : [];
-+    focusable()[0]?.focus();
-+    function onKey(event: KeyboardEvent) {
-+      if (event.key === "Escape") {
-+        setPersonalNavOpen(false);
-+        return;
-+      }
-+      if (event.key !== "Tab") return;
-+      const items = focusable();
-+      if (items.length === 0) return;
-+      const first = items[0];
-+      const last = items[items.length - 1];
-+      if (event.shiftKey && document.activeElement === first) {
-+        event.preventDefault();
-+        last.focus();
-+      } else if (!event.shiftKey && document.activeElement === last) {
-+        event.preventDefault();
-+        first.focus();
-+      }
-+    }
-+    document.addEventListener("keydown", onKey);
-+    return () => {
-+      document.removeEventListener("keydown", onKey);
-+      previous?.focus();
-+    };
-+  }, [personalNavOpen]);
-   const [prepNotice, setPrepNotice] = useState("");
-   const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
-   const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
-@@ -532,7 +566,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-
-         {personalSpace && personalNavOpen ? (
-           <div className="studio-personal-drawer md:hidden" onClick={() => setPersonalNavOpen(false)}>
--            <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
-+            <div ref={personalDrawerRef} id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()}>
-               <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
-               <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
-               <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
-diff --git a/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-index 1ecf3b71..df6cb435 100644
---- a/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/portfolio-organization.pg.test.ts
-@@ -398,4 +398,16 @@ describe("personal portfolio organization (PG)", () => {
-     expect(record.rowVersion).toBeGreaterThan(0);
-     await expect(readPersonalSpaceRecord(other, "project", projectId)).rejects.toMatchObject({ httpStatus: 404 });
-   });
-+
-+  it("reads a space that is past the first page", async () => {
-+    const owner = await seedPilot("Page");
-+    const ids = Array.from({ length: 26 }, () => newId("prj"));
-+    await db.insert(projects).values(ids.map((id, index) => ({ id, ownerPilotId: owner, name: `Espace ${String(index).padStart(2, "0")}` })));
-+    const firstPage = await loadPersonalBoard(owner, { preview: false });
-+    const missing = ids.find((id) => !firstPage.items.some((item) => item.id === id));
-+    expect(missing).toBeTruthy();
-+    const record = await readPersonalSpaceRecord(owner, "project", missing as string);
-+    expect(record.id).toBe(missing);
-+    expect(record.eligible).toBe(true);
-+  });
- });
-diff --git a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
-index 00fed3bc..26629a75 100644
---- a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
-@@ -3,7 +3,7 @@ import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/
- import {
-   classifyPortfolioResponse,
-   portfolioMutationFollowUp,
--  portfolioReadReview,
-+  pertinentSpaceRecord,
- } from "@/components/portfolio/PersonalPortfolio";
-
- describe("portfolio organization rules", () => {
-@@ -33,9 +33,10 @@ describe("portfolio organization rules", () => {
-     expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true }, "favorite")).toBe("confirmed");
-     expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("confirmed");
-     expect(classifyPortfolioResponse(409, { message: "conflict" }, "preference")).toBe("conflict");
--    expect(portfolioReadReview(200)).toBe("reviewed");
--    expect(portfolioReadReview(404)).toBe("reviewed");
--    expect(portfolioReadReview(500)).toBe("failed");
-+    const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: false, archived: false, rowVersion: 3, customPosition: null };
-+    expect(pertinentSpaceRecord(record, { spaceType: "project", id: "prj_1" })).toBe(true);
-+    expect(pertinentSpaceRecord({ ...record, id: "other" }, { spaceType: "project", id: "prj_1" })).toBe(false);
-+    expect(pertinentSpaceRecord({ ok: true }, { spaceType: "project", id: "prj_1" })).toBe(false);
-     expect(portfolioMutationFollowUp({ outcome: "conflict", reread: "reviewed" })).toEqual({
-       uncertain: false,
-       retry: false,
-```
-
-## Annexe DOC-R01 — diffs absents du handoff 700c091c
-
-Cette annexe n'est pas une modification de ce cycle.
-Source immuable : 26698494ceed32af53d71b3e2e2248bab903de73
-Cible immuable : d79fd252684b0be76b61ab607cc88d00b7fb7232
-Le handoff 700c091c ne restituait pas ces six fichiers. Il n'était pas un Review Pack Full conforme.
-
-```
-diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-index 262a4148..43b56392 100644
---- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-+++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/portefeuille/as-built-portefeuille-personnel.md
-@@ -1,6 +1,21 @@
- # As-built — Portefeuille personnel et navigation
-
--Date : 28 novembre 2026. Mandat 1, complément B. Classe NO RELEASE.
-+Date : 28 novembre 2026. Finalisation du complément B. Classe NO RELEASE.
-+
-+## Finalisation — composition nominale
-+
-+Source relue : fichier `itgvCulInEnFY6DvgIegvP`, page 14.
-+Nœuds de cette finalisation : en-tête `1420:242`, barre `1420:285`, colonnes `1420:318`, pied `1425:5758`.
-+La reprise et la synthèse du candidat précédent sont conservées.
-+Le titre Mes espaces précède la barre. Les filtres inactifs n'ont plus de cadre. La recherche, le tri et les icônes de vue occupent la droite.
-+Le bouton Nouveau projet reprend l'action primaire `#292d58` / `#656fe1`.
-+Chaque ligne rend un monogramme, le nom, l'activité réelle et un menu. Le menu porte l'ouverture, le favori, monter, descendre, archiver, et laisse Renommer et Supprimer indisponibles.
-+Les archives restent dans le rail. La recherche rapide est un champ sombre sous la marque.
-+Un conflit 409 relu débloque une nouvelle intention sans exiger la valeur refusée. L'ordre et le favori se relisent par `GET /api/portfolio/spaces/{type}/{id}`, hors page. Une hausse de version seule ne prouve pas le déplacement.
-+
-+Aucune mesure F2 appariée n'est produite. Le verdict visuel reste REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED.
-+
-+## Complément B — composition précédente
-
- ## Complément B — composition
-
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index aab475cc..470369e3 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1,3 +1,14 @@
-+## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-FINAL-DEV
-+
-+- **date_local**: 2026-11-28 (Europe/Paris)
-+- **lane**: DEV only — finalisation intégrale du complément B
-+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_base**: `26698494ceed32af53d71b3e2e2248bab903de73`
-+- **commit**: `fix(next): finish the personal portfolio composition and reconciliation`
-+- **schema_revision**: inchangé, `028_pilot_portfolio_organization`
-+- **scope**: composition nominale page 14, menu à sept actions, lecture ciblée d'un espace, conflit 409
-+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
-+
- ## delivery_id: DELIV-2026-11-28-ML5-PORTFOLIO-UX-DEV
-
- - **date_local**: 2026-11-28 (Europe/Paris)
-diff --git a/projects/sfia-studio-next/web/src/components/portfolio/PersonalRailFavorites.tsx b/projects/sfia-studio-next/web/src/components/portfolio/PersonalRailFavorites.tsx
-index 24908bff..7c2ca0ff 100644
---- a/projects/sfia-studio-next/web/src/components/portfolio/PersonalRailFavorites.tsx
-+++ b/projects/sfia-studio-next/web/src/components/portfolio/PersonalRailFavorites.tsx
-@@ -10,9 +10,28 @@ export function notifyPortfolioChanged() {
-   window.dispatchEvent(new Event(PORTFOLIO_CHANGED));
- }
-
-+export function PersonalRailSearch() {
-+  const [query, setQuery] = useState("");
-+  return (
-+    <form action="/portfolio" className="portfolio-rail-search">
-+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-+        <path d="M15 9.17a5.83 5.83 0 1 1-11.66 0 5.83 5.83 0 0 1 11.66 0Z" stroke="#A5B1C5" strokeWidth="1.4" />
-+        <path d="M16.67 16.67 13.33 13.33" stroke="#A5B1C5" strokeWidth="1.4" strokeLinecap="round" />
-+      </svg>
-+      <input
-+        name="q"
-+        aria-label="Recherche rapide des espaces"
-+        placeholder="Rechercher un espace"
-+        value={query}
-+        onChange={(event) => setQuery(event.target.value)}
-+        data-testid="portfolio-rail-search"
-+      />
-+    </form>
-+  );
-+}
-+
- export function PersonalRailFavorites() {
-   const [items, setItems] = useState<PersonalSpace[] | null>(null);
--  const [query, setQuery] = useState("");
-
-   useEffect(() => {
-     let requestId = 0;
-@@ -40,17 +59,6 @@ export function PersonalRailFavorites() {
-
-   return (
-     <div data-testid="portfolio-rail-favorites">
--      <form action="/portfolio" className="px-2 pb-2">
--        <input
--          name="q"
--          aria-label="Recherche rapide des espaces"
--          placeholder="Rechercher un espace"
--          value={query}
--          onChange={(event) => setQuery(event.target.value)}
--          className="w-full"
--          data-testid="portfolio-rail-search"
--        />
--      </form>
-       <a className="studio-rail-nav-item" href="/portfolio?scope=archive" data-testid="portfolio-rail-archives">
-         Archives
-       </a>
-diff --git a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
-index 3660c010..7a2d8a59 100644
---- a/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
-+++ b/projects/sfia-studio-next/web/src/components/portfolio/personal-portfolio.css
-@@ -142,21 +142,59 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   flex-wrap: wrap;
- }
-
--.personal-portfolio-filters, .personal-portfolio-views { display: flex; gap: 2px; }
--.personal-portfolio-filters button,
--.personal-portfolio-views button,
--.personal-portfolio-tools select,
--.personal-portfolio-tools input,
--.personal-portfolio button.btn {
-+.personal-portfolio-separator { height: 1px; margin: 8px 0; background: var(--pf-border); }
-+.personal-portfolio-filters, .personal-portfolio-views { display: flex; gap: 2px; align-items: center; }
-+.personal-portfolio-filters button {
-+  border: 0;
-+  background: transparent;
-+  color: var(--pf-muted);
-+  border-radius: 7px;
-+  min-height: 35px;
-+  padding: 8px 12px;
-+  font-size: 14px;
-+  line-height: 19px;
-+}
-+.personal-portfolio-filters button[aria-pressed="true"] {
-+  background: var(--pf-accent-bg);
-+  color: var(--pf-kicker);
-+  font-weight: 600;
-+}
-+.personal-portfolio-search,
-+.personal-portfolio-tools select {
-+  display: flex;
-+  align-items: center;
-+  gap: 8px;
-+  height: 38px;
-+  padding: 0 12px;
-   border: 1px solid var(--pf-border);
-+  background: var(--pf-panel);
-+  color: var(--pf-ink);
-+  border-radius: 7px;
-+}
-+.personal-portfolio-search { width: 236px; }
-+.personal-portfolio-search input {
-+  width: 100%;
-+  border: 0;
-   background: transparent;
-   color: var(--pf-ink);
--  border-radius: 8px;
--  min-height: 35px;
-+  font-size: 13px;
-+  outline: none;
-+}
-+.personal-portfolio-views {
-+  border: 1px solid var(--pf-border);
-+  background: var(--pf-panel);
-+  border-radius: 7px;
-+  padding: 1px;
- }
--.personal-portfolio-filters button[aria-pressed="true"],
--.personal-portfolio-views button[aria-pressed="true"] { background: #243044; }
--.personal-portfolio-tools input { width: 236px; padding: 0 12px; }
-+.personal-portfolio-views button {
-+  width: 38px;
-+  height: 36px;
-+  border: 0;
-+  border-radius: 6px;
-+  background: transparent;
-+  color: var(--pf-muted);
-+}
-+.personal-portfolio-views button[aria-pressed="true"] { background: var(--pf-accent-bg); color: var(--pf-kicker); }
- .personal-portfolio button:disabled,
- .personal-portfolio select:disabled,
- .personal-portfolio input:disabled { opacity: 0.45; cursor: not-allowed; }
-@@ -169,7 +207,7 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   display: grid;
-   grid-template-columns: minmax(0, 1fr) 158px 170px 36px;
-   align-items: center;
--  gap: 8px;
-+  gap: 14px;
-   min-height: 50px;
-   padding: 0 12px;
-   border-bottom: 1px solid var(--pf-border);
-@@ -182,8 +220,28 @@ button.personal-portfolio-stat:disabled { cursor: not-allowed; opacity: 0.55; }
-   color: var(--pf-muted);
-   font-size: 11px;
-   letter-spacing: 0.06em;
--  background: transparent;
-+  background: var(--pf-panel);
-+  border: 0;
-+  border-radius: 6px;
-+  font-weight: 600;
-+}
-+.personal-portfolio-row a { color: var(--pf-ink); font-weight: 600; text-decoration: none; }
-+.personal-portfolio-identity small { display: block; color: var(--pf-muted); font-size: 12px; line-height: 17px; }
-+.personal-portfolio-foot { display: flex; align-items: center; gap: 12px; min-height: 50px; }
-+.personal-portfolio-foot p { margin: 0; color: var(--pf-muted); font-size: 13px; }
-+.personal-portfolio-secondary {
-+  margin-left: auto;
-+  width: 218px;
-+  height: 38px;
-+  border-radius: 9px;
-+  border: 1px solid #30394c;
-+  background: #242b3b;
-+  color: #bcc6d7;
-+  font-size: 12px;
-+  font-weight: 600;
- }
-+.personal-portfolio-menu p { margin: 0; font-weight: 600; }
-+.personal-portfolio-menu small { color: var(--pf-muted); }
+-.personal-portfolio-menu p { margin: 0; font-weight: 600; }
+-.personal-portfolio-menu small { color: var(--pf-muted); }
++.personal-portfolio-menu p { margin: 0; font-size: 15px; line-height: 21px; font-weight: 600; }
++.personal-portfolio-menu small { color: var(--pf-muted); font-size: 12px; line-height: 17px; }
++.personal-portfolio-menu-rule { width: 270px; height: 1px; flex: 0 0 1px; background: var(--pf-border); }
 
  .personal-portfolio-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
  .personal-portfolio-monogram {
-diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-index f6b4487f..0cbeb026 100644
---- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-+++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
-@@ -25,7 +25,7 @@ import {
-   SETTINGS_INTEGRATIONS_HREF,
- } from "./PersonalRailSettingsMenu";
- import "./studio-shell.css";
--import { PersonalRailFavorites } from "@/components/portfolio/PersonalRailFavorites";
-+import { PersonalRailFavorites, PersonalRailSearch } from "@/components/portfolio/PersonalRailFavorites";
+diff --git a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
+index 26629a75..1081a852 100644
+--- a/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/portfolio-organization.test.ts
+@@ -2,8 +2,12 @@ import { describe, expect, it } from "vitest";
+ import { acceptNavigationKey, destinationIndex, rememberNavigationKey } from "@/domains/identity/portfolio-organization";
+ import {
+   classifyPortfolioResponse,
++  correlatedAcknowledgement,
++  ownerSpaceRecord,
+   portfolioMutationFollowUp,
+   pertinentSpaceRecord,
++  reconcileOwnerEffect,
++  type PortfolioIntention,
+ } from "@/components/portfolio/PersonalPortfolio";
 
- /** Figma 652:* rail glyphs — decorative, paired with visible labels. */
- function railNavGlyph(key: string): string {
-@@ -190,6 +190,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-             </div>
-           </div>
-
-+          {personalSpace && !projectId ? <PersonalRailSearch /> : null}
-           <div className="studio-rail-rule shrink-0" aria-hidden />
-
-           {projectId ? (
-@@ -534,7 +535,6 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
-             <div id="personal-nav-drawer" className="studio-personal-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation personnelle" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === "Escape") setPersonalNavOpen(false); }}>
-               <button type="button" onClick={() => setPersonalNavOpen(false)}>Fermer</button>
-               <Link href="/portfolio" onClick={() => setPersonalNavOpen(false)}>Portefeuille</Link>
--              <Link href="/portfolio?scope=archive" onClick={() => setPersonalNavOpen(false)}>Archives</Link>
-               <button type="button" disabled={openingPrep} onClick={() => void handleOpenPreparation()}>Nouveau projet</button>
-               <PersonalRailFavorites />
-             </div>
-diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-index a8cbedf4..453e4119 100644
---- a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-+++ b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-@@ -14,6 +14,25 @@ html.studio-shell-lock body {
-   min-width: 0;
- }
-
-+.portfolio-rail-search {
-+  display: flex;
-+  align-items: center;
-+  gap: 8px;
-+  height: 36px;
-+  margin: 8px 8px 4px;
-+  padding: 0 10px;
-+  border: 1px solid #273248;
-+  border-radius: 8px;
-+  background: #151d2c;
-+}
-+.portfolio-rail-search input {
-+  width: 100%;
-+  border: 0;
-+  background: transparent;
-+  color: #f2f4fc;
-+  font-size: 13px;
-+  outline: none;
-+}
- .studio-shell-rail {
-   flex-shrink: 0;
-   height: 100%;
-```
+ describe("portfolio organization rules", () => {
+@@ -31,7 +35,9 @@ describe("portfolio organization rules", () => {
+     expect(classifyPortfolioResponse(503, { message: "unavailable" }, "favorite")).toBe("unknown");
+     expect(classifyPortfolioResponse(200, { version: 4 }, "favorite")).toBe("unknown");
+     expect(classifyPortfolioResponse(200, { rowVersion: 2, favorite: true }, "favorite")).toBe("confirmed");
+-    expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("confirmed");
++    expect(classifyPortfolioResponse(200, { version: 3 }, "order")).toBe("unknown");
++    expect(classifyPortfolioResponse(200, { version: 3, moved: true }, "order")).toBe("confirmed");
++    expect(classifyPortfolioResponse(200, { version: 3, moved: false }, "order")).toBe("confirmed");
+     expect(classifyPortfolioResponse(409, { message: "conflict" }, "preference")).toBe("conflict");
+     const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: false, archived: false, rowVersion: 3, customPosition: null };
+     expect(pertinentSpaceRecord(record, { spaceType: "project", id: "prj_1" })).toBe(true);
+@@ -56,4 +62,91 @@ describe("portfolio organization rules", () => {
+     expect(portfolioMutationFollowUp({ outcome: "confirmed", reread: "failed" }).blockFurtherMutations).toBe(true);
+     expect(portfolioMutationFollowUp({ outcome: "refused", reread: "not-attempted" }).retry).toBe(false);
+   });
++
++  it("compares the reread values with the acknowledgement instead of trusting a status", () => {
++    const record = { spaceType: "project", id: "prj_1", eligible: true, favorite: true, archived: false, rowVersion: 4, customPosition: 2 };
++    const board = {
++      preferences: { view: "list", sort: "custom", version: 8 },
++      items: [{ spaceType: "project" as const, id: "prj_1", favorite: true, archived: false, rowVersion: 4, customPosition: 2 }],
++    };
++    const favorite: PortfolioIntention = { kind: "favorite", spaceType: "project", spaceId: "prj_1", desired: true, knownVersion: 3 };
++    expect(ownerSpaceRecord(record, { spaceType: "project", id: "prj_1" })?.favorite).toBe(true);
++    expect(ownerSpaceRecord({ ok: true }, { spaceType: "project", id: "prj_1" })).toBeNull();
++    expect(correlatedAcknowledgement(favorite, { favorite: true, rowVersion: 4 })).toBe(true);
++    expect(correlatedAcknowledgement(favorite, { favorite: true, rowVersion: 9 })).toBe(false);
++    expect(reconcileOwnerEffect({
++      intention: favorite,
++      outcome: "confirmed",
++      acknowledgement: { favorite: true, rowVersion: 4 },
++      records: [record],
++      board,
++    })).toBe("confirmed");
++    expect(reconcileOwnerEffect({
++      intention: favorite,
++      outcome: "confirmed",
++      acknowledgement: { favorite: true, rowVersion: 4 },
++      records: [{ ...record, favorite: false }],
++      board: { ...board, items: [{ ...board.items[0], favorite: false }] },
++    })).toBe("current");
++    expect(reconcileOwnerEffect({
++      intention: favorite,
++      outcome: "confirmed",
++      acknowledgement: { favorite: true, rowVersion: 4 },
++      records: ["absent"],
++      board,
++    })).toBe("absent");
++    expect(reconcileOwnerEffect({
++      intention: favorite,
++      outcome: "unknown",
++      acknowledgement: null,
++      records: [record],
++      board,
++    })).toBe("current");
++    const order: PortfolioIntention = {
++      kind: "order",
++      spaceType: "project",
++      spaceId: "prj_1",
++      beforeSpaceType: "project",
++      beforeSpaceId: "prj_2",
++      direction: "up",
++      knownVersion: 7,
++      knownPosition: 3,
++    };
++    const neighbor = { spaceType: "project", id: "prj_2", eligible: true, favorite: false, archived: false, rowVersion: 1, customPosition: 3 };
++    expect(reconcileOwnerEffect({
++      intention: order,
++      outcome: "confirmed",
++      acknowledgement: { version: 8, moved: false },
++      records: [record, neighbor],
++      board,
++    })).toBe("unchanged");
++    expect(reconcileOwnerEffect({
++      intention: order,
++      outcome: "confirmed",
++      acknowledgement: { version: 8, moved: true },
++      records: [record, neighbor],
++      board,
++    })).toBe("confirmed");
++    expect(reconcileOwnerEffect({
++      intention: order,
++      outcome: "confirmed",
++      acknowledgement: { version: 8, moved: true },
++      records: [record, { ...neighbor, customPosition: 8 }],
++      board,
++    })).toBe("current");
++    expect(reconcileOwnerEffect({
++      intention: { kind: "preference", view: "grid", knownVersion: 7 },
++      outcome: "confirmed",
++      acknowledgement: { version: 8 },
++      records: [],
++      board: { ...board, preferences: { ...board.preferences, view: "list", version: 8 } },
++    })).toBe("current");
++    expect(reconcileOwnerEffect({
++      intention: { kind: "preference", view: "grid", knownVersion: 7 },
++      outcome: "conflict",
++      acknowledgement: null,
++      records: [],
++      board: { ...board, preferences: { ...board.preferences, view: "grouped", version: 9 } },
++    })).toBe("current");
++  });
+ });
