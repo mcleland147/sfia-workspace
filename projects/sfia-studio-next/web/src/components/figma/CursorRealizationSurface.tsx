@@ -132,12 +132,17 @@ export function CursorRealizationSurface(props: {
   const deepLinkedAttemptRef = useRef<string | null>(null);
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const id = new URLSearchParams(window.location.search).get("attempt");
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("attempt");
     if (!id || attempts.length === 0) return;
     if (deepLinkedAttemptRef.current === id) return;
     const hit = attempts.find((a) => a.attemptId === id);
     if (!hit) return;
     deepLinkedAttemptRef.current = id;
+    const focus = params.get("focus");
+    if (focus === "result") setBilanTab("livrables");
+    else if (focus === "proof") setBilanTab("git");
+    else if (focus === "bilan") setBilanTab("synthese");
     if (mode === "results") {
       void openBilan(hit);
     } else {

@@ -6,6 +6,53 @@
 import type { TurnReference } from "@/domains/conversation/turn-projection";
 import type { ProjectRecentItem, ProjectRecentItemKind } from "@/lib/project-recent-items";
 
+/** Hide a truncated technical revision id. A known version number stays a version. */
+export function displayableRecentRef(refLabel?: string | null): string | null {
+  const raw = refLabel?.trim() ?? "";
+  if (!raw) return null;
+  if (/^v\d+$/.test(raw)) return raw;
+  if (/^rev:/i.test(raw) || /^v:/i.test(raw)) return null;
+  return raw;
+}
+
+export function recentItemGlyph(kind: ProjectRecentItemKind): string {
+  switch (kind) {
+    case "document_nora":
+      return "Doc";
+    case "document_git":
+      return "PDF";
+    case "file_git":
+      return "Git";
+    case "execution":
+      return "Exé";
+    case "result":
+      return "Rés";
+    case "bilan":
+      return "Bil";
+    case "proof":
+      return "Prv";
+    default:
+      return "•";
+  }
+}
+
+export function recentItemMetaLabel(item: {
+  kind: ProjectRecentItemKind;
+  refLabel?: string | null;
+  commit?: string | null;
+  gitRef?: string | null;
+}): string | null {
+  if (item.kind === "file_git" || item.kind === "document_git") {
+    if (item.commit && /^[0-9a-f]{7,64}$/i.test(item.commit)) {
+      return `commit ${item.commit.slice(0, 12)}`;
+    }
+    if (item.gitRef) return `réf. ${item.gitRef}`;
+  }
+  const shown = displayableRecentRef(item.refLabel);
+  if (shown && /^v\d+$/.test(shown)) return `Version ${shown.slice(1)}`;
+  return shown;
+}
+
 export function recentItemFromDocumentConsultation(
   documentId: string,
   title: string,
@@ -20,7 +67,7 @@ export function recentItemFromDocumentConsultation(
     id: rev ? `doc:${documentId}:rev:${rev}` : `doc:${documentId}`,
     kind: "document_nora",
     title: title.slice(0, 160),
-    refLabel: refLabel ?? (rev ? `rev:${rev.slice(0, 8)}` : null),
+    refLabel: displayableRecentRef(refLabel),
     documentId,
     revisionId: rev,
   };
@@ -48,7 +95,9 @@ export function recentItemFromGitConsultation(input: {
     id: `git:${input.repositoryId}:${input.path}@${input.ref}`,
     kind: (isPdf ? "document_git" : "file_git") as ProjectRecentItemKind,
     title: input.title.slice(0, 160),
-    refLabel: (input.commit?.slice(0, 12) ?? input.ref).slice(0, 40),
+    refLabel: input.commit?.trim()
+      ? `commit ${input.commit.trim().slice(0, 12)}`
+      : `réf. ${input.ref}`.slice(0, 40),
     repositoryId: input.repositoryId,
     path: input.path,
     gitRef: input.ref,
@@ -89,11 +138,10 @@ export function recentItemFromTurnReference(
 ): ReturnType<typeof recentItemFromDocumentConsultation> | ReturnType<typeof recentItemFromGitConsultation> | null {
   if (ref.kind === "document" && ref.resourceId) {
     const rev = ref.revisionId ?? null;
-    const label = rev ? `v:${rev.slice(0, 8)}` : null;
     return recentItemFromDocumentConsultation(
       ref.resourceId,
       titleOverride ?? ref.label,
-      label,
+      null,
       rev,
     );
   }

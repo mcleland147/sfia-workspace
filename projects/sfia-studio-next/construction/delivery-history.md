@@ -1,3 +1,15 @@
+## delivery_id: DELIV-2026-11-28-ML5-PROJECT-SURFACES-DEV
+
+- **date_local**: 2026-11-28 (Europe/Paris)
+- **lane**: DEV only — restitution des surfaces projet, documents et connaissance
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `5b9fcfd0ed5b1037a7b4224da24a84aeebed9502`
+- **commit**: `fix(next): restate recent work, purposes, and document identity`
+- **schema_revision**: inchangé, `029`
+- **scope**: récents consultés, points ouverts, finalité affichée, titre documentaire distinct du numéro de révision
+- **classe**: NO RELEASE · compatible corrective · LIVE NOT RUN · CI NOT RUN · F2 non mesuré
+- **reserves**: réserves des mandats 1 et 2 transportées ; R-M2-PF34-REREAD non clos ; F2 non mesuré ; focus fin d'une preuve limité au bilan de la tentative
+
 ## delivery_id: DELIV-2026-11-28-ML5-NAMING-INTEGRITY-DEV
 
 - **date_local**: 2026-11-28 (Europe/Paris)

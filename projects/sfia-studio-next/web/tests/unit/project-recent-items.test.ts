@@ -84,5 +84,16 @@ describe("project-recent-items (MP-08)", () => {
         accessListsReady: false,
       }).map((x) => x.id),
     ).toEqual(["doc:d1"]);
+    const pathless = filterProjectRecentItemsForExposure(
+      [{ ...mixed[1]!, path: "  " }],
+      {
+        loadReady: true,
+        documentIds: new Set(),
+        repositoryIds: new Set(["r1"]),
+        attemptIds: new Set(),
+        accessListsReady: true,
+      },
+    );
+    expect(pathless).toEqual([]);
   });
 });

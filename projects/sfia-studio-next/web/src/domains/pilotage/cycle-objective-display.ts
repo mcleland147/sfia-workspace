@@ -20,6 +20,7 @@ const OPERATIONAL_OBJECTIVE = new RegExp(
 export function isOperationalCycleObjective(raw: string | null | undefined): boolean {
   const t = (raw ?? "").trim();
   if (!t) return true;
+  if (/^finalité métier à préciser\b/i.test(t)) return true;
   return OPERATIONAL_OBJECTIVE.test(t);
 }
 

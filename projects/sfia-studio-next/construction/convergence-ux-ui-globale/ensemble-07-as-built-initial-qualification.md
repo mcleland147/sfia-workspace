@@ -1,5 +1,9 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
+Complément 28/11/2026, base `5b9fcfd0`. Une finalité persistée comme « Finalité métier à préciser » n'est plus affichée comme un objectif formulé. Le libellé d'attente existant la remplace à l'écran. Aucun objectif stocké n'est réécrit, et aucun statut D5 ou D6 n'est modifié.
+
+# Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
+
 Le popup de création SAS06 reste celui déjà livré, à 702×823, et ses repères suivent la création, le contexte et la qualification réellement établis. Un titre de préparation, même proposé par Nora, ne crée pas le projet et ne remplace pas le nom inspecté. La reprise d'un projet existant ne rejoue pas ce popup. Le complément de nommage ne modifie pas ce popup : les quatre repères restent liés aux états réels, et l'anneau s'arrête déjà lorsque le mouvement réduit est demandé.
 
 **Statut:** Morris UAT accepté (21/11) · réserve Acquis/À clarifier **techniquement levée** · RECETTE · NO RELEASE · prêt revue intégration Git

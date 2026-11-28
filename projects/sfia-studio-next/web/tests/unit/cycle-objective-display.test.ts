@@ -29,5 +29,6 @@ describe("cycle objective display boundary", () => {
     expect(p).toMatch(/Finalité métier à préciser/);
     expect(p).not.toMatch(/OPEN_CYCLE|sans doublon/i);
     expect(CYCLE_OBJECTIVE_PENDING_LABEL.length).toBeGreaterThan(10);
+    expect(displayableCycleObjective(p)).toBeNull();
   });
 });

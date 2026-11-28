@@ -1,5 +1,9 @@
 # As-built — Ensemble 06 / Journal V4 + Bibliothèque Documents
 
+Complément 28/11/2026, base `5b9fcfd0`. Une révision dont le titre contredit le titre canonique est refusée avant scellement (`TITLE_IDENTITY_MISMATCH`). Le titre déjà conservé n'est pas réécrit. Le numéro de révision reste celui attribué par le propriétaire. Les titres historiques, y compris un « V1 » métier, restent affichés tels quels.
+
+# As-built — Ensemble 06 / Journal V4 + Bibliothèque Documents
+
 | Métadonnée | Valeur |
 |---|---|
 | Date | 20/11/2026 |

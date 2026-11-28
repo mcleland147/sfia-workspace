@@ -1,5 +1,9 @@
 # As-built — Ensemble 06 / Journal V4
 
+Complément 28/11/2026, base `5b9fcfd0`. Le badge « Sous-sujet » n'apparaît que sur un enfant déjà rattaché par `parentSubjectId`. Les listes, compteurs et sources du journal ne sont pas réécrits. Aucune connaissance n'est créée.
+
+# As-built — Ensemble 06 / Journal V4
+
 | Métadonnée | Valeur |
 |---|---|
 | Date | 19/11/2026 — LIVE prose soft-target + hard max 2000 |

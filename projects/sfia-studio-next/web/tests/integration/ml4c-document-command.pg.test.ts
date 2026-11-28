@@ -243,6 +243,60 @@ describe("ML4C document command (PG)", () => {
     expect(conflict.status).toBe("CONFLICT");
   });
 
+  it("refuses a revision title that contradicts the document before sealing", async () => {
+    const pilotId = await seedPilot("ml4c-doc-title");
+    const prep = await openOrCreatePreparation(pilotId);
+    const title = "Dossier de conception fonctionnelle";
+    const v1 = await savePreparationDocument(pilotId, prep.id, title, `# ${title}\n\nCorps.\n`);
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const convId = await getConversationId(pilotId, prep.id);
+    const reserved = await reserveTurnCommand({
+      conversationId: convId!,
+      ownerPilotId: pilotId,
+      clientTurnKey: `ml4c-title-${Date.now()}`,
+      content: "Révise le dossier.",
+    });
+    expect(reserved.kind).toBe("fresh");
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+    const other = "Autre dossier";
+    const body = `# ${other}\n\nCorps révisé.\n`;
+    const admitted = admitDocumentCommand({
+      commandId: reserved.commandId,
+      operationId: reserved.operationId,
+      userMessageId: reserved.userMessageId,
+      qualifiedIntentId: "i-d4-revise",
+      action: "REVISE",
+      preparationId: prep.id,
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      sourceRevisionId: v1.revisionId,
+      observedHeadRevisionId: v1.revisionId,
+      source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
+      title: other,
+      contentMarkdown: body,
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+    const sealed = await sealAndApplyDocumentCommand({
+      pilotId,
+      fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
+      binding: admitted.binding,
+    });
+    expect(sealed.sealApplied).toBe(false);
+    expect(sealed.effect).toMatchObject({
+      status: "NOT_EXECUTED",
+      reason: "TITLE_IDENTITY_MISMATCH",
+    });
+    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
+    expect(list.revisions).toHaveLength(1);
+    const kept = await db
+      .select({ title: documents.title })
+      .from(documents)
+      .where(eq(documents.id, v1.documentId));
+    expect(kept[0]?.title).toBe(title);
+  });
+
   it("resolveAssistantProposal extracts sfia-document; denies other pilot", async () => {
     const pilotA = await seedPilot("ml4c-prop-a");
     const prepA = await openOrCreatePreparation(pilotA);

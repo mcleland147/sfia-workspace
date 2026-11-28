@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   explicitDocumentIntent,
   hasDocumentaryWriteSignal,
+  documentRevisionTitleAgrees,
   qualifyDocumentAct,
   extractContractualDocumentProposal,
 } from "@/domains/conversation/document-act";
@@ -11,6 +12,26 @@ import {
   parseFenceMeta,
   serializeProposalFence,
 } from "@/domains/conversation/document-command";
+
+describe("document revision title identity", () => {
+  it("accepts the same business title, including a legitimate V1", () => {
+    expect(
+      documentRevisionTitleAgrees(
+        "Dossier de conception V1",
+        "  Dossier de conception V1 ",
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses a revision that replaces the canonical title", () => {
+    expect(
+      documentRevisionTitleAgrees(
+        "Dossier de conception fonctionnelle",
+        "Dossier de conception fonctionnelle V2",
+      ),
+    ).toBe(false);
+  });
+});
 
 describe("document-act SEM-02 — lexical router retired", () => {
   it("qualifyDocumentAct is fail-closed stub", () => {

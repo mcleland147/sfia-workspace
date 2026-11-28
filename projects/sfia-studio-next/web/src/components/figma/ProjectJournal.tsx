@@ -1485,6 +1485,7 @@ function SubjectHierarchyBlock(props: {
                 >
                   <span className="journal-group-text">
                     <span className="journal-child-title">{c.title}</span>
+                    <span className="journal-child-badge">Sous-sujet</span>
                     {cBlurb ? <span className="journal-row-desc">{cBlurb}</span> : null}
                     {cMatch ? (
                       <span className="journal-match" data-testid={`journal-match-${c.id}`}>
@@ -1512,6 +1513,7 @@ function SubjectHierarchyBlock(props: {
                           onClick={() => props.onSelect(g.id)}
                         >
                           <span className="journal-child-title">{g.title}</span>
+                          <span className="journal-child-badge">Sous-sujet</span>
                           <span className="journal-open-arrow" aria-hidden>
                             ↗
                           </span>

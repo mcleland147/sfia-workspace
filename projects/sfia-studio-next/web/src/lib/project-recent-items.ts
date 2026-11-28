@@ -166,7 +166,7 @@ export function filterProjectRecentItemsForExposure(
     if (!allow.accessListsReady) return false;
     if (item.kind === "file_git" || item.kind === "document_git") {
       const repo = item.repositoryId?.trim() || "";
-      return Boolean(repo) && allow.repositoryIds.has(repo);
+      return Boolean(repo) && Boolean(item.path?.trim()) && allow.repositoryIds.has(repo);
     }
     if (
       item.kind === "execution" ||

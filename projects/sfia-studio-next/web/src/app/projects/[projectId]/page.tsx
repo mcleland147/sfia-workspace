@@ -103,6 +103,8 @@ import {
   recentItemFromAttemptConsultation,
   recentItemFromDocumentConsultation,
   recentItemFromTurnReference,
+  recentItemGlyph,
+  recentItemMetaLabel,
 } from "@/lib/project-recent-consultation";
 import {
   openPointShortTitle,
@@ -1431,12 +1433,17 @@ export default function ProjectPage() {
   function openRealizationFocus(
     next: "execution" | "publication",
     attemptId?: string | null,
+    focus?: "result" | "bilan" | "proof" | null,
   ) {
     surfaceNavGenRef.current += 1;
     pendingSurfaceRef.current = next;
     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
-    syncSurfaceUrl(next, null, "push", attemptId ?? null);
+    const href = buildSurfaceUrl(next, null, attemptId ?? null);
+    const url = new URL(href, "http://127.0.0.1");
+    if (focus && attemptId) url.searchParams.set("focus", focus);
+    const nextHref = `${url.pathname}${url.search}`;
+    router.push(nextHref, { scroll: false });
   }
 
   function resetDocumentBibliothequeState() {
@@ -3915,14 +3922,8 @@ export default function ProjectPage() {
                                     : item.kind === "proof"
                                       ? "Preuve"
                                       : item.kind;
-                      const kindGlyph =
-                        item.kind === "document_nora" || item.kind === "document_git"
-                          ? "☰"
-                          : item.kind === "file_git"
-                            ? "⎇"
-                            : item.kind === "execution"
-                              ? "▶"
-                              : "▦";
+                      const kindGlyph = recentItemGlyph(item.kind);
+                      const meta = recentItemMetaLabel(item);
                       return (
                       <li key={item.id}>
                         <button
@@ -3990,21 +3991,19 @@ export default function ProjectPage() {
                               item.kind === "bilan" ||
                               item.kind === "proof"
                             ) {
-                              openRealizationFocus(
-                                "publication",
-                                item.attemptId ?? item.resultId ?? null,
-                              );
+                              if (!item.attemptId) return;
+                              openRealizationFocus("publication", item.attemptId, item.kind);
                             }
                           }}
                         >
-                          <span className="fig-recent-item-glyph" aria-hidden>
+                          <span className="fig-recent-item-glyph" aria-hidden data-recent-glyph={item.kind}>
                             {kindGlyph}
                           </span>
                           <span className="fig-recent-item-text">
                             <span className="fig-recent-item-title">{item.title}</span>
                             <span className="fig-recent-item-meta">
                               {kindLabel}
-                              {item.refLabel ? ` · ${item.refLabel}` : ""}
+                              {meta ? ` · ${meta}` : ""}
                             </span>
                           </span>
                         </button>
@@ -4016,7 +4015,7 @@ export default function ProjectPage() {
               </div>
               <div className="fig-inspector-rule" aria-hidden />
               <p className="fig-inspector-section">Points à clarifier</p>
-              <div data-testid="travail-aside-clarifier">
+              <ul className="list-disc pl-4" data-testid="travail-aside-clarifier">
                 {travailAsideOpenPoints(knowledge?.openPoints ?? [], 5).map((o) => {
                     const short =
                       "shortTitle" in o && typeof o.shortTitle === "string"
@@ -4025,8 +4024,8 @@ export default function ProjectPage() {
                     const subjectId =
                       "subjectId" in o && typeof o.subjectId === "string" ? o.subjectId : null;
                     return (
+                      <li key={o.id}>
                       <button
-                        key={o.id}
                         type="button"
                         className="fig-inspector-link mb-2 block text-left"
                         data-testid={`travail-open-point-${o.id}`}
@@ -4046,9 +4045,15 @@ export default function ProjectPage() {
                       >
                         {short}
                       </button>
+                      </li>
                     );
                   })}
-                {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
+              </ul>
+                {knowledge == null ? (
+                  <p className="fig-inspector-card-body">
+                    Points ouverts indisponibles.
+                  </p>
+                ) : knowledge.openPoints.filter((o) => o.status === "OPEN").length === 0 ? (
                   <p className="fig-inspector-card-body">
                     Aucun point ouvert pour le moment.
                   </p>
@@ -4073,7 +4078,6 @@ export default function ProjectPage() {
                     Voir tous les points ouverts
                   </button>
                 )}
-              </div>
             </div>
             )
           }

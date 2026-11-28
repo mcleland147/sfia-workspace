@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  displayableRecentRef,
   recentItemFromAttemptConsultation,
   recentItemFromDocumentConsultation,
   recentItemFromGitConsultation,
   recentItemFromTurnReference,
+  recentItemGlyph,
+  recentItemMetaLabel,
 } from "@/lib/project-recent-consultation";
 import { mergeProjectRecentItems } from "@/lib/project-recent-items";
 
@@ -34,7 +37,7 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
     });
     expect(git.id).toBe("git:repo1:docs/readme.md@main");
     expect(git.kind).toBe("file_git");
-    expect(git.refLabel).toBe("abc123def456");
+    expect(git.refLabel).toBe("commit abc123def456");
     expect(git.repositoryId).toBe("repo1");
     expect(git.path).toBe("docs/readme.md");
     expect(git.gitRef).toBe("main");
@@ -112,5 +115,23 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
     );
     expect(a[0]?.title).toBe("A");
     expect(b[0]?.title).toBe("B");
+  });
+
+  it("keeps a known version and hides a truncated revision id", () => {
+    expect(displayableRecentRef("v3")).toBe("v3");
+    expect(displayableRecentRef("rev:abc12345")).toBeNull();
+    expect(recentItemFromDocumentConsultation("d1", "Plan", "rev:abc12345", "rev_abc").refLabel).toBeNull();
+    expect(
+      recentItemMetaLabel({ kind: "document_nora", refLabel: "v3" }),
+    ).toBe("Version 3");
+    const branch = recentItemFromGitConsultation({
+      repositoryId: "repo1",
+      path: "docs/readme.md",
+      ref: "main",
+      title: "README",
+    });
+    expect(branch.refLabel).toBe("réf. main");
+    expect(recentItemGlyph("proof")).not.toBe(recentItemGlyph("document_nora"));
+    expect(recentItemGlyph("execution")).not.toBe(recentItemGlyph("file_git"));
   });
 });

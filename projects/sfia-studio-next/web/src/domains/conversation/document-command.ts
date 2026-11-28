@@ -5,8 +5,9 @@
 import { createHash } from "node:crypto";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, conversations, messages } from "@/db/schema";
+import { conversationTurnCommands, conversations, documents, messages } from "@/db/schema";
 import {
+  documentRevisionTitleAgrees,
   extractContractualDocumentProposal,
   LEGACY_UNTITLED_DOCUMENT_TITLE,
 } from "@/domains/conversation/document-act";
@@ -629,6 +630,28 @@ export async function sealAndApplyDocumentCommand(input: {
     | Awaited<ReturnType<typeof reviseDocument>>
     | { status: "NOT_EXECUTED"; reason: string };
 }> {
+  if (input.binding.action === "REVISE" && input.binding.documentId) {
+    const owned = (
+      await db
+        .select({ title: documents.title })
+        .from(documents)
+        .where(
+          and(
+            eq(documents.id, input.binding.documentId),
+            eq(documents.ownerPilotId, input.pilotId),
+            eq(documents.preparationId, input.binding.preparationId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (owned && !documentRevisionTitleAgrees(owned.title, input.binding.title)) {
+      return {
+        sealApplied: false,
+        effect: { status: "NOT_EXECUTED", reason: "TITLE_IDENTITY_MISMATCH" },
+      };
+    }
+  }
+
   const sealed = await stashDocumentCommandBinding({
     commandId: input.fence.commandId,
     ownerToken: input.fence.ownerToken,

@@ -177,6 +177,11 @@ export function stripNonAuthoritativeSpans(text: string): string {
     .replace(/'[^']*'/g, " ");
 }
 
+/** A revision may keep the canonical title. It may not replace it. */
+export function documentRevisionTitleAgrees(canonical: string, proposed: string): boolean {
+  return normalizeDocumentTitle(canonical) === normalizeDocumentTitle(proposed) && normalizeDocumentTitle(canonical).length > 0;
+}
+
 /** Normalize titles for non-destructive comparison. */
 export function normalizeDocumentTitle(title: string): string {
   return title
